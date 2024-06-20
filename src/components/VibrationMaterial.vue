@@ -2,7 +2,7 @@
   
   <div class="d-grid gap-2" >
       <button class="btn btn-outline-secondary" 
-              style="margin-bottom: 1px;" 
+      style="margin-top: 1px;" 
               @click="toggleSoundInsulation">
           ВИБРОИЗОЛЯЦИЯ
       </button>

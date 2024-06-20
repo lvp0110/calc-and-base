@@ -1,69 +1,81 @@
 import { createStore } from 'vuex';
-import { API_SERVER , API_URL  } from '../config';
-import { API_URL1 } from '../config';
+import {
+    API_URL_MATERIALS,
+    API_URL_IMG,
+    API_URL_MATERIALS_WITH_CERTS,
+    API_TESTSERVER,
+    ALL_ISOLATION_CONSTR,
+    API_URL_ALL_ISOLATION_CONSTR,
+    MATERIALS,
+    MATERIALS_WITH_CERTS,
+    ACOUSTIC_CATEGORIES,
+    API_URL_ACOUSTIC_CATEGORIES
+} from '../config';
 
 export default createStore({
-    state() //data
-    {
+    state() {
         return {
-            // count: 1,
-            Data: [],
-            DataM: [],
             options: ['Name'],
-            currentOption: 'Name',
+            currentOption: 'Name', 
             searchText: '',
             voiceSearchText:'',
-            
+
+            data: {
+                [ALL_ISOLATION_CONSTR]: [],
+                [MATERIALS]: [],
+                [MATERIALS_WITH_CERTS]: [],
+                [ACOUSTIC_CATEGORIES]: []
+            }
         }
-        
+    }, 
+    mutations: { //methods
+        updateVoiceSearchText(state, voiceText) {
+           state.voiceSearchText = voiceText;
+       },
+        updateImagesData(state, images) {
+           state.ImagesData = images;
+       },
     },
-    mutations:{ //methods
+    actions: {
+        async getAllIsolationConstr({ state }, payload) {
+            if (state.data[ALL_ISOLATION_CONSTR].length > 0) {
+                return;
+            }
 
-     updateVoiceSearchText(state, voiceText) {
-        state.voiceSearchText = voiceText;
-    },
-    //   setActiveImages(elem, type) {
-    // // Нужно определить, относятся ли изображения к сертификатам или протоколам испытаний.
-    //     this.selectedImages = elem.images; // Обновляем выбранные изображения
-    //     this.isCarouselVisible = true; // в любом случае показываем карусель после выбора
-    //     console.log(this.selectedImages)
-    //   },
-    setActiveImages(elem, type) {
-      
-    // Проверка на наличие свойства 'images' у 'elem'
-    if (elem.images && Array.isArray(elem.images)) {
-      // Задаем selectedImages массивом изображений, соответствующим данному элементу
-      this.selectedImages = elem.images;
-      this.isCarouselVisible = true; // Показываем карусель с изображениями
-    } else {
-      // Если нет изображений, возможно, нужно предупредить пользователя или сделать что-то другое
-      console.error('No images available for this item');
-      
-    }
-    
-  },
-    },
-    actions:{ //methods async
-        
-        async getData({ state } , payload)
-        {
-            let res = await fetch(`${API_SERVER}/${API_URL}`)
-            let res_data = await res.json()
-
+            const res = await fetch(`${API_TESTSERVER}/${API_URL_ALL_ISOLATION_CONSTR}`)
+            const res_data = await res.json()
             console.log(res_data)
-
-            state.Data = res_data.data;
-           
+            state.data[ALL_ISOLATION_CONSTR] = res_data.data
         },
-        async getSecondArray({ state } , payload)
-        {
-            let ress = await fetch(`${API_SERVER}/${API_URL1}`)
+        async getMaterials({ state } , payload) {
+            if (state.data[MATERIALS].length > 0) {
+                return;
+            }
+
+            let ress = await fetch(`${API_TESTSERVER}/${API_URL_MATERIALS}`)
             let ress_data = await ress.json()
-
             console.log(ress_data)
+            state.data[MATERIALS] = ress_data.data;
+        },
+        async getMaterialsWithCerts({ state } , payload) {
+            if (state.data[MATERIALS_WITH_CERTS].length > 0) {
+                return;
+            }
 
-            state.DataM = ress_data.data;
-           
+            let ress = await fetch(`${API_TESTSERVER}/${API_URL_MATERIALS_WITH_CERTS}`)
+            let ress_data = await ress.json()
+            console.log(ress_data)
+            state.data[MATERIALS_WITH_CERTS] = ress_data.data;
+        },
+        async getAcousticCategories({ state } , payload) {
+            if (state.data[ACOUSTIC_CATEGORIES].length > 0) {
+                return;
+            }
+
+            let r = await fetch(`${API_TESTSERVER}/${API_URL_ACOUSTIC_CATEGORIES}`)
+            let r_data = await r.json()
+            console.log(r_data)
+            state.data[ACOUSTIC_CATEGORIES] = r_data.data;
         },
         startVoiceRecognition({ commit }) {
             const SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
@@ -73,30 +85,36 @@ export default createStore({
 
             rec.onresult = function(event) {
                 const text = event.results[0][0].transcript;
-                commit('updateVoiceSearchText', text); // Обновляем состояние с помощью мутации
+                commit('updateVoiceSearchText', text); 
             };
         },
     },
-    getters:{ //computed
-        // getItems(state)
-        // {
-            
-        //     return state.Data.filter((el) => el[state.currentOption].toLowerCase().includes(state.searchText.toLowerCase()))
-        // },
-        // getItemsM(state)
-        // {
+    getters: { //computed
+        selectAllIsolationConstrAcoustic(state) {
+            const searchText = state.voiceSearchText || state.searchText;
 
-        //     return state.DataM.filter((el) => el[state.currentOption].toLowerCase().includes(state.searchText.toLowerCase()))
-        // },
-        getItems(state) {
-            const searchText = state.voiceSearchText || state.searchText;
-            return state.Data.filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+            return state.data[ALL_ISOLATION_CONSTR].filter((item) => 
+                item.Category === 'acoustic' && item[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
+            )
         },
-        getItemsM(state) {
+        selectAllIsolationConstrSound(state) {
             const searchText = state.voiceSearchText || state.searchText;
-            return state.DataM.filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+
+            return state.data[ALL_ISOLATION_CONSTR].filter((item) => 
+                item.Category === 'sound' && item[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
+            )
         },
-    } ,
-   
-    
+        selectMaterials(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[MATERIALS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        },
+        selectMaterialsWithCerts(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[MATERIALS_WITH_CERTS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        },
+        selectAcousticCategories(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[ACOUSTIC_CATEGORIES].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        },
+    },
 })

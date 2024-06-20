@@ -24,6 +24,7 @@
                  <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3"/>
               </svg>  
           </button>
+          <img :src="getItemsImg[selectedElement.Code]" alt="wwwww">
           <p style="margin-top:50px ;">{{selectedElement.Code}}</p>
           <span>{{selectedElement.Specification}}</span>
       </div>
@@ -37,12 +38,13 @@
     
       computed:{
         ...mapGetters(['getItems']),
+        ...mapGetters(['getItemsImg']),
       },
       data() {
         return {
           isSoundInsulationVisible: false,  
           selectedElement: null,
-          selectedElementTop: 0
+          selectedElementTop: 0,
         }
       },
       methods:{
@@ -76,6 +78,20 @@
     padding: 0%;
     right: 5%;
     position: absolute;
+  }
+  .accordion-body {
+    
+    background: url(public/paper1.jpg);
+    border: solid 1px darkgray;
+    margin-top: 6px;
+    box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
+    border-radius: 5px;
+    
+  }
+  .list-group-item {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    background: none;
   }
 </style>
 

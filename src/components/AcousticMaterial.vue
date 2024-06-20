@@ -4,79 +4,72 @@
       <button class="btn btn-outline-secondary" 
               style="margin-bottom: 1px;" 
               @click="toggleSoundInsulation">
-          АКУСТИКА
+          АКУСТИКА ПО БРЕНДАМ
       </button>
   </div>
  
   <div class="list-group" v-show="isSoundInsulationVisible">
-      <button v-for="elem in getItemsM" :key="elem.Code" type="button" 
+      <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button" 
               class="list-group-item list-group-item-action" 
               aria-current="true" @click="addDiv(elem)">
           {{elem.Name}}
       </button>
-  
-  <div v-if="selectedElement" class="col-11 information-block" 
-           v-for="elem in getItemsM">
-           <button type="button" class="btn close-btn" @click="hideDiv">
-              <svg height="50" width="50">
-                 <circle r="22" cx="50%" cy="50%" fill ="transparent" stroke="darkgrey" stroke-width="2"/>
-                 <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3"/>
-                 <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3"/>
-              </svg>
-          </button>
-          <p style="margin-top:50px ;">{{selectedElement.Code}}</p>
-          <span>{{selectedElement.Specification}}</span>
-      </div>
-      </div>
+      <!-- <InformComposition v-if="selectedElement" :data="selectedElement" :info="infoData" @hide="hideDiv" />  -->
+      <InformComp v-if="selectedElement" :data="selectedElement" :info="infoData" @hide="hideDiv" /> 
+  </div> 
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex';
+  
+  import InformComp from './InformComp.vue';
+
+  import {API_PANELS_INFO_BY_BRAND, API_TESTSERVER} from '../config'
 
   export default {
+      components: {
+        // InformComposition,
+        InformComp
+      },
     
       computed:{
-        ...mapGetters(['getItemsM']),
+        ...mapGetters(['selectAcousticCategories']),
       },
       data() {
         return {
           isSoundInsulationVisible: false,  
           selectedElement: null,
-          selectedElementTop: 0
+          selectedElementTop: 0,
+          infoData:null,
         }
       },
       methods:{
         toggleSoundInsulation(){
           this.isSoundInsulationVisible = !this.isSoundInsulationVisible;
         },
-        addDiv(elem) {
-          this.selectedElement = elem;
+        async addDiv(elem) {
+
+           let res = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_BY_BRAND}/${elem.Name}`)
+           let resData = await res.json()
+
+            console.log(resData)
+             this.infoData = resData.data
+            // this.selectedElement = { ...elem, slides: resData.data };
+
+            this.selectedElement = elem;
+
+          },
+        // addDiv(elem) {
+        
           
-        },
+        // },
         hideDiv() {
           this.selectedElement = null;
         }
       }
-  }
+    }
  
 </script>
 
-<style>
-  .information-block{
-    background-color: rgb(241, 241, 241);
-    padding: 10px;
-    z-index: 5;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 1s;
-  }
-  .close-btn{
-    border-radius: 50%;
-    padding: 0%;
-    right: 5%;
-    position: absolute;
-  }
-</style>
 
 
