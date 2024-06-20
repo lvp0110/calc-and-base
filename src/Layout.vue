@@ -1,6 +1,6 @@
 <template>
     <RouterLink to="/">
-        <img src="../logo_123.png" alt="" class="logo">
+        <img src="../public/logo_123.png" alt="" class="logo">
     </RouterLink>
     <div>
         <RouterView />
