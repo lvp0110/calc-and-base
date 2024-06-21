@@ -18,11 +18,11 @@
         </swiper-slide>
       </swiper-container> -->
 
-      <ul>
+      <!-- <ul>
         <li v-for="(dataItem, index) in selectedData" :key="index">
           {{ dataItem.field }}: {{ dataItem.value }}
         </li>
-      </ul>
+      </ul> -->
       <div class="one">
         <span v-if="selectedImage" style="position: relative;">Цвет: {{ selectedImage.text }}</span>
 
@@ -67,24 +67,33 @@
           <option> 600x542x12,5 мм</option>
         </select>
 
-        <select class="form-select select-descript" aria-label="Default select example"
-          @change="updateSelectedData($event, 'Перфорация')">
-          <option selected disabled>Тип перфорации</option>
-          <option v-for="elem in perforation" :value="elem.text">{{ elem.text }}</option>
-        </select>
-        <div v-if="selectedPerforation">
-          <img v-for="svgPath in selectedPerforation.svg" :key="svgPath" :src="svgPath" alt="Selected Perforation"
-            style="width: 30%;">
+        <div class="select-container">
+          <div class="select-wrapper">
+
+            <select class="form-select select-descript" aria-label="Default select example"
+              @change="updateSelectedData($event, 'Перфорация')" >
+              <option selected disabled>Тип перфорации</option>
+              <option v-for="elem in perforation" :value="elem.text">{{ elem.text }}</option>
+            </select>
+
+            <div v-if="selectedPerforation" >
+              <img v-for="svgPath in selectedPerforationImages" :key="svgPath" :src="svgPath"
+                alt="Selected Perforation">
+            </div>
+          </div>
+
+          <div class="select-wrapper">
+            <select class="form-select select-descript" aria-label="Default select example"
+              @change="updateSelectedData($event, 'Кромка')">
+              <option selected disabled>Тип кромки</option>
+              <option v-for="elem in edge" :value="elem.svg">{{ elem.text }}</option>
+            </select>
+            <div v-if="selectedEdge" >
+              <img :src="selectedEdgeImages.svg" alt="Selected Edge" >
+            </div>
+          </div>
         </div>
 
-        <select class="form-select select-descript" aria-label="Default select example"
-          @change="updateSelectedData($event, 'Кромка')">
-          <option selected disabled>Тип кромки</option>
-          <option v-for="elem in edge" :value="elem.svg">{{ elem.text }}</option>
-        </select>
-        <div v-if="selectedEdge">
-          <img :src="selectedEdge" alt="Selected Edge" style="width: 30%;">
-        </div>
 
       </div>
 
@@ -137,8 +146,6 @@ export default {
 
       const currentData = { field: field, value: selectedText };
 
-
-
       const index = this.selectedData.findIndex(item => item.field === field);
       if (index !== -1) {
         this.selectedData.splice(index, 1, currentData);
@@ -148,10 +155,12 @@ export default {
 
       if (field === 'Кромка') {
         this.selectedEdge = selectedValue;
+        this.selectedEdgeImages = this.edge.find(item => item.svg === selectedValue);
       }
 
       if (field === 'Перфорация') {
         this.selectedPerforation = this.perforation.find(perf => perf.text === selectedText);
+        this.selectedPerforationImages = this.selectedPerforation.svg;
       }
 
       if (field === 'Модель') {
@@ -192,49 +201,29 @@ export default {
 </script>
 
 <style scoped>
+.select-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-wrapper {
+width: 49%;
+}
+
+.select-wrapper select {
+  width: 100%
+}
+
 img {
   padding-top: 5px;
-  display: flex;
-}
-
-span {
-  color: black;
-  position: relative;
-}
-
-ul {
-  color: black;
-  padding: 0;
-  margin: 10px 0;
-  list-style: none;
-}
-
-.img1 {
-  width: 100%;
-}
-
-.image-descript {
-  display: flex;
-  margin-right: 10px;
 }
 
 .select-descript {
-  margin-top: 5px;
-  margin-left: 10px;
-  width: 100%;
   background: rgb(232, 232, 232);
   box-shadow: 2px 3px 3px rgb(161, 160, 160);
-  white-space: normal;
-}
-
-.select-descript option {
-  word-wrap: break-word;
 }
 
 @media screen and (max-width: 1800px) {
-  .img1 {
-    width: 100%;
-  }
 
   .image-descript {
     display: block;

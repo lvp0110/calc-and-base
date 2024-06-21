@@ -121,6 +121,7 @@ hr {
   margin-top: 6px;
   box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
   border-radius: 5px;
+  
 }
 
 .list-group-item {
@@ -137,5 +138,14 @@ hr {
   .accordion-flush {
     width: 30%;
   }
+}
+@media screen and (max-height: 720px) {
+  .accordion-flush .accordion-item .accordion-button {
+  border-radius: 15px;
+  height: 75px;
+  margin-top: 5px;
+  box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
+}
+
 }
 </style>

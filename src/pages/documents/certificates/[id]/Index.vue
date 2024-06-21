@@ -27,6 +27,7 @@
 import { API_TESTSERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
+
 import 'swiper/swiper-bundle.css';
 import { register } from 'swiper/element/bundle';
 register();
