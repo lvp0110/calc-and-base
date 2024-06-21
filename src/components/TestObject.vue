@@ -1,7 +1,7 @@
 <template >
 
-    <div  class="col-11 information-block composition" :style="{ top: position.y + 'px', left: position.x + 'px' }">
-        <button type="button" class="btn close-btn"  style="position: fixed; top: 0; right: 8px;">
+    <div v-if="divVisible" class="col-11 information-block composition" :style="{ top: position.y + 'px', left: position.x + 'px' }">
+        <button type="button" class="btn close-btn" @click="reloadPage" style="position: fixed; top: 0; right: 8px;">
             <svg height="50" width="50">
                 <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
                 <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
@@ -17,35 +17,35 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <span class="navbar">Filter</span>
-            </div>
+            </div> 
         </nav>
         <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
             <div class="bg-light p-4">
                 <select class="form-select select-descript" aria-label="Default select example">
-                    <option selected>Материал</option>
+                    <option selected>МАТЕРИАЛ</option>
                     <!-- <option v-for="elem in info.Sizes" :value="`${elem.LenX},${elem.LenZ},${elem.LenY}`">
                         {{ `${elem.LenX}/${elem.LenZ}/${elem.LenY} мм` }}
                     </option> -->
                 </select><select class="form-select select-descript" aria-label="Default select example">
-                    <option selected>Адрес</option>
+                    <option selected>АДРЕС</option>
                     <!-- <option v-for="elem in info.Sizes" :value="`${elem.LenX},${elem.LenZ},${elem.LenY}`">
                         {{ `${elem.LenX}/${elem.LenZ}/${elem.LenY} мм` }}
                     </option> -->
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
-                    <option selected>Назначение</option>
+                    <option selected>НАЗНАЧЕНИЕ</option>
                     <!-- <option v-for="elem in $props.info.CoverTypes" :value="elem">
                         {{ elem }}
                     </option> -->
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
-                    <option selected>Дата</option>
+                    <option selected>ДАТА</option>
                     <!-- <option v-for="elem in info.EdgesTypes" :value="elem">
                         {{ elem }}
                     </option> -->
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
-                    <option selected>Ответсвенный</option>
+                    <option selected>ЗАКАЗЧИК</option>
                     <!-- <option v-for="elem in info.EdgesTypes" :value="elem">
                         {{ elem }}
                     </option> -->
@@ -109,7 +109,7 @@ export default {
                     alt: ' ',
                     text: 'КДЦ Строгино. Москва, Маршала Катукова, 8',
                 }, {
-                    src: '/DSC07233.jpg',
+                    src: `/DSC07233.jpg`,
                     alt: ' ',
                     text: 'КДЦ Строгино. Москва, Маршала Катукова, 8',
                 }, {
@@ -168,13 +168,16 @@ export default {
             alert('ИНФОРМАЦИЯ ОБ ОБЪЕКТЕ', image);
 
         },
+        reloadPage() {
+            location.reload();
+        },
   
     }
 }
 </script>
 
-
 <style scoped>
+
 .download-btn {
     margin-top: 15px;
     background-color: rgb(236, 230, 230);
@@ -190,7 +193,6 @@ select {
 }
 
 .image-text-object {
-
     position: absolute;
     bottom: 15px;
     left: 20px;

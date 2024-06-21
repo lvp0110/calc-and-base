@@ -1,133 +1,110 @@
 <template>
-    <Dialog v-if="selectElement">
-      <p style="margin-top:15px ; font-weight: 600;">{{ selectElement.Name }}</p>
-      <!-- {{ slides.length }} -->
-      <hr>
-      <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="true">
-        <swiper-slide v-for="slide in slides" :key="slide.Code">
-          <!-- <a class="btn btn-outline-secondary btn-lg text-download-btn" @click="downloadTextFile(slide)">Скачать текст</a> -->
-          <!-- <ul style="border: solid 2px gray;" @click="downloadTextFile(slide)">
-            <li class="cert" v-if="slide.Type != 0"> Версия: {{ slide.Type }} </li>
-            <li class="cert" v-if="slide.Code != 0">№ {{ slide.Code }} </li>
-            <li class="cert" v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
-            <li class="cert" v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
-          </ul> -->
-          <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-            :href="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
-            скачать PDF
-          </a>
-          <embed :src="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" class="pdf-cert" />
-        </swiper-slide>
-      </swiper-container>
-      <hr>
-    </Dialog>
-  </template>
-  
-  <script>
-  import { API_TESTSERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
-    import { mapGetters } from 'vuex'
-    import Dialog from '../../../../components/Dialog.vue';
-  import 'swiper/swiper-bundle.css';
-  import { register } from 'swiper/element/bundle';
-  register();
-  
-  export default {
-    data() {
-      return {
-        API_TESTSERVER,
-        API_CERT,
-        slides: []
-      }
-    },
-    components: {
-        Dialog
-    },
-    computed: { 
-         ...mapGetters(['selectMaterialsWithCerts']),
-         selectElement() {
-            const id = this.$route.params.id
+  <Dialog v-if="selectElement">
+    <p class="title-techcard">{{ selectElement.Name }}</p>
+    {{ selectElement.Code }}
+    <hr>
 
-            return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
-         },
-    },
-    created() {
-        // watch the params of the route to fetch the data again
-        this.$watch(
-            () => this.$route.params.id,
-            this.fetchData,
-            // fetch the data when the view is created and the data is
-            // already being observed
-            { immediate: true }
-        )
-    },
-    methods: {
-        async fetchData(id) {
+    <div v-for="slide in slides" :key="slide.Code">
+      <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
+        :href="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
+        скачать PDF
+      </a>
+      <embed :src="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" class="pdf-techcard" />
+    </div>
+  </Dialog>
+</template>
 
-          let res = await fetch(`${API_TESTSERVER}/${API_CERT_MATERIAL}/${id}`)
-          let resData = await res.json()
+<script>
+import { API_TESTSERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { mapGetters } from 'vuex'
+import Dialog from '../../../../components/Dialog.vue';
 
-          console.log({resData})
-            this.slides =  resData.data
-        //   this.selectedElement = { ...elem, slides: resData.data };
-          
-        },
-        formatTime(value) {
-            const data = new Date(value)
+export default {
+  data() {
+    return {
+      API_TESTSERVER,
+      API_CERT,
+      slides: []
+    }
+  },
+  components: {
+    Dialog
+  },
+  computed: {
+    ...mapGetters(['selectMaterialsWithCerts']),
+    selectElement() {
+      const id = this.$route.params.id
 
-            return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-        },
-        downloadTextFile(slide) {
-            const textData = `Тип: ${slide.Type}\n№ ${slide.Code}\nСрок действия: ${this.formatTime(slide.ValPeriod)}\nКласс пожароопасности: ${slide.Indicators}`;
-            const blob = new Blob([textData], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'slide_info.txt';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        },
+      return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
     },
-  }
+  },
+  created() {
+    
+    this.$watch(
+      () => this.$route.params.id,
+      this.fetchData,
+    
+      { immediate: true }
+    )
+  },
+  methods: {
+    async fetchData(id) {
+
+      let res = await fetch(`${API_TESTSERVER}/${API_CERT_MATERIAL}/${id}`)
+      let resData = await res.json()
+
+      console.log({ resData })
+      this.slides = resData.data
+    ;
+
+    },
+    formatTime(value) {
+      const data = new Date(value)
+
+      return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    },
+    downloadTextFile(slide) {
+      const textData = `Тип: ${slide.Type}\n№ ${slide.Code}\nСрок действия: ${this.formatTime(slide.ValPeriod)}\nКласс пожароопасности: ${slide.Indicators}`;
+      const blob = new Blob([textData], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'slide_info.txt';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+  },
+}
+
+</script>
+
+<style>
+.title-techcard {
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.pdf-techcard {
+  display: block;
+  width: 100%;
+  height: 1200px;
+}
+
+.pdf-btn {
+  display: none;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 525px) {
   
-  </script>
-  
-  <style>
-  li.cert {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
-    color: rgb(54, 52, 52);
-  }
-  
-  .pdf-cert {
-    display: block;
-    width: 100%;
-    height: 1200px;
-  }
-  
-  .img-cert {
+  .pdf-techcard {
     display: none;
-    width: 100%;
-    height: 100%;
   }
-  
+
   .pdf-btn {
-    display: none;
-    margin-bottom: 10px;
+    display: block;
+    margin-bottom: 300px;
   }
-  
-  @media screen and (max-width: 525px) {
-    .img-cert {
-      display: block;
-    }
-  
-    .pdf-cert {
-      display: none;
-    }
-  
-    .pdf-btn {
-      display: block;
-      margin-bottom: 300px;
-    }
-  
-  }
-  </style>
+
+}
+</style>

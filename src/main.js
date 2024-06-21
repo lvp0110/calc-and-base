@@ -12,7 +12,7 @@ import Calc from './pages/calc/index.vue'
 import store from './store'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
     { 
       path: '/', 

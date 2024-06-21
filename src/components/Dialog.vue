@@ -1,7 +1,7 @@
 <template>
-    
+
     <div class="col-11 information-block" :style="{ top: position.y + 'px', left: position.x + 'px' }">
-        <RouterLink to="/" class="btn close-btn" style="position: absolute;z-index: 45445445; top: 0; right: 0;">
+        <RouterLink to="/" class="btn close-btn">
             <svg height="50" width="50">
                 <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
                 <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
@@ -31,15 +31,21 @@ export default {
 </script>
 
 <style>
+.btn.close-btn {
+    position: absolute;
+    z-index: 45445445;
+    top: 0;
+    right: 0;
+}
+
 .img {
-    width: 70%;
-    /* height: 70%; */
+    width: 100%;
+    height: 100%;
 }
 
 .information-block {
-    display: block;
+    width: 100%;
     background-color: rgb(241, 241, 241);
-    margin-left: 4%;
     padding: 10px;
     z-index: 5;
     position: fixed;
@@ -51,8 +57,7 @@ export default {
 
 }
 
-
-@media screen and (min-width: 1120px) {
+@media screen and (min-width: 1024px) {
     .information-block {
         background-color: rgb(241, 241, 241);
         padding: 10px;
