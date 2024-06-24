@@ -2,7 +2,7 @@
   
   <div class="go-to-calc">
     <RouterLink class="btn" to="/calc">
-      <img class="calc-block-image" src="/Acufon_NG/calc.png" frameborder="0" width="50px">
+      <img class="calc-block-image" src="/calc.png" frameborder="0" width="50px">
     </RouterLink>
   </div>
   <div class="sc accordion-flush" id="accordionFlushExample">
@@ -14,7 +14,7 @@
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingTwo" parentId="accordionFlushExample" header="АКУСТИКА">
-      <AcousticMaterial />
+      <ListItem name="АКУСТИКА ПО БРЕНДАМ" to="/acoustic/brands" :items="selectAcousticCategories" />
       <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" />
     </AccordionItem>
 
@@ -46,18 +46,23 @@ import { mapGetters } from 'vuex'
 import VoiceSearch from "./components/VoiceSearch.vue";
 import TestObject from "./components/TestObject.vue";
 import AccordionItem from "./components/AccordionItem.vue";
-import AcousticMaterial from "./components/AcousticMaterial.vue";
 import ListItem from "./components/ListItem.vue";
 
 export default {
   components: {
-    AcousticMaterial,
     VoiceSearch,
     TestObject,
     AccordionItem,
     ListItem,
   },
-  computed: mapGetters(['selectAllIsolationConstrSound', 'selectMaterials', 'selectAllIsolationConstrAcoustic', 'selectMaterials', 'selectMaterialsWithCerts']),
+  computed: mapGetters([
+    'selectAllIsolationConstrSound', 
+    'selectMaterials', 
+    'selectAllIsolationConstrAcoustic', 
+    'selectMaterials', 
+    'selectMaterialsWithCerts',
+    'selectAcousticCategories'
+  ]),
   methods: {
     getAllIsolationConstr() {
       this.$store.dispatch('getAllIsolationConstr')

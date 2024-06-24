@@ -1,7 +1,7 @@
 <template>
 
   <div class="col-12">
-    <input type="text" class="form-control" id="result_voice" placeholder="поиск..."
+    <input type="text" class="form-control input" id="result_voice" placeholder="поиск..."
       v-model="$store.state.voiceSearchText">
     <button type="button" class="btn btn btn-outline-secondary" id="btn_voice" @click="activateVoiceSearch"
       @touchstart="activateVoiceSearch">
