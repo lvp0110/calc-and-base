@@ -22,12 +22,32 @@
       padding: 0px 20px 0px 20px;
       margin: 0px;
       user-select: none;
+      overflow-y: scroll;
     }
 
     @media screen and (min-width: 900px) {
       body {
         background-size: 200%;
       }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #dbdfe2;
+      /* box-shadow: 0 0 2px rgba(0, 0, 0, .2) inset; */
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #939393;
+      border-radius: 8px;
+      border: 2px solid #d4d4d4;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7c7c7c;
     }
 
     .up-button {

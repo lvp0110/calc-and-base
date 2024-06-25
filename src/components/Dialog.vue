@@ -33,7 +33,7 @@ export default {
 <style>
 .btn.close-btn {
     position: absolute;
-    z-index: 45445445;
+    z-index: 454;
     top: 0;
     right: 0;
 }
@@ -49,15 +49,14 @@ export default {
     padding: 10px;
     z-index: 5;
     position: fixed;
-    transition: all 1s;
     border: solid 3px rgb(187, 180, 180);
     overflow: auto;
-    max-height: 85%;
+    max-height: 90%;
     filter: drop-shadow(2px 4px 6px gray);
-
+    overflow-y: scroll;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
     .information-block {
         background-color: rgb(241, 241, 241);
         padding: 10px;

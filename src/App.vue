@@ -91,7 +91,7 @@ hr {
 }
 
 .accordion-flush .accordion-item .accordion-button {
-  border-radius: 15px;
+  border-radius: 10px;
   height: 110px;
   margin-top: 5px;
   box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
@@ -136,7 +136,7 @@ hr {
 }
 
 .accordion-item:last-of-type .accordion-button.collapsed {
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 1120px) {
@@ -146,7 +146,7 @@ hr {
 }
 @media screen and (max-height: 720px) {
   .accordion-flush .accordion-item .accordion-button {
-  border-radius: 15px;
+  border-radius: 10px;
   height: 75px;
   margin-top: 5px;
   box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);

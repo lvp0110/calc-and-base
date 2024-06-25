@@ -44,10 +44,13 @@ export default {
     },
 }
 </script>
-<style>
+<style scoped>
 .title-construction {
     margin-top: 5px;
     font-weight: 600;
     width: 80%;
+}
+.calculate{
+    width: 100%;
 }
 </style>
