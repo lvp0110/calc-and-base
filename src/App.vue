@@ -29,8 +29,8 @@
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingFive" parentId="accordionFlushExample" header="НАШИ ОБЪЕКТЫ">
-      <!-- <OurObjects /> -->
-      <TestObject />
+      <OurObjects />
+      <!-- <TestObject /> -->
     </AccordionItem>
 
   </div>
@@ -45,6 +45,7 @@ import { mapGetters } from 'vuex'
 
 import VoiceSearch from "./components/VoiceSearch.vue";
 import TestObject from "./components/TestObject.vue";
+import OurObjects from "./components/OurObjects.vue";
 import AccordionItem from "./components/AccordionItem.vue";
 import ListItem from "./components/ListItem.vue";
 
@@ -54,6 +55,7 @@ export default {
     TestObject,
     AccordionItem,
     ListItem,
+    OurObjects,
   },
   computed: mapGetters([
     'selectAllIsolationConstrSound', 

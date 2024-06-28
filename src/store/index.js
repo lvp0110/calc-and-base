@@ -24,7 +24,7 @@ export default createStore({
                 [ALL_ISOLATION_CONSTR]: [],
                 [MATERIALS]: [],
                 [MATERIALS_WITH_CERTS]: [],
-                [ACOUSTIC_CATEGORIES]: []
+                [ACOUSTIC_CATEGORIES]: [],
             }
         }
     }, 

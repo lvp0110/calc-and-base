@@ -1,6 +1,7 @@
-<template >
+<template>
 
-    <div v-if="divVisible" class="col-11 information-block composition" :style="{ top: position.y + 'px', left: position.x + 'px' }">
+    <div v-if="divVisible" class="col-11 information-block composition"
+        :style="{ top: position.y + 'px', left: position.x + 'px' }">
         <button type="button" class="btn close-btn" @click="reloadPage" style="position: fixed; top: 0; right: 8px;">
             <svg height="50" width="50">
                 <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
@@ -8,7 +9,7 @@
                 <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
             </svg>
         </button>
-        <span style="margin-top: 15px; font-weight: 600;"> data.Name </span>
+        <span style="margin-top: 15px; font-weight: 600;"> НАШИ ОБЪЕКТЫ </span>
         <nav class="navbar navbar-light bg-light" style="margin-top:55px ;">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -17,38 +18,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <span class="navbar">Filter</span>
-            </div> 
+            </div>
         </nav>
         <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
             <div class="bg-light p-4">
                 <select class="form-select select-descript" aria-label="Default select example">
                     <option selected>МАТЕРИАЛ</option>
-                    <!-- <option v-for="elem in info.Sizes" :value="`${elem.LenX},${elem.LenZ},${elem.LenY}`">
-                        {{ `${elem.LenX}/${elem.LenZ}/${elem.LenY} мм` }}
-                    </option> -->
+                    
                 </select><select class="form-select select-descript" aria-label="Default select example">
                     <option selected>АДРЕС</option>
-                    <!-- <option v-for="elem in info.Sizes" :value="`${elem.LenX},${elem.LenZ},${elem.LenY}`">
-                        {{ `${elem.LenX}/${elem.LenZ}/${elem.LenY} мм` }}
-                    </option> -->
+                    
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
                     <option selected>НАЗНАЧЕНИЕ</option>
-                    <!-- <option v-for="elem in $props.info.CoverTypes" :value="elem">
-                        {{ elem }}
-                    </option> -->
+                   
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
                     <option selected>ДАТА</option>
-                    <!-- <option v-for="elem in info.EdgesTypes" :value="elem">
-                        {{ elem }}
-                    </option> -->
+                    >
                 </select>
                 <select class="form-select select-descript" aria-label="Default select example">
                     <option selected>ЗАКАЗЧИК</option>
-                    <!-- <option v-for="elem in info.EdgesTypes" :value="elem">
-                        {{ elem }}
-                    </option> -->
+                   
                 </select>
             </div>
         </div>
@@ -63,19 +54,23 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
 
+
+
 import { API_PANELS_INFO_BY_BRAND, API_TESTSERVER } from '../config'
 
 export default {
+ 
     data() {
         return {
             position: { x: 0, y: 75 },
-            divVisible: true ,
+            divVisible: true,
             data: [
                 {
                     cover: '',
@@ -160,6 +155,9 @@ export default {
         ...mapGetters(['selectAcousticCategories']),
     },
     methods: {
+        toggleSoundInsulation() {
+      this.isSoundInsulationVisible = !this.isSoundInsulationVisible;
+    },
         setPosition(event) {
             this.position.x = event.clientX;
             this.position.y = event.clientY;
@@ -171,13 +169,24 @@ export default {
         reloadPage() {
             location.reload();
         },
-  
+        async addDiv(elem) {
+
+            let res = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_BY_BRAND}/${elem.Name}`)
+            let resData = await res.json()
+
+            console.log(resData)
+            this.infoData = resData.data
+            // this.selectedElement = { ...elem, slides: resData.data };
+
+            this.selectedElement = elem;
+
+        },
+
     }
 }
 </script>
 
 <style scoped>
-
 .download-btn {
     margin-top: 15px;
     background-color: rgb(236, 230, 230);

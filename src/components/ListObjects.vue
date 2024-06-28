@@ -1,7 +1,6 @@
 <template>
   <div>
     
-
     <div class="col-11 information-block composition" :style="{ top: position.y + 'px', left: position.x + 'px' }">
       <button type="button" class="btn close-btn" @click="$emit('hide')" style="position: fixed; top: 0; right: 8px;">
       <svg height="50" width="50">
@@ -20,30 +19,7 @@
           </button>
           <span class="navbar">Filter</span>
         </div>
-      </nav>
-
-      <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-        <div class="bg-light p-4">
-          <select class="form-select select-descript" aria-label="Default select example">
-            <option selected>Адрес</option>
-            <option v-for="elem in info.Sizes" :value="`${elem.LenX},${elem.LenZ},${elem.LenY}`">
-              {{ `${elem.LenX}/${elem.LenZ}/${elem.LenY} мм` }}
-            </option>
-          </select>
-          <select class="form-select select-descript" aria-label="Default select example">
-            <option selected>Назначение</option>
-            <option v-for="elem in $props.info.CoverTypes" :value="elem">{{ elem }}</option>
-          </select>
-          <select class="form-select select-descript" aria-label="Default select example">
-            <option selected>Дата</option>
-            <option v-for="elem in info.EdgesTypes" :value="elem">{{ elem }}</option>
-          </select>
-          <select class="form-select select-descript" aria-label="Default select example">
-            <option selected>Ответсвенный</option>
-            <option v-for="elem in info.EdgesTypes" :value="elem">{{ elem }}</option>
-          </select>
-        </div>
-      </div>
+      </nav> 
 
       <div class="gallery">
         <div v-for="(image, index) in images" :key="index" class="gallery-item">
