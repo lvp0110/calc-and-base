@@ -26,11 +26,12 @@
       <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
       <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithCerts" />
       <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectMaterialsWithCerts" />
+      <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" />
+      <ListItem name="BIM" to="/documents/bim"  />
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingFive" parentId="accordionFlushExample" header="НАШИ ОБЪЕКТЫ">
       <OurObjects />
-      <!-- <TestObject /> -->
     </AccordionItem>
 
   </div>
@@ -44,7 +45,6 @@
 import { mapGetters } from 'vuex'
 
 import VoiceSearch from "./components/VoiceSearch.vue";
-import TestObject from "./components/TestObject.vue";
 import OurObjects from "./components/OurObjects.vue";
 import AccordionItem from "./components/AccordionItem.vue";
 import ListItem from "./components/ListItem.vue";
@@ -52,7 +52,6 @@ import ListItem from "./components/ListItem.vue";
 export default {
   components: {
     VoiceSearch,
-    TestObject,
     AccordionItem,
     ListItem,
     OurObjects,

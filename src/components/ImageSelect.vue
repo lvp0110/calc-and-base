@@ -2,8 +2,8 @@
     <div class="select">
         <div class="form-select value" @click="onToggle">{{ value?.Name || placeholder }}</div>
         <ul class="dropdown" v-if="open">
-            <li v-for="item in items" class="dropdown__item" @click="select(item)">
-                <img class="dropdown__item__image" :src="item.Img" />
+            <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
+                <img class="dropdown__item__image" :src="getImgSrc(item)" />
                 <div>{{ item.Name }}</div>
             </li>
         </ul>
@@ -11,10 +11,11 @@
 </template>
 
 <script>
+
 export default {
     props: {
         placeholder: String,
-        items: [Object],
+        items: Array,
         value: Object,
         onSelect: Function
     },
@@ -22,16 +23,19 @@ export default {
         return {
             open: false,
         }
-    }, 
+    },
     methods: {
         onToggle() {
             this.open = !this.open
         },
         select(item) {
-            this.$props.onSelect(item)
+            this.onSelect(item)
             this.onToggle()
+        },
+        getImgSrc(item) {
+            return `http://51.250.123.41:3005/api/v1/constr/` + item.Img;
         }
-    }
+    } 
 }
 </script>
 
@@ -57,18 +61,16 @@ export default {
 
     &__item {
         padding: 4px;
-        
+
         &:hover {
-            background-color: aliceblue;
+            background-color: rgb(213, 220, 226);
             cursor: pointer;
         }
 
         &__image {
             width: 100%;
-            height: 100px;
             object-fit: contain;
         }
     }
 }
-
 </style>

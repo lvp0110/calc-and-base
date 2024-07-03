@@ -24,7 +24,7 @@ import { mapGetters } from 'vuex'
 
 export default {
     components: {
-        Dialog,
+        Dialog, 
     },
     computed: {
         ...mapGetters(['selectAllIsolationConstrSound']),

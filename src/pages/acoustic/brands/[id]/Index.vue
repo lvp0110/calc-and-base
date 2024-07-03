@@ -1,57 +1,63 @@
 <template>
-    <Dialog v-if="selectElement">
-        <p style="margin-top:60px ; font-weight: 600;width: 80%;">{{ selectElement.Name }}</p>
+     <Dialog v-if="selectElement">
+        <p class="title">{{ selectElement.Name }}</p>
         <hr>
 
         <div class="block-image-colors">
-            <span v-if="selectedImage" style="position: relative;">Цвет: {{ selectedColor?.Name }}</span>
-            <img :src="selectedImageIndex !== null ? params.Colors[selectedImageIndex]?.src : '/BA/bonacoustic_mini.jpg'" alt="NO IMAGE">
+            <span v-if="selectedColor" style="position: relative;">
+                Цвет: {{ selectedColor?.Description }}
+            </span>
+            <img :src="currentImageSrc" :alt="selectedColor?.Name" />
         </div>
 
         <select class="form-select select-descript" aria-label="Default select example" @change="selectModel($event)">
-            <option selected disabled>Модель</option>
+            <option selected disabled>Выбрать модель</option>
             <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
         </select>
 
-        <div class="select">
-            <select class="form-select select-descript" aria-label="Default select example"
-                @change="selectSize($event)">
-                <option selected disabled>Размеры</option>
-                <option type="button" v-for="size in params.Sizes ?? []" :value="size.Code">
-                    {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}</option>
-            </select>
-            <ImageSelect placeholder="Цвет" :value="selectedColor" :items="params.Colors ?? []"
-                :onSelect="selectColor" />
+        <div v-if="selectedModelCode" class="select">
+            <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
+                <select class="form-select select-descript" aria-label="Default select example" @change="selectSize($event)">
+                    <option selected disabled>Размеры</option>
+                    <option v-for="size in params.Sizes" :value="size.Code">
+                        {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
+                    </option>
+                </select>
+            </div>
+            
+            <div v-if="params.Colors?.length > 0" class="select-wrapper size">
+                <ImageSelect placeholder="Цвет" :value="selectedColor" :items="params.Colors" :onSelect="selectColor" />
+            </div>
+            
             <div class="select-container">
-                <div class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation"
-                        :items="params.Perforations ?? []" :onSelect="selectPerfo" />
-                        <img src="" alt="">
+                <div v-if="params.Perforations?.length > 0" class="select-wrapper">
+                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation" :items="params.Perforations" :onSelect="selectPerforation" />
+                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation)" :alt="selectedPerforation?.Name" />
                 </div>
-                <div class="select-wrapper">
-                    <ImageSelect placeholder="Тип кромки " :value="selectedEdgeType" :items="params.EdgesTypes ?? []"
-                        :onSelect="selectEdgeType" />
-                        <img src="" alt="">
+                <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
+                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes" :onSelect="selectEdgeType" />
+                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType)" :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
         </div>
         <hr>
-        <span style="color: black;">{{ selectElement.Description }} </span>
+        <span style="color: black;">{{ selectElement.Description }}</span>
         <br>
-        <button class="btn btn-outline-secondary out-data">СОХРАНИТЬ ДАННЫЕ</button>
+        <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
+            СОХРАНИТЬ ДАННЫЕ
+        </button>
     </Dialog>
 </template>
 
 <script>
-import Dialog from '../../../../components/Dialog.vue'
-import ImageSelect from '../../../../components/ImageSelect.vue'
-import { API_TESTSERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND } from '../../../../config';
-import { mapGetters } from 'vuex'
+import Dialog from '../../../../components/Dialog.vue';
+import ImageSelect from '../../../../components/ImageSelect.vue';
+import { API_TESTSERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND,API_URL_IMG } from '../../../../config';
+import { mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
-                   
             selectedImageIndex: null,
             selectedImage: null,
             selectedData: [],
@@ -65,7 +71,7 @@ export default {
             selectedColor: null,
             selectedPerforation: null,
             selectedEdgeType: null
-        }
+        };
     },
     components: {
         Dialog,
@@ -74,59 +80,84 @@ export default {
     computed: {
         ...mapGetters(['selectAcousticCategories']),
         selectElement() {
-            const id = this.$route.params.id
-            return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id)
+            const id = this.$route.params.id;
+            return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id);
+        },
+        isSaveButtonVisible() {
+            return this.selectedModelCode && this.selectedSizeCode && this.selectedColor && this.selectedPerforation && this.selectedEdgeType;
+        },
+        currentImageSrc() {
+            if (this.selectedColor) {
+                return this.getImgSrc(this.selectedColor);
+            } else if (this.selectedModelCode) {
+                const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
+                if (selectedModel) {
+                    return this.getImgSrc(selectedModel);
+                }
+            }
+            if (this.selectElement && this.selectElement.Img) {
+                return this.getImgSrc(this.selectElement);
+            }
+            return '';
         }
     },
     methods: {
         async fetchData(id) {
-            let modelsResponse = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_MODELS_BY_BRAND}/${id}`)
-            let modelsData = await modelsResponse.json()
+            const modelsResponse = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_MODELS_BY_BRAND}/${id}`);
+            const modelsData = await modelsResponse.json();
             this.models = modelsData.data;
+
+            // Логируем модели для проверки
+            console.log('Models data:', this.models);
         },
         async selectModel(event) {
-            this.selectedModelCode = event.target.value
+            this.selectedModelCode = event.target.value;
             const paramsResponse = await fetch(`${API_TESTSERVER}/${API_URL_PARAMS_BY_MODEL}/${event.target.value}`);
-            const paramsData = await paramsResponse.json()
-            this.params = paramsData.data
-            console.log(this.params);
+            const paramsData = await paramsResponse.json();
+            this.params = paramsData.data;
+
+            this.selectedColor = null; // Для обновления изображения при выборе новой модели
+
+            // Логируем параметры для проверки
+            console.log('Params data:', this.params);
         },
         selectSize(event) {
-            this.selectedSizeCode = event.target.value
+            this.selectedSizeCode = event.target.value;
         },
         selectColor(color) {
-            this.selectedColor = color
-            this.updateImageByColor(color)
+            this.selectedColor = color;
         },
-        updateImageByColor(color) {
-            const colorIndex = this.params.Colors.findIndex(c => c.Code === color.Code)
-            this.selectedImageIndex = colorIndex
+        selectPerforation(perforation) {
+            this.selectedPerforation = perforation;
         },
-       
         selectEdgeType(edgeType) {
-            this.selectedEdge = edgeType
+            this.selectedEdgeType = edgeType;
         },
-        
-        selectPerfo(perforation) {
-            this.selectedPerforation = perforation
-        },
-       
+        getImgSrc(item) {
+            return `${API_TESTSERVER}/${API_URL_IMG}` + item.Img;
+        }
     },
     created() {
-        this.$watch(
-            () => this.$route.params.id,
-            this.fetchData,
-            { immediate: true }
-        )
+        this.$watch(() => this.$route.params.id, this.fetchData, { immediate: true });
     },
 }
 </script>
 
 <style scoped>
-.block-image-colors img{
+.add-image {
+    margin-top: 10px;
+}
+.title {
+    margin-top: 20px;
+    font-weight: 600;
+    width: 80%;
+}
+
+.block-image-colors img {
     width: 100%;
     margin-bottom: 10px;
 }
+
 .out-data {
     width: 100%;
     margin-top: 10px;
@@ -140,6 +171,9 @@ export default {
 .select-wrapper {
     width: 49%;
 }
+.size {
+    width: 100%;
+}
 
 .select-descript {
     background: rgb(232, 232, 232);
@@ -147,7 +181,6 @@ export default {
 }
 
 @media screen and (max-width: 1800px) {
-
     .image-descript {
         display: block;
         margin-right: 0px;

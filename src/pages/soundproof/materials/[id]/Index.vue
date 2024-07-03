@@ -22,7 +22,7 @@ import Dialog from '../../../../components/Dialog.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-    components: {
+    components: { 
         Dialog,
     },
     computed: {
@@ -33,7 +33,7 @@ export default {
             return this.selectMaterials.find(({ Code }) => Code === id)
         }
     },
-}
+} 
 </script>
 
 <style>

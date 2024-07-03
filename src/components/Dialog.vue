@@ -51,7 +51,7 @@ export default {
     position: fixed;
     border: solid 3px rgb(187, 180, 180);
     overflow: auto;
-    max-height: 90%;
+    height: 90%;
     filter: drop-shadow(2px 4px 6px gray);
     overflow-y: scroll;
 }

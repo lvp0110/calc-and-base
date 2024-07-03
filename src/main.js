@@ -8,7 +8,11 @@ import SoundproofMaterials from './pages/soundproof/materials/[id]/index.vue'
 import DocumentSertificates from './pages/documents/certificates/[id]/index.vue'
 import DocumentTechcard from './pages/documents/techcard/[id]/index.vue'
 import DocumentHookup from './pages/documents/hookup/[id]/index.vue'
+import DocumentProtocol from './pages/documents/protocol/[id]/index.vue'
+import DocumentBim from './pages/documents/bim/[id]/index.vue'
 import AcousticBrands from './pages/acoustic/brands/[id]/Index.vue'
+import OurObjects from './pages/our-objects/Index.vue'
+import OurObject from './pages/our-objects/[id]/Index.vue'
 import Calc from './pages/calc/index.vue'
 import store from './store'
 
@@ -17,14 +21,18 @@ const router = createRouter({
   routes: [
     { 
       path: '/', 
-      component: App, 
+      component: App,  
       children: [
         { path: "/soundproof/constructions/:id", component: SoundproofConstructions },
         { path: "/soundproof/materials/:id", component: SoundproofMaterials },
         { path: "/acoustic/brands/:id", component: AcousticBrands },
         { path: "/documents/certificates/:id", component: DocumentSertificates },
         { path: "/documents/techcard/:id", component: DocumentTechcard },
-        { path: "/documents/hookup/:id", component: DocumentHookup }
+        { path: "/documents/hookup/:id", component: DocumentHookup },
+        { path: "/documents/protocol/:id", component: DocumentProtocol },
+        { path: "/documents/bim/:id", component: DocumentBim },
+        { path: "/our-objects", component: OurObjects },
+        { path: "/our-objects/:id", component: OurObject}
      ]
     },
     {

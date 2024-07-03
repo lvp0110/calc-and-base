@@ -1,7 +1,9 @@
 <template>
 
   
-  <button class="btn btn-outline-secondary" type="button" style="width: 100%;">ВСЕ ОБЪЕКТЫ</button>
+  <RouterLink to = "/our-objects"
+  class="btn btn-outline-secondary" 
+  type="button" style="width: 100%;">ВСЕ ОБЪЕКТЫ</RouterLink>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -22,7 +24,7 @@
         <option v-for="material in selectAcousticCategories" :key="material.Code" :value="material">
           {{ material.Name }}
         </option>
-      </select>
+      </select> 
       <select class="form-select select-descript" aria-label="Default select example">
         <option selected>АДРЕС</option>
 

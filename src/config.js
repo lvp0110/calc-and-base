@@ -3,7 +3,9 @@ export const API_SERVER = 'http://51.250.123.41:3005' // import.meta.env.VITE_AP
 export const API_TESTSERVER =   'http://51.250.123.41:3005' //import.meta.env.VITE_API_URL
 
 export const ALL_ISOLATION_CONSTR = "AllIsolationConstr"
-export const MATERIALS = "Materials"
+
+export const MATERIALS = "Materials/si"
+
 export const MATERIALS_WITH_CERTS = "MaterialsWithCerts" 
 export const ACOUSTIC_CATEGORIES = "AcousticCategories"
 
@@ -13,10 +15,10 @@ export const API_URL_MATERIALS_WITH_CERTS = `api/v1/${MATERIALS_WITH_CERTS}`
 export const API_URL_ACOUSTIC_CATEGORIES = `api/v1/${ACOUSTIC_CATEGORIES}`
 export const API_URL_PARAMS_BY_MODEL = `api/v1/ParamsByAModels`
 
-export const API_URL_IMG = 'api/v1/constr'
+export const API_URL_IMG = 'api/v1/constr/'
 export const API_CERT_MATERIAL = 'api/v1/certs/byMaterial'
 export const API_CERT = 'api/v1/certificate'
 
 export const API_PANELS_INFO_BY_BRAND = 'api/v1/APanelsInfoByCat'
 
-export const API_PANELS_INFO_MODELS_BY_BRAND = 'api/v1/AModelsByBrand'
+export const API_PANELS_INFO_MODELS_BY_BRAND = 'api/v1/AModelsByBrand' 

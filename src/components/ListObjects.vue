@@ -48,7 +48,7 @@
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. In nobis consequatur beatae voluptates vero ipsam sunt
         eos soluta ullam quas!
       </span>
-
+ 
       <swiper-container class="swip-object" slides-per-view="1" space-between="10" navigation="true" css-mode="true">
         <swiper-slide v-for="(kdz, index) in kdz" :key="index">
 
@@ -70,7 +70,8 @@
         possimus enim id nostrum ut.
       </span>
       <hr>
-    </div>
+    </div> 
+    
   </div>
 </template>
 
