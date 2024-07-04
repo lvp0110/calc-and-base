@@ -13,17 +13,16 @@
             <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li>
         </ul>
 
-        <div>
+        <!-- <div>
             <img style="width: 100%;" :src="selectElement.src" alt="">
-        </div>
-        <!-- <swiper-container class="swip-object" slides-per-view="1" space-between="10" navigation="true" css-mode="true">
-        <swiper-slide v-for="(kdz, index) in kdz" :key="index">
+        </div> -->
 
-          <img class="img2" :src="kdz.src" :alt="data.alt">
-          <div class="image-text">{{ data.text }}</div>
+        <swiper-container class="swip-object" slides-per-view="1" space-between="10" navigation="true" css-mode="true">
+            <swiper-slide v-for="(image, index) in selectElement.images[0].imagesSet[0]" :key="index">
+                <img class="img2" :src="image" alt="">
+            </swiper-slide>
+        </swiper-container>
 
-        </swiper-slide>
-      </swiper-container> -->
         <span>Используемые материалы :</span>
         <ul>
             <li v-for="(material, index) in extractMaterials(selectElement.images[0].usedmaterials[0])" :key="index">
@@ -38,8 +37,8 @@
 import Dialog from '../../../components/Dialog.vue'
 import { mapGetters, mapActions } from 'vuex';
 
-// import { register } from 'swiper/element/bundle';
-// register();
+import { register } from 'swiper/element/bundle';
+register();
 
 export default {
     components: {
@@ -69,5 +68,11 @@ export default {
 </script>
 
 <style scoped>
+.swip-object {
+    width: 100%;
+}
 
+.img2 {
+    width: 100%;
+}
 </style>

@@ -49,6 +49,14 @@ export default createStore({
                                     im8: `Шуманет-100Комби`,
                                     im9: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
                                 }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/kdz_strogino/2_KDZ.jpg`,
+                                    img2: `/object_img/kdz_strogino/3_KDZ.jpg`,
+                                    img3: `/object_img/kdz_strogino/4_KDZ.jpg`,
+                                    img4: `/object_img/kdz_strogino/5_KDZ.jpg`,
+                                }
                             ]
 
                         },
@@ -76,6 +84,14 @@ export default createStore({
                                     im1: `Ecophon Wall panel Super G`,
                                     im2: `Ecophon Focus A 1200*600 `,
                                     
+                                }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/lo/1_LO.jpg`,
+                                    img2: `/object_img/lo/2_LO.jpg`,
+                                    img3: `/object_img/lo/3_LO.jpg`,
+                                    img4: `/object_img/lo/4_LO.jpg`,
                                 }
                             ]
 
@@ -108,6 +124,15 @@ export default createStore({
                                     im5: `Soundboard`,
                                     im6: `Шуманет-Эко`,
 
+                                }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/pioner_palase/1_Palace_of_Pioneers.jpg`,
+                                    img2: `/object_img/pioner_palase/2_Palace_of_Pioneers.jpg`,
+                                    img3: `/object_img/pioner_palase/3_Palace_of_Pioneers.jpg`,
+                                    img4: `/object_img/pioner_palase/4_Palace_of_Pioneers.jpg`,
+                                    img5: `/object_img/pioner_palase/5_Palace_of_Pioneers.jpg`,
                                 }
                             ]
 
@@ -144,6 +169,15 @@ export default createStore({
                                     im9: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
 
                                 }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/bgg/BCG_1.jpg`,
+                                    img2: `/object_img/bgg/BCG_2.jpg`,
+                                    img3: `/object_img/bgg/BCG_3.jpg`,
+                                    img4: `/object_img/bgg/BCG_4.jpg`,
+                                    img5: `/object_img/bgg/BCG_5.jpg`,
+                                }
                             ]
 
                         },
@@ -179,6 +213,14 @@ export default createStore({
                                     
 
                                 }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/kdz_rodina/rodina_1.jpg`,
+                                    img2: `/object_img/kdz_rodina/rodina_2.jpg`,
+                                    img3: `/object_img/kdz_rodina/rodina_3.jpg`,
+                                   
+                                }
                             ]
 
                         },
@@ -209,6 +251,15 @@ export default createStore({
                                     im1: `Саундлайн-Акустика НГ `,
                                     im2: `Саундлюкс-Техно Соло `,
                                   
+                                }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/scool/school_2.jpg`,
+                                    img2: `/object_img/scool/school_3.jpg`,
+                                    img3: `/object_img/scool/school_4.jpg`,
+                                    img4: `//object_img/scool/school_5.jpg`,
+                                    img5: `/object_img/scool/school_6.jpg`,
                                 }
                             ]
 
@@ -241,6 +292,14 @@ export default createStore({
                                     im2: `Саундлюкс Техно `, 
                                     im3: `Шуманет-100Комби `,
                                     im4: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
+                                  
+                                }
+                            ],
+                            imagesSet: [
+                                {
+                                    img1: `/object_img/eifman/1_eifman.jpg`,
+                                    img2: `/object_img/eifman/2_eifman.jpg`,
+                                    img3: `/object_img/eifman/3_eifman.jpg`,
                                   
                                 }
                             ]
