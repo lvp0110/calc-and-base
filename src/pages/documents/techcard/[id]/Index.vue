@@ -6,23 +6,23 @@
 
     <div v-for="slide in slides" :key="slide.Code">
       <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-        :href="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
+        :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
         скачать PDF
       </a>
-      <embed :src="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" class="pdf-techcard" />
+      <embed :src="`${API_SERVER}/${API_CERT}/${slide.File}`" class="pdf-techcard" />
     </div>
   </Dialog>
 </template>
 
 <script>
-import { API_TESTSERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 
 export default {
   data() {
     return {
-      API_TESTSERVER,
+      API_SERVER,
       API_CERT,
       slides: []
     }
@@ -50,7 +50,7 @@ export default {
   methods: {
     async fetchData(id) {
 
-      let res = await fetch(`${API_TESTSERVER}/${API_CERT_MATERIAL}/${id}`)
+      let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
       let resData = await res.json()
 
       console.log({ resData })

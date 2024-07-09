@@ -6,7 +6,7 @@
     </div>
 
     <div class="list-group" v-show="isSubitemsVisible">
-        <RouterLink v-for="elem in items"
+        <RouterLink v-for="elem in items ?? []"
                 :key="elem.Code || elem.ShortName || elem.Name"
                 :to="`${to}/${elem.Code || elem.ShortName || elem.Name}`"
                 type="button"

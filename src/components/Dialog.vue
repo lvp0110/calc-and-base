@@ -1,7 +1,7 @@
 <template>
 
     <div class="col-11 information-block" :style="{ top: position.y + 'px', left: position.x + 'px' }">
-        <RouterLink to="/" class="btn close-btn">
+        <RouterLink :to="backLink || '/'" class="btn close-btn">
             <svg height="50" width="50">
                 <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
                 <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
@@ -14,6 +14,9 @@
 
 <script>
 export default {
+    props: {
+        backLink: String
+    },
     data() {
         return {
             position: { x: 0, y: 75 },

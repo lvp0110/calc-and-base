@@ -52,7 +52,7 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue';
 import ImageSelect from '../../../../components/ImageSelect.vue';
-import { API_TESTSERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND,API_URL_IMG } from '../../../../config';
+import { API_SERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND,API_URL_IMG } from '../../../../config';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         async fetchData(id) {
-            const modelsResponse = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_MODELS_BY_BRAND}/${id}`);
+            const modelsResponse = await fetch(`${API_SERVER}/${API_PANELS_INFO_MODELS_BY_BRAND}/${id}`);
             const modelsData = await modelsResponse.json();
             this.models = modelsData.data;
 
@@ -112,7 +112,7 @@ export default {
         },
         async selectModel(event) {
             this.selectedModelCode = event.target.value;
-            const paramsResponse = await fetch(`${API_TESTSERVER}/${API_URL_PARAMS_BY_MODEL}/${event.target.value}`);
+            const paramsResponse = await fetch(`${API_SERVER}/${API_URL_PARAMS_BY_MODEL}/${event.target.value}`);
             const paramsData = await paramsResponse.json();
             this.params = paramsData.data;
 
@@ -134,7 +134,7 @@ export default {
             this.selectedEdgeType = edgeType;
         },
         getImgSrc(item) {
-            return `${API_TESTSERVER}/${API_URL_IMG}` + item.Img;
+            return `${API_SERVER}/${API_URL_IMG}` + item.Img;
         }
     },
     created() {

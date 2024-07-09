@@ -15,11 +15,11 @@
 
     <AccordionItem accordionId="flush-headingTwo" parentId="accordionFlushExample" header="АКУСТИКА">
       <ListItem name="АКУСТИКА ПО БРЕНДАМ" to="/acoustic/brands" :items="selectAcousticCategories" />
-      <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" />
+      <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/acoustic/materials" :items="selectMaterialsAc" />
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingThree" parentId="accordionFlushExample" header="ВИБРОИЗОЛЯЦИЯ">
-      <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" />
+      <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/vibration_isolation/materials" :items="selectMaterialsVi" />
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingFour" parentId="accordionFlushExample" header="ДОКУМЕНТЫ">
@@ -28,6 +28,7 @@
       <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectMaterialsWithCerts" />
       <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" />
       <ListItem name="BIM" to="/documents/bim"  />
+      <ListItem name="АЛЬБОМ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectMaterialsWithCerts" />
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingFive" parentId="accordionFlushExample" header="НАШИ ОБЪЕКТЫ">
@@ -59,8 +60,9 @@ export default {
   computed: mapGetters([
     'selectAllIsolationConstrSound', 
     'selectMaterials', 
+    'selectMaterialsAc', 
+    'selectMaterialsVi', 
     'selectAllIsolationConstrAcoustic', 
-    'selectMaterials', 
     'selectMaterialsWithCerts',
     'selectAcousticCategories'
   ]),

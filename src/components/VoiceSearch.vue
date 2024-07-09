@@ -77,7 +77,7 @@ figure {
   margin-bottom: -15px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 500px) {
   #btn_voice {
     pointer-events: none;
     opacity: 0.6;

@@ -22,15 +22,15 @@ import Dialog from '../../../../components/Dialog.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-    components: {  
+    components: {   
         Dialog,
     },
     computed: {
-        ...mapGetters(['selectMaterials']),
+        ...mapGetters(['selectMaterialsVi']),
         selectElement() {
             const id = this.$route.params.id
 
-            return this.selectMaterials.find(({ Code }) => Code === id)
+            return this.selectMaterialsVi.find(({ Code }) => Code === id)
         }
     },
 } 

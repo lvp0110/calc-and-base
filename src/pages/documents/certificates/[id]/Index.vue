@@ -3,7 +3,7 @@
     <p class="title-certificates">{{ selectElement.Name }}</p>
     <p> количество документов: {{ slides.length }}</p>
     <hr>
-    <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="true">
+    <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
       <swiper-slide v-for="slide in slides" :key="slide.Code">
         <!-- <a class="btn btn-outline-secondary btn-lg text-download-btn" @click="downloadTextFile(slide)">Скачать текст</a> -->
         <ul style="border: solid 2px gray;" @click="downloadTextFile(slide)">
@@ -13,18 +13,18 @@
           <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
         </ul>
         <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-          :href="`${API_TESTSERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
+          :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
           скачать PDF
         </a>
-        <embed class="pdf-cert" :src="`${API_TESTSERVER}/${API_CERT}/${slide.File}`"  />
+        <embed class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"  />
       </swiper-slide>
     </swiper-container>
-    <hr> 
+    <hr>  
   </Dialog>
 </template>
 
 <script>
-import { API_TESTSERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 
@@ -35,7 +35,7 @@ register();
 export default {
   data() {
     return {
-      API_TESTSERVER,
+      API_SERVER,
       API_CERT,
       slides: []
     }
@@ -64,7 +64,7 @@ export default {
   methods: {
     async fetchData(id) {
 
-      let res = await fetch(`${API_TESTSERVER}/${API_CERT_MATERIAL}/${id}`)
+      let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
       let resData = await res.json()
 
       console.log({ resData })
@@ -135,3 +135,7 @@ li {
 
 }
 </style>
+
+
+
+

@@ -63,7 +63,7 @@ import { mapGetters, mapActions } from 'vuex';
 
 
 
-import { API_PANELS_INFO_BY_BRAND, API_TESTSERVER } from '../config'
+import { API_PANELS_INFO_BY_BRAND, API_SERVER } from '../config'
 
 export default {
  
@@ -171,7 +171,7 @@ export default {
         },
         async addDiv(elem) {
 
-            let res = await fetch(`${API_TESTSERVER}/${API_PANELS_INFO_BY_BRAND}/${elem.Name}`)
+            let res = await fetch(`${API_SERVER}/${API_PANELS_INFO_BY_BRAND}/${elem.Name}`)
             let resData = await res.json()
 
             console.log(resData)

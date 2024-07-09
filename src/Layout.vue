@@ -9,8 +9,9 @@
 <script>
 export default {
   created() {
-    // this.$store.dispatch('getAllIsolationConstr')
     this.$store.dispatch('getMaterials')
+    this.$store.dispatch('getMaterialsAc')
+    this.$store.dispatch('getMaterialsVi')
     this.$store.dispatch('getMaterialsWithCerts')
     this.$store.dispatch('getAcousticCategories')
   }
