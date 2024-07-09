@@ -21,7 +21,7 @@
     </swiper-container>
     <hr>  
   </Dialog>
-</template>
+</template> 
 
 <script>
 import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';

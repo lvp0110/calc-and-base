@@ -17,6 +17,74 @@ import {
     API_URL_ACOUSTIC_CATEGORIES
 } from '../config';
 
+const dictionary = {
+  bonacustic: [
+    "бон акустик",
+    "bon акустик",
+    "bone акустик",
+    "bonn акустик",
+    "bonne акустик",
+    "бон acoustique",
+    "bon acoustique",
+    "boh акустик",
+    "bone acoustique",
+    "бон acustic",
+    "бон accustic",
+    "bon acustic",
+    "bon accustic",
+    "bonn acoustique",
+    "bohn акустик",
+    "bonne acoustique",
+    "bonc акустик",
+    "bone acustic",
+    "bone accustic",
+    "bonn acustic",
+    "bonn accustic",
+    "boh acoustique",
+    "bonne acustic",
+    "bonne accustic",
+    "bona кустик",
+    "bohn acoustique",
+    "бона кустик",
+    "boh acustic",
+    "боно кустик",
+    "boh accustic",
+  ],
+  decoustic: [
+    "the кустик",
+    "да кустик",
+    "the coustic",
+    "the kustik",
+    "the custic",
+    "д кустик",
+    "the acoustic",
+    "ди кустик",
+    "die кустик",
+    "d кустик",
+    "de кустик",
+    "да coustic",
+    "да kustik",
+    "да custic",
+    "di кустик",
+    "the' кустик",
+    "д coustic",
+    "д kustik",
+    "д custic",
+    "ди coustic",
+    "ди kustik",
+    "ди custic",
+    "die coustic",
+    "die kustik",
+    "die custic",
+    "d coustic",
+    "d kustik",
+    "d custic",
+    "de coustic",
+    "de kustik",
+    "да костик",
+  ],
+};
+
 export default createStore({
     state() {
         return {
@@ -412,19 +480,66 @@ export default createStore({
             console.log(r_data)
             state.data[ACOUSTIC_CATEGORIES] = r_data.data;
         },
+        // startVoiceRecognition({ commit }) {
+        //     const SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+        //     const rec = new SpeechRecognition();
+        //     const speechRecognitionList = new webkitSpeechGrammarList();
+
+        //     rec.lang = "ru-RU";
+        //     rec.start();
+
+        //     rec.onresult = function (event) {
+        //         const text = event.results[0][0].transcript;
+        //         commit('updateVoiceSearchText', text);
+        //     };
+        // },
         startVoiceRecognition({ commit }) {
             const SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+            const SpeechGrammarList = webkitSpeechGrammarList || SpeechGrammarList;
             const rec = new SpeechRecognition();
-            const speechRecognitionList = new webkitSpeechGrammarList();
-
+            const speechRecognitionList = new SpeechGrammarList();
+        
+            // Предопределенная грамматика с фиксированным набором слов
+            const grammar = '#JSGF V1.0; grammar words; public <word> = яблоко | апельсин | банан ;';
+            speechRecognitionList.addFromString(grammar, 1);
+        
+            // Назначаем список грамматик нашему экземпляру распознавания речи
+            rec.grammars = speechRecognitionList;
             rec.lang = "ru-RU";
+            rec.continuous = false; // Остановить после распознавания одного слова или фразы
+            rec.interimResults = false; // Получать только окончательные результаты
+        
             rec.start();
-
+        
             rec.onresult = function (event) {
-                const text = event.results[0][0].transcript;
-                commit('updateVoiceSearchText', text);
+                const text = event.results[0][0].transcript.toLowerCase();
+        
+                const match = Object.entries(dictionary).find(([_, words]) =>
+                    words.includes(text)
+                );
+        
+                if (match) {
+                  commit("updateVoiceSearchText", match[0]);
+                } else {
+                  commit("updateVoiceSearchText", text);
+                }
             };
-        },
+        
+            rec.onspeechend = function() {
+                rec.stop();
+            };
+        
+            rec.onnomatch = function() {
+                console.log('No match');
+                commit('updateVoiceSearchText', 'Совпадений не найдено');
+            };
+        
+            rec.onerror = function(event) {
+                console.log('Error occurred in recognition: ' + event.error);
+                commit('updateVoiceSearchText', 'Ошибка распознавания: ' + event.error);
+            };
+        }
+        
     }, 
     getters: { //computed
         selectImages(state) {

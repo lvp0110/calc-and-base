@@ -3,7 +3,8 @@
         <div class="form-select value" @click="onToggle">{{ value?.Name || placeholder }}</div>
         <ul class="dropdown" v-if="open">
             <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
-                <img class="dropdown__item__image" :src="getImgSrc(item)" />
+                <img class="dropdown__item__image" :src="getImgSrc(item.Img)" />
+                <img v-if="item.SectionImg" class="dropdown__item__image" :src="getImgSrc(item.SectionImg)" />
                 <div>{{ item.Name }}</div>
             </li>
         </ul>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import { API_SERVER } from '../config'
 
 export default {
     props: {
@@ -32,8 +34,8 @@ export default {
             this.onSelect(item)
             this.onToggle()
         },
-        getImgSrc(item) {
-            return `http://51.250.123.41:3005/api/v1/constr/` + item.Img;
+        getImgSrc(Img) {
+            return `${API_SERVER}/api/v1/constr/` + Img;
         }
     } 
 }

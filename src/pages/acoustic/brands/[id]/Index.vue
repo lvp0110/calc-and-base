@@ -32,11 +32,12 @@
             <div class="select-container">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation" :items="params.Perforations" :onSelect="selectPerforation" />
-                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation)" :alt="selectedPerforation?.Name" />
+                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation.Img)" :alt="selectedPerforation?.Name" />
+                    <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image" :src="getImgSrc(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
                 </div>
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes" :onSelect="selectEdgeType" />
-                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType)" :alt="selectedEdgeType?.Name" />
+                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType.Img)" :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
         </div>
@@ -75,7 +76,7 @@ export default {
     },
     components: {
         Dialog,
-        ImageSelect
+        ImageSelect 
     },
     computed: {
         ...mapGetters(['selectAcousticCategories']),
@@ -88,15 +89,15 @@ export default {
         },
         currentImageSrc() {
             if (this.selectedColor) {
-                return this.getImgSrc(this.selectedColor);
+                return this.getImgSrc(this.selectedColor.Img);
             } else if (this.selectedModelCode) {
                 const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
                 if (selectedModel) {
-                    return this.getImgSrc(selectedModel);
+                    return this.getImgSrc(selectedModel.Img);
                 }
             }
             if (this.selectElement && this.selectElement.Img) {
-                return this.getImgSrc(this.selectElement);
+                return this.getImgSrc(this.selectElement.Img);
             }
             return '';
         }
@@ -133,8 +134,8 @@ export default {
         selectEdgeType(edgeType) {
             this.selectedEdgeType = edgeType;
         },
-        getImgSrc(item) {
-            return `${API_SERVER}/${API_URL_IMG}` + item.Img;
+        getImgSrc(Img) {
+            return `${API_SERVER}/${API_URL_IMG}` + Img;
         }
     },
     created() {
