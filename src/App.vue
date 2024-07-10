@@ -24,7 +24,7 @@
 
     <AccordionItem accordionId="flush-headingFour" parentId="accordionFlushExample" header="ДОКУМЕНТЫ">
       <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
-      <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithCerts" />
+      <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
       <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectMaterialsWithCerts" />
       <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" />
       <ListItem name="BIM" to="/documents/bim"  />
@@ -64,7 +64,8 @@ export default {
     'selectMaterialsVi', 
     'selectAllIsolationConstrAcoustic', 
     'selectMaterialsWithCerts',
-    'selectAcousticCategories'
+    'selectAcousticCategories',
+    'selectMaterialsWithTechCards',
   ]),
   methods: {
     getAllIsolationConstr() {

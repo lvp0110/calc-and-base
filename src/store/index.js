@@ -9,6 +9,8 @@ import {
     ALL_ISOLATION_CONSTR,
     API_URL_ALL_ISOLATION_CONSTR,
 
+    API_URL_TECHCARDS,
+    TECHCARDS,
     MATERIALS,
     MATERIALS_AC,
     MATERIALS_VI,
@@ -436,6 +438,7 @@ export default createStore({
                 [MATERIALS_VI]: [],
                 [MATERIALS_WITH_CERTS]: [],
                 [ACOUSTIC_CATEGORIES]: [],
+                [TECHCARDS]:[],
             }
         }
     },
@@ -501,6 +504,16 @@ export default createStore({
             let ress_data = await ress.json()
             console.log(ress_data)
             state.data[MATERIALS_WITH_CERTS] = ress_data.data;
+        },
+        async getTechCards({ state }, payload) {
+            if (state.data[TECHCARDS].length > 0) {
+                return;
+            }
+
+            let ress = await fetch(`${API_SERVER}/${API_URL_TECHCARDS}`)
+            let ress_data = await ress.json()
+            console.log(ress_data)
+            state.data[TECHCARDS] = ress_data.data;
         },
         async getAcousticCategories({ state }, payload) {
             if (state.data[ACOUSTIC_CATEGORIES].length > 0) {
@@ -606,6 +619,10 @@ export default createStore({
         selectMaterialsWithCerts(state) {
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[MATERIALS_WITH_CERTS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        },
+        selectMaterialsWithTechCards(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[TECHCARDS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
         selectAcousticCategories(state) {
             const searchText = state.voiceSearchText || state.searchText;

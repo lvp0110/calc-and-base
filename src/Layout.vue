@@ -13,7 +13,9 @@ export default {
     this.$store.dispatch('getMaterialsAc')
     this.$store.dispatch('getMaterialsVi')
     this.$store.dispatch('getMaterialsWithCerts')
-    this.$store.dispatch('getAcousticCategories')
+    this.$store.dispatch('getAcousticCategories') 
+    this.$store.dispatch('getTechCards')
+    
   }
 }
 </script>

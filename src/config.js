@@ -26,3 +26,6 @@ export const API_CERT = 'api/v1/certificate'
 export const API_PANELS_INFO_BY_BRAND = 'api/v1/APanelsInfoByCat'
 
 export const API_PANELS_INFO_MODELS_BY_BRAND = 'api/v1/AModelsByBrand' 
+
+export const API_URL_TECHCARDS = 'api/v1/techCards'
+export const TECHCARDS = 'techCards'

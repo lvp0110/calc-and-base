@@ -42,7 +42,7 @@
             </div>
         </div>
         <hr>
-        <span style="color: black;">{{ selectElement.Description }}</span>
+        <span style="color: black;">{{ selectElement.Description}}</span>
         <br>
         <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
             СОХРАНИТЬ ДАННЫЕ

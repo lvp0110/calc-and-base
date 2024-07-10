@@ -4,24 +4,25 @@
     {{ selectElement.Code }}
     <hr>
 
-    <div v-for="slide in slides" :key="slide.Code">
+    <div >
       <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-        :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
+        :href="`${API_SERVER}/${API_CERT}/${selectElement.File} `" target="My Pdf">
         скачать PDF
       </a>
-      <embed :src="`${API_SERVER}/${API_CERT}/${slide.File}`" class="pdf-techcard" />
+      <embed :src="`${API_SERVER}/${API_CERT}/${selectElement.File}`" class="pdf-techcard" />
     </div>
   </Dialog>
 </template>
 
 <script>
-import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { API_SERVER, API_URL_TECHCARDS, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 
 export default {
   data() {
     return {
+      API_URL_TECHCARDS,
       API_SERVER,
       API_CERT,
       slides: []
@@ -31,11 +32,11 @@ export default {
     Dialog
   },
   computed: {
-    ...mapGetters(['selectMaterialsWithCerts']),
+    ...mapGetters(['selectMaterialsWithTechCards']),
     selectElement() {
       const id = this.$route.params.id
 
-      return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
+      return this.selectMaterialsWithTechCards.find(({ Code }) => Code === id)
     },
   },
   created() {
