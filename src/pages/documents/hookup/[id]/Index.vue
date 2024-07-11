@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { API_SERVER, API_INSTALL_SCHEMAS, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 
@@ -31,11 +31,11 @@ export default {
     Dialog
   },
   computed: {
-    ...mapGetters(['selectMaterialsWithCerts']),
+    ...mapGetters(['selectBrandsInstalSchemas']),
     selectElement() {
       const id = this.$route.params.id
 
-      return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
+      return this.selectBrandsInstalSchemas.find(({ ShortName }) => ShortName === id)
     },
   },
   created() {
@@ -50,7 +50,7 @@ export default {
   methods: {
     async fetchData(id) {
 
-      let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
+      let res = await fetch(`${API_SERVER}/${API_INSTALL_SCHEMAS}/${id}`)
       let resData = await res.json()
 
       console.log({ resData })

@@ -8,8 +8,11 @@ import {
     API_SERVER,
     ALL_ISOLATION_CONSTR,
     API_URL_ALL_ISOLATION_CONSTR,
-
+    API_INSTALL_SCHEMAS,
+    API_URL_BRANDS_INSTALL_SCHEMAS,
     API_URL_TECHCARDS,
+
+    BRANDS_INSTALL_SCHEMAS,
     TECHCARDS,
     MATERIALS,
     MATERIALS_AC,
@@ -149,7 +152,7 @@ export default createStore({
                             projectdescription: '',
                             usedmaterials: [
                                 {
-                                    im1: `Саундлайн-Акустика НГ`,
+                                    m1: `Саундлайн-Акустика НГ`,
 
                                 }
                             ],
@@ -187,8 +190,8 @@ export default createStore({
                             projectdescription: 'Акустическое проектирование, поставка материалов',
                             usedmaterials: [
                                 {
-                                    im1: `Ecophon Wall panel Super G`,
-                                    im2: `Ecophon Focus A 1200*600 `,
+                                    m1: `Ecophon Wall panel Super G`,
+                                    m2: `Ecophon Focus A 1200*600 `,
 
                                 }
                             ],
@@ -226,12 +229,12 @@ export default createStore({
                             projectdescription: 'Акустическое проектирование, поставка материалов',
                             usedmaterials: [
                                 {
-                                    im1: `Bonacoustic М Reale 29/3`,
-                                    im2: `Саундлайн-Акустика НГ`,
-                                    im3: `Decoustic FR 29/3`,
-                                    im4: `Decoustic FR 30/2`,
-                                    im5: `Soundboard`,
-                                    im6: `Шуманет-Эко`,
+                                    m1: `Bonacoustic М Reale 29/3`,
+                                    m2: `Саундлайн-Акустика НГ`,
+                                    m3: `Decoustic FR 29/3`,
+                                    m4: `Decoustic FR 30/2`,
+                                    m5: `Soundboard`,
+                                    m6: `Шуманет-Эко`,
 
                                 }
                             ],
@@ -270,15 +273,15 @@ export default createStore({
                             projectdescription: 'Акустическое проектирование, поставка материалов',
                             usedmaterials: [
                                 {
-                                    im1: `AKU-Line (AКУ-Лайн) ГКЛА`,
-                                    im2: `Decor Acoustic Дуб белый`,
-                                    im3: `Ecophon Wall panel A`,
-                                    im4: `Ecophon Wall panel C`,
-                                    im5: `Sonacoustic®PL`,
-                                    im6: `Sonaspray K13 special`,
-                                    im7: `Вибросил (виброакустический герметик)`,
-                                    im8: `Шуманет-100Комби`,
-                                    im9: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
+                                    m1: `AKU-Line (AКУ-Лайн) ГКЛА`,
+                                    m2: `Decor Acoustic Дуб белый`,
+                                    m3: `Ecophon Wall panel A`,
+                                    m4: `Ecophon Wall panel C`,
+                                    m5: `Sonacoustic®PL`,
+                                    m6: `Sonaspray K13 special`,
+                                    m7: `Вибросил (виброакустический герметик)`,
+                                    m8: `Шуманет-100Комби`,
+                                    m9: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
 
                                 }
                             ],
@@ -320,11 +323,11 @@ export default createStore({
                                                  `,
                             usedmaterials: [
                                 {
-                                    im1: `Ecophon Solo`,
-                                    im2: `SoundBoard Fine`,
-                                    im3: `САУНДЛАЙН-АКУСТИКА Звездное небо 4ПК`,
-                                    im4: `САУНДЛАЙН-АКУСТИКА Пойнт 4ПК`,
-                                    im5: `Стеновые панели Саундлюкс Техно`,
+                                    m1: `Ecophon Solo`,
+                                    m2: `SoundBoard Fine`,
+                                    m3: `САУНДЛАЙН-АКУСТИКА Звездное небо 4ПК`,
+                                    m4: `САУНДЛАЙН-АКУСТИКА Пойнт 4ПК`,
+                                    m5: `Стеновые панели Саундлюкс Техно`,
 
 
                                 }
@@ -366,8 +369,8 @@ export default createStore({
                                                  `,
                             usedmaterials: [
                                 {
-                                    im1: `Саундлайн-Акустика НГ `,
-                                    im2: `Саундлюкс-Техно Соло `,
+                                    m1: `Саундлайн-Акустика НГ `,
+                                    m2: `Саундлюкс-Техно Соло `,
 
                                 }
                             ],
@@ -409,10 +412,10 @@ export default createStore({
                                                  `,
                             usedmaterials: [
                                 {
-                                    im1: `САУНДЛАЙН-АКУСТИКА Квадро 4ПК `,
-                                    im2: `Саундлюкс Техно `,
-                                    im3: `Шуманет-100Комби `,
-                                    im4: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
+                                    m1: `САУНДЛАЙН-АКУСТИКА Квадро 4ПК `,
+                                    m2: `Саундлюкс Техно `,
+                                    m3: `Шуманет-100Комби `,
+                                    m4: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
 
                                 }
                             ],
@@ -432,6 +435,8 @@ export default createStore({
 
 
             data: {
+                [BRANDS_INSTALL_SCHEMAS]: [],
+                [API_INSTALL_SCHEMAS]: [],
                 [ALL_ISOLATION_CONSTR]: [],
                 [MATERIALS]: [],
                 [MATERIALS_AC]: [],
@@ -505,6 +510,17 @@ export default createStore({
             console.log(ress_data)
             state.data[MATERIALS_WITH_CERTS] = ress_data.data;
         },
+        async getBrandsInstalSchemas({ state }, payload) {
+            if (state.data[BRANDS_INSTALL_SCHEMAS].length > 0) {
+                return;
+            }
+
+            let ress = await fetch(`${API_SERVER}/${API_URL_BRANDS_INSTALL_SCHEMAS}`)
+            let ress_data = await ress.json()
+            console.log(ress_data)
+            state.data[BRANDS_INSTALL_SCHEMAS] = ress_data.data;
+        },
+
         async getTechCards({ state }, payload) {
             if (state.data[TECHCARDS].length > 0) {
                 return;
@@ -623,6 +639,10 @@ export default createStore({
         selectMaterialsWithTechCards(state) {
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[TECHCARDS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        }, 
+         selectBrandsInstalSchemas(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[BRANDS_INSTALL_SCHEMAS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
         selectAcousticCategories(state) {
             const searchText = state.voiceSearchText || state.searchText;

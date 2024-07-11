@@ -25,10 +25,10 @@
     <AccordionItem accordionId="flush-headingFour" parentId="accordionFlushExample" header="ДОКУМЕНТЫ">
       <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
       <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
-      <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectMaterialsWithCerts" />
+      <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectBrandsInstalSchemas" />
       <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" />
       <ListItem name="BIM" to="/documents/bim"  />
-      <ListItem name="АЛЬБОМ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectMaterialsWithCerts" />
+      <ListItem name="АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectMaterialsWithCerts" />
     </AccordionItem>
 
     <AccordionItem accordionId="flush-headingFive" parentId="accordionFlushExample" header="НАШИ ОБЪЕКТЫ">
@@ -66,6 +66,7 @@ export default {
     'selectMaterialsWithCerts',
     'selectAcousticCategories',
     'selectMaterialsWithTechCards',
+    'selectBrandsInstalSchemas'
   ]),
   methods: {
     getAllIsolationConstr() {

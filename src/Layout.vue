@@ -15,6 +15,7 @@ export default {
     this.$store.dispatch('getMaterialsWithCerts')
     this.$store.dispatch('getAcousticCategories') 
     this.$store.dispatch('getTechCards')
+    this.$store.dispatch('getBrandsInstalSchemas')
     
   }
 }
