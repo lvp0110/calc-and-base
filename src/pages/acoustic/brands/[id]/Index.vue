@@ -1,11 +1,11 @@
 <template>
-     <Dialog v-if="selectElement">
+    <Dialog v-if="selectElement">
         <p class="title">{{ selectElement.Name }}</p>
         <hr>
 
         <div class="block-image-colors">
             <span v-if="selectedColor" style="position: relative;">
-                Цвет: {{ selectedColor?.Description }} 
+                Цвет: {{ selectedColor?.Description }}
             </span>
             <img :src="currentImageSrc" :alt="selectedColor?.Name" />
         </div>
@@ -17,32 +17,38 @@
 
         <div v-if="selectedModelCode" class="select">
             <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
-                <select class="form-select select-descript" aria-label="Default select example" @change="selectSize($event)">
+                <select class="form-select select-descript" aria-label="Default select example"
+                    @change="selectSize($event)">
                     <option selected disabled>Размеры</option>
                     <option v-for="size in params.Sizes" :value="size.Code">
                         {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
                     </option>
                 </select>
             </div>
-            
+
             <div v-if="params.Colors?.length > 0" class="select-wrapper size">
                 <ImageSelect placeholder="Цвет" :value="selectedColor" :items="params.Colors" :onSelect="selectColor" />
             </div>
-            
+
             <div class="select-container">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation" :items="params.Perforations" :onSelect="selectPerforation" />
-                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation.Img)" :alt="selectedPerforation?.Name" />
-                    <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image" :src="getImgSrc(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
+                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation" :items="params.Perforations"
+                        :onSelect="selectPerforation" />
+                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation.Img)"
+                        :alt="selectedPerforation?.Name" />
+                    <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
+                        :src="getImgSrc(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
                 </div>
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes" :onSelect="selectEdgeType" />
-                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType.Img)" :alt="selectedEdgeType?.Name" />
+                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes"
+                        :onSelect="selectEdgeType" />
+                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType.Img)"
+                        :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
         </div>
         <hr>
-        <span style="color: black;">{{ selectElement.Description}}</span>
+        <span style="color: black;">{{ selectElement.Description }}</span>
         <br>
         <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
             СОХРАНИТЬ ДАННЫЕ
@@ -53,7 +59,7 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue';
 import ImageSelect from '../../../../components/ImageSelect.vue';
-import { API_SERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND,API_URL_IMG } from '../../../../config';
+import { API_SERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND, API_URL_IMG } from '../../../../config';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -76,7 +82,7 @@ export default {
     },
     components: {
         Dialog,
-        ImageSelect 
+        ImageSelect
     },
     computed: {
         ...mapGetters(['selectAcousticCategories']),
@@ -148,6 +154,7 @@ export default {
 .add-image {
     margin-top: 10px;
 }
+
 .title {
     margin-top: 20px;
     font-weight: 600;
@@ -172,6 +179,7 @@ export default {
 .select-wrapper {
     width: 49%;
 }
+
 .size {
     width: 100%;
 }

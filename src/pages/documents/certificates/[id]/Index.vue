@@ -3,7 +3,13 @@
     <p class="title-certificates">{{ selectElement.Name }}</p>
     <p> количество документов: {{ slides.length }}</p>
     <hr>
-    <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
+    <swiper-container 
+      slides-per-view="1" 
+      space-between="10" 
+      navigation="true" 
+      pagination="true" 
+      allow-touch-move="true"
+      css-mode="false">
       <swiper-slide v-for="slide in slides" :key="slide.Code">
         <ul style="border: solid 2px gray;" @click="downloadTextFile(slide)">
           <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
@@ -12,7 +18,7 @@
           <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
         </ul>
         <div class="pdf-container">
-          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" />
+          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"></iframe>
         </div>
       </swiper-slide>
     </swiper-container>
@@ -57,17 +63,14 @@ export default {
   },
   methods: {
     async fetchData(id) {
-
       let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
       let resData = await res.json()
 
       console.log({ resData })
       this.slides = resData.data
-
     },
     formatTime(value) {
       const data = new Date(value)
-
       return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
     },
     downloadTextFile(slide) {
@@ -82,7 +85,6 @@ export default {
     },
   },
 }
-
 </script>
 
 <style scoped>
@@ -110,5 +112,4 @@ li {
     width: 100%;
     height: 100%;
 }
-
 </style>
