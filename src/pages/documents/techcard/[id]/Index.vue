@@ -1,15 +1,10 @@
 <template>
   <Dialog v-if="selectElement">
     <p class="title-techcard">{{ selectElement.Name }}</p>
-    {{ selectElement.Code }}
+    <p>{{ selectElement.Code }}_2023</p>
     <hr>
-
-    <div >
-      <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-        :href="`${API_SERVER}/${API_CERT}/${selectElement.File} `" target="My Pdf">
-        скачать PDF
-      </a>
-      <embed :src="`${API_SERVER}/${API_CERT}/${selectElement.File}`" class="pdf-techcard" />
+    <div class="pdf-container">
+      <iframe class="pdf-techcard" :src="`${API_SERVER}/${API_CERT}/${selectElement.File}`" />
     </div>
   </Dialog>
 </template>
@@ -24,8 +19,7 @@ export default {
     return {
       API_URL_TECHCARDS,
       API_SERVER,
-      API_CERT,
-      slides: []
+      API_CERT
     }
   },
   components: {
@@ -39,26 +33,7 @@ export default {
       return this.selectMaterialsWithTechCards.find(({ Code }) => Code === id)
     },
   },
-  created() {
-    
-    this.$watch(
-      () => this.$route.params.id,
-      this.fetchData,
-    
-      { immediate: true }
-    )
-  },
   methods: {
-    async fetchData(id) {
-
-      let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
-      let resData = await res.json()
-
-      console.log({ resData })
-      this.slides = resData.data
-    ;
-
-    },
     formatTime(value) {
       const data = new Date(value)
 
@@ -79,33 +54,25 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .title-techcard {
-  margin-top: 15px;
+  margin-top: 20px;
   font-weight: 600;
+  width: 80%;
 }
 
 .pdf-techcard {
   display: block;
+  margin-top: 18px;
   width: 100%;
-  height: 1200px;
+  height: 100vh;
 }
 
-.pdf-btn {
-  display: none;
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 525px) {
-  
-  .pdf-techcard {
-    display: none;
-  }
-
-  .pdf-btn {
-    display: block;
-    margin-bottom: 300px;
-  }
-
+.pdf-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

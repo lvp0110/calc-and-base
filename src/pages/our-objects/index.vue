@@ -22,7 +22,7 @@
 
       <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials($event)">
-          <option selected disabled>НАЗНАЧЕНИЕ</option>
+          <option selected disabled>МАТЕРИАЛЫ</option>
           <option v-for="(material, index) in uniqueMaterials" :key="index" :value="material">
             {{ material }}
           </option>

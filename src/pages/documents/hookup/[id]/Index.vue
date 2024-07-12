@@ -3,13 +3,14 @@
     <p class="title-hookup">{{ selectElement.Name }}</p>
     {{ selectElement.Code }}
     <hr>
-    <div v-for="slide in slides" :key="slide.Code">
-      <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-        :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
-        скачать PDF
-      </a>
-      <embed :src="`${API_SERVER}/${API_CERT}/${slide.File}`" class="pdf-hookup" />
-    </div>
+    <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
+      <swiper-slide v-for="slide in slides" :key="slide.Code">
+       
+        <div class="pdf-container">
+          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" />
+        </div>
+      </swiper-slide>
+    </swiper-container>
     <hr>
   </Dialog>
 </template>
@@ -18,6 +19,10 @@
 import { API_SERVER, API_INSTALL_SCHEMAS, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
+
+import 'swiper/swiper-bundle.css';
+import { register } from 'swiper/element/bundle';
+register();
 
 export default {
   data() {
@@ -56,55 +61,37 @@ export default {
       console.log({ resData })
       this.slides = resData.data
 
-
     },
-    formatTime(value) {
-      const data = new Date(value)
-
-      return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-    },
-    downloadTextFile(slide) {
-      const textData = `Тип: ${slide.Type}\n№ ${slide.Code}\nСрок действия: ${this.formatTime(slide.ValPeriod)}\nКласс пожароопасности: ${slide.Indicators}`;
-      const blob = new Blob([textData], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'slide_info.txt';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
+   
   },
 }
 
 </script>
 
-<style>
-.title-hookup {
-  margin-top: 15px;
+<style scoped>
+.title-certificates {
+  margin-top: 20px;
   font-weight: 600;
+  width: 80%;
 }
 
-.pdf-hookup {
-  display: block;
-  width: 100%;
-  height: 1200px;
+li {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  color: rgb(54, 52, 52);
 }
 
-.pdf-btn {
-  display: none;
-  margin-bottom: 10px;
+.pdf-container {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media screen and (max-width: 525px) {
-
-  .pdf-hookup {
-    display: none;
-  }
-
-  .pdf-btn {
-    display: block;
-    margin-bottom: 300px;
-  }
-
+.pdf-cert {
+    width: 100%;
+    height: 100%;
 }
+
 </style>

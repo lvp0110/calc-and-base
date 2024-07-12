@@ -52,5 +52,7 @@ export default {
 }
 .calculate{
     width: 100%;
+    margin-top: 15px;
+    margin-bottom: -10px;
 }
 </style>

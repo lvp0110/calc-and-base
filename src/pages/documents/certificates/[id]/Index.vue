@@ -5,23 +5,20 @@
     <hr>
     <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
       <swiper-slide v-for="slide in slides" :key="slide.Code">
-        <!-- <a class="btn btn-outline-secondary btn-lg text-download-btn" @click="downloadTextFile(slide)">Скачать текст</a> -->
         <ul style="border: solid 2px gray;" @click="downloadTextFile(slide)">
           <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
           <li v-if="slide.Code != 0">№ {{ slide.Code }} </li>
           <li v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
           <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
         </ul>
-        <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-          :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
-          скачать PDF
-        </a>
-        <embed class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"  />
+        <div class="pdf-container">
+          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" />
+        </div>
       </swiper-slide>
     </swiper-container>
-    <hr>  
+    <hr>
   </Dialog>
-</template> 
+</template>
 
 <script>
 import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
@@ -52,12 +49,9 @@ export default {
     },
   },
   created() {
-    // watch the params of the route to fetch the data again
     this.$watch(
       () => this.$route.params.id,
       this.fetchData,
-      // fetch the data when the view is created and the data is
-      // already being observed
       { immediate: true }
     )
   },
@@ -69,7 +63,6 @@ export default {
 
       console.log({ resData })
       this.slides = resData.data
-      //   this.selectedElement = { ...elem, slides: resData.data };
 
     },
     formatTime(value) {
@@ -94,8 +87,9 @@ export default {
 
 <style scoped>
 .title-certificates {
-  margin-top: 15px;
+  margin-top: 20px;
   font-weight: 600;
+  width: 80%;
 }
 
 li {
@@ -104,38 +98,17 @@ li {
   color: rgb(54, 52, 52);
 }
 
+.pdf-container {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pdf-cert {
-  display: block;
-  width: 100%;
-  height: 1200px;
+    width: 100%;
+    height: 100%;
 }
 
-.img-cert {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.pdf-btn {
-  display: none;
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 525px) {
-  .img-cert {
-    display: none;
-  }
-  .pdf-cert {
-    display: none;
-  }
-  .pdf-btn {
-    display: block;
-    margin-bottom: 300px;
-  }
-
-}
 </style>
-
-
-
-

@@ -1,4 +1,4 @@
-export const API_SERVER = 'http://51.250.123.41:3005' // import.meta.env.VITE_API_URL
+export const API_SERVER =  import.meta.env.VITE_API_URL
 
 export const ALL_ISOLATION_CONSTR = "AllIsolationConstr"
 

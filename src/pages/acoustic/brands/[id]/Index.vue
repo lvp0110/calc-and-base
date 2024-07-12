@@ -5,7 +5,7 @@
 
         <div class="block-image-colors">
             <span v-if="selectedColor" style="position: relative;">
-                Цвет: {{ selectedColor?.Description }}
+                Цвет: {{ selectedColor?.Description }} 
             </span>
             <img :src="currentImageSrc" :alt="selectedColor?.Name" />
         </div>

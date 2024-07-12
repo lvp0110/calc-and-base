@@ -1,11 +1,11 @@
 <template>
     <div class="select">
-        <div class="form-select value" @click="onToggle">{{ value?.Name || placeholder }}</div>
+        <div class="form-select value" @click="onToggle">{{ value?.Description || placeholder }}</div>
         <ul class="dropdown" v-if="open">
             <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
                 <img class="dropdown__item__image" :src="getImgSrc(item.Img)" />
                 <img v-if="item.SectionImg" class="dropdown__item__image" :src="getImgSrc(item.SectionImg)" />
-                <div>{{ item.Name }}</div>
+                <div>{{ item.Description }}</div>
             </li>
         </ul>
     </div>

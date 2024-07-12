@@ -33,17 +33,16 @@ export default {
 
 </script>
 
-<style>
+<style >
 .btn.close-btn {
     position: absolute;
-    z-index: 454;
+    z-index: 45422;
     top: 0;
     right: 0;
 }
 
 .img {
     width: 100%;
-    height: 100%;
 }
 
 .information-block {
@@ -83,6 +82,7 @@ export default {
     margin-left: 5px;
 }
 
+
 @media screen and (max-width: 800px) {
     .image-descript {
         display: block;
@@ -92,5 +92,6 @@ export default {
         margin-top: 5px;
     }
 
+    
 }
 </style>
