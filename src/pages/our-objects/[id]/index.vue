@@ -13,7 +13,7 @@
             <li v-if="selectElement.images[0].constructiontime">{{ selectElement.images[0].constructiontime }}</li>
             <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li>
         </ul>
-  
+   
         <!-- <div>
             <img style="width: 100%;" :src="selectElement.src" alt="">
         </div> -->
@@ -39,7 +39,7 @@
                 {{ material }}
             </li>
         </ul>
-
+ 
     </Dialog>
 </template>
 <script>

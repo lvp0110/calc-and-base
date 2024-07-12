@@ -2,54 +2,50 @@
   <Dialog>
     <nav class="navbar navbar-light bg-light">
       <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
-          aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+          aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <span class="navbar-filter">ФИЛЬТР</span>
       </div>
     </nav>
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-
       <div class="select-descript-wrapper">
-        <select class="form-select select-descript" aria-label="Default select example" @change="selectAddress($event)">
+        <select class="form-select select-descript" aria-label="Default select example" @change="selectAddress">
           <option selected disabled>АДРЕС</option>
-          <option v-for="(image, index) in selectImages" :key="index" :value="image.text">
-            {{ image.text }}
+          <option v-for="(address, index) in dynamicAddresses" :key="index" :value="address">
+            {{ address }}
           </option>
         </select>
       </div>
-
       <div class="select-descript-wrapper">
-        <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials($event)">
+        <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials">
           <option selected disabled>МАТЕРИАЛЫ</option>
-          <option v-for="(material, index) in uniqueMaterials" :key="index" :value="material">
+          <option v-for="(material, index) in dynamicMaterials" :key="index" :value="material">
             {{ material }}
           </option>
         </select>
       </div>
-
       <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example">
           <option selected disabled>ДАТА</option>
         </select>
       </div>
-
       <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example">
           <option selected disabled>ЗАКАЗЧИК</option>
         </select>
       </div>
     </div>
-
     <div class="list-group" v-show="isSoundInsulationVisible">
-      <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button" class="list-group-item list-group-item-action"
-        aria-current="true" @click="addDiv(elem)">
+      <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button"
+        class="list-group-item list-group-item-action" aria-current="true" @click="addDiv(elem)">
         {{ elem.Name }}
       </button>
     </div>
     <div class="gallery">
-      <div v-for="(image, index) in sortedImages" :key="index" class="gallery-item">
+      <div v-for="(image, index) in filteredImages" :key="index" class="gallery-item">
         <div>
           <RouterLink :to="`/our-objects/${image.id}`">
             <img :src="image.src" alt="" @click="openDialog(image)" role="button" />
@@ -80,39 +76,66 @@ export default {
   },
   computed: {
     ...mapGetters(['selectAcousticCategories', 'selectImages']),
-    uniqueMaterials() {
-      // Extract all materials from the images
-      const materials = this.selectImages.flatMap(image => 
-        image.images.flatMap(img => 
+    // Сгенерируем динамический список материалов, зависящий от выбранного адреса
+    dynamicMaterials() {
+      if (!this.selectedAddress) {
+        return this.uniqueMaterials;
+      }
+      const addressImages = this.selectImages.filter(image => image.text === this.selectedAddress);
+      const materials = addressImages.flatMap(image =>
+        image.images.flatMap(img =>
           Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).filter(Boolean)
         )
       );
-      // Return unique and non-empty materials
       return Array.from(new Set(materials));
     },
-    sortedImages() {
-      if (this.selectedAddress == null) {
-        return this.selectImages;
+    // Сгенерируем динамический список адресов, зависящий от выбранного материала
+    dynamicAddresses() {
+      if (!this.selectedMaterials) {
+        return this.uniqueAddresses;
       }
-      return this.selectImages.filter(image => image.text === this.selectedAddress);
-    },
-    sortedMaterials() {
-      if (this.selectedMaterials == null) {
-        return this.selectImages;
-      }
-      return this.selectImages.filter(image => 
-        image.images.some(img => Object.values(img.usedmaterials).includes(this.selectedMaterials))
+      const materialImages = this.selectImages.filter(image =>
+        image.images.some(img =>
+          Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).includes(this.selectedMaterials)
+        )
       );
+      return Array.from(new Set(materialImages.map(image => image.text)));
+    },
+    uniqueMaterials() {
+      const materials = this.selectImages.flatMap(image =>
+        image.images.flatMap(img =>
+          Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).filter(Boolean)
+        )
+      );
+      return Array.from(new Set(materials));
+    },
+    uniqueAddresses() {
+      return Array.from(new Set(this.selectImages.map(image => image.text)));
+    },
+    filteredImages() {
+      return this.selectImages.filter(image => {
+        const matchesAddress = this.selectedAddress ? image.text === this.selectedAddress : true;
+        const matchesMaterial = this.selectedMaterials ? 
+          image.images.some(img => 
+            Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).includes(this.selectedMaterials)
+          ) 
+          : true;
+        return matchesAddress && matchesMaterial;
+      });
     },
   },
   methods: {
     selectAddress(event) {
       this.selectedAddress = event.target.value;
+      this.selectedMaterials = null;
     },
     selectMaterials(event) {
       this.selectedMaterials = event.target.value;
+      this.selectedAddress = null;
     },
-    openDialog(image) {},
+    openDialog(image) {
+      // Functionality to open dialog
+    },
     hideDiv() {
       this.selectedElement = null;
       this.isSoundInsulationVisible = false;
