@@ -17,21 +17,7 @@
         <!-- <div>
             <img style="width: 100%;" :src="selectElement.src" alt="">
         </div> -->
-
-        <swiper-container ref="mySwiper" 
-                        :slides-per-view="1" 
-                        :space-between="spaceBetween" 
-                        :centered-slides="true"
-                        :scrollbar="{ hideOnClick: true }" 
-                        :breakpoints="{ 768: { slidesPerView: 1 } }" 
-                        @swiperprogress="onProgress"
-                        @swiperslidechange="onSlideChange">
-            <swiper-slide v-for="(image, index) in selectElement.images[0].imagesSet[0]"
-                        :key="index"
-                         @click="goToNextSlide">
-                <img class="img2" :src="image" alt="">
-            </swiper-slide>
-        </swiper-container>
+        <Slider :images="selectElement.images[0].imagesSet[0]" />
  
         <span>Используемые материалы :</span>
         <ul>
@@ -43,43 +29,14 @@
     </Dialog>
 </template>
 <script>
-
+import Slider from '../../../components/Slider.vue'
 import Dialog from '../../../components/Dialog.vue'
-import { mapGetters, mapActions } from 'vuex';
-
-import { register } from 'swiper/element/bundle';
-register();
+import { mapGetters } from 'vuex';
 
 export default {
-    data() {
-        return {
-            swiper: null,
-        }
-    }, 
-    setup() {
-        const spaceBetween = 10;
-
-        const onProgress = (e) => {
-            const [swiper, progress] = e.detail;
-            // console.log(progress)
-        }
-
-        const onSlideChange = (e) => {
-            // console.log('slide changed')
-        }
-
-        return {
-            spaceBetween,
-            onProgress,
-            onSlideChange,
-        };
-    },
-    mounted() {
-        this.swiper = this.$refs.mySwiper.swiper;
-    },
-
     components: {
-        Dialog
+        Dialog,
+        Slider
     },
     computed: {
         ...mapGetters(['selectImages']),
@@ -96,14 +53,6 @@ export default {
         },
     },
     methods: {
-        goToNextSlide() {
-            if (this.swiper) {
-                const nextIndex = (this.swiper.realIndex + 1) % this.swiper.slides.length;
-                this.swiper.slideTo(nextIndex);
-            } else {
-                console.error('not found');
-            }
-        },
         extractMaterials(usedMaterials) {
             return Object.values(usedMaterials);
         },
@@ -112,21 +61,6 @@ export default {
 </script>
 
 <style scoped>
-swiper-container::part(scrollbar) {
-    background-color: rgba(0, 204, 255, .7);
-    height: 7px;
-}
-
-.swip-object {
-    width: 100%;
-
-}
-
-.img2 {
-    width: 100%;
-
-}
-
 .title {
     margin-top: 15px;
     width: 80%;

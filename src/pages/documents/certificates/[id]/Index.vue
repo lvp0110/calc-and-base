@@ -3,15 +3,12 @@
     <p class="title-certificates">{{ selectElement.Name }}</p>
     <p> количество документов: {{ slides.length }}</p>
     <hr>
-    <swiper-container 
-      slides-per-view="1" 
-      space-between="10" 
-      navigation="true" 
-      pagination="true" 
-      allow-touch-move="true"
-      css-mode="false">
-      <swiper-slide v-for="slide in slides" :key="slide.Code">
-        <ul style="border: solid 2px gray;" @click="downloadTextFile(slide)">
+    
+    <Slider :pdfs="slides" />
+    <!-- <swiper-container slides-per-view="1" space-between="10" navigation="true" pagination="true" allow-touch-move="true"
+      css-mode="false" ref="swiper">
+      <swiper-slide v-for="slide in slides" :key="slide.Code" @click="handleSlideClick(index)">
+        <ul style="border: solid 2px gray;" @click.stop="downloadTextFile(slide)">
           <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
           <li v-if="slide.Code != 0">№ {{ slide.Code }} </li>
           <li v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
@@ -21,15 +18,16 @@
           <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"></iframe>
         </div>
       </swiper-slide>
-    </swiper-container>
-    <hr>
+    </swiper-container> -->
+   
   </Dialog>
 </template>
-  
+ 
 <script>
 import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
+import Slider from '../../../../components/Slider.vue';
 
 import 'swiper/swiper-bundle.css';
 import { register } from 'swiper/element/bundle';
@@ -40,11 +38,12 @@ export default {
     return {
       API_SERVER,
       API_CERT,
-      slides: []
+      slides: [],
     }
   },
   components: {
-    Dialog
+    Dialog,
+    Slider
   },
   computed: {
     ...mapGetters(['selectMaterialsWithCerts']),
@@ -83,6 +82,7 @@ export default {
       a.click();
       window.URL.revokeObjectURL(url);
     },
+   
   },
 }
 </script>
@@ -98,18 +98,20 @@ li {
   font-family: 'Times New Roman', Times, serif;
   font-size: 18px;
   color: rgb(54, 52, 52);
+  
 }
 
 .pdf-container {
-    width: 100%;
-    height: 100vh; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}  
 
 .pdf-cert {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
 }
 </style>

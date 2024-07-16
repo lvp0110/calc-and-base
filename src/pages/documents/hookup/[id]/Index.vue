@@ -3,15 +3,16 @@
     <p class="title-hookup">{{ selectElement.Name }}</p>
     {{ selectElement.Code }}
     <hr>
-    <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
+    <Slider :hookup="slides" />
+    <!-- <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
       <swiper-slide v-for="slide in slides" :key="slide.Code">
        
         <div class="pdf-container">
           <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" />
         </div>
       </swiper-slide>
-    </swiper-container>
-    <hr>
+    </swiper-container> -->
+   
   </Dialog>
 </template>
 
@@ -19,6 +20,7 @@
 import { API_SERVER, API_INSTALL_SCHEMAS, API_CERT } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
+import Slider from '../../../../components/Slider.vue';
 
 import 'swiper/swiper-bundle.css';
 import { register } from 'swiper/element/bundle';
@@ -33,7 +35,8 @@ export default {
     }
   },
   components: {
-    Dialog
+    Dialog,
+    Slider
   },
   computed: {
     ...mapGetters(['selectBrandsInstalSchemas']),
@@ -69,29 +72,14 @@ export default {
 </script>
 
 <style scoped>
-.title-certificates {
-  margin-top: 20px;
-  font-weight: 600;
-  width: 80%;
-}
-
-li {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 18px;
-  color: rgb(54, 52, 52);
-}
-
-.pdf-container {
+swiper-container::part(scrollbar) {
+    background-color: rgba(0, 204, 255, .7);
+    height: 40px;
+    background: rgba(206, 204, 204, 0.3);
+    position: absolute;
     width: 100%;
-    height: 100vh; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.pdf-cert {
-    width: 100%;
-    height: 100%;
-}
+
 
 </style>
