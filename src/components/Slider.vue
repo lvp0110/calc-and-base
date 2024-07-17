@@ -1,7 +1,12 @@
 <template>
-    <swiper-container ref="mySwiper" :slides-per-view="1" :space-between="10" :centered-slides="true"
-        :scrollbar="{ hideOnClick: true }" :breakpoints="{ 768: { slidesPerView: 1 } }" @swiperprogress="onProgress"
-        @swiperslidechange="onSlideChange">
+    <swiper-container ref="mySwiper" 
+                     :slides-per-view="1" 
+                     :space-between="10" 
+                     :centered-slides="true" 
+                     :pagination="{clickable: true, renderBullet: renderBullet}" 
+                     :breakpoints="{ 768: { slidesPerView: 1 } }"
+                      @swiperprogress="onProgress" 
+                      @swiperslidechange="onSlideChange">
 
         <swiper-slide v-for="(image, index) in images" :key="index" @click="goToNextSlide">
             <img class="img" :src="image" alt="">
@@ -16,8 +21,6 @@
                     <li v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
                     <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
                 </ul>
-                <button class="btn btn-secondary" style="width: 100%;margin-top: -10px;margin-bottom: 5px;"> след. >>>
-                </button>
                 <div class="pdf-container">
                     <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"
                         @click="goToNextSlide"></iframe>
@@ -28,12 +31,8 @@
         <swiper-slide v-for="slide in hookup" :key="slide.Code" @click="goToNextSlide">
             <p style="bottom: 20px;"> </p>
             <div>
-                <button class="btn btn-secondary"
-                    style="width: 100%;margin-top: -41px;margin-bottom: -45px;position: absolute; display: flex;"> 
-                    след. >>>
-                </button>
                 <div class="hookup-container">
-                    <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" >
+                    <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`">
                     </iframe>
                 </div>
             </div>
@@ -92,16 +91,41 @@ export default {
             const data = new Date(value)
             return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
         },
+        renderBullet(index, className) {
+            const arr = this.$props.images ?? this.$props.pdfs ?? this.$props.hookup
+
+            return '<span class="' + className + '">' + (arr[index].Type) + '</span>'
+        }
     }
 }
 </script>
 
 <style scoped>
-swiper-container::part(scrollbar) {
-    background-color: rgba(0, 204, 255, .7);
-    height: 40px;
+swiper-container::part(pagination) {
     top: 0;
-    background: rgba(206, 204, 204, 0.3);
+    background-color: lightgray;
+    height: 40px;
+    display: flex;
+}
+
+swiper-container::part(bullet),
+swiper-container::part(bullet-active) {
+    border-right: solid 2px rgb(245, 242, 242);
+    border-radius: 0px;
+    flex-grow: 1;
+    height: 100%;
+    margin: 0;
+    /* font-weight: bold; */
+    font-size: 12px;
+    opacity: 1;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+swiper-container::part(bullet-active) {
+    background-color: grey;
 }
 
 .img {
@@ -122,11 +146,11 @@ swiper-container::part(scrollbar) {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 85px;
+    margin-top: 55px;
 }
 
 ul {
-    margin-top: 50px;
+    margin-top: 55px;
 }
 
 .pdf-cert {

@@ -4,15 +4,6 @@
     {{ selectElement.Code }}
     <hr>
     <Slider :hookup="slides" />
-    <!-- <swiper-container slides-per-view="1" space-between="10" navigation="true" css-mode="true" pagination="">
-      <swiper-slide v-for="slide in slides" :key="slide.Code">
-       
-        <div class="pdf-container">
-          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`" />
-        </div>
-      </swiper-slide>
-    </swiper-container> -->
-   
   </Dialog>
 </template>
 
@@ -72,14 +63,5 @@ export default {
 </script>
 
 <style scoped>
-swiper-container::part(scrollbar) {
-    background-color: rgba(0, 204, 255, .7);
-    height: 40px;
-    background: rgba(206, 204, 204, 0.3);
-    position: absolute;
-    width: 100%;
-}
-
-
 
 </style>

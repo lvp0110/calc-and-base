@@ -3,23 +3,7 @@
     <p class="title-certificates">{{ selectElement.Name }}</p>
     <p> количество документов: {{ slides.length }}</p>
     <hr>
-    
     <Slider :pdfs="slides" />
-    <!-- <swiper-container slides-per-view="1" space-between="10" navigation="true" pagination="true" allow-touch-move="true"
-      css-mode="false" ref="swiper">
-      <swiper-slide v-for="slide in slides" :key="slide.Code" @click="handleSlideClick(index)">
-        <ul style="border: solid 2px gray;" @click.stop="downloadTextFile(slide)">
-          <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
-          <li v-if="slide.Code != 0">№ {{ slide.Code }} </li>
-          <li v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
-          <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
-        </ul>
-        <div class="pdf-container">
-          <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"></iframe>
-        </div>
-      </swiper-slide>
-    </swiper-container> -->
-   
   </Dialog>
 </template>
  
