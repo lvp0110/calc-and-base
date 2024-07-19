@@ -14,10 +14,7 @@
             <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li>
         </ul>
    
-        <!-- <div>
-            <img style="width: 100%;" :src="selectElement.src" alt="">
-        </div> -->
-        <Slider :images="selectElement.images[0].imagesSet[0]" />
+        <ObjectsSlider :slides="selectElement.images[0].imagesSet[0]" :slideComponent="image_slide" />
  
         <span>Используемые материалы :</span>
         <ul>
@@ -29,14 +26,21 @@
     </Dialog>
 </template>
 <script>
-import Slider from '../../../components/Slider.vue'
+import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
+import ImageSlide from '../../../components/Slider/ImageSlide.vue'
 import Dialog from '../../../components/Dialog.vue'
 import { mapGetters } from 'vuex';
 
 export default {
+    data() {
+        return {
+            image_slide: ImageSlide
+        }
+    },
     components: {
         Dialog,
-        Slider
+        ObjectsSlider,
+        ImageSlide
     },
     computed: {
         ...mapGetters(['selectImages']),
@@ -67,3 +71,4 @@ export default {
     font-weight: 600;
 }
 </style>
+

@@ -4,10 +4,8 @@
         <hr>
 
         <div class="block-image-colors">
-            <span v-if="selectedColor" style="position: relative;">
-                Цвет: {{ selectedColor?.Description }}
-            </span>
-            <img :src="currentImageSrc" :alt="selectedColor?.Name" />
+            <img v-if="modelImages.length === 0" :src="selectedElementImage" :alt="selectedColor?.Name" />
+            <ObjectsSlider v-if="modelImages.length > 0" :slides="modelImages" :slideComponent="image_slide" />
         </div>
 
         <select class="form-select select-descript" aria-label="Default select example" @change="selectModel($event)">
@@ -48,7 +46,20 @@
             </div>
         </div>
         <hr>
-        <span style="color: black;">{{ selectElement.Description }}</span>
+        <div class="text-description" 
+             style="font-family: 'Montserrat', sans-serif;font-size: medium;">
+        <p> Декоративно-акустические панели Bonacoustic — это инновация в области негорючих и
+            трудногорючих декоративно-акустических материалов высокого качества.
+            Появление линейки обусловлено повышенным спросом на акустические материалы с
+            особыми требованиями к пожаробезопасности на объекте.</p>
+        <ul>
+            <li> Эффективно поглощают звук, обеспечивая высокую степень акустического комфорта</li>
+            <li> Негорючая основа из СМЛ и негорючие/трудногорючие фейсинги</li>
+            <li> Передовые технологии создания декоров</li>
+            <li> Широкая линейка: декоры, перфорации, система крепежа</li>
+        </ul>
+        </div>
+        <!-- <span style="color: black;">{{ selectElement.Description }}</span> -->
         <br>
         <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
             СОХРАНИТЬ ДАННЫЕ
@@ -59,6 +70,8 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue';
 import ImageSelect from '../../../../components/ImageSelect.vue';
+import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
+import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
 import { API_SERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND, API_URL_IMG } from '../../../../config';
 import { mapGetters } from 'vuex';
 
@@ -77,12 +90,15 @@ export default {
             selectedSizeCode: null,
             selectedColor: null,
             selectedPerforation: null,
-            selectedEdgeType: null
+            selectedEdgeType: null,
+            image_slide: ImageSlide
         };
     },
     components: {
         Dialog,
-        ImageSelect
+        ImageSelect,
+        ObjectsSlider,
+        ImageSlide
     },
     computed: {
         ...mapGetters(['selectAcousticCategories']),
@@ -93,16 +109,33 @@ export default {
         isSaveButtonVisible() {
             return this.selectedModelCode && this.selectedSizeCode && this.selectedColor && this.selectedPerforation && this.selectedEdgeType;
         },
-        currentImageSrc() {
-            if (this.selectedColor) {
-                return this.getImgSrc(this.selectedColor.Img);
-            } else if (this.selectedModelCode) {
+        selectedElementImage() {
+            return this.getImgSrc(this.selectElement.Img);
+        },
+        modelImages() {
+            if (this.selectedModelCode) {
                 const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
+
                 if (selectedModel) {
+                    return [this.getImgSrc(selectedModel.Img)];
+                }
+            }
+
+            return []
+        },
+        currentImageSrc() {
+            if (this.selectedModelCode) {
+                const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
+
+                if (selectedModel) {
+                    console.log({ selectedModelCode: this.selectedModelCode });
                     return this.getImgSrc(selectedModel.Img);
                 }
             }
+
             if (this.selectElement && this.selectElement.Img) {
+                console.log({ selectElement: this.selectElement });
+
                 return this.getImgSrc(this.selectElement.Img);
             }
             return '';
