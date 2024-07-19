@@ -230,7 +230,6 @@ export default createStore({
                             usedmaterials: [
                                 {
                                     m1: `Bonacoustic М Reale 29/3`,
-                                    й
                                     m3: `Decoustic FR 29/3`,
                                     m4: `Decoustic FR 30/2`,
                                     m5: `Шуманет-Эко`,
