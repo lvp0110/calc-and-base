@@ -9,6 +9,8 @@
                 <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
                 <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
                 <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
+                <li v-if="selectElement.Volume != 'неопределен'">{{ selectElement.Volume }} </li>
+
                 <li>Аpтикул: {{ selectElement.Code }}</li>
             </ul>
         </div>
