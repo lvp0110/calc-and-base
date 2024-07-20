@@ -1,11 +1,15 @@
+Конечно, вот полный код с внесенными изменениями:
+
+```vue
 <template>
     <Dialog v-if="selectElement">
         <p class="title">{{ selectElement.Name }}</p>
         <hr>
 
         <div class="block-image-colors">
-            <img v-if="modelImages.length === 0" :src="selectedElementImage" :alt="selectedColor?.Name" />
-            <ObjectsSlider v-if="modelImages.length > 0" :slides="modelImages" :slideComponent="image_slide" />
+            <img v-if="selectedColor" :src="colorizedImage" :alt="selectedColor?.Name" />
+            <img v-else-if="modelImages.length === 0" :src="selectedElementImage" :alt="selectedColor?.Name" />
+            <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
 
         <select class="form-select select-descript" aria-label="Default select example" @change="selectModel($event)">
@@ -82,11 +86,11 @@
                 </ul>
             </div>
         </template>
-        <!-- <span style="color: black;">{{ selectElement.Description }}</span> -->
+        <!-- <span style="color: black;">{{ selectElement.Description }}</span> 
         <br>
         <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
             СОХРАНИТЬ ДАННЫЕ
-        </button>
+        </button>-->
     </Dialog>
 </template>
 
@@ -146,22 +150,11 @@ export default {
 
             return []
         },
-        currentImageSrc() {
-            if (this.selectedModelCode) {
-                const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
-
-                if (selectedModel) {
-                    console.log({ selectedModelCode: this.selectedModelCode });
-                    return this.getImgSrc(selectedModel.Img);
-                }
+        colorizedImage() {
+            if (this.selectedColor && this.selectedColor.Img) {
+                return this.getImgSrc(this.selectedColor.Img);
             }
-
-            if (this.selectElement && this.selectElement.Img) {
-                console.log({ selectElement: this.selectElement });
-
-                return this.getImgSrc(this.selectElement.Img);
-            }
-            return '';
+            return this.selectedElementImage;
         }
     },
     methods: {
@@ -256,3 +249,6 @@ export default {
     }
 }
 </style>
+```
+
+Этот код изменяет отображение изображения при выборе цвета, загружая соответствующее изображение из параметров, связанных с выбранным цветом.

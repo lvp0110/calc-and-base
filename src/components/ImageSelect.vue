@@ -51,7 +51,7 @@ export default {
 }
 .dropdown {
     position: absolute;
-    max-height: 300px;
+    height: 500px;
     width: 100%;
     margin: 4px;
     padding: 4px;
