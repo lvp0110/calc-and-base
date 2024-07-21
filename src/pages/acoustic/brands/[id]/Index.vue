@@ -1,6 +1,3 @@
-Конечно, вот полный код с внесенными изменениями:
-
-```vue
 <template>
     <Dialog v-if="selectElement">
         <p class="title">{{ selectElement.Name }}</p>
@@ -41,6 +38,7 @@
                     <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
                         :src="getImgSrc(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
                 </div>
+                
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes"
                         :onSelect="selectEdgeType" />
@@ -51,46 +49,11 @@
         </div>
         <hr>
         <template v-if="!selectedModelCode">
-            <span style="color: black;">{{ selectElement.Description }}</span>
-            <div class="text-description-category" 
-                style="font-family: 'Montserrat', sans-serif;font-size: medium;">
-                <p> Декоративно-акустические панели Bonacoustic — это инновация в области негорючих и
-                    трудногорючих декоративно-акустических материалов высокого качества.
-                    Появление линейки обусловлено повышенным спросом на акустические материалы с
-                    особыми требованиями к пожаробезопасности на объекте.</p>
-                <ul>
-                    <li> Эффективно поглощают звук, обеспечивая высокую степень акустического комфорта</li>
-                    <li> Негорючая основа из СМЛ и негорючие/трудногорючие фейсинги</li>
-                    <li> Передовые технологии создания декоров</li>
-                    <li> Широкая линейка: декоры, перфорации, система крепежа</li>
-                </ul>
-            </div>
+            <span style="color: black;" v-html="selectElement?.Description"></span>
         </template>
         <template v-else>
-            <span v-for="model in models" :value="model.Code">{{ model.Description }}</span>
-            <div class="text-description-model"  
-                style="font-family: 'Montserrat', sans-serif;font-size: medium;">  
-                <h4>Bonacoustic Reale</h4>
-                <p>Трудногорючие декоративно-акустические панели с ламинацией декоративной 
-                    PVC плёнкой с защитным покрытием.</p>
-                <ul>
-                    <li>Класс пожарной опасности: Г1,В1,Д1,Т1</li>
-                    <li>Вес: 
-                        <ul>
-                            <li>REALE Lineo - 10,2 кг/м<sup>2</sup></li>
-                            <li>REALE NP - 11,52 кг/м<sup>2</sup></li>
-                            <li>REALE NP 30/2 - 10,37 кг/м<sup>2</sup></li>
-                        </ul>
-                    </li>
-                    <li>Размеры: 2300/1150/600х542х12,5 мм </li>
-                </ul>
-            </div>
+            <span v-html="selectedModelDescription"></span>
         </template>
-        <!-- <span style="color: black;">{{ selectElement.Description }}</span> 
-        <br>
-        <button v-if="isSaveButtonVisible" class="btn btn-outline-secondary out-data">
-            СОХРАНИТЬ ДАННЫЕ
-        </button>-->
     </Dialog>
 </template>
 
@@ -131,7 +94,7 @@ export default {
         ...mapGetters(['selectAcousticCategories']),
         selectElement() {
             const id = this.$route.params.id;
-            return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id);
+            return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id) || {};
         },
         isSaveButtonVisible() {
             return this.selectedModelCode && this.selectedSizeCode && this.selectedColor && this.selectedPerforation && this.selectedEdgeType;
@@ -148,13 +111,17 @@ export default {
                 }
             }
 
-            return []
+            return [];
         },
         colorizedImage() {
             if (this.selectedColor && this.selectedColor.Img) {
                 return this.getImgSrc(this.selectedColor.Img);
             }
             return this.selectedElementImage;
+        },
+        selectedModelDescription() {
+            const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
+            return selectedModel ? selectedModel.Description : '';
         }
     },
     methods: {
@@ -163,7 +130,6 @@ export default {
             const modelsData = await modelsResponse.json();
             this.models = modelsData.data;
 
-            // Логируем модели для проверки
             console.log('Models data:', this.models);
         },
         async selectModel(event) {
@@ -172,9 +138,8 @@ export default {
             const paramsData = await paramsResponse.json();
             this.params = paramsData.data;
 
-            this.selectedColor = null; // Для обновления изображения при выборе новой модели
+            this.selectedColor = null; 
 
-            // Логируем параметры для проверки
             console.log('Params data:', this.params);
         },
         selectSize(event) {
@@ -196,7 +161,7 @@ export default {
     created() {
         this.$watch(() => this.$route.params.id, this.fetchData, { immediate: true });
     },
-}
+};
 </script>
 
 <style scoped>
@@ -249,6 +214,3 @@ export default {
     }
 }
 </style>
-```
-
-Этот код изменяет отображение изображения при выборе цвета, загружая соответствующее изображение из параметров, связанных с выбранным цветом.

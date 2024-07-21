@@ -5,7 +5,7 @@
             <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
                 <img class="dropdown__item__image" :src="getImgSrc(item.Img)" />
                 <img v-if="item.SectionImg" class="dropdown__item__image" :src="getImgSrc(item.SectionImg)" />
-                <div>{{ item.Description }}</div>
+                <div>{{ item.Name }}</div>
             </li>
         </ul>
     </div>
