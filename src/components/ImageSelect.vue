@@ -1,6 +1,6 @@
 <template>
     <div class="select">
-        <div class="form-select value" @click="onToggle">{{ value?.Description || placeholder }}</div>
+        <div class="form-select value" :class="{ selected: value }" @click="onToggle">{{ value || placeholder }}</div>
         <ul class="dropdown" v-if="open">
             <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
                 <img class="dropdown__item__image" :src="getImgSrc(item.Img)" />
@@ -18,7 +18,7 @@ export default {
     props: {
         placeholder: String,
         items: Array,
-        value: Object,
+        value: String,
         onSelect: Function
     },
     data() {
@@ -48,6 +48,9 @@ export default {
 .value {
     background: rgb(232, 232, 232);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
+}
+.selected {
+    background-color: rgb(173, 173, 173);
 }
 .dropdown {
     position: absolute;

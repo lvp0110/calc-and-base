@@ -66,5 +66,6 @@ export default {
 swiper-container::part(scrollbar) {
     background-color: aliceblue;
     height: 7px;
+    
 }
 </style>

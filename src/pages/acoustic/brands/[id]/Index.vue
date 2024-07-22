@@ -9,14 +9,14 @@
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
 
-        <select class="form-select select-descript" aria-label="Default select example" @change="selectModel($event)">
+        <select class="form-select select-descript" :class="{ selected: selectedModelCode }" aria-label="Default select example" @change="selectModel($event)">
             <option selected disabled>Выбрать модель</option>
             <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
         </select>
 
         <div v-if="selectedModelCode" class="select">
             <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
-                <select class="form-select select-descript" aria-label="Default select example"
+                <select class="form-select select-descript" :class="{ selected: selectedSizeCode }" aria-label="Default select example"
                     @change="selectSize($event)">
                     <option selected disabled>Размеры</option>
                     <option v-for="size in params.Sizes" :value="size.Code">
@@ -26,12 +26,12 @@
             </div>
 
             <div v-if="params.Colors?.length > 0" class="select-wrapper size">
-                <ImageSelect placeholder="Цвет" :value="selectedColor" :items="params.Colors" :onSelect="selectColor" />
+                <ImageSelect placeholder="Цвет" :value="selectedColor?.Description" :items="params.Colors" :onSelect="selectColor" />
             </div>
 
             <div class="select-container">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation" :items="params.Perforations"
+                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description" :items="params.Perforations"
                         :onSelect="selectPerforation" />
                     <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation.Img)"
                         :alt="selectedPerforation?.Name" />
@@ -40,7 +40,7 @@
                 </div>
                 
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType" :items="params.EdgesTypes"
+                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType?.Name" :items="params.EdgesTypes"
                         :onSelect="selectEdgeType" />
                     <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType.Img)"
                         :alt="selectedEdgeType?.Name" />
@@ -201,6 +201,9 @@ export default {
 .select-descript {
     background: rgb(232, 232, 232);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
+}
+.selected {
+    background-color: rgb(173, 173, 173);
 }
 
 @media screen and (max-width: 1800px) {

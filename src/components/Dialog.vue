@@ -1,6 +1,6 @@
 <template>
 
-    <div class="col-11 information-block" :style="{ top: position.y + 'px', left: position.x + 'px' }">
+    <div class="col-11 information-block">
         <RouterLink :to="backLink || '/'" class="btn close-btn">
             <svg height="50" width="50">
                 <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
@@ -13,21 +13,34 @@
 </template>
 
 <script>
+const getScrollbarSize = () =>
+  Math.abs(window.innerWidth - document.documentElement.clientWidth);
+
+const disableBodyScroll = () => {
+  const scrollbarSize = getScrollbarSize();
+
+  document.body.style.setProperty("padding-right", `${scrollbarSize}px`);
+  document.body.style.setProperty("overflow", "hidden");
+  document.body.style.setProperty("touch-action", "none");
+  document.body.style.setProperty("-ms-touch-action", "none");
+};
+
+const enableBodyScroll = () => {
+  document.body.style.removeProperty("padding-right");
+  document.body.style.removeProperty("overflow");
+  document.body.style.removeProperty("touch-action");
+  document.body.style.removeProperty("-ms-touch-action");
+};
+
 export default {
     props: {
         backLink: String
     },
-    data() {
-        return {
-            position: { x: 0, y: 75 },
-            visible: false,
-        }
+    created() {
+        disableBodyScroll()
     },
-    methods: {
-        setPosition(event) {
-            this.position.x = event.clientX;
-            this.position.y = event.clientY;
-        },
+    unmounted() {
+        enableBodyScroll()
     }
 }
 
@@ -50,10 +63,11 @@ export default {
     background-color: rgb(241, 241, 241);
     padding: 10px;
     z-index: 5;
+    inset: 0;
     position: fixed;
     border: solid 3px rgb(187, 180, 180);
     overflow: auto;
-    height: 90%;
+    height: 100%;
     filter: drop-shadow(2px 4px 6px gray);
     overflow-y: scroll;
 }
@@ -76,6 +90,7 @@ export default {
 
 .image-descript {
     display: flex;
+    overflow: hidden;
 }
 
 .ul-descript {
@@ -90,6 +105,7 @@ export default {
 
     .ul-descript {
         margin-top: 5px;
+        flex-shrink: 0;
     }
 
     

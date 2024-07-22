@@ -92,7 +92,11 @@ export default {
             return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
         },
         renderBullet(index, className) {
-            const arr = this.$props.images ?? this.$props.pdfs ?? this.$props.hookup
+            if (this.$props.hookup) {
+                return '<span class="' + className + '">' + (this.$props.hookup[index].Name) + '</span>'
+            }
+
+            const arr = this.$props.images ?? this.$props.pdfs
 
             return '<span class="' + className + '">' + (arr[index].Type) + '</span>'
         }

@@ -77,6 +77,10 @@ export default {
 </script>
 
 <style>
+.calc-block-image {
+  box-shadow: none;
+  filter: none;
+}
 .go-to-calc {
   opacity: 0.7;
   position: absolute;

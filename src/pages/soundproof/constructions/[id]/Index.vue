@@ -3,7 +3,9 @@
         <div class="title-construction">{{ selectElement.Description }}</div>
         <hr>
         <div class="image-descript">
-            <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+            <div>
+                <img class="img" :src="getImgSrc(selectElement.Img)" alt="wwwww" />
+            </div>
             <ul class="ul-descript">
                 <li v-if="visiblRw">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
                 <li v-if="visiblLnw">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
@@ -21,6 +23,7 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue'
 import { mapGetters } from 'vuex'
+import { API_SERVER } from '../../../../config';
 
 export default {
     components: {
@@ -42,6 +45,11 @@ export default {
                 return true;
         }
     },
+    methods: {
+        getImgSrc(Img) {
+            return `${API_SERVER}/api/v1/constr/` + Img;
+        }
+    }
 }
 </script>
 <style scoped>
@@ -54,5 +62,8 @@ export default {
     width: 100%;
     margin-top: 15px;
     margin-bottom: -10px;
+}
+.img {
+    flex-grow: 1;
 }
 </style>
