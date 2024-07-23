@@ -16,7 +16,7 @@ export default {
     this.$store.dispatch('getAcousticCategories') 
     this.$store.dispatch('getTechCards')
     this.$store.dispatch('getBrandsInstalSchemas')
-    
+    this.$store.dispatch('getAlbums')
   }
 }
 </script>

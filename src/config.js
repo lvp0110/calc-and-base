@@ -5,6 +5,7 @@ export const ALL_ISOLATION_CONSTR = "AllIsolationConstr"
 export const MATERIALS    = "Materials/si"
 export const MATERIALS_AC = "Materials/ac"
 export const MATERIALS_VI = "Materials/vi"
+export const ALBUMS = "albums"
 
 export const MATERIALS_WITH_CERTS = "MaterialsWithCerts" 
 export const ACOUSTIC_CATEGORIES = "AcousticCategories"
@@ -23,8 +24,7 @@ export const API_URL_PARAMS_BY_MODEL = `api/v1/ParamsByAModels`
 export const API_URL_IMG = 'api/v1/constr/'
 export const API_CERT_MATERIAL = 'api/v1/certs/byMaterial'
 export const API_CERT = 'api/v1/certificate'
-
-
+export const API_ALBUMS = `api/v1/${ALBUMS}`
 
 export const API_PANELS_INFO_BY_BRAND = 'api/v1/APanelsInfoByCat'
 

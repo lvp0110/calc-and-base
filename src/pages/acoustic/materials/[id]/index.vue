@@ -3,7 +3,10 @@
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">
-            <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+            <div>
+                <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+
+            </div>
             <ul class="ul-descript">
                 <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
                 <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>

@@ -1,5 +1,6 @@
 <template>
     <swiper-container ref="mySwiper" 
+                    class="slider"
                      :slides-per-view="1" 
                      :space-between="10" 
                      :centered-slides="true" 

@@ -13,11 +13,14 @@ import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 import Slider from '../../../../components/Slider.vue';
 
-import 'swiper/swiper-bundle.css';
-import { register } from 'swiper/element/bundle';
-register();
-
 export default {
+  created() {
+    this.$watch(
+      () => this.$route.params.id,
+      this.fetchData,
+      { immediate: true }
+    )
+  },
   data() {
     return {
       API_SERVER,
@@ -36,13 +39,6 @@ export default {
 
       return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
     },
-  },
-  created() {
-    this.$watch(
-      () => this.$route.params.id,
-      this.fetchData,
-      { immediate: true }
-    )
   },
   methods: {
     async fetchData(id) {

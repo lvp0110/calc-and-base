@@ -11,6 +11,8 @@ import {
     API_INSTALL_SCHEMAS,
     API_URL_BRANDS_INSTALL_SCHEMAS,
     API_URL_TECHCARDS,
+    API_ALBUMS,
+    ALBUMS,
 
     BRANDS_INSTALL_SCHEMAS,
     TECHCARDS,
@@ -117,8 +119,19 @@ const dictionary = {
         "ultracast",
         "ultrace"
     ],
-    isotop:[
+    isotop: [
         "изотоп"
+    ],
+    'саундлайн-db': [
+        "soundline db",
+        "soundland дебил",
+        "soundline дебил",
+        "онлайн тв",
+        "онлайн дебил",
+        "online db",
+        "online тебе",
+        "bandi б",
+        "sunlight db",
     ]
 };
 
@@ -441,7 +454,8 @@ export default createStore({
                 [MATERIALS_VI]: [],
                 [MATERIALS_WITH_CERTS]: [],
                 [ACOUSTIC_CATEGORIES]: [],
-                [TECHCARDS]:[],
+                [TECHCARDS]: [],
+                [ALBUMS]: []
             }
         }
     },
@@ -454,6 +468,17 @@ export default createStore({
         },
     },
     actions: {
+        async getAlbums({ state }) {
+            if (state.data[ALBUMS].length > 0) {
+                return;
+            }
+
+            const res = await fetch(`${API_SERVER}/${API_ALBUMS}`)
+            const res_data = await res.json()
+            console.log(res_data)
+            state.data[ALBUMS] = res_data.data
+
+        },
         async getAllIsolationConstr({ state }, payload) {
             if (state.data[ALL_ISOLATION_CONSTR].length > 0) {
                 return;
@@ -576,16 +601,17 @@ export default createStore({
                 const match = Object.entries(dictionary).find(([_, words]) =>
                     words.includes(text)
                 );
-                console.log(text);
+
                 if (match) {
                     commit("updateVoiceSearchText", match[0]);
                 } else {
                     commit("updateVoiceSearchText", text);
                 }
-            };
 
+            };
+            console.log();
             rec.onspeechend = function () {
-                rec.stop();
+                rec.stop(rec.onresult);
             };
 
             rec.onnomatch = function () {
@@ -637,14 +663,18 @@ export default createStore({
         selectMaterialsWithTechCards(state) {
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[TECHCARDS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
-        }, 
-         selectBrandsInstalSchemas(state) {
+        },
+        selectBrandsInstalSchemas(state) {
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[BRANDS_INSTALL_SCHEMAS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
         selectAcousticCategories(state) {
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[ACOUSTIC_CATEGORIES].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        },
+        selectAlbums(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data[ALBUMS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
     },
 })
