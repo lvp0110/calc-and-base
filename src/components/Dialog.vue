@@ -67,7 +67,7 @@ export default {
     position: fixed;
     border: solid 3px rgb(187, 180, 180);
     overflow: auto;
-    height: 100%;
+    height: 99%;
     filter: drop-shadow(2px 4px 6px gray);
     overflow-y: scroll;
 }
@@ -82,7 +82,7 @@ export default {
         border: solid 1px darkgrey;
         margin-left: 33%;
         width: 65%;
-        height: 85%;
+        height: 99%;
         filter: drop-shadow(2px 4px 6px gray);
     }
 
