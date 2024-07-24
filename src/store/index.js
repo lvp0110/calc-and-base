@@ -105,7 +105,7 @@ const dictionary = {
         "sunlight",
         "soundline",
     ],
-    AKU: [
+    'АКУ-лайн': [
         "аквалайн",
         "эколайн",
     ],
@@ -122,16 +122,45 @@ const dictionary = {
     isotop: [
         "изотоп"
     ],
+    зипс: [
+        "лепс",
+        "zips",
+        "philips",
+        "гипс",
+    ],
+    'зипс-модуль': [
+        "зипс модуль",
+        "zips модуль",
+        "philips",
+        "гипс",
+    ],
+    'зипс-синема': [
+        "zips cinema",
+        "zip cinema",
+        "zips модуль",
+        "синема",
+        "deep cinema",
+    ],
+    'зипс-z4': [
+        "z4",
+        "зипс z4",
+        "zips led 4",
+    ],
     'саундлайн-db': [
         "soundline db",
         "soundland дебил",
         "soundline дебил",
         "онлайн тв",
+        "онлайн",
+        "онлайн тебе", 
+        "на онлайн дебил",
         "онлайн дебил",
         "online db",
         "online тебе",
         "bandi б",
         "sunlight db",
+        "sunlight дебил",
+        "онлайн би-би-би",
     ]
 };
 
@@ -592,15 +621,14 @@ export default createStore({
             rec.lang = "ru-RU";
             rec.continuous = false; // Остановить после распознавания одного слова или фразы
             rec.interimResults = false; // Получать только окончательные результаты
-
             rec.start();
-
+            
             rec.onresult = function (event) {
                 const text = event.results[0][0].transcript.toLowerCase();
-
                 const match = Object.entries(dictionary).find(([_, words]) =>
                     words.includes(text)
                 );
+                
 
                 if (match) {
                     commit("updateVoiceSearchText", match[0]);
@@ -609,7 +637,7 @@ export default createStore({
                 }
 
             };
-            console.log();
+            
             rec.onspeechend = function () {
                 rec.stop(rec.onresult);
             };
@@ -621,7 +649,8 @@ export default createStore({
 
             rec.onerror = function (event) {
                 console.log('Error occurred in recognition: ' + event.error);
-                commit('updateVoiceSearchText', 'Ошибка распознавания: ' + event.error);
+                // commit('updateVoiceSearchText', 'Ошибка распознавания: ' + event.error);
+                commit('updateVoiceSearchText', '');
             };
         }
 

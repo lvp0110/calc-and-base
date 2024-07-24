@@ -1,9 +1,8 @@
 <template>
-    <button 
-        type="button"    
-        @click="hasHistory() 
-            ? $router.go(-1) 
-            : $router.push('/')" style="width: 80px;height: 40px; position: absolute;top: 1%;right: 8%;background: none;color: #000;">&laquo; 
+    <button type="button" @click="hasHistory()
+        ? $router.go(-1)
+        : $router.push('/')"
+        style="width: 80px;height: 40px; position: absolute;top: 1%;right: 8%;background: none;color: #000;">&laquo;
         Назад
     </button>
 
@@ -1309,8 +1308,16 @@
                 <td><img :src="public / calc / constR.imgBlack" width="20" alt=""></td>
                 <td>
                     <input type="button" class="counter__button_minus">
-                    <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                    @click="delConstrFromList(constR.key_id)">
+                    <!-- <img src="/calc.png" alt="" style="height: 13px;opacity: 0.7;"
+                        @click="delConstrFromList(constR.key_id)"> -->
+                        <div style="width: 50px;top: 0;"> 
+                            <svg height="50" width="50" @click="delConstrFromList(constR.key_id)">
+                        <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
+                        <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
+                        <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
+                    </svg>
+                        </div>
+                    
                     </input>
                 </td>
             </tr>
@@ -1348,6 +1355,7 @@
 </template>
 
 <script>
+
 export default {
     data() {
         return {
@@ -1992,8 +2000,9 @@ export default {
 
     },
     methods:
-    {   hasHistory () { 
-            return window.history.length > 2 
+    {
+        hasHistory() {
+            return window.history.length > 2
         },
         getContsCodeByMaterials() {
             if (this.currentGkla == 'default' && this.currentWool == 'default') {
@@ -2144,7 +2153,7 @@ export default {
 
         },
         calcConstruction(constrList) {
-            this.request('http://158.160.73.203:3005/api/v1/calcQuantity', 'post', constrList, (data) => this.calculatedMaterials = data)
+            this.request('https://db.acoustic.ru:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
         },
         addConstrToCalc() {
 
