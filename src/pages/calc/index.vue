@@ -25,7 +25,7 @@
             :class="{ const_page: currentItems == elem.id ? false : true, const_active: currentItems == elem.id ? true : false }"
             @click="currentItems = currentItems ? 0 : $event.target.value">
             <p style="z-index: 1; color: revert;pointer-events: none;">{{ elem.title }}</p>
-            <img v-if="template == null" :src="`../../../public/${elem.img}`" alt="" class="img-icon">
+            <img v-if="template == null" :src="`../../../${elem.img}`" alt="" class="img-icon">
         </button>
     </div>
     <!-- * Получение данных из форм конструкций * -->
@@ -1356,6 +1356,7 @@
 
 <script>
 
+
 export default {
     data() {
         return {
@@ -1444,17 +1445,18 @@ export default {
                 lenZ: null,
                 Type: 'OST_Doors',
             },
+          
             Categories: [
                 { id: 1, title: 'РЕШЕНИЯ ПО ЗВУКОИЗОЛЯЦИИ', background: '#248CB9' },
                 { id: 2, title: 'АКУСТИЧЕСКИЕ РЕШЕНИЯ', background: '#11556F' },
             ],
             SubCategories: [
-                { id: 'F', title: 'ПОЛ', c_id: 1, img: '../../../public/Img_constr/icon_floor_white.svg', imgBlack: 'img/icon_floor.svg' },
-                { id: 'C', title: 'ПОТОЛОК', c_id: 1, img: '../../../public/Img_constr/icon_ceiling_white.svg', imgBlack: 'img/icon_ceiling.svg' },
-                { id: 'L', title: 'ОБЛИЦОВКА', c_id: 1, img: '../../../public/Img_constr/icon_frame_white.svg', imgBlack: 'img/icon_frame.svg' },
-                { id: 'W', title: 'ПЕРЕГОРОДКА', c_id: 1, img: '../../../public/Img_constr/icon_partition_white.svg', imgBlack: 'img/icon_partittion.svg' },
-                { id: 5, title: 'ОБЛИЦОВКА', c_id: 2, img: '../../../public/Img_constr/icon_frame_white.svg' },
-                { id: 6, title: 'ПОТОЛОК', c_id: 2, img: '../../../public/Img_constr/icon_ceiling_white.svg' },
+                { id: 'F', title: 'ПОЛ', c_id: 1, img: '../../../Img_constr/icon_floor_white.svg', imgBlack: 'img/icon_floor.svg' },
+                { id: 'C', title: 'ПОТОЛОК', c_id: 1, img: '../../../Img_constr/icon_ceiling_white.svg', imgBlack: 'img/icon_ceiling.svg' },
+                { id: 'L', title: 'ОБЛИЦОВКА', c_id: 1, img: '../../../Img_constr/icon_frame_white.svg', imgBlack: 'img/icon_frame.svg' },
+                { id: 'W', title: 'ПЕРЕГОРОДКА', c_id: 1, img: '../../../Img_constr/icon_partition_white.svg', imgBlack: 'img/icon_partittion.svg' },
+                { id: 5, title: 'ОБЛИЦОВКА', c_id: 2, img: '../../../Img_constr/icon_frame_white.svg' },
+                { id: 6, title: 'ПОТОЛОК', c_id: 2, img: '../../../Img_constr/icon_ceiling_white.svg' },
             ],
             Items: [
                 {
@@ -2073,9 +2075,11 @@ export default {
         },
         checkInput() {
 
-            if (this.currentSubCategory == 'W') {
+           var objectX;
+           var max_constr_size;
+           if (this.currentSubCategory == 'W') {
                 objectX = (this.SizeLimits.find(el => el.id_constr == this.currentItems && el.step == this.profileStep));
-                max_constr_size = objectX.max_lenZ;
+                max_constr_size = objectX.max_lenZ; 
 
                 if (isNaN(+this.constR.lenX) || +this.constR.lenX < 100) return '<span class="p1">Введите правильную ширину</span> <br> Минимальная ШИРИНА конструкции 100 мм';
                 else if (+this.constR.lenX > 50000) return '<span class="p1">Введите правильную ширину</span> <br> В конструкциях ШИРИНОЙ свыше 15 метров необходимо устраивать температурные(деформационные) швы';
@@ -2199,9 +2203,9 @@ export default {
             else {
                 Swal.fire({
                     html: this.checkInput(),
-                    imageWidth: 150,
+                    imageWidth: 60,
                     imageHeight: 50,
-                    imageUrl: "img/logo_A.png",
+                    imageUrl: "../../../logo1.png",
                     confirmButtonText: "OK",
                     confirmButtonColor: '#6cabc8',
 
