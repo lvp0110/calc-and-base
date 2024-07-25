@@ -1346,16 +1346,17 @@
         </table>
     </div>
     <div>
-        <button v-if="template != null" onClick="copyTableToClipboard()" class="add_design_button"> экспорт в ERP
+        <button v-if="template != null" @click="copyTableToClipboard" class="add_design_button"> экспорт в ERP
         </button>
     </div>
     <div>
-        <button v-if="template != null" onClick="tableToExcel()" class="add_design_button"> сохранить в Excel </button>
+        <button v-if="template != null"  @click="tableToExcel" class="add_design_button"> сохранить в Excel </button>
     </div>
 </template>
 
 <script>
-
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
 
 export default {
     data() {
@@ -2016,8 +2017,9 @@ export default {
             }
             return this.currentConstr + '_' + this.currentGkla + '_' + this.currentWool
 
-        },
+        }, 
         convertUnits(material) {
+            var quantityInM2;
             if (material.Units == 'м2') {
                 quantityInM2 = material.Quantity / 1e6
                 return quantityInM2.toFixed(2)
@@ -2233,6 +2235,98 @@ export default {
 
             callback(res_data);
         },
+        tableToExcel() {
+            var workbook = new ExcelJS.Workbook();
+            var worksheet = workbook.addWorksheet('My Sheet');
+
+            // Функция для добавления данных таблицы в Excel-файл
+            function addTableDataToSheet(tableId) {
+                var table = document.getElementById(tableId);
+                var rows = table.querySelectorAll('tr');
+
+                // Получаем заголовки столбцов
+                var headers = [];
+                rows[0].querySelectorAll('th').forEach(th => {
+                    var cell = worksheet.getCell(`A${worksheet.rowCount + 1}`);
+                    cell.value = th.innerText;
+                    cell.font = { bold: true, color: { argb: 'FF000000' } }; // Жирный текст
+                    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDCDCDC' } }; // Серый цвет заливки
+                });
+
+                // Добавляем данные из HTML-таблицы в Excel-файл
+                for (var i = 1; i < rows.length; i++) {
+                var data = [];
+                var cells = rows[i].querySelectorAll('th,td');
+                cells.forEach(td => data.push(td.innerText));
+                worksheet.addRow(data);
+                }
+            
+                // Добавляем пустую строку
+                worksheet.addRow([]);
+                }
+            // Добавляем данные из первой таблицы в Excel-файл
+            addTableDataToSheet("table1");
+
+            // Добавляем данные из второй таблицы в Excel-файл
+            addTableDataToSheet("table2");
+                
+                // Устанавливаем жирные границы для всех строк
+                worksheet.eachRow({ includeEmpty: true }, function(row, rowNumber) {
+                    row.eachCell({ includeEmpty: true }, function(cell, colNumber) {
+                    cell.border = {
+                        top: { style: 'thin' },
+                        left: { style: 'thin' },
+                        bottom: { style: 'thin' },
+                        right: { style: 'thin' }
+                    };
+                    });
+                });
+                /// Определение размера столбцов по содержимому
+                worksheet.columns.forEach(function(column, i) {
+                    var maxLength = 0;
+                    column.eachCell({ includeEmpty: true }, function(cell) {
+                        var columnLength = cell.value ? cell.value.toString().length : 0;
+                        maxLength = Math.max(maxLength, columnLength +2);
+                    });
+                // Устанавливаем ширину столбца с небольшим запасом
+                column.width = maxLength < 10 ? 10 : maxLength ;
+                });
+                // Сохраняем файл
+                workbook.xlsx.writeBuffer().then(function(buffer) {
+                    var blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    saveAs(blob, "Tables.xlsx");
+                });
+        },
+        copyTableToClipboard() {
+    var table = document.getElementById("table2"); // Получаем вашу таблицу
+    var rows = table.querySelectorAll('tr');
+    var textToCopy = '';
+
+    // Начинаем с 2-й строки, пропуская заголовки (предполагая, что они в первых двух строках)
+    for (let i = 2; i < rows.length; i++) {
+        var cells = rows[i].querySelectorAll('td');
+
+        // Проверка, содержит ли первая ячейка '---'
+        if (cells.length > 0 && cells[0].innerText.trim() === '---') {
+            continue; // Пропускаем эту строку
+        }
+
+        var rowText = [];
+        // Добавляем все ячейки, кроме последней
+        for (let j = 0; j < cells.length - 1; j++) {
+            rowText.push(cells[j].innerText);
+        }
+
+        textToCopy += rowText.join('\t') + '\n'; // Разделители столбцов в Excel
+    }
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Данные скопированы в буфер обмена. Для получения расчета конструкций необходимо вставить данные в ERP/Заказ клиента/Товары/Заполнить/Загрузить из внешнего файла/Артикул ');
+        console.log('Таблица скопирована в буфер обмена');
+    }).catch(err => {
+        console.error('Ошибка при копировании: ', err);
+    });
+}
     }
 }
 </script>
