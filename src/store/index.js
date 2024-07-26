@@ -53,6 +53,8 @@ const dictionary = {
         "bona кустик",
         "bohn acoustique",
         "бона кустик",
+        "бона костик",
+        "бона акустик",
         "boh acustic",
         "боно кустик",
         "boh accustic",
@@ -471,6 +473,60 @@ export default createStore({
                         },
                     ]
                 },
+                {
+                    id: '7',
+                    src: '/objekt_cover/muzscool_cover.jpg',
+                    alt: ' ',
+                    objectname: 'Первая детская Музыкальная школа',
+                    address: 'г.Архангельск',
+                    text: 'Первая детская Музыкальная школа',
+                    images: [
+                        {
+                            cover: '/objekt_cover/muzscool_cover.jpg',
+                            alt: '',
+                            name: 'Первая детская Музыкальная школа',
+                            objectname: 'Первая детская Музыкальная школа',
+                            address: 'г.Архангельск',
+                            customer: 'Комитет по строительству Правительства Санкт-Петербурга',
+                            designers: 'ООО «Архитектурное бюро «Студия 44»',
+                            generalcontractor: 'ООО «ПСБ «ЖилСтрой»',
+                            areaobject: '9290 м2',
+                            constructiontime: '2019 г.',
+                            projectdescription: `Акустическое консультирование
+                                                Архитектурный эскиз и проектирование расположения акустической отделки
+                                                 Производство и поставка материалов для акустической отделки
+                                                 `,
+                            usedmaterials: [
+                                {
+                                    m1: `САУНДЛАЙН-АКУСТИКА Звездное небо`,
+                                    m2: `Саундлюкс Техно `,
+                                    m3: `Шуманет-100Комби `,
+                                    m4: `Шуманет-ЭКО Акустическая экологичная стеклоплита`,
+
+                                }
+                            ],
+                            imagesSet :[
+                                {
+                                    img1: `/object_img/muzscool/muzscool1.jpg`,
+                                    img2: `/object_img/muzscool/muzscool2.jpg`,
+                                    img3: `/object_img/muzscool/muzscool3.jpg`,
+                                    img4: `/object_img/muzscool/muzscool4.jpg`,
+                                    img5: `/object_img/muzscool/muzscool5.jpg`,
+                                    img6: `/object_img/muzscool/muzscool6.jpg`,
+                                    img7: `/object_img/muzscool/muzscool7.jpg`,
+                                    img8: `/object_img/muzscool/muzscool8.jpg`,
+                                    img9: `/object_img/muzscool/muzscool9.jpg`,
+                                    img10: `/object_img/muzscool/muzscool10.jpg`,
+                                    img11: `/object_img/muzscool/muzscool11.jpg`,
+                                    img12: `/object_img/muzscool/muzscool12.jpg`,
+                                    img13: `/object_img/muzscool/muzscool13.jpg`,
+                                    img14: `/object_img/muzscool/muzscool14.jpg`,
+                                }
+                            ]
+
+                        },
+                    ]
+                },
             ],
 
 
@@ -607,17 +663,10 @@ export default createStore({
         //     };
         // },
         startVoiceRecognition({ commit }) {
-            const SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
-            const SpeechGrammarList = webkitSpeechGrammarList || SpeechGrammarList;
-            const rec = new SpeechRecognition();
-            const speechRecognitionList = new SpeechGrammarList();
+            const speechRecognition = webkitSpeechRecognition || SpeechRecognition 
 
-            // Предопределенная грамматика с фиксированным набором слов
-            const grammar = '#JSGF V1.0; grammar words; public <word> = яблоко | апельсин | банан ;';
-            speechRecognitionList.addFromString(grammar, 1);
+            const rec = new speechRecognition();
 
-            // Назначаем список грамматик нашему экземпляру распознавания речи
-            rec.grammars = speechRecognitionList;
             rec.lang = "ru-RU";
             rec.continuous = false; // Остановить после распознавания одного слова или фразы
             rec.interimResults = false; // Получать только окончательные результаты
@@ -628,7 +677,6 @@ export default createStore({
                 const match = Object.entries(dictionary).find(([_, words]) =>
                     words.includes(text)
                 );
-                
 
                 if (match) {
                     commit("updateVoiceSearchText", match[0]);

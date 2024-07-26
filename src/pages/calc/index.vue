@@ -1310,14 +1310,11 @@
                     <input type="button" class="counter__button_minus">
                     <!-- <img src="/calc.png" alt="" style="height: 13px;opacity: 0.7;"
                         @click="delConstrFromList(constR.key_id)"> -->
-                        <div style="width: 50px;top: 0;"> 
-                            <svg height="50" width="50" @click="delConstrFromList(constR.key_id)">
-                        <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
-                        <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
-                        <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
-                    </svg>
-                        </div>
-                    
+                        <svg height="50" width="50" @click="delConstrFromList(constR.key_id)">
+                            <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="2" />
+                            <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
+                            <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
+                        </svg>
                     </input>
                 </td>
             </tr>
@@ -2385,7 +2382,7 @@ button {
     border: none;
     box-shadow: none;
     font-size: 0;
-    width: 25px;
+    width: 20px;
     height: 1px;
     text-align: center;
     background: none;
