@@ -96,17 +96,26 @@ const dictionary = {
         "the costi",
         "the костик",
         "для костик",
+        "где костик",
+        "на костик",
     ],
     flexakustik: [
         "flex акустик",
         "комплекс акустик",
     ],
     шуманет: [
-        "шума нет"
+        "шума нет",
+        "шуманит",
+    ],
+    шумопласт: [
+        "шумопласт",
+        "шум пласт",
+        
     ],
     саундлайн: [
         "sunlight",
         "soundline",
+        "саундбар",
     ],
     'АКУ-лайн': [
         "аквалайн",
@@ -130,24 +139,48 @@ const dictionary = {
         "zips",
         "philips",
         "гипс",
+        "deps",
     ],
     'зипс-модуль': [
         "зипс модуль",
+        "zip спектр",
+    ],
+     'зипс-вектор': [
+        "zips виктор",
         "zips модуль",
-        "philips",
-        "гипс",
+    ],
+    'зипс-III-Ультра': [
+        "ultra",
+        "zip 4 ultra",
+        "zips 3 ultra",
+        "зипс 3 ultra",
+        "зипс 3 ультра",
     ],
     'зипс-синема': [
         "zips cinema",
         "zip cinema",
-        "zips модуль",
         "синема",
         "deep cinema",
+    ],
+    'зипс-слим': [
+        "zip slim",
+        "zips slim",
+        "zips модуль",
     ],
     'зипс-z4': [
         "z4",
         "зипс z4",
         "zips led 4",
+        "zips z4",
+    ], 
+    'саундлайн-пгп': [
+        "sunlight пгп",
+        "онлайн пгп",
+    ], 
+    'акуфлекс-супер': [
+        "акуфлекс супер",
+        "экофлекс супер",
+        "аквафлекс супер",
     ],
     'саундлайн-db': [
         "soundline db",
@@ -164,7 +197,56 @@ const dictionary = {
         "sunlight db",
         "sunlight дебил",
         "онлайн би-би-би",
-    ]
+        "онлайн би-би",
+        "онлайн деби",
+    ],
+    виброфлекс: [
+        'фильм рефлекс',
+        'вибро',
+        'микрофлекс',
+        'еврофлекс',
+        'гемофлекс',
+        'neuralex',
+        'nitraflex',
+        'виброплит',
+        'мимо',
+        'мимо flex',
+        'мим рефлекс',
+        'nitraflex',
+        'вибросепаратор',
+        'гидрофлекс',
+        'виброфлор',
+        'membra',
+        'ибупрофен',
+        'профлекс',
+        'вимос',
+        'вибропласт',
+        'vibrofix',
+        'метрофлекс',
+        'невролек',
+        'виброрежим',
+        'demographics',
+        'мимо секс',
+    ],
+    'виброфлекс-к15': [
+        'еврофлекс к15',
+        'mibro к15',
+        'к15',
+        'к-15',
+        'ак-15',
+        'k15',
+        'libros k15',
+        'невроз к15',
+        'терафлекс к15',
+        'ибупрофен к15',
+        'браслет f15',
+        'профлекс к-15',
+        'браслет 115',
+        'профлекс k15',
+        '15',
+        '115',
+        
+    ],
 };
  
 export default createStore({
@@ -663,7 +745,6 @@ export default createStore({
         // },
         startVoiceRecognition({ commit }) {
             const speechRecognition = webkitSpeechRecognition || SpeechRecognition 
-
             const rec = new speechRecognition();
 
             rec.lang = "ru-RU";
@@ -672,6 +753,22 @@ export default createStore({
             rec.start();
             
             rec.onresult = function (event) {
+                console.log("Recognized speech variants not in dictionary:");
+
+        // Пройтись по всем результатам распознавания
+        for (let i = 0; i < event.results.length; i++) {
+            for (let j = 0; j < event.results[i].length; j++) {
+                const textVariant = event.results[i][j].transcript.toLowerCase();
+                // Проверить, нет ли варианта в словаре
+                const isNotInDictionary = !Object.values(dictionary).some(words => words.includes(textVariant));
+                
+                // Если вариант не найден в словаре, вывести его в консоль
+                if (isNotInDictionary) {
+                    console.log(`Variant ${i + 1}.${j + 1}: ${textVariant}`);
+                }
+            }
+        }
+
                 const text = event.results[0][0].transcript.toLowerCase();
                 const match = Object.entries(dictionary).find(([_, words]) =>
                     words.includes(text)
