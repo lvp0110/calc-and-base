@@ -62,6 +62,7 @@ const dictionary = {
     decoustic: [
         "the кустик",
         "да кустик",
+        "де кустик",
         "the coustic",
         "the kustik",
         "the custic",
@@ -165,7 +166,7 @@ const dictionary = {
         "онлайн би-би-би",
     ]
 };
-
+ 
 export default createStore({
     state() {
         return {
