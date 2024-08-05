@@ -4,22 +4,20 @@
     <p>{{ selectElement.Code }}_2023</p>
     <hr>
     <div class="pdf-container">
-      <iframe class="pdf-techcard" :src="`${API_SERVER}/${API_CERT}/${selectElement.File}`" />
+      <iframe class="pdf-techcard" :src="filesApi.getCertificateFileUrl(selectElement.File)" />
     </div>
   </Dialog>
 </template>
 
 <script>
-import { API_SERVER, API_URL_TECHCARDS, API_CERT } from '../../../../config.js';
+import { filesApi } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 
 export default {
   data() {
     return {
-      API_URL_TECHCARDS,
-      API_SERVER,
-      API_CERT
+      filesApi
     }
   },
   components: {

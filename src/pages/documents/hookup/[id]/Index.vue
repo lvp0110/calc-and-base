@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { API_SERVER, API_INSTALL_SCHEMAS, API_CERT } from '../../../../config.js';
+import { installSchemesApi } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 import Slider from '../../../../components/Slider.vue';
@@ -20,8 +20,6 @@ register();
 export default {
   data() {
     return {
-      API_SERVER,
-      API_CERT,
       slides: []
     }
   },
@@ -47,14 +45,10 @@ export default {
     )
   },
   methods: {
-    async fetchData(id) {
+    async fetchData(brand) {
+      const response = await installSchemesApi.getInstallSchemeByBrand(brand)
 
-      let res = await fetch(`${API_SERVER}/${API_INSTALL_SCHEMAS}/${id}`)
-      let resData = await res.json()
-
-      console.log({ resData })
-      this.slides = resData.data
-
+      this.slides = response.data.data
     },
    
   },

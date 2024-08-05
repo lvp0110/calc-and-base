@@ -4,8 +4,8 @@
         <hr>
 
         <div class="block-image-colors">
-            <img v-if="selectedColor" :src="colorizedImage" :alt="selectedColor?.Name" />
-            <img v-else-if="modelImages.length === 0" :src="selectedElementImage" :alt="selectedColor?.Name" />
+            <img v-if="selectedColor" :src="filesApi.getImageFileUrl(colorizedImage)" :alt="selectedColor?.Name" />
+            <img v-else-if="modelImages.length === 0" :src="filesApi.getImageFileUrl(selectElement.Img)" :alt="selectedColor?.Name" />
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
 
@@ -33,16 +33,16 @@
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description" :items="params.Perforations"
                         :onSelect="selectPerforation" />
-                    <img v-if="selectedPerforation" class="add-image" :src="getImgSrc(selectedPerforation.Img)"
+                    <img v-if="selectedPerforation" class="add-image" :src="filesApi.getImageFileUrl(selectedPerforation.Img)"
                         :alt="selectedPerforation?.Name" />
                     <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
-                        :src="getImgSrc(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
+                        :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
                 </div>
                 
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType?.Name" :items="params.EdgesTypes"
                         :onSelect="selectEdgeType" />
-                    <img v-if="selectedEdgeType" class="add-image" :src="getImgSrc(selectedEdgeType.Img)"
+                    <img v-if="selectedEdgeType" class="add-image" :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
                         :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
@@ -62,7 +62,7 @@ import Dialog from '../../../../components/Dialog.vue';
 import ImageSelect from '../../../../components/ImageSelect.vue';
 import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
-import { API_SERVER, API_URL_PARAMS_BY_MODEL, API_PANELS_INFO_MODELS_BY_BRAND, API_URL_IMG } from '../../../../config';
+import { filesApi, modelsApi } from '../../../../config';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -81,7 +81,8 @@ export default {
             selectedColor: null,
             selectedPerforation: null,
             selectedEdgeType: null,
-            image_slide: ImageSlide
+            image_slide: ImageSlide,
+            filesApi
         };
     },
     components: {
@@ -99,15 +100,12 @@ export default {
         isSaveButtonVisible() {
             return this.selectedModelCode && this.selectedSizeCode && this.selectedColor && this.selectedPerforation && this.selectedEdgeType;
         },
-        selectedElementImage() {
-            return this.getImgSrc(this.selectElement.Img);
-        },
         modelImages() {
             if (this.selectedModelCode) {
                 const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
 
                 if (selectedModel) {
-                    return [this.getImgSrc(selectedModel.Img)];
+                    return [filesApi.getImageFileUrl(selectedModel.Img)];
                 }
             }
 
@@ -115,9 +113,9 @@ export default {
         },
         colorizedImage() {
             if (this.selectedColor && this.selectedColor.Img) {
-                return this.getImgSrc(this.selectedColor.Img);
+                return this.selectedColor.Img;
             }
-            return this.selectedElementImage;
+            return this.selectElement.Img;
         },
         selectedModelDescription() {
             const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
@@ -126,18 +124,17 @@ export default {
     },
     methods: {
         async fetchData(id) {
-            const modelsResponse = await fetch(`${API_SERVER}/${API_PANELS_INFO_MODELS_BY_BRAND}/${id}`);
-            const modelsData = await modelsResponse.json();
-            this.models = modelsData.data;
+            const response = await modelsApi.getModelsByBrand(id);
+            this.models = response.data.data;
 
             console.log('Models data:', this.models);
         },
         async selectModel(event) {
             this.selectedModelCode = event.target.value;
-            const paramsResponse = await fetch(`${API_SERVER}/${API_URL_PARAMS_BY_MODEL}/${event.target.value}`);
-            const paramsData = await paramsResponse.json();
-            this.params = paramsData.data;
 
+            const response = await modelsApi.getModelParams(event.target.value)
+
+            this.params = response.data.data;
             this.selectedColor = null; 
 
             console.log('Params data:', this.params);
@@ -154,9 +151,6 @@ export default {
         selectEdgeType(edgeType) {
             this.selectedEdgeType = edgeType;
         },
-        getImgSrc(Img) {
-            return `${API_SERVER}/${API_URL_IMG}` + Img;
-        }
     },
     created() {
         this.$watch(() => this.$route.params.id, this.fetchData, { immediate: true });

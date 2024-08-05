@@ -3,7 +3,7 @@
     <p class="title-hookup">{{ selectElement.Name }}</p>
     {{ selectElement.Description }}
     <hr>
-    <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${selectElement.File}`"></iframe>
+    <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
   </Dialog>
 </template>
 
@@ -12,7 +12,7 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router';
 import Dialog from '../../../../components/Dialog.vue';
-import { API_SERVER, API_CERT } from '../../../../config.js';
+import { filesApi }from '../../../../config.js';
 
 const store = useStore()
 const route = useRoute();

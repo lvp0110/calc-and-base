@@ -1,38 +1,47 @@
-export const API_SERVER =  import.meta.env.VITE_API_URL
+import axios from 'axios'
 
-export const ALL_ISOLATION_CONSTR = "AllIsolationConstr"
+const baseURL = import.meta.env.VITE_API_URL
 
-export const MATERIALS    = "Materials/si"
-export const MATERIALS_AC = "Materials/ac"
-export const MATERIALS_VI = "Materials/vi"
-export const ALBUMS = "albums"
+const requestInstance = axios.create({
+    baseURL,
+})
 
-export const MATERIALS_WITH_CERTS = "MaterialsWithCerts" 
-export const ACOUSTIC_CATEGORIES = "AcousticCategories"
+export const materialsApi = {
+    getMaterials: (usage) => requestInstance.get(`api/v1/Materials/${usage}`),
+    getMarerialsWithSertificates: () => requestInstance.get('api/v1/MaterialsWithCerts'),
+}
 
+export const brandsApi = {
+    getBrands: () => requestInstance.get('api/v1/AcousticCategories'),
+}
 
-export const API_URL_ALL_ISOLATION_CONSTR = `api/v1/${ALL_ISOLATION_CONSTR}` //api/v1/MaterialsIsolation
+export const modelsApi = {
+    getModelParams: (model) => requestInstance.get(`api/v1/ParamsByAModels/${model}`),
+    getModelsByBrand: (brand) => requestInstance.get(`api/v1/AModelsByBrand/${brand}`),
+}
 
-export const API_URL_MATERIALS = `api/v1/${MATERIALS}`
-export const API_URL_MATERIALS_AC = `api/v1/${MATERIALS_AC}`
-export const API_URL_MATERIALS_VI = `api/v1/${MATERIALS_VI}`
+export const constructionsApi = {
+    getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
+}
 
-export const API_URL_MATERIALS_WITH_CERTS = `api/v1/${MATERIALS_WITH_CERTS}`
-export const API_URL_ACOUSTIC_CATEGORIES = `api/v1/${ACOUSTIC_CATEGORIES}`
-export const API_URL_PARAMS_BY_MODEL = `api/v1/ParamsByAModels`
+export const albumsApi = {
+    getAlbums: () => requestInstance.get('api/v1/albums'),
+}
 
-export const API_URL_IMG = 'api/v1/constr/'
-export const API_CERT_MATERIAL = 'api/v1/certs/byMaterial'
-export const API_CERT = 'api/v1/certificate'
-export const API_ALBUMS = `api/v1/${ALBUMS}`
+export const certificatesApi = {
+    getCertificates: (id) => requestInstance.get(`api/v1/certs/byMaterial/${id}`),
+}
 
-export const API_PANELS_INFO_BY_BRAND = 'api/v1/APanelsInfoByCat'
+export const techCardApi = {
+    getTechCards: () => requestInstance.get('api/v1/techCards'),
+}
 
-export const API_PANELS_INFO_MODELS_BY_BRAND = 'api/v1/AModelsByBrand' 
+export const installSchemesApi = {
+    getInstallSchemes: () => requestInstance.get('api/v1/brandsWithInstallSchemas'),
+    getInstallSchemeByBrand: (brand) => requestInstance.get(`api/v1/installSchemasByBrand/${brand}`),
+}
 
-export const API_URL_TECHCARDS = 'api/v1/techCards'
-export const TECHCARDS = 'techCards'
-
-export const API_URL_BRANDS_INSTALL_SCHEMAS = "api/v1/brandsWithInstallSchemas" 
-export const BRANDS_INSTALL_SCHEMAS = "brandsWithInstallSchemas" 
-export const API_INSTALL_SCHEMAS = 'api/v1/installSchemasByBrand'
+export const filesApi = {
+    getImageFileUrl: (fileName) => `${baseURL}/api/v1/constr/${fileName}`,
+    getCertificateFileUrl: (fileName) => `${baseURL}/api/v1/certificate/${fileName}`
+}

@@ -1,28 +1,29 @@
 import { createStore } from 'vuex';
 import {
-    API_URL_MATERIALS,
-    API_URL_MATERIALS_AC,
-    API_URL_MATERIALS_VI,
-    API_URL_IMG,
-    API_URL_MATERIALS_WITH_CERTS,
-    API_SERVER,
-    ALL_ISOLATION_CONSTR,
-    API_URL_ALL_ISOLATION_CONSTR,
-    API_INSTALL_SCHEMAS,
-    API_URL_BRANDS_INSTALL_SCHEMAS,
-    API_URL_TECHCARDS,
-    API_ALBUMS,
-    ALBUMS,
-
-    BRANDS_INSTALL_SCHEMAS,
-    TECHCARDS,
-    MATERIALS,
-    MATERIALS_AC,
-    MATERIALS_VI,
-    MATERIALS_WITH_CERTS,
-    ACOUSTIC_CATEGORIES,
-    API_URL_ACOUSTIC_CATEGORIES
+    materialsApi,
+    albumsApi,
+    constructionsApi,
+    brandsApi,
+    techCardApi,
+    installSchemesApi
 } from '../config';
+import { MaterialUsage, ConstructionsUsage } from '../types'
+
+export const MATERIALS    = "Materials/si"
+export const MATERIALS_AC = "Materials/ac"
+export const MATERIALS_VI = "Materials/vi"
+
+export const ALL_ISOLATION_CONSTR = "AllIsolationConstr"
+
+export const MATERIALS_WITH_CERTS = "MaterialsWithCerts"
+
+export const ACOUSTIC_CATEGORIES = "AcousticCategories"
+
+export const ALBUMS = "albums"
+
+export const TECHCARDS = 'techCards'
+
+export const BRANDS_INSTALL_SCHEMAS = "brandsWithInstallSchemas" 
 
 const dictionary = {
     bonacoustic: [
@@ -613,7 +614,6 @@ export default createStore({
 
             data: {
                 [BRANDS_INSTALL_SCHEMAS]: [],
-                [API_INSTALL_SCHEMAS]: [],
                 [ALL_ISOLATION_CONSTR]: [],
                 [MATERIALS]: [],
                 [MATERIALS_AC]: [],
@@ -635,100 +635,63 @@ export default createStore({
     },
     actions: {
         async getAlbums({ state }) {
-            if (state.data[ALBUMS].length > 0) {
-                return;
-            }
+            const response = await albumsApi.getAlbums();
 
-            const res = await fetch(`${API_SERVER}/${API_ALBUMS}`)
-            const res_data = await res.json()
-            console.log(res_data)
-            state.data[ALBUMS] = res_data.data
+            state.data[ALBUMS] = response.data.data
 
         },
         async getAllIsolationConstr({ state }, payload) {
-            if (state.data[ALL_ISOLATION_CONSTR].length > 0) {
-                return;
-            }
+            const response = await constructionsApi.getConstructions(ConstructionsUsage.SoundIsolation)
 
-            const res = await fetch(`${API_SERVER}/${API_URL_ALL_ISOLATION_CONSTR}`)
-            const res_data = await res.json()
-            console.log(res_data)
-            state.data[ALL_ISOLATION_CONSTR] = res_data.data
+            
+            state.data[ALL_ISOLATION_CONSTR] = response.data.data
         },
 
         async getMaterials({ state }, payload) {
-            if (state.data[MATERIALS].length > 0) {
-                return;
-            }
+            const response = await materialsApi.getMaterials(MaterialUsage.SoundIsolation);
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_MATERIALS}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[MATERIALS] = ress_data.data;
+
+            console.log(response);
+
+            state.data[MATERIALS] = response.data.data;
         },
 
         async getMaterialsAc({ state }, payload) {
-            if (state.data[MATERIALS_AC].length > 0) {
-                return;
-            }
+            const response = await materialsApi.getMaterials(MaterialUsage.Acoustic);
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_MATERIALS_AC}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[MATERIALS_AC] = ress_data.data;
+            console.log(response);
+
+            state.data[MATERIALS_AC] = response.data.data;
         },
 
         async getMaterialsVi({ state }, payload) {
-            if (state.data[MATERIALS_VI].length > 0) {
-                return;
-            }
+            const response = await materialsApi.getMaterials(MaterialUsage.VibroIsolation);
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_MATERIALS_VI}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[MATERIALS_VI] = ress_data.data;
+            state.data[MATERIALS_VI] = response.data.data;
         },
 
         async getMaterialsWithCerts({ state }, payload) {
-            if (state.data[MATERIALS_WITH_CERTS].length > 0) {
-                return;
-            }
+            const response = await materialsApi.getMarerialsWithSertificates();
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_MATERIALS_WITH_CERTS}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[MATERIALS_WITH_CERTS] = ress_data.data;
+            state.data[MATERIALS_WITH_CERTS] = response.data.data;
         },
         async getBrandsInstalSchemas({ state }, payload) {
-            if (state.data[BRANDS_INSTALL_SCHEMAS].length > 0) {
-                return;
-            }
+            const response = await installSchemesApi.getInstallSchemes()
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_BRANDS_INSTALL_SCHEMAS}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[BRANDS_INSTALL_SCHEMAS] = ress_data.data;
+            state.data[BRANDS_INSTALL_SCHEMAS] = response.data.data;
         },
 
         async getTechCards({ state }, payload) {
-            if (state.data[TECHCARDS].length > 0) {
-                return;
-            }
+            const response = await techCardApi.getTechCards()
 
-            let ress = await fetch(`${API_SERVER}/${API_URL_TECHCARDS}`)
-            let ress_data = await ress.json()
-            console.log(ress_data)
-            state.data[TECHCARDS] = ress_data.data;
+            console.log(response);
+            
+            state.data[TECHCARDS] = response.data.data;
         },
         async getAcousticCategories({ state }, payload) {
-            if (state.data[ACOUSTIC_CATEGORIES].length > 0) {
-                return;
-            }
-
-            let r = await fetch(`${API_SERVER}/${API_URL_ACOUSTIC_CATEGORIES}`)
-            let r_data = await r.json()
-            console.log(r_data)
-            state.data[ACOUSTIC_CATEGORIES] = r_data.data;
+            const response = await brandsApi.getBrands()
+            
+            state.data[ACOUSTIC_CATEGORIES] = response.data.data;
         },
         // startVoiceRecognition({ commit }) {
         //     const SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
@@ -750,6 +713,7 @@ export default createStore({
             rec.lang = "ru-RU";
             rec.continuous = false; // Остановить после распознавания одного слова или фразы
             rec.interimResults = false; // Получать только окончательные результаты
+            rec.maxAlternatives = 100;
             rec.start();
             
             rec.onresult = function (event) {
@@ -768,6 +732,8 @@ export default createStore({
                 }
             }
         }
+
+        console.log(event);
 
                 const text = event.results[0][0].transcript.toLowerCase();
                 const match = Object.entries(dictionary).find(([_, words]) =>

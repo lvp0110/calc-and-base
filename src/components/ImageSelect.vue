@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { API_SERVER } from '../config'
+import { filesApi } from '../config'
 
 export default {
     props: {
@@ -35,7 +35,7 @@ export default {
             this.onToggle()
         },
         getImgSrc(Img) {
-            return `${API_SERVER}/api/v1/constr/` + Img;
+            return filesApi.getImageFileUrl(Img)
         }
     } 
 }

@@ -59,11 +59,7 @@
 
 <script>
 
-import { mapGetters, mapActions } from 'vuex';
-
-
-
-import { API_PANELS_INFO_BY_BRAND, API_SERVER } from '../config'
+import { mapGetters } from 'vuex';
 
 export default {
  
@@ -169,19 +165,6 @@ export default {
         reloadPage() {
             location.reload();
         },
-        async addDiv(elem) {
-
-            let res = await fetch(`${API_SERVER}/${API_PANELS_INFO_BY_BRAND}/${elem.Name}`)
-            let resData = await res.json()
-
-            console.log(resData)
-            this.infoData = resData.data
-            // this.selectedElement = { ...elem, slides: resData.data };
-
-            this.selectedElement = elem;
-
-        },
-
     }
 }
 </script>

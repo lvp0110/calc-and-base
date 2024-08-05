@@ -8,6 +8,7 @@
   <div class="sc accordion-flush" id="accordionFlushExample">
     <VoiceSearch />
 
+
     <AccordionItem accordionId="flush-headingOne" parentId="accordionFlushExample" header="ЗВУКОИЗОЛЯЦИЯ">
       <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" :onOpen="getAllIsolationConstr" />
       <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" />

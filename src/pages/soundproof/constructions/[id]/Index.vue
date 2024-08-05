@@ -23,7 +23,7 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue'
 import { mapGetters } from 'vuex'
-import { API_SERVER } from '../../../../config';
+import { filesApi } from '../../../../config';
 
 export default {
     components: {
@@ -47,7 +47,7 @@ export default {
     },
     methods: {
         getImgSrc(Img) {
-            return `${API_SERVER}/api/v1/constr/` + Img;
+            return filesApi.getImageFileUrl(Img)
         }
     }
 }

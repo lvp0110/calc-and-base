@@ -5,26 +5,25 @@
       <hr>
       <div v-for="slide in slides" :key="slide.Code">
         <a class="btn btn-outline-secondary btn-lg pdf-btn" role="button"
-          :href="`${API_SERVER}/${API_CERT}/${slide.File}`" target="My Pdf">
+          :href="filesApi.getCertificateFileUrl(slide.File)" target="My Pdf">
           скачать PDF
         </a>
-        <embed :src="`${API_SERVER}/${API_CERT}/${slide.File}`" class="pdf-hookup" />
+        <embed :src="filesApi.getCertificateFileUrl(slide.File)" class="pdf-hookup" />
       </div>
       <hr>
     </Dialog>
   </template>
   
   <script>
-  import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+  import { certificatesApi, filesApi } from '../../../../config.js';
   import { mapGetters } from 'vuex'
   import Dialog from '../../../../components/Dialog.vue';
   
   export default {
     data() {
       return {
-        API_SERVER,
-        API_CERT,
-        slides: []
+        slides: [],
+        filesApi
       }
     },
     components: {
@@ -49,14 +48,9 @@
     },
     methods: {
       async fetchData(id) {
-  
-        let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
-        let resData = await res.json()
-  
-        console.log({ resData })
-        this.slides = resData.data
-  
-  
+        const response = await certificatesApi.getCertificates(id)
+
+        this.slides = response.data.data
       },
       formatTime(value) {
         const data = new Date(value)

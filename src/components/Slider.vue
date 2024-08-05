@@ -22,7 +22,7 @@
                     <li v-if="slide.Indicators != 0"> Класс пожарной опасности: {{ slide.Indicators }} </li>
                 </ul>
                 <div class="pdf-container">
-                    <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`"
+                    <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(slide.File)"
                         @click="goToNextSlide"></iframe>
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <p style="bottom: 20px;"> </p>
             <div>
                 <div class="hookup-container">
-                    <iframe class="pdf-cert" :src="`${API_SERVER}/${API_CERT}/${slide.File}`">
+                    <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(slide.File)">
                     </iframe>
                 </div>
             </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { API_SERVER, API_CERT } from '../config';
+import { filesApi } from '../config';
 import { register } from 'swiper/element/bundle';
 register();
 
@@ -55,8 +55,7 @@ export default {
     },
     data() {
         return {
-            API_SERVER,
-            API_CERT,
+            filesApi,
             swiper: null,
         }
     },

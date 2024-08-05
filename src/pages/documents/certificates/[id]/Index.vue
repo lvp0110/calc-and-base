@@ -8,7 +8,7 @@
 </template>
  
 <script>
-import { API_SERVER, API_CERT_MATERIAL, API_CERT } from '../../../../config.js';
+import { certificatesApi } from '../../../../config.js';
 import { mapGetters } from 'vuex'
 import Dialog from '../../../../components/Dialog.vue';
 import Slider from '../../../../components/Slider.vue';
@@ -23,8 +23,6 @@ export default {
   },
   data() {
     return {
-      API_SERVER,
-      API_CERT,
       slides: [],
     }
   },
@@ -42,11 +40,9 @@ export default {
   },
   methods: {
     async fetchData(id) {
-      let res = await fetch(`${API_SERVER}/${API_CERT_MATERIAL}/${id}`)
-      let resData = await res.json()
+      const response = await certificatesApi.getCertificates(id)
 
-      console.log({ resData })
-      this.slides = resData.data
+      this.slides = response.data.data
     },
     formatTime(value) {
       const data = new Date(value)

@@ -8,11 +8,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import ListObjects from './ListObjects.vue';
-
-import { API_PANELS_INFO_BY_BRAND, API_SERVER } from '../config'
 
 export default {
   components: {
