@@ -2,10 +2,10 @@
     <div class="tabbar">
         <ui class="list">
             <li>
-                <RouterLink to="/">main</RouterLink>
+                <RouterLink to="/"><img class="logo_w" src="/logo_1234.png" alt=""></RouterLink>
             </li>
             <li>
-                <RouterLink to="/calc"><img src="/calc.svg" alt=""></RouterLink>
+                <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
             </li>
         </ui>
     </div>
@@ -15,7 +15,11 @@
 </script>
 
 <style scoped>
-img {
+.logo_w {
+    width: 70px;
+    opacity: 0;
+}
+.calc {
     width: 50px;
 }
 .tabbar {
@@ -24,7 +28,7 @@ img {
     left: 0;
     right: 0;
     background-color: rgb(36, 140, 185);
-    height: 75px;
+    height: 70px;
     padding: 10px;
     color: white;
 }
@@ -45,7 +49,11 @@ img {
         top: 0;
         width: 75px;
     }
-
+    .logo_w {
+        width: 70px;
+        opacity: 1;
+        transition: all 0.5s;
+    }
     .list {
         flex-direction: column;
         justify-content: flex-start;

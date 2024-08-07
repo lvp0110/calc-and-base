@@ -25,11 +25,12 @@ const toggle = () => {
   font-size: 1.3rem;
   color: #fff;
   text-align: left;
+  font-family: 'Montserrat', sans-serif;
   background-color: rgb(36, 140, 185);
   border: 0;
   overflow-anchor: none;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 10px;
   height: 100px;
   margin-top: 5px;

@@ -60,6 +60,9 @@ export default {
     padding-bottom: 0;
     padding-left: 75px;
   }
+  .logo {
+    opacity: 0;
+  }
 }
 
 body {

@@ -1,9 +1,9 @@
 <template>
 
   <div>
-    <input type="text" class="form-control input" id="result_voice" placeholder="поиск..."
+    <input type="text" class="input" id="result_voice" placeholder="поиск..."
       v-model="$store.state.voiceSearchText" />
-    <button type="button" class="btn btn btn-outline-secondary" id="btn_voice" @click="activateVoiceSearch"
+    <button type="button" id="btn_voice" @click="activateVoiceSearch"
       @touchstart="activateVoiceSearch">
       <figure>
         <svg height="34" width="34">
@@ -51,6 +51,15 @@ export default {
 </script>
 
 <style>
+.input {
+  position: absolute;
+  left: 110px;
+  top: 15px;
+  border: solid 1px gray;
+  border-radius: 4px;
+  width: 65% ;
+  height: 35px;
+}
 
 figure {
   height: 34px;
@@ -59,26 +68,24 @@ figure {
 }
 
 #btn_voice {
-  position: relative;
+  position: absolute;
   z-index: 3;
-  top: -38px;
-  left: 0px;
+  top: 14px;
+  border-radius: 50%;
+  left: 110px;
   border: none;
   padding: 0 2px 3px 2px;
+  background: none;
+}
+#btn_voise:active {
+  background: gray;
 }
 
 #result_voice {
   padding-left: 40px;
   background-color: rgb(248, 243, 243);
-  margin-top:5px;
+  
 }
 
 
-
-/* @media (max-width: 500px) {
-  #btn_voice {
-    pointer-events: none;
-    opacity: 0.6;
-  }
-} */
 </style>
