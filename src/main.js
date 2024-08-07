@@ -45,6 +45,7 @@ const router = createRouter({
         { path: "/documents/air/:id", component: DocumentAir },
         { path: "/our-objects", component: OurObjects },
         { path: "/our-objects/:id", component: OurObject},
+        
      ]
     },
     {

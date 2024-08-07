@@ -77,8 +77,9 @@ figure {
   padding: 0 2px 3px 2px;
   background: none;
 }
-#btn_voise:active {
+#btn_voice:active {
   background: gray;
+  transition: all 0.2s;
 }
 
 #result_voice {
