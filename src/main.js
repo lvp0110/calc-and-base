@@ -3,8 +3,9 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import App from './App.vue'
 import Layout from './Layout.vue'
-import SoundproofConstructions from './pages/soundproof/constructions/[id]/index.vue'
-import SoundproofMaterials from './pages/soundproof/materials/[id]/index.vue'
+import SoundproofConstructions from './pages/soundproof/constructions/index.vue'
+import SoundproofConstructionsId from './pages/soundproof/constructions/[id]/index.vue'
+import SoundproofMaterialsId from './pages/soundproof/materials/[id]/index.vue'
 
 import AcousticMaterials from './pages/acoustic/materials/[id]/index.vue'
 import VibrationMaterials from './pages/vibration_isolation/materials/[id]/index.vue'
@@ -26,12 +27,15 @@ const router = createRouter({
   routes: [
     { 
       path: '/', 
-      component: App,  
+      // component: App,  
       children: [
+        { path: "/", component: App },
+
+        { path: "/soundproof/constructions", component: SoundproofConstructions },
+        { path: "/soundproof/materials/:id", component: SoundproofMaterialsId },
+        { path: "/soundproof/constructions/:id", component: SoundproofConstructionsId },
         { path: "/vibration_isolation/materials/:id", component: VibrationMaterials },
         { path: "/acoustic/materials/:id", component: AcousticMaterials },
-        { path: "/soundproof/constructions/:id", component: SoundproofConstructions },
-        { path: "/soundproof/materials/:id", component: SoundproofMaterials },
         { path: "/acoustic/brands/:id", component: AcousticBrands },
         { path: "/documents/certificates/:id", component: DocumentSertificates },
         { path: "/documents/techcard/:id", component: DocumentTechcard },

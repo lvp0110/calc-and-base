@@ -1,9 +1,10 @@
 <template>
-    <RouterLink to="/">
-        <img src="../logo_123.png" alt="" class="logo">
-    </RouterLink>
-    <div>
+    <div class="main">
+      <RouterLink to="/">
+          <img src="../logo_123.png" alt="" class="logo">
+      </RouterLink>
         <RouterView />
+        <TabBar />
     </div>
     <button class="up-button" v-if="!isHiddenScrollUpButton" @click="scrollTop">
       <svg height="105" width="105" type="button">
@@ -16,11 +17,16 @@
 </template>
 
 <script>
+import TabBar from './components/TabBar.vue'
+
 export default {
   data() {
     return {
       isHiddenScrollUpButton: true
     }
+  },
+  components: {
+    TabBar
   },
   created() {
     this.$store.dispatch('getMaterials')
@@ -45,6 +51,17 @@ export default {
 </script>
 
 <style>
+.main {
+  padding-bottom: 75px;
+}
+
+@media screen and (min-width: 700px) {
+  .main {
+    padding-bottom: 0;
+    padding-left: 75px;
+  }
+}
+
 body {
     background: url(./back_ground.jpg);
     background-size: 200%;
@@ -85,14 +102,14 @@ body {
 
 
 .logo {
-  height: 75px;
-  margin-left: 20px;
+  height: 60px;
+  margin-left: 0px;
   filter: drop-shadow(3px 3px 1px #96b3cd);
 } 
 
 .up-button {
   position: fixed;
-  bottom: 10%;
+  bottom: 20%;
   right: 7%;
   z-index: 1000;
   background: none;

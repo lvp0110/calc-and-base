@@ -1,6 +1,6 @@
 <template>
 
-  <div class="col-12">
+  <div>
     <input type="text" class="form-control input" id="result_voice" placeholder="поиск..."
       v-model="$store.state.voiceSearchText" />
     <button type="button" class="btn btn btn-outline-secondary" id="btn_voice" @click="activateVoiceSearch"
@@ -73,9 +73,7 @@ figure {
   margin-top:5px;
 }
 
-.col-12 {
-  margin-bottom: -15px;
-}
+
 
 /* @media (max-width: 500px) {
   #btn_voice {

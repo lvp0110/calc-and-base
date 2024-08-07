@@ -124,6 +124,16 @@ export default {
     },
     methods: {
         async fetchData(id) {
+
+            this.models = []
+            this.param = {}
+
+            this.selectedModelCod = null
+            this.selectedSizeCod = null
+            this.selectedColo = null
+            this.selectedPerforatio = null
+            this.selectedEdgeTyp = null
+
             const response = await modelsApi.getModelsByBrand(id);
             this.models = response.data.data;
 
