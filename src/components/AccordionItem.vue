@@ -27,16 +27,18 @@ const toggle = () => {
   text-align: left;
   font-family: 'Montserrat', sans-serif;
   background-color: rgb(36, 140, 185);
+  background: linear-gradient(to right, rgb(10, 115, 160), rgb(72, 170, 215));
   border: 0;
   overflow-anchor: none;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
   font-weight: 500;
   border-radius: 10px;
   height: 100px;
   margin-top: 5px;
   box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
 }
-
+.button:active {
+  background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
+}
 .section {
   padding: 16px;
 }

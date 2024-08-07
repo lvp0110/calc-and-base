@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="input-container">
     <input type="text" class="input" id="result_voice" placeholder="поиск..."
       v-model="$store.state.voiceSearchText" />
     <button type="button" id="btn_voice" @click="activateVoiceSearch"
@@ -28,7 +28,7 @@ export default {
   computed: {
     ...mapGetters(['getItemsM']),
 
-  },
+  }, 
   data() {
     
     return {
@@ -51,14 +51,21 @@ export default {
 </script>
 
 <style>
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .input {
-  position: absolute;
-  left: 110px;
-  top: 15px;
+  flex: 1;
   border: solid 1px gray;
   border-radius: 4px;
-  width: 65% ;
-  height: 35px;
+  height: 40px;
+  padding-left: 40px;
+  background-color: rgb(248, 243, 243);
+  margin-left: 70px;
+  margin-top: -60px;
 }
 
 figure {
@@ -70,23 +77,31 @@ figure {
 #btn_voice {
   position: absolute;
   z-index: 3;
-  top: 14px;
+  top: -49px;
   border-radius: 50%;
-  left: 110px;
+  right: 2px;
   border: none;
   padding: 0 2px 3px 2px;
   background: none;
+  transition: all 1s;
 }
 #btn_voice:active {
-  background: gray;
-  transition: all 0.2s;
+  background: rgb(204, 203, 203);
+  border: solid 1px rgb(218, 216, 216);
+  transition: all 0.1s;
 }
 
 #result_voice {
-  padding-left: 40px;
+  padding-left: 5px;
   background-color: rgb(248, 243, 243);
   
 }
-
-
+@media screen and (min-width: 500px) {
+  .input {
+    margin-left: 0px;
+  }
+  #btn_voice {
+    right: 2;
+  }
+}
 </style>

@@ -53,15 +53,20 @@ export default {
 <style>
 .main {
   padding-bottom: 75px;
+  margin-top: 4px;
 }
-
-@media screen and (min-width: 700px) {
+.logo {
+    opacity: 1;
+    transition: all 0.7s;
+  }
+@media screen and (min-width: 500px) {
   .main {
     padding-bottom: 0;
     padding-left: 75px;
   }
   .logo {
     opacity: 0;
+    transition: all 0.1ms;
   }
 }
 
@@ -106,7 +111,7 @@ body {
 
 .logo {
   height: 60px;
-  margin-left: 0px;
+  margin-left: -14px;
   filter: drop-shadow(3px 3px 1px #96b3cd);
 } 
 

@@ -21,16 +21,31 @@ const { title, subtitle, backLink } =  defineProps(['title', 'subtitle', 'backLi
         font-family: 'Montserrat', sans-serif;
         background-color: rgb(36, 140, 185);
         color: white;
-        height: 40px;
+        height: 42px;
         padding-top: 12px;
         padding-left: 168px;
         border-radius: 5px;
+        margin-bottom: 60px;
+        margin-top: -50px;
     }
   .back {
     position: absolute;
     color: white;
-    margin-top: 72px;
-    margin-left: -64px;
+    margin-top: 22px;
+    margin-left: -50px;
     font-size: 20px;
   }
+  @media screen and (max-width: 500px) {
+    .header {
+        padding-left: 168px;
+        margin-left: 69px;
+    }
+    .back {
+    position: absolute;
+    color: white;
+    margin-top: 22px;
+    margin-left: 20px;
+    font-size: 20px;
+  }
+ }
 </style>

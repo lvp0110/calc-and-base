@@ -27,9 +27,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(36, 140, 185);
+    background: radial-gradient(circle at top, rgb(10, 115, 160), rgb(72, 170, 215));
     height: 70px;
-    padding: 10px;
+    padding: 8px;
     color: white;
 }
 
@@ -43,7 +43,7 @@
     margin: 0;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 500px) {
     .tabbar {
         height: auto;
         top: 0;
