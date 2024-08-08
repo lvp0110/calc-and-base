@@ -31,20 +31,19 @@ const { title, subtitle, backLink } =  defineProps(['title', 'subtitle', 'backLi
   .back {
     position: absolute;
     color: white;
-    margin-top: 22px;
-    margin-left: -50px;
+    margin-top: -15px;
+    margin-left: 30px;
     font-size: 20px;
   }
   @media screen and (max-width: 500px) {
     .header {
         padding-left: 168px;
-        margin-left: 69px;
     }
     .back {
     position: absolute;
     color: white;
-    margin-top: 22px;
-    margin-left: 20px;
+    margin-top: -15px;
+    margin-left: 33px;
     font-size: 20px;
   }
  }

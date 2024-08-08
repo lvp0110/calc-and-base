@@ -1,7 +1,7 @@
 <template>
     <div class="main">
       <RouterLink to="/">
-          <img src="../logo_123.png" alt="" class="logo">
+          <img src="" alt="" class="logo">
       </RouterLink>
         <RouterView />
         <TabBar />
@@ -53,7 +53,7 @@ export default {
 <style>
 .main {
   padding-bottom: 75px;
-  margin-top: 4px;
+  margin-top: 40px;
 }
 .logo {
     opacity: 1;

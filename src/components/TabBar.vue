@@ -17,8 +17,7 @@
 <style scoped>
 .logo_w {
     width: 70px;
-    opacity: 0;
-    position: absolute;
+    position: relative;
     left: 2px;
 }
 .logo_w:hover {
@@ -50,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 100px;
+    gap: 10px;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -64,7 +63,7 @@
     }
     .logo_w {
         width: 70px;
-        opacity: 1;
+        position: relative;
         transition: all 0.5s;
     }
     .list {

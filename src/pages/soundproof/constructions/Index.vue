@@ -38,7 +38,7 @@ ul li{
 ul li a{ 
     color: rgb(58, 57, 57);
     text-decoration: none;
-    border: solid 1px gray;
+    border: 1px solid transparent;
     border-radius: 3px;
     padding: 4px;
     display: block;

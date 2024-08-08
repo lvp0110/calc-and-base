@@ -51,12 +51,13 @@ export default {
 </script>
 
 <style>
+
 .input-container {
   position: relative;
   display: flex;
   align-items: center;
-}
 
+}
 .input {
   flex: 1;
   border: solid 1px gray;
@@ -64,7 +65,6 @@ export default {
   height: 40px;
   padding-left: 40px;
   background-color: rgb(248, 243, 243);
-  margin-left: 70px;
   margin-top: -60px;
 }
 
@@ -97,9 +97,8 @@ figure {
   font-weight: 250;
 }
 @media screen and (min-width: 500px) {
-  .input {
-    margin-left: 0px;
-  }
+
+
   #btn_voice {
     right: 2;
   }
