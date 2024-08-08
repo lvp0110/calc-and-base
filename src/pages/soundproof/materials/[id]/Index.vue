@@ -5,7 +5,6 @@
         <div class="image-descript">
             <div>
                 <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
-
             </div>
             <ul class="ul-descript">
                 <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>

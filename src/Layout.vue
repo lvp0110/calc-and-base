@@ -73,7 +73,6 @@ export default {
 body {
     background: url(./back_ground.jpg);
     background-size: 200%;
-    font-family: 'Montserrat', sans-serif;
     padding: 0px 20px 0px 20px;
     margin: 0px;
     user-select: none;

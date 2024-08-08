@@ -33,6 +33,7 @@ ul {
 
 ul li{
     font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
 }
 ul li a{ 
     color: rgb(58, 57, 57);
@@ -43,9 +44,12 @@ ul li a{
     display: block;
     width: 100%;
     margin-bottom: 1px;
+    background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
+    transition: all .5s;
 }
 ul li a:hover {
-    background-color: #6c757d;
-    color: aliceblue;
+    background: radial-gradient(circle at left, #6c757d, #bdbfc2);
+    transition: all .5s;
+    color: rgb(255, 255, 255);
 }
 </style>

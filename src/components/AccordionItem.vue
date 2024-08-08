@@ -16,6 +16,10 @@ const toggle = () => {
 </script>
 
 <style>
+h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 250;
+}
 .button {
   position: relative;
   display: flex;
@@ -40,5 +44,15 @@ const toggle = () => {
 
 .section {
   padding: 16px;
+}
+.section a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 250;
+  background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+  transition: all .4s;
+}
+.section a:hover {
+  background: radial-gradient(circle at center, #6c757d, #bdbfc2);
+  transition: all 0.4s;
 }
 </style>

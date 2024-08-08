@@ -59,6 +59,8 @@ export default {
 }
 
 .information-block {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
     width: 100%;
     background-color: rgb(241, 241, 241);
     padding: 10px;
@@ -85,7 +87,6 @@ export default {
         height: 99%;
         filter: drop-shadow(2px 4px 6px gray);
     }
-
 }
 
 .image-descript {

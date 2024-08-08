@@ -28,7 +28,6 @@ const selectMaterials = computed(() => store.getters['selectMaterials'])
 ul {
     list-style: none;
     padding: 0;
-    
 }
 
 ul li{

@@ -94,7 +94,7 @@ figure {
 #result_voice {
   padding-left: 5px;
   background-color: rgb(248, 243, 243);
-  
+  font-weight: 250;
 }
 @media screen and (min-width: 500px) {
   .input {

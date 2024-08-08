@@ -53,5 +53,26 @@ export default {
 <style scoped>
 .item {
     margin-bottom: 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
+    background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+    transition: all .4s;
+
 }
+.item:hover {
+    background: radial-gradient(circle at center, #6c757d, #bdbfc2);
+    transition: all .4s;
+}
+.list-group a {
+    background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+    transition: all .4s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
+}
+.list-group a:hover {
+    background: radial-gradient(circle at left, #6c757d, #bdbfc2);
+    transition: all .4s;
+    color: aliceblue;
+}
+
 </style>

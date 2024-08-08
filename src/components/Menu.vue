@@ -73,7 +73,8 @@ ul {
     margin-bottom: 0;
 }
 ul li{
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:300;
 }
 ul li a{ 
     color: #6c757d;
@@ -85,10 +86,13 @@ ul li a{
     display: block;
     width: 100%;
     text-align: center;
+    background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+    transition: all .4s;
 }
 
 ul li a:hover {
-    background-color: #6c757d;
+    background: radial-gradient(circle at center, #6c757d, #bdbfc2);
+    transition: all .4s;
     color: aliceblue;
     border: solid 1px rgb(173, 170, 170);
 
@@ -114,7 +118,6 @@ hr {
   border: 0;
   overflow-anchor: none;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
-  font-weight: 600;
   border-radius: 10px;
   height: 110px;
   margin-top: 5px;
