@@ -1,6 +1,6 @@
 <template>
     <div class="d-grid gap-2">
-        <button class="btn btn-outline-secondary item" style="margin-bottom: 1px;" @click="toggleIsSubitemsVisible">
+        <button class="btn btn-outline-secondary item"  @click="toggleIsSubitemsVisible">
             {{ name }}
         </button>
     </div>
@@ -52,6 +52,6 @@ export default {
 
 <style scoped>
 .item {
-    background-color: white;
+    margin-bottom: 1px;
 }
 </style>

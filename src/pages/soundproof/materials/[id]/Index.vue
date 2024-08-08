@@ -23,6 +23,7 @@
 <script>
 import Dialog from '../../../../components/Dialog.vue'
 import { mapGetters } from 'vuex'
+import { filesApi } from '../../../../config';
 
 export default {
     components: {  
@@ -36,6 +37,11 @@ export default {
             return this.selectMaterials.find(({ Code }) => Code === id)
         }
     },
+    methods: {
+        getImgSrc(Img) {
+            return filesApi.getImageFileUrl(Img)
+        }
+    }
 } 
 </script>
 

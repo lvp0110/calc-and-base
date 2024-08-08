@@ -1,9 +1,9 @@
 <template>
-    <MainPageLayout title="ЗВУКОИЗОЛЯЦИЯ" subtitle="КОНСТРУКЦИИ" back-link="/" />
+    <MainPageLayout title="ЗВУКОИЗОЛЯЦИЯ" subtitle="МАТЕРИАЛЫ" back-link="/" />
 <div class="list">
     <ul>
-        <li v-for="item in selectAllIsolationConstrSound" >
-            <RouterLink :to="'/soundproof/constructions/' + item.Code">
+        <li v-for="item in selectMaterials" >
+            <RouterLink :to="'/soundproof/materials/' + item.Code">
                 {{ item.Name }}
             </RouterLink>
         </li>
@@ -19,9 +19,9 @@ import { computed } from 'vue'
 
 const store = useStore()
 
-store.dispatch('getAllIsolationConstr')
+store.dispatch('getMaterials')
 
-const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
+const selectMaterials = computed(() => store.getters['selectMaterials'])
 </script>
 
 <style scoped>

@@ -25,20 +25,19 @@ const toggle = () => {
   font-size: 1.3rem;
   color: #fff;
   text-align: left;
-  font-family: 'Montserrat', sans-serif;
-  background-color: rgb(36, 140, 185);
   background: linear-gradient(to right, rgb(10, 115, 160), rgb(72, 170, 215));
   border: 0;
   overflow-anchor: none;
-  font-weight: 500;
   border-radius: 10px;
   height: 100px;
   margin-top: 5px;
-  box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
+  box-shadow: 2px -3px 5px 1px rgb(167, 163, 163);
 }
 .button:active {
   background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
+  box-shadow: 0px -2px 3px 0px rgb(167, 163, 163);
 }
+
 .section {
   padding: 16px;
 }

@@ -18,9 +18,22 @@
 .logo_w {
     width: 70px;
     opacity: 0;
+    position: absolute;
+    left: 2px;
+}
+.logo_w:hover {
+    width: 75px;
+    filter: drop-shadow(0px 0px 0px  white);
+    transition: all 0.2s;
 }
 .calc {
     width: 50px;
+    transition: all 0.2s;
+}
+.calc:hover {
+    width: 55px;
+    filter: drop-shadow(0px 0px 0px  white);
+    transition: all 0.2s;
 }
 .tabbar {
     position: fixed;
@@ -37,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 8px;
+    gap: 100px;
     list-style-type: none;
     padding: 0;
     margin: 0;

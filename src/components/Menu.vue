@@ -88,17 +88,11 @@ ul li a{
 }
 
 ul li a:hover {
-    background-color: rgb(232, 228, 228);
-    color: #6c757d;
+    background-color: #6c757d;
+    color: aliceblue;
     border: solid 1px rgb(173, 170, 170);
 
 }
-
-/* .calc-block-image {
-  box-shadow: none;
-  filter: none;
-} */
-
 
 hr {
   filter: drop-shadow(1px 3px 1px);
@@ -106,10 +100,6 @@ hr {
   width: 100%;
   margin-top: 25px;
 }
-
-/* .accordion-header {
-  background: rgb(241, 237, 237);
-} */
 
 .accordion-button {
   position: relative;
@@ -140,24 +130,8 @@ hr {
 .accordion-body {
   margin: 10px;
   padding: 0;
-  
-  /* background: url(/dBase/font1.png);
-  border: solid 1px darkgray;
-  margin-top: 6px;
-  box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
-  border-radius: 5px; */
-
 }
 
-/* .list-group-item {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  background: none;
-} */
-
-/* .accordion-item:last-of-type .accordion-button.collapsed {
-  border-radius: 10px;
-} */
 
 @media screen and (min-width: 1120px) {
   .accordion-flush {
