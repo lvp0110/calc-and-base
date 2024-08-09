@@ -611,7 +611,6 @@ export default createStore({
                 },
             ],
 
-
             data: {
                 [BRANDS_INSTALL_SCHEMAS]: [],
                 [ALL_ISOLATION_CONSTR]: [],
@@ -625,6 +624,7 @@ export default createStore({
             }
         }
     },
+    
     mutations: { //methods
         updateVoiceSearchText(state, voiceText) {
             state.voiceSearchText = voiceText;

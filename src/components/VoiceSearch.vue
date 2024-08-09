@@ -1,5 +1,4 @@
 <template>
-
   <div class="input-container">
     <input type="text" class="input" id="result_voice" placeholder="поиск..."
       v-model="$store.state.voiceSearchText" />

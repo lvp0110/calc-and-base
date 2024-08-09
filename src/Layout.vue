@@ -116,11 +116,22 @@ body {
 
 .up-button {
   position: fixed;
-  bottom: 20%;
+  bottom: 15%;
   right: 7%;
   z-index: 1000;
   background: none;
   border: none;
   height: 50px;
+}
+@media screen and ( min-width: 500px) {
+  .up-button {
+  position: fixed;
+  bottom: 10%;
+  right: 7%;
+  z-index: 1000;
+  background: none;
+  border: none;
+  height: 50px;
+}
 }
 </style>

@@ -5,6 +5,12 @@
                 <RouterLink to="/"><img class="logo_w" src="/logo_1234.png" alt=""></RouterLink>
             </li>
             <li>
+                <img class="logo_p" src="/420e9614d7c12e6c76ce89379b983c07.png" alt="">
+            </li>
+            <li>
+                <img class="logo_p" src="/24f9bd62caaa5df59fe1a1a50f687ed6.png" alt="">
+            </li>
+            <li>
                 <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
             </li>
         </ui>
@@ -15,6 +21,11 @@
 </script>
 
 <style scoped>
+.logo_p {
+    width: 55px;
+    position: relative;
+    left: 2px;
+}
 .logo_w {
     width: 70px;
     position: relative;
@@ -49,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 10px;
+    gap: 8px;
     list-style-type: none;
     padding: 0;
     margin: 0;

@@ -9,7 +9,7 @@
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
 
-        <select class="form-select select-descript" :class="{ selected: selectedModelCode }" aria-label="Default select example" @change="selectModel($event)">
+        <select class="form-select select-descript" :class="{ selected: selectedModelCode }" aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
             <option selected disabled>Выбрать модель</option>
             <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
         </select>
@@ -124,20 +124,16 @@ export default {
     },
     methods: {
         async fetchData(id) {
-
-            this.models = []
-            this.param = {}
-
-            this.selectedModelCod = null
-            this.selectedSizeCod = null
-            this.selectedColo = null
-            this.selectedPerforatio = null
-            this.selectedEdgeTyp = null
-
             const response = await modelsApi.getModelsByBrand(id);
             this.models = response.data.data;
 
             console.log('Models data:', this.models);
+
+            const model = this.$route.query.model
+
+            if (model != null) {
+                this.selectModel({ target: { value: model } })
+            }
         },
         async selectModel(event) {
             this.selectedModelCode = event.target.value;
@@ -146,6 +142,8 @@ export default {
 
             this.params = response.data.data;
             this.selectedColor = null; 
+
+            this.$router.replace({ path: this.$router.options.history.location, query: { model: event.target.value } })
 
             console.log('Params data:', this.params);
         },
