@@ -1,6 +1,7 @@
 <template>
     <button :name="name" class="button" @click="toggle">
       <h5>{{ header }}</h5>
+      <img v-if="src" class="icon" :src="src" alt="">
     </button>
     <section class="section" v-if="open">
       <slot />
@@ -8,7 +9,7 @@
 </template>
 
 <script setup>
-const { header, open, name, onToggle } = defineProps(['header', 'name', 'open', 'onToggle'])
+const { header, open, name, onToggle, src} = defineProps(['header', 'name', 'open', 'onToggle','src'])
 
 const toggle = () => {
   onToggle(name)
@@ -16,16 +17,23 @@ const toggle = () => {
 </script>
 
 <style>
+.icon {
+  position: absolute;
+  width: 65px;
+  right: 10%;
+  padding-bottom: 6px;
+}
 h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 250;
+
 }
 .button {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.7rem 1rem;
+  padding: 10px 10px 0px;
   font-size: 1.3rem;
   color: #fff;
   text-align: left;

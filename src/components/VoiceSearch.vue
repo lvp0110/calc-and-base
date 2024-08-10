@@ -20,7 +20,7 @@
 
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions} from 'vuex'
 
 export default {
 
@@ -34,8 +34,10 @@ export default {
       isSoundInsulationVisible: false,  
     }
   },
+
+  
   methods: {
-    
+   
     toggleSoundInsulation() {
       this.isSoundInsulationVisible = !this.isSoundInsulationVisible;
     },

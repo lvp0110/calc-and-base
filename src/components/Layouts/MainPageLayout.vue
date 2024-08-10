@@ -17,8 +17,11 @@ const { title, subtitle, backLink } =  defineProps(['title', 'subtitle', 'backLi
 
 </script>
 <style scoped>
-    .header {
+    h6 {
         font-family: 'Montserrat', sans-serif;
+        font-weight: 250;
+    }
+    .header {
         background-color: rgb(36, 140, 185);
         color: white;
         height: 42px;

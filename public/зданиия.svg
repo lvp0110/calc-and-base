@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65.03 50.08">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="37.39 24.49 19.39 15.67 1.39 24.49 19.39 24.49 37.39 24.49"/>
+  <rect class="cls-1" x="3.12" y="25.23" width="2.75" height="20.33"/>
+  <rect class="cls-1" x="10.57" y="25.23" width="2.75" height="20.33"/>
+  <rect class="cls-1" x="18.02" y="25.23" width="2.75" height="20.33"/>
+  <rect class="cls-1" x="25.46" y="25.23" width="2.75" height="20.33"/>
+  <rect class="cls-1" x="32.91" y="25.23" width="2.75" height="20.33"/>
+  <rect class="cls-1" y="46.3" width="38.79" height="3.78"/>
+  <path class="cls-1" d="m41.13,0v45.56h8.37v-7.41h7.16v7.41h8.37V0h-23.9Zm4.86,30.84h-3.6v-6.92h3.6v6.92Zm0-10.3h-3.6v-6.92h3.6v6.92Zm0-10.31h-3.6V3.31h3.6v6.92Zm5.93,20.61h-3.6v-6.92h3.6v6.92Zm0-10.3h-3.6v-6.92h3.6v6.92Zm0-10.31h-3.6V3.31h3.6v6.92Zm5.92,20.61h-3.6v-6.92h3.6v6.92Zm0-10.3h-3.6v-6.92h3.6v6.92Zm0-10.31h-3.6V3.31h3.6v6.92Zm5.93,20.61h-3.6v-6.92h3.6v6.92Zm0-10.3h-3.6v-6.92h3.6v6.92Zm0-10.31h-3.6V3.31h3.6v6.92Z"/>
+</svg>

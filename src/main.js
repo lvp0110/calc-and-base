@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import App from './App.vue'
 import Layout from './Layout.vue'
+
 import SoundproofConstructions from './pages/soundproof/constructions/index.vue'
 import SoundproofConstructionsId from './pages/soundproof/constructions/[id]/index.vue'
 import SoundproofMaterialsId from './pages/soundproof/materials/[id]/index.vue'
@@ -21,6 +22,8 @@ import OurObjects from './pages/our-objects/Index.vue'
 import OurObject from './pages/our-objects/[id]/Index.vue'
 import Calc from './pages/calc/index.vue'
 import store from './store'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),

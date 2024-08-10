@@ -5,11 +5,12 @@
                 <RouterLink to="/"><img class="logo_w" src="/logo_1234.png" alt=""></RouterLink>
             </li>
             <li>
-                <img class="logo_p" src="/420e9614d7c12e6c76ce89379b983c07.png" alt="">
+                <img class="logo_p" src="/person_logo.png" alt="">
             </li>
-            <li>
-                <img class="logo_p" src="/24f9bd62caaa5df59fe1a1a50f687ed6.png" alt="">
+            <li @click="activateVoiceSearch">
+                <img class="logo_p" src="/search_logo.png" alt="">
             </li>
+            
             <li>
                 <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
             </li>
@@ -18,6 +19,7 @@
 </template>
 
 <script setup>
+
 </script>
 
 <style scoped>
@@ -26,25 +28,30 @@
     position: relative;
     left: 2px;
 }
+
 .logo_w {
     width: 70px;
     position: relative;
     left: 2px;
 }
+
 .logo_w:hover {
     width: 75px;
-    filter: drop-shadow(0px 0px 0px  white);
+    filter: drop-shadow(0px 0px 0px white);
     transition: all 0.2s;
 }
+
 .calc {
     width: 50px;
     transition: all 0.2s;
 }
+
 .calc:hover {
     width: 55px;
-    filter: drop-shadow(0px 0px 0px  white);
+    filter: drop-shadow(0px 0px 0px white);
     transition: all 0.2s;
 }
+
 .tabbar {
     position: fixed;
     bottom: 0;
@@ -72,11 +79,13 @@
         top: 0;
         width: 75px;
     }
+
     .logo_w {
         width: 70px;
         position: relative;
         transition: all 0.5s;
     }
+
     .list {
         flex-direction: column;
         justify-content: flex-start;

@@ -1,7 +1,9 @@
 <template>
-<AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle">
+<AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle"
+src="/волна.svg" >
     <!-- <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" />
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" /> -->
+
     <ul class="list_sound">
         <li>
             <RouterLink to="/soundproof/constructions">
@@ -16,25 +18,25 @@
     </ul>
 </AccordionItem>
 
-<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle">
+<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="/волна и стена.svg">
     <ListItem name="АКУСТИКА ПО БРЕНДАМ" to="/acoustic/brands" :items="selectAcousticCategories" />
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/acoustic/materials" :items="selectMaterialsAc" />
 </AccordionItem>
 
-<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle">
+<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/пружина.svg">
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/vibration_isolation/materials" :items="selectMaterialsVi" />
 </AccordionItem>
 
-<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle">
+<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="public/файл.svg" >
     <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
     <ListItem name="АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectAlbums" />
     <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
     <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectBrandsInstalSchemas" />
-    <!-- <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" />
+    <!-- <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" /
     <ListItem name="BIM" to="/documents/bim"  /> -->
 </AccordionItem>
 
-<AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle">
+<AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle" src="public/зданиия.svg" >
   <RouterLink to="/our-objects" class="btn btn-outline-secondary" type="button" style="width: 100%;">
     ВСЕ ОБЪЕКТЫ
   </RouterLink>
