@@ -73,7 +73,7 @@
     margin: 0;
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 768px) {
     .tabbar {
         height: auto;
         top: 0;

@@ -19,9 +19,9 @@ const toggle = () => {
 <style>
 .icon {
   position: absolute;
-  width: 65px;
-  right: 10%;
-  padding-bottom: 6px;
+  width: 100px;
+  right: 1%;
+  padding-bottom:6px;
 }
 h5 {
   font-family: 'Montserrat', sans-serif;

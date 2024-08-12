@@ -7,6 +7,7 @@ WORKDIR /usr/share/nginx/html
 
 COPY package.json ./
 COPY package-lock.json ./
+RUN npm install -g npm@10.2.3
 RUN npm ci
 
 # builder
