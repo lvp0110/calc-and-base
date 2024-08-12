@@ -1,7 +1,7 @@
 <template>
   <div class="input-container">
     <input type="text" class="input" id="result_voice" placeholder="поиск..."
-      v-model="$store.state.voiceSearchText" />
+      v-model="$store.state.voiceSearchText"  />
     <button type="button" id="btn_voice" @click="activateVoiceSearch"
       @touchstart="activateVoiceSearch">
       <figure>
@@ -17,6 +17,7 @@
       </figure>
     </button>
   </div>
+  
 
 </template>
 <script>
@@ -45,6 +46,8 @@ export default {
     activateVoiceSearch(event) {
       event.stopPropagation()
       this.startVoiceRecognition();
+
+      
     }
   }
 }

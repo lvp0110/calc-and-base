@@ -7,10 +7,9 @@
             <li>
                 <img class="logo_p" src="/person_logo.png" alt="">
             </li>
-            <li @click="activateVoiceSearch">
+            <li>
                 <img class="logo_p" src="/search_logo.png" alt="">
             </li>
-            
             <li>
                 <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
             </li>
@@ -73,7 +72,7 @@
     margin: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 500px) {
     .tabbar {
         height: auto;
         top: 0;

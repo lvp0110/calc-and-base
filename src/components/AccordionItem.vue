@@ -1,15 +1,15 @@
 <template>
-    <button :name="name" class="button" @click="toggle">
-      <h5>{{ header }}</h5>
-      <img v-if="src" class="icon" :src="src" alt="">
-    </button>
-    <section class="section" v-if="open">
-      <slot />
-    </section>
+  <button :name="name" class="button" @click="toggle">
+    <h5>{{ header }}</h5>
+    <img v-if="src" class="icon" :src="src" alt="">
+  </button>
+  <section class="section" v-if="open">
+    <slot />
+  </section>
 </template>
 
 <script setup>
-const { header, open, name, onToggle, src} = defineProps(['header', 'name', 'open', 'onToggle','src'])
+const { header, open, name, onToggle, src } = defineProps(['header', 'name', 'open', 'onToggle', 'src'])
 
 const toggle = () => {
   onToggle(name)
@@ -21,13 +21,14 @@ const toggle = () => {
   position: absolute;
   width: 100px;
   right: 1%;
-  padding-bottom:6px;
+  padding-bottom: 6px;
 }
+
 h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 250;
-
 }
+
 .button {
   position: relative;
   display: flex;
@@ -45,6 +46,7 @@ h5 {
   margin-top: 5px;
   box-shadow: 2px -3px 5px 1px rgb(167, 163, 163);
 }
+
 .button:active {
   background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
   box-shadow: 0px -2px 3px 0px rgb(167, 163, 163);
@@ -53,12 +55,14 @@ h5 {
 .section {
   padding: 16px;
 }
+
 .section a {
   font-family: 'Montserrat', sans-serif;
   font-weight: 250;
   background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
   transition: all .4s;
 }
+
 .section a:hover {
   background: radial-gradient(circle at center, #6c757d, #bdbfc2);
   transition: all 0.4s;

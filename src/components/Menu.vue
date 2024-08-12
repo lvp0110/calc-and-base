@@ -1,6 +1,6 @@
 <template>
 <AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle"
-src="/иконки30мм/звукоизоляция.svg" >
+src="/icon_button/soundproof.svg" >
     <!-- <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" />
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" /> -->
 
@@ -18,16 +18,16 @@ src="/иконки30мм/звукоизоляция.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="/иконки30мм/акустика.svg">
+<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="/icon_button/acoustic.svg">
     <ListItem name="АКУСТИКА ПО БРЕНДАМ" to="/acoustic/brands" :items="selectAcousticCategories" />
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/acoustic/materials" :items="selectMaterialsAc" />
 </AccordionItem>
 
-<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/иконки30мм/виброизоляция.svg">
+<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/icon_button/vibroisolanion.svg">
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/vibration_isolation/materials" :items="selectMaterialsVi" />
 </AccordionItem>
 
-<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="/иконки30мм/документы.svg" >
+<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="/icon_button/documents.svg" >
     <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
     <ListItem name="АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectAlbums" />
     <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
@@ -36,7 +36,7 @@ src="/иконки30мм/звукоизоляция.svg" >
     <ListItem name="BIM" to="/documents/bim"  /> -->
 </AccordionItem>
 
-<AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle" src="/иконки30мм/объекты.svg" >
+<AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle" src="/icon_button/object.svg" >
   <RouterLink to="/our-objects" class="btn btn-outline-secondary" type="button" style="width: 100%;">
     ВСЕ ОБЪЕКТЫ
   </RouterLink>
@@ -138,19 +138,4 @@ hr {
 }
 
 
-@media screen and (min-width: 1120px) {
-  .accordion-flush {
-    width: 30%;
-  }
-}
-
-@media screen and (max-height: 720px) {
-  .accordion-flush .accordion-item .accordion-button {
-    border-radius: 10px;
-    height: 75px;
-    margin-top: 5px;
-    box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
-  }
-
-}
 </style>
