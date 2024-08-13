@@ -1,7 +1,7 @@
 <template>
   <div class="input-container">
-    <input type="text" class="input" id="result_voice" placeholder="поиск..."
-      v-model="$store.state.voiceSearchText"  />
+    <input type="text" class="search" ref="voiceInput" id="result_voice" placeholder=""
+  v-model="$store.state.voiceSearchText" />
     <button type="button" id="btn_voice" @click="activateVoiceSearch"
       @touchstart="activateVoiceSearch">
       <figure>
@@ -45,6 +45,7 @@ export default {
     ...mapActions(['startVoiceRecognition']),
     activateVoiceSearch(event) {
       event.stopPropagation()
+      this.$refs.voiceInput.focus();
       this.startVoiceRecognition();
 
       
@@ -57,12 +58,11 @@ export default {
 <style>
 
 .input-container {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
-
 }
-.input {
+/* .input {
   flex: 1;
   border: solid 1px gray;
   border-radius: 4px;
@@ -70,12 +70,48 @@ export default {
   padding-left: 40px;
   background-color: rgb(248, 243, 243);
   margin-top: -60px;
-}
+} */
+.search {
+        top: -55px;
+        left: 4px;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px ;
+        transition-duration: 500ms;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        font-size: 20px;
+        color: transparent;
+        border: 1px solid gray;
+        overflow: hidden;
+        background-size: 22px;
+        background-position: 45% 50%;
+    }
+    .search:hover {
+        cursor: pointer;
+        border: 1px solid rgb(10, 115, 160);
+        background: url(voise.svg) no-repeat transparent;
+        background-size: 22px;
+        background-position: 45% 50%;
+    }
+    .search:focus {
+        width: 300px;
+        cursor: pointer;
+        padding-left: 20px;
+        color: gray;
+        outline: none;
+        border: 1px solid rgb(10, 115, 160);
+        background-color: transparent;
+        background-size: 22px;
+        background-position: 10px 50px;
+    }
 
 figure {
   height: 34px;
   width: 34px;
   margin: 0;
+  
 }
 
 #btn_voice {
