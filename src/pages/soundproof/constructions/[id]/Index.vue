@@ -1,10 +1,12 @@
 <template>
-    <Dialog v-if="selectElement">
+    <Fragment v-if="selectElement">
+        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        
         <div class="title-construction">{{ selectElement.Description }}</div>
         <hr>
         <div class="image-descript">
             <div>
-                <img class="img" :src="getImgSrc(selectElement.Img)" alt="wwwww" />
+                <img class="img" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
             </div>
             <ul class="ul-descript">
                 <li v-if="visiblRw">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
@@ -13,57 +15,83 @@
                 <li>Толщина: {{ selectElement.Thickness }} мм.</li>
             </ul>
         </div>
+        <hr>
+        <span class="span">{{ selectElement.Specification }}</span>
         <RouterLink :to="`/calc/${selectElement.Code}`" class="btn btn-outline-secondary calculate">РАССЧИТАТЬ
             КОЛИЧЕСТВО МАТЕРИАЛОВ</RouterLink>
-        <hr>
-        <span>{{ selectElement.Specification }}</span>
-    </Dialog>
+    </Fragment>
 </template>
 
-<script>
-import Dialog from '../../../../components/Dialog.vue'
-import { mapGetters } from 'vuex'
+<script setup>
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue'
 import { filesApi } from '../../../../config';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-export default {
-    components: {
-        Dialog, 
-    },
-    computed: {
-        ...mapGetters(['selectAllIsolationConstrSound']),
-        selectElement() {
-            const id = this.$route.params.id
+const store = useStore()
+const route = useRoute()
 
-            return this.selectAllIsolationConstrSound.find(({ Code }) => Code === id)
-        },
-        visiblLnw() {
-            if (this.selectElement.ImpactNoseIndex != 0)
-                return true;
-        },
-        visiblRw() {
-            if (this.selectElement.SoundIndex != 'неопределен')
-                return true;
-        }
-    },
-    methods: {
-        getImgSrc(Img) {
-            return filesApi.getImageFileUrl(Img)
-        }
-    }
+const id = route.params.id
+
+store.dispatch('getAllIsolationConstr')
+
+const selectElement = computed(() => store.getters['selectAllIsolationConstrSound'].find(({ Code }) => Code === id))
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' },
+    { link: '/soundproof/constructions', title: 'КОНСТРУКЦИИ' },
+    { title: selectElement.value?.Code }
+])
+
+const visiblLnw = () => {
+    if (selectElement.ImpactNoseIndex != 0)
+        return true;
+}
+
+const visiblRw = () => {
+    if (selectElement.SoundIndex != 'неопределен')
+        return true;
 }
 </script>
+
 <style scoped>
-.title-construction {
-    margin-top: 5px;
-    font-weight: 600;
-    width: 80%;
+.span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
 }
-.calculate{
-    width: 100%;
+
+.ul-descript {
     margin-top: 15px;
-    margin-bottom: -10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 250;
 }
+
+.title-construction {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    width: 100%;
+    text-transform: uppercase;
+    border-radius: 5px;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    padding: 10px;
+    text-align: center;
+}
+.title-construction:hover {
+    background: radial-gradient(circle at center,#d7dadf62, #8992998c);
+}
+.calculate {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .img {
     flex-grow: 1;
+    width: 50%;
+    border-radius: 5px;
+}
+.img:hover {
+    width: 100%;
 }
 </style>

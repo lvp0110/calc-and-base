@@ -16,7 +16,7 @@ const toggle = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .icon {
   position: absolute;
   width: 100px;

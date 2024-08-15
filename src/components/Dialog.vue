@@ -46,7 +46,7 @@ export default {
 
 </script>
 
-<style >
+<style scoped>
 .btn.close-btn {
     position: absolute;
     z-index: 45422;

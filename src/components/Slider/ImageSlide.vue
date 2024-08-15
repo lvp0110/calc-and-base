@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .img {
     width: 100%;
     margin-bottom: 10px;

@@ -1,5 +1,5 @@
 <template>
-    <MainPageLayout title="ЗВУКОИЗОЛЯЦИЯ" subtitle="КОНСТРУКЦИИ" back-link="/" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
 <div class="list">
     <ul>
         <li v-for="item in selectAllIsolationConstrSound" >
@@ -22,6 +22,11 @@ const store = useStore()
 store.dispatch('getAllIsolationConstr')
 
 const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' }, 
+    { title: 'КОНСТРУКЦИИ' }
+])
 </script>
 
 <style scoped>

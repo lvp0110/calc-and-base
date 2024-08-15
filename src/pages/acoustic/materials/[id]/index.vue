@@ -39,7 +39,7 @@ export default {
 } 
 </script>
 
-<style>
+<style scoped>
 .title-materials {
     margin-top: 5px;
     font-weight: 600;

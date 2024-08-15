@@ -72,7 +72,7 @@
   
   </script>
   
-  <style>
+  <style scoped>
   .title-hookup {
     margin-top: 15px;
     font-weight: 600;
