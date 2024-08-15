@@ -36,7 +36,6 @@ export default {
     }
   },
 
-  
   methods: {
    
     toggleSoundInsulation() {
@@ -47,8 +46,6 @@ export default {
       event.stopPropagation()
       this.$refs.voiceInput.focus();
       this.startVoiceRecognition();
-
-      
     }
   }
 }
@@ -85,33 +82,31 @@ export default {
         color: transparent;
         border: 1px solid gray;
         overflow: hidden;
-        background-size: 22px;
-        background-position: 45% 50%;
+        /* background-size: 22px; */
+        /* background-position: 45% 50%; */
     }
     .search:hover {
         cursor: pointer;
         border: 1px solid rgb(10, 115, 160);
-        background: url(voise.svg) no-repeat transparent;
-        background-size: 22px;
-        background-position: 45% 50%;
+        /* background-size: 22px; */
+        /* background-position: 45% 50%; */
     }
     .search:focus {
-        width: 300px;
+        width: 330px;
         cursor: pointer;
-        padding-left: 20px;
+        /* padding-left: 40px; */
         color: gray;
         outline: none;
         border: 1px solid rgb(10, 115, 160);
         background-color: transparent;
-        background-size: 22px;
-        background-position: 10px 50px;
+        /* background-size: 22px; */
+        /* background-position: 10px 50px; */
     }
 
 figure {
   height: 34px;
   width: 34px;
   margin: 0;
-  
 }
 
 #btn_voice {
@@ -123,11 +118,11 @@ figure {
   border: none;
   padding: 0 2px 3px 2px;
   background: none;
-  transition: all 1s;
+  transition: all 2s;
 }
+
 #btn_voice:active {
   background: rgb(204, 203, 203);
-  border: solid 1px rgb(218, 216, 216);
   transition: all 0.1s;
 }
 
@@ -137,8 +132,6 @@ figure {
   font-weight: 250;
 }
 @media screen and (min-width: 500px) {
-
-
   #btn_voice {
     right: 2;
   }

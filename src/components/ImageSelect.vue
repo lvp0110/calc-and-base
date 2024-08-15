@@ -46,11 +46,16 @@ export default {
     position: relative;
 }
 .value {
-    background: rgb(232, 232, 232);
+    background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
+    font-family: 'Montserrat', sans-serif;
+    font-weight:300;
 }
 .selected {
-    background-color: rgb(173, 173, 173);
+    background: radial-gradient(circle at left, #8e9092, #f9f9fa00);
+    color: aliceblue;
+    font-family: 'Montserrat', sans-serif;
+    font-weight:300;
 }
 .dropdown {
     position: absolute;

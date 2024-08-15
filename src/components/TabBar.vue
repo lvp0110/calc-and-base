@@ -2,7 +2,7 @@
     <div class="tabbar">
         <ui class="list">
             <li>
-                <RouterLink to="/"><img class="logo_w" src="/logo_1234.png" alt=""></RouterLink>
+                <RouterLink to="/"><img class="logo_w"  src="/logo_1234.png" alt=""></RouterLink>
             </li>
             <li>
                 <img class="logo_p" src="/person_logo.png" alt="">
@@ -35,9 +35,7 @@
 }
 
 .logo_w:hover {
-    width: 75px;
-    filter: drop-shadow(0px 0px 0px white);
-    transition: all 0.2s;
+    opacity: 0.5;
 }
 
 .calc {
@@ -46,9 +44,7 @@
 }
 
 .calc:hover {
-    width: 55px;
-    filter: drop-shadow(0px 0px 0px white);
-    transition: all 0.2s;
+    opacity: 0.5;
 }
 
 .tabbar {

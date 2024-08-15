@@ -28,7 +28,6 @@ const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIso
 ul {
     list-style: none;
     padding: 0;
-    
 }
 
 ul li{
@@ -51,5 +50,11 @@ ul li a:hover {
     background: radial-gradient(circle at left, #6c757d, #bdbfc2);
     transition: all .5s;
     color: rgb(255, 255, 255);
+}
+@media screen and ( min-width: 768px) {
+  ul li a {
+    width: 310px;
+  }
+  
 }
 </style>

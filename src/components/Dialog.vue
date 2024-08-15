@@ -55,14 +55,14 @@ export default {
 }
 
 .img {
-    width: 100%;
+    width: 50%;
 }
 
 .information-block {
     font-family: 'Montserrat', sans-serif;
     font-weight: 250;
     width: 100%;
-    background-color: rgb(241, 241, 241);
+    background-color: rgba(241, 241, 241, 0.5);
     padding: 10px;
     z-index: 5;
     inset: 0;
@@ -74,16 +74,16 @@ export default {
     overflow-y: scroll;
 }
 
-@media screen and (min-width: 1124px) {
+@media screen and (min-width: 768px) {
     .information-block {
-        background-color: rgb(241, 241, 241);
+        background-color: rgba(241, 241, 241, 0.5);
         padding: 10px;
         z-index: 5;
         position: fixed;
         transition: all 1s;
         border: solid 1px darkgrey;
-        margin-left: 33%;
-        width: 65%;
+        margin-left: 49%;
+        width: 50%;
         height: 99%;
         filter: drop-shadow(2px 4px 6px gray);
     }

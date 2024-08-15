@@ -1,14 +1,14 @@
 <template>
-    <MainPageLayout title="ЗВУКОИЗОЛЯЦИЯ" subtitle="МАТЕРИАЛЫ" back-link="/" />
-<div class="list">
-    <ul>
-        <li v-for="item in selectMaterials" >
-            <RouterLink :to="'/soundproof/materials/' + item.Code">
-                {{ item.Name }}
-            </RouterLink>
-        </li>
-    </ul>
-</div>
+    <MainPageLayout title="ВИБРОИЗОЛЯЦИЯ" subtitle="МАТЕРИАЛЫ" back-link="/" />
+    <div class="list">
+        <ul>
+            <li v-for="item in selectMaterials" >
+                <RouterLink :to="'/vibration_isolation/materials/' + item.Code">
+                    {{ item.Name }}
+                </RouterLink>
+            </li>
+        </ul>
+    </div>
    
 </template>
 
@@ -19,9 +19,9 @@ import { computed } from 'vue'
 
 const store = useStore()
 
-store.dispatch('getMaterials')
+store.dispatch('getMaterialsVi')
 
-const selectMaterials = computed(() => store.getters['selectMaterials'])
+const selectMaterials = computed(() => store.getters['selectMaterialsVi'])
 </script>
 
 <style scoped>
@@ -29,7 +29,7 @@ ul {
     list-style: none;
     padding: 0;
 }
-
+ 
 ul li{
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
@@ -53,4 +53,10 @@ ul li a:hover {
     color: aliceblue;
     border: solid 1px rgb(173, 170, 170);
     }
+    @media screen and ( min-width: 768px) {
+  ul li a {
+    width: 310px;
+  }
+  
+}
 </style>

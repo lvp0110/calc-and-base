@@ -74,5 +74,12 @@ export default {
     transition: all .4s;
     color: aliceblue;
 }
-
+@media screen and ( min-width: 768px) {
+  .item {
+    width: 310px;
+  }
+  .list-group a {
+    width: 310px;
+  }
+}
 </style>

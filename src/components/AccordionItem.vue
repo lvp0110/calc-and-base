@@ -67,4 +67,10 @@ h5 {
   background: radial-gradient(circle at center, #6c757d, #bdbfc2);
   transition: all 0.4s;
 }
+@media screen and ( min-width: 768px) {
+  .button {
+    width: 340px;
+  }
+  
+}
 </style>

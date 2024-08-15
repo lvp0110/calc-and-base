@@ -649,7 +649,8 @@ export default createStore({
 
         async getMaterials({ state }, payload) {
             const response = await materialsApi.getMaterials(MaterialUsage.SoundIsolation);
-
+            console.log("materials");
+            
 
             console.log(response);
 

@@ -24,11 +24,23 @@ src="/icon_button/soundproof.svg" >
 </AccordionItem>
 
 <AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/icon_button/vibroisolanion.svg">
-    <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/vibration_isolation/materials" :items="selectMaterialsVi" />
+    <ul class="list_sound">
+        <li>
+            <RouterLink to="/vibration_isolation/materials">
+              СПИСОК МАТЕРИАЛОВ
+            </RouterLink>
+        </li>
+    </ul>
 </AccordionItem>
 
 <AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="/icon_button/documents.svg" >
-    <ListItem name="СЕРТИФИКАТЫ" to="/documents/certificates" :items="selectMaterialsWithCerts" />
+    <ul class="list_sound">
+        <li>
+            <RouterLink to="/documents/certificates">
+              СЕРТИФИКАТЫ
+            </RouterLink>
+        </li>
+    </ul>
     <ListItem name="АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectAlbums" />
     <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
     <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectBrandsInstalSchemas" />
@@ -37,7 +49,7 @@ src="/icon_button/soundproof.svg" >
 </AccordionItem>
 
 <AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle" src="/icon_button/object.svg" >
-  <RouterLink to="/our-objects" class="btn btn-outline-secondary" type="button" style="width: 100%;">
+  <RouterLink to="/our-objects" class="btn btn-outline-secondary object" type="button" >
     ВСЕ ОБЪЕКТЫ
   </RouterLink>
 </AccordionItem>
@@ -68,7 +80,9 @@ const onToggle = (name) => {
 </script>
 
 <style scoped>
-
+.object {
+  width: 100%;
+}
 ul {
     list-style: none;
     padding: 0;
@@ -99,7 +113,14 @@ ul li a:hover {
     border: solid 1px rgb(173, 170, 170);
 
 }
-
+@media screen and ( min-width: 768px) {
+  ul li a {
+    width: 310px;
+  }
+  .object {
+    width: 310px;
+  }
+}
 hr {
   filter: drop-shadow(1px 3px 1px);
   background: #000;
