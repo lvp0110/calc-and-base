@@ -21,7 +21,7 @@
             <h6> / {{ subtitle }}</h6>
         </section>
     </Fragment>
-    <VoiceSearch />
+    <VoiceSearch  />
 
     <!-- </section> -->
     <slot />
@@ -30,6 +30,7 @@
 <script setup>
 import VoiceSearch from '../VoiceSearch.vue'
 const { title, subtitle, backLink } = defineProps(['title', 'subtitle', 'backLink', 'breadcrumbs'])
+
 
 </script>
 <style scoped>

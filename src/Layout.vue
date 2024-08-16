@@ -66,7 +66,7 @@ export default {
   }
   .logo {
     opacity: 0;
-    transition: all 0.1ms;
+    transition: all 0.1s ease;
   }
 }
 
@@ -116,7 +116,7 @@ body {
 
 .up-button {
   position: fixed;
-  bottom: 15%;
+  bottom: 18%;
   right: 7%;
   z-index: 1000;
   background: none;

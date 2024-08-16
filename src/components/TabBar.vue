@@ -35,7 +35,7 @@
 }
 
 .logo_w:hover {
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .calc {
@@ -44,7 +44,7 @@
 }
 
 .calc:hover {
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .tabbar {

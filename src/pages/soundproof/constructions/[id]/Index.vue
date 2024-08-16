@@ -90,6 +90,7 @@ const visiblRw = () => {
     flex-grow: 1;
     width: 50%;
     border-radius: 5px;
+    transition: all .5s ease;
 }
 .img:hover {
     width: 100%;
