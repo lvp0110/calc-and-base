@@ -26,7 +26,7 @@ const toggle = () => {
 
 h5 {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 250;
+  font-weight: 300;
 }
 
 .button {
@@ -58,7 +58,7 @@ h5 {
 
 .section a {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 250;
+  font-weight: 300;
   background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
   transition: all .4s;
 }

@@ -54,7 +54,7 @@ export default {
 .item {
     margin-bottom: 1px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 250;
+    font-weight: 300;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
     transition: all .4s;
 
@@ -67,7 +67,7 @@ export default {
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
     transition: all .4s;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 250;
+    font-weight: 300;
 }
 .list-group a:hover {
     background: radial-gradient(circle at left, #6c757d, #bdbfc2);

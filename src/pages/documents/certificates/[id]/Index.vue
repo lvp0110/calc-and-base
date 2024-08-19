@@ -1,17 +1,18 @@
 <template>
-  <Dialog v-if="selectElement">
+  <div v-if="selectElement">
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
     <p class="title-certificates">{{ selectElement.Name }}</p>
     <p> количество документов: {{ slides.length }}</p>
     <hr>
     <Slider :pdfs="slides" />
-  </Dialog>
+  </div>
 </template>
  
 <script>
 import { certificatesApi } from '../../../../config.js';
 import { mapGetters } from 'vuex'
-import Dialog from '../../../../components/Dialog.vue';
 import Slider from '../../../../components/Slider.vue';
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 
 export default {
   created() {
@@ -27,8 +28,8 @@ export default {
     }
   },
   components: {
-    Dialog,
-    Slider
+    Slider,
+    MainPageLayout
   },
   computed: {
     ...mapGetters(['selectMaterialsWithCerts']),
@@ -37,6 +38,13 @@ export default {
 
       return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
     },
+    breadcrumbs() {
+      return [
+        { link: '/', title: 'ДОКУМЕНТЫ' },
+        { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
+        { title: this.selectElement?.Code }
+      ]
+    }
   },
   methods: {
     async fetchData(id) {

@@ -1,5 +1,5 @@
 <template>
-    <MainPageLayout title="ВИБРОИЗОЛЯЦИЯ" subtitle="МАТЕРИАЛЫ" back-link="/" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="list">
         <ul>
             <li v-for="item in selectMaterials" >
@@ -9,7 +9,6 @@
             </li>
         </ul>
     </div>
-   
 </template>
 
 <script setup>
@@ -22,9 +21,15 @@ const store = useStore()
 store.dispatch('getMaterialsVi')
 
 const selectMaterials = computed(() => store.getters['selectMaterialsVi'])
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ВИБРОИЗОЛЯЦИЯ' }, 
+    { title: 'МАТЕРИАЛЫ' }
+])
 </script>
 
 <style scoped>
+
 ul {
     list-style: none;
     padding: 0;

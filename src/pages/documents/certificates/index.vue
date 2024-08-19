@@ -1,15 +1,14 @@
 <template>
-    <MainPageLayout title="СЕРТИФИКАТЫ" subtitle="МАТЕРИАЛЫ" back-link="/" />
-<div class="list">
-    <ul>
-        <li v-for="item in selectMaterials" >
-            <RouterLink :to="'/documents/certificates/' + item.Code">
-                {{ item.Name }}
-            </RouterLink>
-        </li>
-    </ul>
-</div>
-   
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <div class="list">
+        <ul>
+            <li v-for="item in selectMaterials" >
+                <RouterLink :to="'/documents/certificates/' + item.Code">
+                    {{ item.Name }}
+                </RouterLink>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script setup>
@@ -22,6 +21,11 @@ const store = useStore()
 store.dispatch('getMaterialsWithCerts')
 
 const selectMaterials = computed(() => store.getters['selectMaterialsWithCerts'])
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ДОКУМЕНТЫ' }, 
+    { title: 'СЕРТИФИКАТЫ' }
+])
 </script>
 
 <style scoped>

@@ -2,8 +2,8 @@
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="list">
         <ul>
-            <li v-for="item in selectAllIsolationConstrSound" >
-                <RouterLink :to="'/soundproof/constructions/' + item.Code">
+            <li v-for="item in selectAcousticCategories" >
+                <RouterLink :to="'/acoustic/brands/' + item.ShortName">
                     {{ item.Name }}
                 </RouterLink>
             </li>
@@ -18,13 +18,13 @@ import { computed } from 'vue'
 
 const store = useStore()
 
-store.dispatch('getAllIsolationConstr')
+store.dispatch('getAcousticCategories')
 
-const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
+const selectAcousticCategories = computed(() => store.getters['selectAcousticCategories'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' }, 
-    { title: 'КОНСТРУКЦИИ' }
+    { link: '/', title: 'АКУСТИКА' }, 
+    { title: 'АКУСТИКА ПО БРЕНДАМ' }
 ])
 </script>
 

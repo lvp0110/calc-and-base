@@ -19,8 +19,18 @@ src="/icon_button/soundproof.svg" >
 </AccordionItem>
 
 <AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="/icon_button/acoustic.svg">
-    <ListItem name="АКУСТИКА ПО БРЕНДАМ" to="/acoustic/brands" :items="selectAcousticCategories" />
-    <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/acoustic/materials" :items="selectMaterialsAc" />
+    <ul class="list_sound">
+        <li>
+            <RouterLink to="/acoustic/brands">
+              АКУСТИКА ПО БРЕНДАМ
+            </RouterLink>
+        </li>
+        <li>
+            <RouterLink to="/acoustic/materials">
+            СПИСОК МАТЕРИАЛОВ
+            </RouterLink>
+        </li>
+    </ul>
 </AccordionItem>
 
 <AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/icon_button/vibroisolanion.svg">
@@ -40,8 +50,12 @@ src="/icon_button/soundproof.svg" >
               СЕРТИФИКАТЫ
             </RouterLink>
         </li>
+        <li>
+            <RouterLink to="/documents/air">
+              АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ
+            </RouterLink>
+        </li>
     </ul>
-    <ListItem name="АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" to="/documents/air" :items="selectAlbums" />
     <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
     <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectBrandsInstalSchemas" />
     <!-- <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" /
@@ -90,7 +104,7 @@ ul {
 }
 ul li{
   font-family: 'Montserrat', sans-serif;
-  font-weight:300;
+  font-weight: 250;
 }
 ul li a{ 
     color: #6c757d;

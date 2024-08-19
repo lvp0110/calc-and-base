@@ -1,5 +1,6 @@
 <template>
-    <Dialog v-if="selectElement">
+    <div v-if="selectElement">
+        <MainPageLayout :breadcrumbs="breadcrumbs" />
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">
@@ -17,26 +18,27 @@
         </div>
         <hr>
         <span>{{ selectElement.Specification }}</span>
-    </Dialog>
+    </div>
 </template>
 
-<script>
-import Dialog from '../../../../components/Dialog.vue'
-import { mapGetters } from 'vuex'
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 
-export default {
-    components: {   
-        Dialog,
-    },
-    computed: {
-        ...mapGetters(['selectMaterialsAc']),
-        selectElement() {
-            const id = this.$route.params.id
+const store = useStore()
+const route = useRoute()
 
-            return this.selectMaterialsAc.find(({ Code }) => Code === id)
-        }
-    },
-} 
+const id = route.params.id
+
+const selectElement = computed(() => store.getters['selectMaterialsAc'].find(({ Code }) => Code === id))
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'АКУСТИКА' },
+    { link: '/soundproof/materials', title: 'СПИСОК МАТЕРИАЛОВ' },
+    { title: id }
+])
 </script>
 
 <style scoped>
@@ -44,5 +46,8 @@ export default {
     margin-top: 5px;
     font-weight: 600;
     width: 80%;
+}
+img {
+    width: 100%;
 }
 </style>

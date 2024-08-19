@@ -9,9 +9,16 @@ import SoundproofConstructionsId from './pages/soundproof/constructions/[id]/ind
 import SoundproofMaterialsId from './pages/soundproof/materials/[id]/index.vue'
 import SoundproofMaterials from './pages/soundproof/materials/Index.vue'
 
-import AcousticMaterials from './pages/acoustic/materials/[id]/index.vue'
+import AcousticBrands from './pages/acoustic/brands/index.vue'
+import AcousticBrandsId from './pages/acoustic/brands/[id]/Index.vue'
+import AcousticMaterials from './pages/acoustic/materials/index.vue'
+import AcousticMaterialsId from './pages/acoustic/materials/[id]/index.vue'
+
 import VibrationMaterialsId from './pages/vibration_isolation/materials/[id]/index.vue'
 import VibrationMaterials from './pages/vibration_isolation/materials/index.vue'
+
+import DocumentAir from './pages/documents/air/index.vue'
+import DocumentAirId from './pages/documents/air/[id]/index.vue'
 
 import DocumentSertificates from './pages/documents/certificates/index.vue'
 import DocumentSertificatesId from './pages/documents/certificates/[id]/index.vue'
@@ -19,8 +26,7 @@ import DocumentTechcard from './pages/documents/techcard/[id]/index.vue'
 import DocumentHookup from './pages/documents/hookup/[id]/index.vue'
 import DocumentProtocol from './pages/documents/protocol/[id]/index.vue'
 import DocumentBim from './pages/documents/bim/[id]/index.vue'
-import DocumentAir from './pages/documents/air/[id]/index.vue'
-import AcousticBrands from './pages/acoustic/brands/[id]/Index.vue'
+
 import OurObjects from './pages/our-objects/Index.vue'
 import OurObject from './pages/our-objects/[id]/Index.vue'
 import Calc from './pages/calc/index.vue'
@@ -41,7 +47,14 @@ const router = createRouter({
         { path: "/vibration_isolation/materials", component: VibrationMaterials },
         { path: "/vibration_isolation/materials/:id", component: VibrationMaterialsId },
 
-        { path: "/acoustic/materials/:id", component: AcousticMaterials },
+        { path: "/acoustic/brands", component: AcousticBrands },
+        { path: "/acoustic/brands/:id", component: AcousticBrandsId },
+        { path: "/acoustic/materials", component: AcousticMaterials },
+        { path: "/acoustic/materials/:id", component: AcousticMaterialsId },
+
+        { path: "/documents/air", component: DocumentAir },
+        { path: "/documents/air/:id", component: DocumentAirId },
+        
         { path: "/acoustic/brands/:id", component: AcousticBrands },
         { path: "/documents/certificates", component: DocumentSertificates },
         { path: "/documents/certificates/:id", component: DocumentSertificatesId },
@@ -49,7 +62,6 @@ const router = createRouter({
         { path: "/documents/hookup/:id", component: DocumentHookup },
         { path: "/documents/protocol/:id", component: DocumentProtocol },
         { path: "/documents/bim/:id", component: DocumentBim },
-        { path: "/documents/air/:id", component: DocumentAir },
         { path: "/our-objects", component: OurObjects },
         { path: "/our-objects/:id", component: OurObject},
         

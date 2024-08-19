@@ -1,5 +1,6 @@
 <template>
-    <Dialog v-if="selectElement">
+    <div v-if="selectElement">
+        <MainPageLayout :breadcrumbs="breadcrumbs" />
         <p class="title">{{ selectElement.Name }}</p>
         <hr>
 
@@ -55,16 +56,16 @@
             <span v-html="selectedModelDescription"></span>
         </template>
         <button class="copy-link" @click="copyLink">копировать ссылку</button>
-    </Dialog>
+    </div>
 </template>
 
 <script>
-import Dialog from '../../../../components/Dialog.vue';
 import ImageSelect from '../../../../components/ImageSelect.vue';
 import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
 import { filesApi, modelsApi } from '../../../../config';
 import { mapGetters } from 'vuex';
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue'
 
 export default {
     data() {
@@ -87,15 +88,16 @@ export default {
         };
     },
     components: {
-        Dialog,
         ImageSelect,
         ObjectsSlider,
-        ImageSlide
+        ImageSlide,
+        MainPageLayout
     },
     computed: {
         ...mapGetters(['selectAcousticCategories']),
         selectElement() {
             const id = this.$route.params.id;
+            
             return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id) || {};
         },
         isSaveButtonVisible() {
@@ -121,6 +123,13 @@ export default {
         selectedModelDescription() {
             const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
             return selectedModel ? selectedModel.Description : '';
+        },
+        breadcrumbs() {
+            return [
+                { link: '/', title: 'АКУСТИКА' }, 
+                { link: '/acoustic/brands', title: 'АКУСТИКА ПО БРЕНДАМ' },
+                { title: this.selectElement.Name },
+            ]
         }
     },
     methods: {
@@ -272,7 +281,7 @@ export default {
     border: 1px solid gray;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 250;
+    font-weight: 300;
     padding: 5px;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
 }

@@ -59,15 +59,7 @@ export default {
   display: flex;
   align-items: center;
 }
-/* .input {
-  flex: 1;
-  border: solid 1px gray;
-  border-radius: 4px;
-  height: 40px;
-  padding-left: 40px;
-  background-color: rgb(248, 243, 243);
-  margin-top: -60px;
-} */
+
 .search {
         top: -55px;
         left: 4px;
@@ -82,25 +74,20 @@ export default {
         color: transparent;
         border: 1px solid gray;
         overflow: hidden;
-        /* background-size: 22px; */
-        /* background-position: 45% 50%; */
     }
+
     .search:hover {
         cursor: pointer;
         border: 1px solid rgb(10, 115, 160);
-        /* background-size: 22px; */
-        /* background-position: 45% 50%; */
     }
+
     .search:focus {
         width: 330px;
         cursor: pointer;
-        /* padding-left: 40px; */
         color: gray;
         outline: none;
         border: 1px solid rgb(10, 115, 160);
         background-color: transparent;
-        /* background-size: 22px; */
-        /* background-position: 10px 50px; */
     }
 
 figure {

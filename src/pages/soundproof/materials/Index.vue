@@ -1,15 +1,15 @@
 <template>
-    <MainPageLayout title="ЗВУКОИЗОЛЯЦИЯ" subtitle="МАТЕРИАЛЫ" back-link="/" />
-<div class="list">
-    <ul>
-        <li v-for="item in selectMaterials" >
-            <RouterLink :to="'/soundproof/materials/' + item.Code">
-                {{ item.Name }}
-            </RouterLink>
-        </li>
-    </ul>
-</div>
-   
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <div class="list">
+        <ul>
+            <li v-for="item in selectMaterials" >
+                <RouterLink :to="'/soundproof/materials/' + item.Code">
+                    {{ item.Name }}
+                </RouterLink>
+            </li>
+        </ul>
+    </div>
+    
 </template>
 
 <script setup>
@@ -22,6 +22,11 @@ const store = useStore()
 store.dispatch('getMaterials')
 
 const selectMaterials = computed(() => store.getters['selectMaterials'])
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' }, 
+    { title: 'МАТЕРИАЛЫ' }
+])
 </script>
 
 <style scoped>

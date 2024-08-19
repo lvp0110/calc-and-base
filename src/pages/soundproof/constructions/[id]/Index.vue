@@ -5,10 +5,11 @@
         <div class="title-construction">{{ selectElement.Description }}</div>
         <hr>
         <div class="image-descript">
-            <div>
-                <img class="img" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
+            <div class="image-block">
+                <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
+                <img class="img2" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
             </div>
-            <ul class="ul-descript">
+            <ul class="ul-descript" >
                 <li v-if="visiblRw">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
                 <li v-if="visiblLnw">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
                 </li>
@@ -21,7 +22,7 @@
             КОЛИЧЕСТВО МАТЕРИАЛОВ</RouterLink>
     </Fragment>
 </template>
-
+ 
 <script setup>
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue'
 import { filesApi } from '../../../../config';
@@ -86,13 +87,39 @@ const visiblRw = () => {
     margin-bottom: 10px;
 }
 
-.img {
-    flex-grow: 1;
+.img1 {
     width: 50%;
+    border-radius: 5px;
+    transition: all .3s ease;
+    padding-right: 1px;
+}
+.img1:hover {
+    transform: translateX(20%) scale(1.5);
+      
+}
+.img2 {
+    width: 50%;
+    border-radius: 5px;
+    transition: all .3s ease;
+    padding-right: 1px;
+}
+.img2:hover {
+    transform: translateX(-20%) scale(1.5);
+      
+}
+@media screen and (min-width: 1024px) {
+    .img1 {
+    flex-grow: 1;
+    width: 30%;
     border-radius: 5px;
     transition: all .5s ease;
 }
-.img:hover {
-    width: 100%;
+.img2 {
+    flex-grow: 1;
+    width: 30%;
+    border-radius: 5px;
+    transition: all .5s ease;
+}
+
 }
 </style>

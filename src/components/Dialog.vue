@@ -60,7 +60,7 @@ export default {
 
 .information-block {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 250;
+    font-weight: 300;
     width: 100%;
     background-color: rgba(241, 241, 241, 0.5);
     padding: 10px;
@@ -98,7 +98,6 @@ export default {
     margin-left: 5px;
 }
 
-
 @media screen and (max-width: 800px) {
     .image-descript {
         display: block;
@@ -108,7 +107,7 @@ export default {
         margin-top: 5px;
         flex-shrink: 0;
     }
-
-    
 }
+
+
 </style>

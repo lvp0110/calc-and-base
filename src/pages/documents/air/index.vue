@@ -2,8 +2,8 @@
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="list">
         <ul>
-            <li v-for="item in selectAllIsolationConstrSound" >
-                <RouterLink :to="'/soundproof/constructions/' + item.Code">
+            <li v-for="item in selectAlbums" >
+                <RouterLink :to="'/documents/air/' + item.Name">
                     {{ item.Name }}
                 </RouterLink>
             </li>
@@ -18,13 +18,13 @@ import { computed } from 'vue'
 
 const store = useStore()
 
-store.dispatch('getAllIsolationConstr')
+store.dispatch('getAlbums')
 
-const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
+const selectAlbums = computed(() => store.getters['selectAlbums'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' }, 
-    { title: 'КОНСТРУКЦИИ' }
+    { link: '/', title: 'ДОКУМЕНТЫ' }, 
+    { title: 'АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ' }
 ])
 </script>
 
@@ -39,23 +39,25 @@ ul li{
     font-weight: 300;
 }
 ul li a{ 
-    color: rgb(58, 57, 57);
+    color: #6c757d;
     text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    padding: 4px;
+    margin-bottom: 1px;
+    border: solid 1px #6c757d;
+    border-radius: 5px;
+    padding: 6px;
     display: block;
     width: 100%;
-    margin-bottom: 1px;
-    background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
-    transition: all .5s;
+    text-align: left;
+    background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
+    transition: all .4s;
 }
 ul li a:hover {
     background: radial-gradient(circle at left, #6c757d, #bdbfc2);
-    transition: all .5s;
-    color: rgb(255, 255, 255);
-}
-@media screen and ( min-width: 768px) {
+    transition: all .4s;
+    color: aliceblue;
+    border: solid 1px rgb(173, 170, 170);
+    }
+    @media screen and ( min-width: 768px) {
   ul li a {
     width: 310px;
   }
