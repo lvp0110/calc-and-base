@@ -58,7 +58,6 @@ h6 {
 
     .back {
         color: white;
-        /* margin-top: -10px; */
         font-size: 15px;
     }
 }

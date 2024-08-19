@@ -1,7 +1,7 @@
 <template>
   <div v-if="selectElement">
     <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <p class="title-hookup">{{ selectElement.Name }}</p>
+    <!-- <p class="title-hookup">{{ selectElement.Name }}</p> -->
     {{ selectElement.Description }}
     <hr>
     <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
@@ -24,7 +24,7 @@ const selectElement = computed(() => store.getters['selectAlbums'].find(({ Name 
 
 const breadcrumbs = computed(() => [
     { link: '/', title: 'ДОКУМЕНТЫ' }, 
-    { link: '/documents/air', title: 'АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ' },
+    { link: '/documents/air', title: 'АЛЬБОМЫ...' },
     { title: id }
 ])
 </script>
@@ -32,6 +32,6 @@ const breadcrumbs = computed(() => [
 <style scoped>
 .pdf-cert {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 </style>

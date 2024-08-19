@@ -127,7 +127,7 @@ export default {
         breadcrumbs() {
             return [
                 { link: '/', title: 'АКУСТИКА' }, 
-                { link: '/acoustic/brands', title: 'АКУСТИКА ПО БРЕНДАМ' },
+                { link: '/acoustic/brands', title: 'БРЕНДЫ' },
                 { title: this.selectElement.Name },
             ]
         }

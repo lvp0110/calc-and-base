@@ -1,7 +1,7 @@
 <template>
   <div v-if="selectElement">
     <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <p class="title-certificates">{{ selectElement.Name }}</p>
+    <!-- <p class="title-certificates">{{ selectElement.Name }}</p> -->
     <p> количество документов: {{ slides.length }}</p>
     <hr>
     <Slider :pdfs="slides" />
@@ -42,7 +42,7 @@ export default {
       return [
         { link: '/', title: 'ДОКУМЕНТЫ' },
         { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
-        { title: this.selectElement?.Code }
+        { title: this.selectElement?.Name }
       ]
     }
   },

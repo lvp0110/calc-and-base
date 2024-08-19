@@ -24,7 +24,7 @@ const selectAcousticCategories = computed(() => store.getters['selectAcousticCat
 
 const breadcrumbs = computed(() => [
     { link: '/', title: 'АКУСТИКА' }, 
-    { title: 'АКУСТИКА ПО БРЕНДАМ' }
+    { title: 'БРЕНДЫ' }
 ])
 </script>
 
