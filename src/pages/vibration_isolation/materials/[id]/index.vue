@@ -40,10 +40,38 @@ const breadcrumbs = computed(() => [
 ])
 </script>
 
-<style>
-.title-materials {
+<style scoped>
+ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
-    font-weight: 600;
-    width: 80%;
+}
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300; 
+}
+.img {
+    width: 100%;
+}
+.title-materials {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    width: 100%;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+@media screen and (min-width: 768px) {
+    .img {
+    width: 50%;
+}
+}
+@media screen and (min-width: 1024px) {
+    .img {
+    width: 40%;
+}
 }
 </style>

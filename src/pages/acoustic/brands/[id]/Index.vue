@@ -1,7 +1,7 @@
 <template>
     <div v-if="selectElement">
         <MainPageLayout :breadcrumbs="breadcrumbs" />
-        <p class="title">{{ selectElement.Name }}</p>
+        <!-- <p class="title">{{ selectElement.Name }}</p> -->
         <hr>
 
         <div class="block-image-colors">
@@ -50,7 +50,7 @@
         </div>
         <hr>
         <template v-if="!selectedModelCode">
-            <span style="color: black;" v-html="selectElement?.Description"></span>
+            <span class="span"  v-html="selectElement?.Description"></span>
         </template>
         <template v-else>
             <span v-html="selectedModelDescription"></span>
@@ -133,6 +133,7 @@ export default {
         }
     },
     methods: {
+        
         async fetchData(id) {
             const response = await modelsApi.getModelsByBrand(id);
             this.models = response.data.data;
@@ -228,6 +229,7 @@ export default {
 </script>
 
 <style scoped>
+
 .add-image {
     margin-top: 10px;
 }
@@ -293,15 +295,22 @@ export default {
     background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
     color: rgb(158, 161, 163);
 }
-@media screen and (max-width: 1800px) {
-    .image-descript {
+.img{
+       width: 100%;
+    }
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight:300;
+}
+.select {
         display: block;
-        margin-right: 0px;
+        margin-top: 5px;
+        
     }
-
-    .select {
-        margin-top: 10px;
-
+@media screen and (min-width: 500px) {
+    .image-descript {
+       width: 100%;
     }
+   
 }
 </style>

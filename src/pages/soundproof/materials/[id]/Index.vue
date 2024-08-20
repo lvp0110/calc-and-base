@@ -1,5 +1,6 @@
 <template>
-    <Dialog v-if="selectElement">
+    <div v-if="selectElement">
+        <MainPageLayout :breadcrumbs="breadcrumbs" />
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">
@@ -16,38 +17,62 @@
         </div>
         <hr>
         <span>{{ selectElement.Specification }}</span>
-    </Dialog>
+    </div>
 </template>
 
-<script>
-import Dialog from '../../../../components/Dialog.vue'
-import { mapGetters } from 'vuex'
-import { filesApi } from '../../../../config';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 
-export default {
-    components: {  
-        Dialog,
-    },
-    computed: {
-        ...mapGetters(['selectMaterials']),
-        selectElement() {
-            const id = this.$route.params.id
+const store = useStore()
+const route = useRoute()
 
-            return this.selectMaterials.find(({ Code }) => Code === id)
-        }
-    },
-    methods: {
-        getImgSrc(Img) {
-            return filesApi.getImageFileUrl(Img)
-        }
-    }
-} 
+const id = route.params.id
+
+const selectElement = computed(() => store.getters['selectMaterials'].find(({ Code }) => Code === id))
+
+const breadcrumbs = computed(() => [
+    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' },
+    { link: '/soundproof/materials', title: 'МАТЕРИАЛЫ' },
+    { title: id }
+])
 </script>
 
-<style>
+<style scoped>
 .title-materials {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
     margin-top: 5px;
-    font-weight: 600;
-    width: 80%;
+    width: 100%;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    margin-top: 5px;
+}
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+img {
+    width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .img {
+    width: 50%;
+}
+}
+@media screen and (min-width: 1024px) {
+    .img {
+    width: 40%;
+}
 }
 </style>

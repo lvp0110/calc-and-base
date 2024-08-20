@@ -10,8 +10,8 @@
                 <img class="img2" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
             </div>
             <ul class="ul-descript" >
-                <li v-if="visiblRw">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
-                <li v-if="visiblLnw">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
+                <li v-if="selectElement.SoundIndex != 'неопределен'">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
+                <li v-if="selectElement.ImpactNoseIndex != 0">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
                 </li>
                 <li>Толщина: {{ selectElement.Thickness }} мм.</li>
             </ul>
@@ -45,18 +45,19 @@ const breadcrumbs = computed(() => [
     { title: selectElement.value?.Code }
 ])
 
-const visiblLnw = () => {
-    if (selectElement.ImpactNoseIndex != 0)
-        return true;
-}
+// const visiblLnw = () => {
+//     if (selectElement.ImpactNoseIndex != 0)
+//         return true;
+// }
 
-const visiblRw = () => {
-    if (selectElement.SoundIndex != 'неопределен')
-        return true;
-}
+// const visiblRw = () => {
+//     if (selectElement.SoundIndex != 'неопределен')
+//         return true;
+// }
 </script>
 
 <style scoped>
+
 .span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 250;

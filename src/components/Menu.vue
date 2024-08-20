@@ -12,7 +12,7 @@ src="/icon_button/soundproof.svg" >
         </li>
         <li>
             <RouterLink to="/soundproof/materials">
-            СПИСОК МАТЕРИАЛОВ
+            МАТЕРИАЛЫ
             </RouterLink>
         </li>
     </ul>
@@ -27,7 +27,7 @@ src="/icon_button/soundproof.svg" >
         </li>
         <li>
             <RouterLink to="/acoustic/materials">
-            СПИСОК МАТЕРИАЛОВ
+              МАТЕРИАЛЫ
             </RouterLink>
         </li>
     </ul>
@@ -37,7 +37,7 @@ src="/icon_button/soundproof.svg" >
     <ul class="list_sound">
         <li>
             <RouterLink to="/vibration_isolation/materials">
-              СПИСОК МАТЕРИАЛОВ
+              МАТЕРИАЛЫ
             </RouterLink>
         </li>
     </ul>

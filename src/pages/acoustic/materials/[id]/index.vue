@@ -6,7 +6,6 @@
         <div class="image-descript">
             <div>
                 <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
-
             </div>
             <ul class="ul-descript">
                 <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
@@ -36,18 +35,44 @@ const selectElement = computed(() => store.getters['selectMaterialsAc'].find(({ 
 
 const breadcrumbs = computed(() => [
     { link: '/', title: 'АКУСТИКА' },
-    { link: '/soundproof/materials', title: 'СПИСОК МАТЕРИАЛОВ' },
+    { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
     { title: id }
 ])
 </script>
 
 <style scoped>
 .title-materials {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
     margin-top: 5px;
-    font-weight: 600;
-    width: 80%;
+    width: 100%;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    margin-top: 5px;
+}
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
 }
 img {
     width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .img {
+    width: 50%;
+}
+}
+@media screen and (min-width: 1024px) {
+    .img {
+    width: 40%;
+}
 }
 </style>
