@@ -1,76 +1,47 @@
 <template>
-  <Dialog v-if="selectElement">
-    <p class="title-techcard">{{ selectElement.Name }}</p>
-    <p>{{ selectElement.Code }}_2023</p>
+  <div v-if="selectElement">
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <p>{{ selectElement.Name }}</p>
+    {{ selectElement.Description }}
     <hr>
-    <div class="pdf-container">
-      <iframe class="pdf-techcard" :src="filesApi.getCertificateFileUrl(selectElement.File)" />
-    </div>
-  </Dialog>
+    <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
+  </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router';
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 import { filesApi } from '../../../../config.js';
-import { mapGetters } from 'vuex'
-import Dialog from '../../../../components/Dialog.vue';
 
-export default {
-  data() {
-    return {
-      filesApi
-    }
-  },
-  components: {
-    Dialog
-  },
-  computed: {
-    ...mapGetters(['selectMaterialsWithTechCards']),
-    selectElement() {
-      const id = this.$route.params.id
+const store = useStore();
+const route = useRoute();
 
-      return this.selectMaterialsWithTechCards.find(({ Code }) => Code === id)
-    },
-  },
-  methods: {
-    formatTime(value) {
-      const data = new Date(value)
+const id = route.params.id;
 
-      return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-    },
-    downloadTextFile(slide) {
-      const textData = `Тип: ${slide.Type}\n№ ${slide.Code}\nСрок действия: ${this.formatTime(slide.ValPeriod)}\nКласс пожароопасности: ${slide.Indicators}`;
-      const blob = new Blob([textData], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'slide_info.txt';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
-  },
-}
+store.dispatch('getTechCards');
 
+const selectElement = computed(() => store.getters['selectMaterialsWithTechCards'].find(({ Code }) => Code === id))
+
+const breadcrumbs = computed(() => [
+  { link: '/', title: '...' },
+  { link: '/documents/techcard', title: 'ТЕХ.КАРТЫ' },
+  { title: id }
+])
 </script>
 
 <style scoped>
-.title-techcard {
-  margin-top: 20px;
-  font-weight: 600;
-  width: 80%;
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
+  padding: 5px;
 }
-
-.pdf-techcard {
-  display: block;
-  margin-top: 18px;
+.pdf-cert {
   width: 100%;
   height: 100vh;
-}
-
-.pdf-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>

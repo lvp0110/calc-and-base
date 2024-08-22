@@ -1,6 +1,6 @@
 <template>
 <AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle"
-src="/icon_button/soundproof.svg" >
+src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
     <!-- <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" />
     <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" /> -->
 
@@ -18,7 +18,7 @@ src="/icon_button/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="/icon_button/acoustic.svg">
+<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/acoustic.svg">
     <ul class="list_sound">
         <li>
             <RouterLink to="/acoustic/brands">
@@ -33,7 +33,7 @@ src="/icon_button/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="/icon_button/vibroisolanion.svg">
+<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/vibroisolanion.svg">
     <ul class="list_sound">
         <li>
             <RouterLink to="/vibration_isolation/materials">
@@ -43,7 +43,7 @@ src="/icon_button/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="/icon_button/documents.svg" >
+<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/documents.svg" >
     <ul class="list_sound">
         <li>
             <RouterLink to="/documents/certificates">
@@ -55,32 +55,31 @@ src="/icon_button/soundproof.svg" >
               АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ
             </RouterLink>
         </li>
+        <li>
+            <RouterLink to="/documents/techcard">
+              ТЕХ.КАРТЫ
+            </RouterLink>
+        </li>
+        <li>
+            <RouterLink to="/documents/hookup">
+              МОНТАЖНЫЕ СХЕМЫ
+            </RouterLink>
+        </li>
     </ul>
-    <ListItem name="ТЕХ.КАРТЫ" to="/documents/techcard" :items="selectMaterialsWithTechCards" />
-    <ListItem name="МОНТАЖНЫЕ СХЕМЫ" to="/documents/hookup" :items="selectBrandsInstalSchemas" />
-    <!-- <ListItem name="ПРОТОКОЛЫ" to="/documents/protocol" /
-    <ListItem name="BIM" to="/documents/bim"  /> -->
 </AccordionItem>
 
-<AccordionItem header="НАШИ ОБЪЕКТЫ" name="our-objects" :open="opened === 'our-objects'" :onToggle="onToggle" src="/icon_button/object.svg" >
-  <RouterLink to="/our-objects" class="btn btn-outline-secondary object" type="button" >
-    ВСЕ ОБЪЕКТЫ
-  </RouterLink>
-</AccordionItem>
+<RouterLink to="/our-objects">
+  <AccordionItem header="НАШИ ОБЪЕКТЫ" src="https://db.acoustic.ru:3005/api/v1/constr/object.svg" />
+</RouterLink>
+
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex';
 import AccordionItem from "./AccordionItem.vue";
-import ListItem from "./ListItem.vue";
 
 const store = useStore()
-const selectAcousticCategories = computed(() => store.getters['selectAcousticCategories'])
-const selectMaterialsAc = computed(() => store.getters['selectMaterialsAc'])
-const selectAlbums = computed(() => store.getters['selectAlbums'])
-const selectMaterialsWithTechCards = computed(() => store.getters['selectMaterialsWithTechCards'])
-const selectBrandsInstalSchemas = computed(() => store.getters['selectBrandsInstalSchemas'])
 
 const opened = ref()
 
@@ -94,6 +93,9 @@ const onToggle = (name) => {
 </script>
 
 <style scoped>
+a { 
+  text-decoration: none;
+}
 .object {
   width: 100%;
 }
@@ -104,7 +106,7 @@ ul {
 }
 ul li{
   font-family: 'Montserrat', sans-serif;
-  font-weight: 250;
+  font-weight: 300;
 }
 ul li a{ 
     color: #6c757d;
@@ -135,42 +137,5 @@ ul li a:hover {
     width: 310px;
   }
 }
-hr {
-  filter: drop-shadow(1px 3px 1px);
-  background: #000;
-  width: 100%;
-  margin-top: 25px;
-}
-
-.accordion-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0.7rem 1rem;
-  font-size: 1.3rem;
-  color: #fff;
-  text-align: left;
-  background-color: rgb(36, 140, 185);
-  border: 0;
-  overflow-anchor: none;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
-  border-radius: 10px;
-  height: 110px;
-  margin-top: 5px;
-  box-shadow: 1px -3px 5px 1px rgb(167, 163, 163);
-}
-
-.accordion-button:not(.collapsed) {
-  color: white;
-  background-color: rgb(80, 159, 190);
-
-}
-
-.accordion-body {
-  margin: 10px;
-  padding: 0;
-}
-
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <button :name="name" class="button" @click="toggle">
-    <h5>{{ header }}</h5>
+    <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="">
   </button>
   <section class="section" v-if="open">
@@ -24,7 +24,7 @@ const toggle = () => {
   padding-bottom: 6px;
 }
 
-h5 {
+.h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
 }
@@ -45,6 +45,7 @@ h5 {
   height: 100px;
   margin-top: 5px;
   box-shadow: 2px -3px 5px 1px rgb(167, 163, 163);
+  
 }
 
 .button:active {

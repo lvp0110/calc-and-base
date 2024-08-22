@@ -48,6 +48,7 @@
 }
 
 .tabbar {
+    z-index: 111111;
     position: fixed;
     bottom: 0;
     left: 0;

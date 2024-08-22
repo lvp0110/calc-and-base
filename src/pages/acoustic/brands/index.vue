@@ -29,6 +29,7 @@ const breadcrumbs = computed(() => [
 </script>
 
 <style scoped>
+
 ul {
     list-style: none;
     padding: 0;

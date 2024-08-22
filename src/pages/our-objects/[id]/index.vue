@@ -1,30 +1,50 @@
 <template>
-    <Dialog back-link="/our-objects" v-if="selectElement">
-
-        <div class="title">{{ selectElement.images[0].name }} </div>
+    <div v-if="selectElement">
+        <div class="title">{{ selectElement.images.Name }} </div>
         <hr>
         <ul>
-            <li v-if="selectElement.images[0].address">{{ selectElement.images[0].address }}</li>
+            <!-- <li v-if="selectElement.images[0].address">{{ selectElement.images[0].address }}</li>
             <li v-if="selectElement.images[0].objectname">{{ selectElement.images[0].objectname }}</li>
             <li v-if="selectElement.images[0].customer">{{ selectElement.images[0].customer }}</li>
             <li v-if="selectElement.images[0].designers">{{ selectElement.images[0].designers }}</li>
             <li v-if="selectElement.images[0].generalcontractor">{{ selectElement.images[0].generalcontractor }}</li>
             <li v-if="selectElement.images[0].areaobject">{{ selectElement.images[0].areaobject }}</li>
             <li v-if="selectElement.images[0].constructiontime">{{ selectElement.images[0].constructiontime }}</li>
-            <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li>
+            <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li> -->
         </ul>
-   
-        <ObjectsSlider :slides="selectElement.images[0].imagesSet[0]" :slideComponent="image_slide" />
- 
+
+        <!-- <ObjectsSlider :slides="selectElement.images[0].imagesSet[0]" :slideComponent="ImageSlide" /> -->
+
         <span>Используемые материалы :</span>
-        <ul>
+        <!-- <ul>
             <li v-for="(material, index) in extractMaterials(selectElement.images[0].usedmaterials[0])" :key="index">
                 {{ material }}
             </li>
-        </ul>
- 
-    </Dialog>
+        </ul> -->
+    </div>
 </template>
+
+<script setup>
+import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
+import ImageSlide from '../../../components/Slider/ImageSlide.vue'
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { objectsApi } from '../../../config';
+
+const selectElement = ref(null)
+const route = useRoute()
+
+const code = route.params.id
+
+const fetchObject = async (code) => {
+    const response = await objectsApi.getObject(code)
+
+    selectElement.value = response.data.data
+}
+
+fetchObject(code)
+</script>
+<!-- 
 <script>
 import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../components/Slider/ImageSlide.vue'
@@ -62,7 +82,7 @@ export default {
         },
     }
 }
-</script>
+</script> -->
 
 <style scoped>
 .title {

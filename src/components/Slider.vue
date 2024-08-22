@@ -14,8 +14,8 @@
 
         <swiper-slide v-for="slide in pdfs" :key="slide.Code" @click="goToNextSlide">
             <div>
-                <p style="position: absolute; top:6px;left: 20px; color: black ;">{{ slide.Type }}</p>
-                <ul style="border: solid 2px gray;" @click.stop="downloadTextFile(slide)">
+                <p class="cert-info" >{{ slide.Type }}</p>
+                <ul @click.stop="downloadTextFile(slide)">
                     <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
                     <li v-if="slide.Code != 0">№ {{ slide.Code }} </li>
                     <li v-if="slide.ValPeriod != 0"> Срок действия: {{ formatTime(slide.ValPeriod) }} </li>
@@ -29,7 +29,7 @@
         </swiper-slide>
 
         <swiper-slide v-for="slide in hookup" :key="slide.Code" @click="goToNextSlide">
-            <p style="bottom: 20px;"> </p>
+            <p style="bottom: 20px;"></p>
             <div>
                 <div class="hookup-container">
                     <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(slide.File)">
@@ -62,7 +62,6 @@ export default {
     setup() {
         const onProgress = (e) => {
             const [swiper, progress] = e.detail;
-            // console.log(progress)
         }
 
         const onSlideChange = (e) => {
@@ -130,7 +129,12 @@ swiper-container::part(bullet-active) {
 swiper-container::part(bullet-active) {
     background-color: grey;
 }
-
+.cert-info {
+    position: absolute; 
+    top:6px;
+    left: 20px; 
+    color: black ;
+}
 .img {
     width: 100%;
 }
@@ -154,6 +158,10 @@ swiper-container::part(bullet-active) {
 
 ul {
     margin-top: 55px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    color: rgb(7, 91, 128);
+    border: solid 2px rgb(7, 91, 128);
 }
 
 .pdf-cert {

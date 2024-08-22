@@ -5,7 +5,8 @@ import {
     constructionsApi,
     brandsApi,
     techCardApi,
-    installSchemesApi
+    installSchemesApi,
+    objectsApi
 } from '../config';
 import { MaterialUsage, ConstructionsUsage } from '../types'
 
@@ -620,7 +621,8 @@ export default createStore({
                 [MATERIALS_WITH_CERTS]: [],
                 [ACOUSTIC_CATEGORIES]: [],
                 [TECHCARDS]: [],
-                [ALBUMS]: []
+                [ALBUMS]: [],
+                objects: [],
             }
         }
     },
@@ -634,6 +636,11 @@ export default createStore({
         },
     },
     actions: {
+        async getObjects({ state }) {
+            const response = await objectsApi.getObjects()
+
+            state.data.objects = response.data.data
+        },
         async getAlbums({ state }) {
             const response = await albumsApi.getAlbums();
 
@@ -816,5 +823,9 @@ export default createStore({
             const searchText = state.voiceSearchText || state.searchText;
             return state.data[ALBUMS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
+        selectObjects(state) {
+            const searchText = state.voiceSearchText || state.searchText;
+            return state.data.objects.filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+        }
     },
 })

@@ -2,7 +2,7 @@
   <div v-if="selectElement">
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <!-- <p class="title-certificates">{{ selectElement.Name }}</p> -->
-    <p> количество документов: {{ slides.length }}</p>
+    <p>КОЛИЧЕСТВО ДОКУМЕНТОВ: {{ slides.length }}</p>
     <hr>
     <Slider :pdfs="slides" />
   </div>
@@ -40,7 +40,7 @@ export default {
     },
     breadcrumbs() {
       return [
-        { link: '/', title: 'ДОКУМЕНТЫ' },
+        { link: '/', title: '...' },
         { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
         { title: this.selectElement?.Name }
       ]
@@ -72,10 +72,12 @@ export default {
 </script>
 
 <style scoped>
-.title-certificates {
-  margin-top: 20px;
-  font-weight: 600;
-  width: 80%;
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
+  padding: 5px;
 }
 
 li {
@@ -84,14 +86,6 @@ li {
   color: rgb(54, 52, 52);
   
 }
-
-.pdf-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}  
 
 .pdf-cert {
   width: 100%;

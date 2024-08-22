@@ -2,7 +2,8 @@
   <div v-if="selectElement">
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <!-- <p class="title-hookup">{{ selectElement.Name }}</p> -->
-    {{ selectElement.Description }}
+    <p>{{ selectElement.Description }}</p>
+    
     <hr>
     <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
   </div>
@@ -20,16 +21,26 @@ const route = useRoute();
 
 const id = route.params.id
 
+store.dispatch('getAlbums')
+
 const selectElement = computed(() => store.getters['selectAlbums'].find(({ Name }) => Name === id))
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ДОКУМЕНТЫ' }, 
-    { link: '/documents/air', title: 'АЛЬБОМЫ...' },
+    { link: '/', title: '...' }, 
+    { link: '/documents/air', title: 'АЛЬБОМЫ' },
     { title: id }
 ])
 </script>
 
 <style scoped>
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
+  padding: 5px;
+}
 .pdf-cert {
   width: 100%;
   height: 100vh;

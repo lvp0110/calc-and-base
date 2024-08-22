@@ -22,13 +22,19 @@ import DocumentAirId from './pages/documents/air/[id]/index.vue'
 
 import DocumentSertificates from './pages/documents/certificates/index.vue'
 import DocumentSertificatesId from './pages/documents/certificates/[id]/index.vue'
-import DocumentTechcard from './pages/documents/techcard/[id]/index.vue'
-import DocumentHookup from './pages/documents/hookup/[id]/index.vue'
+
+import DocumentTechcard from './pages/documents/techcard/index.vue'
+import DocumentTechcardId from './pages/documents/techcard/[id]/index.vue'
+
+import DocumentHookup from './pages/documents/hookup/index.vue'
+import DocumentHookupId from './pages/documents/hookup/[id]/index.vue'
+
 import DocumentProtocol from './pages/documents/protocol/[id]/index.vue'
 import DocumentBim from './pages/documents/bim/[id]/index.vue'
 
 import OurObjects from './pages/our-objects/Index.vue'
-import OurObject from './pages/our-objects/[id]/Index.vue'
+import OurObject from './pages/our-objects/[id]/index.vue'
+
 import Calc from './pages/calc/index.vue'
 import store from './store'
 
@@ -49,6 +55,7 @@ const router = createRouter({
 
         { path: "/acoustic/brands", component: AcousticBrands },
         { path: "/acoustic/brands/:id", component: AcousticBrandsId },
+
         { path: "/acoustic/materials", component: AcousticMaterials },
         { path: "/acoustic/materials/:id", component: AcousticMaterialsId },
 
@@ -56,15 +63,21 @@ const router = createRouter({
         { path: "/documents/air/:id", component: DocumentAirId },
         
         { path: "/acoustic/brands/:id", component: AcousticBrands },
+
         { path: "/documents/certificates", component: DocumentSertificates },
         { path: "/documents/certificates/:id", component: DocumentSertificatesId },
-        { path: "/documents/techcard/:id", component: DocumentTechcard },
-        { path: "/documents/hookup/:id", component: DocumentHookup },
+
+        { path: "/documents/techcard", component: DocumentTechcard },
+        { path: "/documents/techcard/:id", component: DocumentTechcardId },
+
+        { path: "/documents/hookup", component: DocumentHookup },
+        { path: "/documents/hookup/:id", component: DocumentHookupId },
+
         { path: "/documents/protocol/:id", component: DocumentProtocol },
         { path: "/documents/bim/:id", component: DocumentBim },
+        
         { path: "/our-objects", component: OurObjects },
         { path: "/our-objects/:id", component: OurObject},
-        
      ]
     },
     {

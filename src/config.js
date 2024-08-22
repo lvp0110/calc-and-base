@@ -45,3 +45,8 @@ export const filesApi = {
     getImageFileUrl: (fileName) => `${baseURL}/api/v1/constr/${fileName}`,
     getCertificateFileUrl: (fileName) => `${baseURL}/api/v1/certificate/${fileName}`
 }
+
+export const objectsApi = {
+    getObjects: () => requestInstance.get(`${baseURL}/api/v1/objects/all`),
+    getObject: (code) => requestInstance.get(`${baseURL}/api/v1/objects/info/${code}`),
+}

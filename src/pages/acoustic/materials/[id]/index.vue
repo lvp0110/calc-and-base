@@ -29,12 +29,14 @@ import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 const store = useStore()
 const route = useRoute()
 
+store.dispatch('getMaterialsAc')
+
 const id = route.params.id
 
 const selectElement = computed(() => store.getters['selectMaterialsAc'].find(({ Code }) => Code === id))
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'АКУСТИКА' },
+    { link: '/', title: '...' },
     { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
     { title: id }
 ])

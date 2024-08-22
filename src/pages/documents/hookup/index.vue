@@ -2,8 +2,8 @@
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="list">
         <ul>
-            <li v-for="item in selectMaterials">
-                <RouterLink :to="'/documents/certificates/' + item.Code">
+            <li v-for="item in selectBrandsInstalSchemas">
+                <RouterLink :to="'/documents/hookup/' + item.ShortName">
                     {{ item.Name }}
                 </RouterLink>
             </li>
@@ -12,19 +12,20 @@
 </template>
 
 <script setup>
+
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue'
 import { useStore } from 'vuex';
 import { computed } from 'vue'
 
 const store = useStore()
 
-store.dispatch('getMaterialsWithCerts')
+store.dispatch('getBrandsInstalSchemas')
 
-const selectMaterials = computed(() => store.getters['selectMaterialsWithCerts'])
+const selectBrandsInstalSchemas = computed(() => store.getters['selectBrandsInstalSchemas'])
 
 const breadcrumbs = computed(() => [
     { link: '/', title: 'ДОКУМЕНТЫ' },
-    { title: 'СЕРТИФИКАТЫ' }
+    { title: 'МОНТАЖНЫЕ СХЕМЫ' }
 ])
 </script>
 
@@ -32,13 +33,11 @@ const breadcrumbs = computed(() => [
 ul {
     list-style: none;
     padding: 0;
-
 }
 
 ul li {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-
 }
 
 ul li a {

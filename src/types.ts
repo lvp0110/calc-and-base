@@ -8,3 +8,4 @@ export enum MaterialUsage  {
 export enum ConstructionsUsage {
     SoundIsolation = 'AllIsolationConstr',
 }
+

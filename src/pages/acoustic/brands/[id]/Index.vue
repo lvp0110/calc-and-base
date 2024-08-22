@@ -6,19 +6,23 @@
 
         <div class="block-image-colors">
             <img v-if="selectedColor" :src="filesApi.getImageFileUrl(colorizedImage)" :alt="selectedColor?.Name" />
-            <img v-else-if="modelImages.length === 0" :src="filesApi.getImageFileUrl(selectElement.Img)" :alt="selectedColor?.Name" />
+            <img v-else-if="modelImages.length === 0" :src="filesApi.getImageFileUrl(selectElement.Img)"
+                :alt="selectedColor?.Name" />
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
+        <div class="select-container models">
+            <select class="form-select select-descript" :class="{ selected: selectedModelCode }"
+                aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
+                <option value="null" disabled>Выбрать модель</option>
+                <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
+            </select>
+        </div>
 
-        <select class="form-select select-descript" :class="{ selected: selectedModelCode }" aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
-            <option value="null" disabled>Выбрать модель</option>
-            <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
-        </select>
 
-        <div v-if="selectedModelCode" class="select">
+        <div class="select-container colorsizes">
             <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
-                <select class="form-select select-descript" :class="{ selected: selectedSizeCode }" v-model="selectedSizeCode" aria-label="Default select example"
-                    @change="selectSize($event)">
+                <select class="form-select select-descript" :class="{ selected: selectedSizeCode }"
+                    v-model="selectedSizeCode" aria-label="Default select example" @change="selectSize($event)">
                     <option value="null" disabled>Размеры</option>
                     <option v-for="size in params.Sizes" :value="size.Code">
                         {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
@@ -26,20 +30,25 @@
                 </select>
             </div>
 
-            <div v-if="params.Colors?.length > 0" class="select-wrapper size">
-                <ImageSelect placeholder="Цвет" :value="selectedColor?.Description" :items="params?.Colors" :onSelect="selectColor" />
+            <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
+                <ImageSelect placeholder="Цвет" :value="selectedColor?.Description" :items="params?.Colors"
+                    :onSelect="selectColor" />
             </div>
+        </div>
 
-            <div class="select-container">
+        <div v-if="selectedModelCode" class="select">
+
+            <div class="select-container perforation">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description" :items="params?.Perforations"
-                        :onSelect="selectPerforation" />
-                    <img v-if="selectedPerforation" class="add-image" :src="filesApi.getImageFileUrl(selectedPerforation.Img)"
-                        :alt="selectedPerforation?.Name" />
+                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description"
+                        :items="params?.Perforations" :onSelect="selectPerforation" />
+                    <img v-if="selectedPerforation" class="add-image"
+                        :src="filesApi.getImageFileUrl(selectedPerforation.Img)" :alt="selectedPerforation?.Name" />
                     <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
-                        :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)" :alt="selectedPerforation?.Name" />
+                        :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)"
+                        :alt="selectedPerforation?.Name" />
                 </div>
-                
+
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
                     <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType?.Name" :items="params?.EdgesTypes"
                         :onSelect="selectEdgeType" />
@@ -47,10 +56,11 @@
                         :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
+
         </div>
         <hr>
         <template v-if="!selectedModelCode">
-            <span class="span"  v-html="selectElement?.Description"></span>
+            <span class="span" v-html="selectElement?.Description"></span>
         </template>
         <template v-else>
             <span v-html="selectedModelDescription"></span>
@@ -97,7 +107,7 @@ export default {
         ...mapGetters(['selectAcousticCategories']),
         selectElement() {
             const id = this.$route.params.id;
-            
+
             return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id) || {};
         },
         isSaveButtonVisible() {
@@ -126,14 +136,14 @@ export default {
         },
         breadcrumbs() {
             return [
-                { link: '/', title: 'АКУСТИКА' }, 
+                { link: '/', title: '...' },
                 { link: '/acoustic/brands', title: 'БРЕНДЫ' },
                 { title: this.selectElement.Name },
             ]
         }
     },
     methods: {
-        
+
         async fetchData(id) {
             const response = await modelsApi.getModelsByBrand(id);
             this.models = response.data.data;
@@ -229,7 +239,6 @@ export default {
 </script>
 
 <style scoped>
-
 .add-image {
     margin-top: 10px;
 }
@@ -247,21 +256,21 @@ export default {
     margin-bottom: 10px;
 }
 
-.out-data {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.select-container {
+.perforation {
     display: flex;
     justify-content: space-between;
 }
 
 .select-wrapper {
-    width: 49%;
+    width: 50%;
+    border: solid 1px rgb(204, 198, 198);
 }
 
 .size {
+    width: 100%;
+}
+
+.colors {
     width: 100%;
 }
 
@@ -269,14 +278,17 @@ export default {
     background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
     font-family: 'Montserrat', sans-serif;
-    font-weight:300;
+    font-weight: 300;
 }
+
 .selected {
     background: radial-gradient(circle at left, #8e9092, #f9f9fa00);
     color: aliceblue;
     font-family: 'Montserrat', sans-serif;
-    font-weight:300;
+    font-weight: 300;
+    border: solid 1px rgb(204, 198, 198);
 }
+
 .copy-link {
     width: 300px;
     margin-left: 15px;
@@ -286,31 +298,76 @@ export default {
     font-weight: 300;
     padding: 5px;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+    margin-bottom: 15px;
 }
+
 .copy-link:hover {
     background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
     border-radius: 10px;
 }
+
 .copy-link:focus {
     background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
     color: rgb(158, 161, 163);
 }
-.img{
-       width: 100%;
-    }
+
+.img {
+    width: 100%;
+}
+
 span {
     font-family: 'Montserrat', sans-serif;
-    font-weight:300;
+    font-weight: 300;
 }
-.select {
-        display: block;
-        margin-top: 5px;
-        
+
+/* .select {
+    display: block;
+} */
+
+@media screen and (min-width: 768px) {
+    .colorsizes {
+        display: flex;
+        justify-content: space-between;
     }
-@media screen and (min-width: 500px) {
-    .image-descript {
-       width: 100%;
+
+    .size {
+        width: 50%;
     }
-   
+
+    .colors {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .colorsizes {
+        width: 50%;
+    }
+
+    .perforation {
+        width: 50%;
+    }
+
+    .block-image-colors {
+        width: 50%;
+        height: 50%;
+    }
+
+    .models {
+        width: 50%;
+    }
+
+    .select-wrapper {
+        width: 50%;
+
+    }
+
+    .size {
+        width: 50%;
+    }
+
+    .colors {
+        width: 50%;
+    }
 }
 </style>

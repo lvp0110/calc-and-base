@@ -10,7 +10,7 @@
             <span v-if="breadcrumbs.length > index + 1" class="text">&nbsp;/</span>
         </section>
     </header>
-    <VoiceSearch  />
+    <VoiceSearch />
     <slot />
 </template>
 
@@ -29,7 +29,7 @@ h6 {
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
-    background-color:  rgb(36, 140, 185);
+    background-color: rgb(36, 140, 185);
     color: white;
     height: 42px;
     border-radius: 5px;

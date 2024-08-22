@@ -31,10 +31,12 @@ const route = useRoute()
 
 const id = route.params.id
 
+store.dispatch('getMaterialsVi')
+
 const selectElement = computed(() => store.getters['selectMaterialsVi'].find(({ Code }) => Code === id))
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ВИБРОИЗОЛЯЦИЯ' },
+    { link: '/', title: '...' },
     { link: '/vibration_isolation/materials', title: 'МАТЕРИАЛЫ' },
     { title: id }
 ])

@@ -1,6 +1,5 @@
 <template>
-  <Dialog>
-    <nav class="navbar navbar-light bg-light">
+    <!-- <nav class="navbar navbar-light bg-light">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
@@ -37,29 +36,42 @@
           <option selected disabled>ЗАКАЗЧИК</option>
         </select>
       </div>
-    </div>
-    <div class="list-group" v-show="isSoundInsulationVisible">
+    </div> -->
+    <!-- <div class="list-group" v-show="isSoundInsulationVisible">
       <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button"
         class="list-group-item list-group-item-action" aria-current="true" @click="addDiv(elem)">
         {{ elem.Name }}
       </button>
-    </div>
+    </div> -->
     <div class="gallery">
-      <div v-for="(image, index) in filteredImages" :key="index" class="gallery-item">
+      <div v-for="(item, index) in objects" :key="index" class="gallery-item">
         <div>
-          <RouterLink :to="`/our-objects/${image.id}`">
-            <img :src="image.src" alt="" @click="openDialog(image)" role="button" />
+          <RouterLink :to="`/our-objects/${item.Code}`">
+            <img :src="item.Cover" alt="" role="button" />
           </RouterLink>
         </div>
         <div class="image-text-object">
-          {{ image.text }}
+          {{ item.Name }}
         </div>
       </div>
     </div>
-  </Dialog>
 </template>
 
-<script>
+<script setup>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore()
+
+store.dispatch('getObjects')
+
+const objects = computed(() => store.getters.selectObjects)
+
+
+
+</script>
+
+<!-- <script>
 import { RouterLink } from 'vue-router';
 import Dialog from '../../components/Dialog.vue';
 import { mapGetters } from 'vuex';
@@ -142,7 +154,7 @@ export default {
     },
   },
 };
-</script>
+</script> -->
 
 <style scoped>
 .select-descript-wrapper {
@@ -189,7 +201,7 @@ select {
 }
 
 .image-text-object {
-  position: absolute;
+  position: relative;
   bottom: 15px;
   left: 0px;
   width: 100%;
@@ -204,7 +216,9 @@ select {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
+img {
+  width: 50%;
+}
 .gallery-item {
   position: relative;
   margin-top: 30px;
