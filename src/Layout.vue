@@ -71,15 +71,15 @@ export default {
 }
 
 body {
-    background: url(./back_ground.jpg);
-    background-size: 300%;
+    background: url('https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg');
+    background-size: 200%;
     padding: 0px 20px 0px 20px;
     margin: 0px;
     user-select: none;
     overflow-y: scroll;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 768px) {
   body {
     background-size: 200%;
   }

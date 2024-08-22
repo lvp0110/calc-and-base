@@ -263,9 +263,12 @@ export default {
 
 .select-wrapper {
     width: 50%;
-    border: solid 1px rgb(204, 198, 198);
+    /* border: solid 1px rgb(245, 242, 242); */
+    margin-bottom: 4px;
 }
-
+.models {
+    margin-bottom: 4px;
+}
 .size {
     width: 100%;
 }
@@ -332,10 +335,12 @@ span {
 
     .size {
         width: 50%;
+        
     }
 
     .colors {
         width: 50%;
+        
     }
 }
 

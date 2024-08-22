@@ -14,7 +14,7 @@
 
         <swiper-slide v-for="slide in pdfs" :key="slide.Code" @click="goToNextSlide">
             <div>
-                <p class="cert-info" >{{ slide.Type }}</p>
+                <!-- <p class="cert-info" >{{ slide.Type }}</p> -->
                 <ul @click.stop="downloadTextFile(slide)">
                     <li v-if="slide.Type != 0"> Тип: {{ slide.Type }} </li>
                     <li v-if="slide.Code != 0">№ {{ slide.Code }} </li>
@@ -105,7 +105,7 @@ export default {
 <style scoped>
 swiper-container::part(pagination) {
     top: 0;
-    background-color: lightgray;
+    background-color: none;
     height: 40px;
     display: flex;
 }
@@ -113,28 +113,29 @@ swiper-container::part(pagination) {
 swiper-container::part(bullet),
 swiper-container::part(bullet-active) {
     border-right: solid 2px rgb(245, 242, 242);
-    border-radius: 0px;
+    border-radius: 7px;
     flex-grow: 1;
     height: 100%;
     margin: 0;
     /* font-weight: bold; */
     font-size: 12px;
     opacity: 1;
-    background-color: lightgray;
+    background: lightgray;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 swiper-container::part(bullet-active) {
-    background-color: grey;
+    background: grey;
+    color: white;
 }
-.cert-info {
+/* .cert-info {
     position: absolute; 
     top:6px;
     left: 20px; 
     color: black ;
-}
+} */
 .img {
     width: 100%;
 }
