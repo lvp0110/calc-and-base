@@ -59,13 +59,16 @@
 
         </div>
         <hr>
-        <template v-if="!selectedModelCode">
-            <span class="span" v-html="selectElement?.Description"></span>
-        </template>
-        <template v-else>
-            <span v-html="selectedModelDescription"></span>
-        </template>
-        <button class="copy-link" @click="copyLink">копировать ссылку</button>
+        <div class="block-span">
+            <template v-if="!selectedModelCode">
+                <span class="span" v-html="selectElement?.Description"></span>
+            </template>
+            <template v-else>
+                <span v-html="selectedModelDescription"></span>
+            </template>
+            <button class="copy-link" @click="copyLink">копировать ссылку</button>
+        </div>
+
     </div>
 </template>
 
@@ -266,9 +269,11 @@ export default {
     /* border: solid 1px rgb(245, 242, 242); */
     margin-bottom: 4px;
 }
+
 .models {
     margin-bottom: 4px;
 }
+
 .size {
     width: 100%;
 }
@@ -335,16 +340,22 @@ span {
 
     .size {
         width: 50%;
-        
+
     }
 
     .colors {
         width: 50%;
-        
+
     }
 }
 
 @media screen and (min-width: 1024px) {
+   
+    .block-span {
+        width: 50%;
+        position: relative;
+
+    }
     .colorsizes {
         width: 50%;
     }

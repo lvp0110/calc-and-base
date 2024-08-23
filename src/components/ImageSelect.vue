@@ -63,7 +63,8 @@ export default {
     width: 100%;
     margin: 4px;
     padding: 4px;
-    background-color: white;
+    background: url('https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg');
+    background-size: 400%;
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
     overflow: auto;
     z-index: 999;
@@ -74,6 +75,7 @@ export default {
 
         &:hover {
             background-color: rgb(213, 220, 226);
+            border: solid 1px gray;
             cursor: pointer;
         }
 

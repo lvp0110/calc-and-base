@@ -1,19 +1,21 @@
 <template>
     <div v-if="selectElement">
-        <div class="title">{{ selectElement.images.Name }} </div>
+        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <div class="title">{{ selectElement.Name }} </div>
         <hr>
         <ul>
-            <!-- <li v-if="selectElement.images[0].address">{{ selectElement.images[0].address }}</li>
-            <li v-if="selectElement.images[0].objectname">{{ selectElement.images[0].objectname }}</li>
-            <li v-if="selectElement.images[0].customer">{{ selectElement.images[0].customer }}</li>
-            <li v-if="selectElement.images[0].designers">{{ selectElement.images[0].designers }}</li>
-            <li v-if="selectElement.images[0].generalcontractor">{{ selectElement.images[0].generalcontractor }}</li>
-            <li v-if="selectElement.images[0].areaobject">{{ selectElement.images[0].areaobject }}</li>
-            <li v-if="selectElement.images[0].constructiontime">{{ selectElement.images[0].constructiontime }}</li>
-            <li v-if="selectElement.images[0].projectdescription">{{ selectElement.images[0].projectdescription }}</li> -->
+            <li v-if="selectElement.Location">{{ selectElement.Location }}</li>
+            <!-- <li v-if="selectElement.Cover">{{ selectElement.Cover }}</li> -->
+            <li v-if="selectElement.Contractor">{{ selectElement.Contractor }}</li>
+            <li v-if="selectElement.Designer">{{ selectElement.Designer }}</li>
+            <li v-if="selectElement.ProjectOwner">{{ selectElement.ProjectOwner }}</li>
+            <li v-if="selectElement.TotalArea">{{ selectElement.TotalArea }} м2</li>
+            <li v-if="selectElement.CompletionYear">{{ selectElement.CompletionYear }} г.</li>
+            <li v-if="selectElement.PerformedWorks">{{ selectElement.PerformedWorks }}</li>
+            <li v-if="selectElement.Description">{{ selectElement.Description }}</li>
         </ul>
 
-        <!-- <ObjectsSlider :slides="selectElement.images[0].imagesSet[0]" :slideComponent="ImageSlide" /> -->
+        <ObjectsSlider :slides="selectElement.Images.map(({ File }) => filesApi.getImageFileUrl(File))" :slideComponent="ImageSlide" />
 
         <span>Используемые материалы :</span>
         <!-- <ul>
@@ -24,12 +26,27 @@
     </div>
 </template>
 
+ <!-- Code     string
+ Name     string
+ Location string
+ Cover    string
+ Contractor     string
+ Designer       string
+ ProjectOwner   string
+ TotalArea      string
+ CompletionYear int
+ PerformedWorks int
+ Description    int
+ Images [{ File: string }] -->
+
 <script setup>
+import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue';
 import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../components/Slider/ImageSlide.vue'
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { objectsApi } from '../../../config';
+import { filesApi } from '../../../config';
 
 const selectElement = ref(null)
 const route = useRoute()
@@ -38,51 +55,17 @@ const code = route.params.id
 
 const fetchObject = async (code) => {
     const response = await objectsApi.getObject(code)
-
+    
     selectElement.value = response.data.data
 }
 
 fetchObject(code)
+
+const breadcrumbs = [
+    { link: '/', title: "НАШИ ОБЪЕКТЫ" },
+    { title: code }
+]
 </script>
-<!-- 
-<script>
-import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
-import ImageSlide from '../../../components/Slider/ImageSlide.vue'
-import Dialog from '../../../components/Dialog.vue'
-import { mapGetters } from 'vuex';
-
-export default {
-    data() {
-        return {
-            image_slide: ImageSlide
-        }
-    },
-    components: {
-        Dialog,
-        ObjectsSlider,
-        ImageSlide
-    },
-    computed: {
-        ...mapGetters(['selectImages']),
-        selectElement() {
-            const id = this.$route.params.id
-
-            return this.selectImages.find(image => image.id === id)
-        },
-        objectName() {
-            if (this.selectElement && this.selectElement.images && this.selectElement.images.length > 0) {
-                return this.selectElement.images[0].name;
-            }
-            return '';
-        },
-    },
-    methods: {
-        extractMaterials(usedMaterials) {
-            return Object.values(usedMaterials);
-        },
-    }
-}
-</script> -->
 
 <style scoped>
 .title {

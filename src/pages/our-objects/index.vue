@@ -1,5 +1,7 @@
 <template>
-    <!-- <nav class="navbar navbar-light bg-light">
+  <div>
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <nav class="navbar navbar-light bg-light">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
@@ -11,14 +13,22 @@
     </nav>
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
       <div class="select-descript-wrapper">
-        <select class="form-select select-descript" aria-label="Default select example" @change="selectAddress">
-          <option selected disabled>АДРЕС</option>
-          <option v-for="(address, index) in dynamicAddresses" :key="index" :value="address">
-            {{ address }}
+        <select class="form-select select-descript" aria-label="Default select example" v-model="nameModel">
+          <option disabled value="null">НАЗВАНИЕ</option>
+          <option v-for="(name, index) in names" :key="index" :value="name">
+            {{ name }}
           </option>
         </select>
       </div>
       <div class="select-descript-wrapper">
+        <select class="form-select select-descript" aria-label="Default select example" v-model="locationModel">
+          <option disabled value="null">АДРЕС</option>
+          <option v-for="(address, index) in locations" :key="index" :value="address">
+            {{ address }}
+          </option>
+        </select>
+      </div>
+      <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials">
           <option selected disabled>МАТЕРИАЛЫ</option>
           <option v-for="(material, index) in dynamicMaterials" :key="index" :value="material">
@@ -35,19 +45,19 @@
         <select class="form-select select-descript" aria-label="Default select example">
           <option selected disabled>ЗАКАЗЧИК</option>
         </select>
-      </div>
-    </div> -->
-    <!-- <div class="list-group" v-show="isSoundInsulationVisible">
+      </div> -->
+    </div>
+     <!-- <div class="list-group" v-show="isSoundInsulationVisible">
       <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button"
         class="list-group-item list-group-item-action" aria-current="true" @click="addDiv(elem)">
         {{ elem.Name }}
       </button>
     </div> -->
     <div class="gallery">
-      <div v-for="(item, index) in objects" :key="index" class="gallery-item">
+      <div v-for="(item, index) in filteredObjects" :key="index" class="gallery-item">
         <div>
           <RouterLink :to="`/our-objects/${item.Code}`">
-            <img :src="item.Cover" alt="" role="button" />
+            <img :src="filesApi.getImageFileUrl(item.Cover)" alt="" role="button" />
           </RouterLink>
         </div>
         <div class="image-text-object">
@@ -55,19 +65,38 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup>
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { filesApi } from '../../config';
+import MainPageLayout from '../../components/Layouts/MainPageLayout.vue'
 
 const store = useStore()
+
+const nameModel = ref(null)
+const locationModel = ref(null)
 
 store.dispatch('getObjects')
 
 const objects = computed(() => store.getters.selectObjects)
 
+const names = computed(() => objects.value?.filter(({ Location }) => locationModel.value ? Location === locationModel.value : true).map(({ Name }) => Name))
+const locations = computed(() => objects.value?.filter(({ Name }) => nameModel.value ? Name === nameModel.value : true).map(({ Location }) => Location))
 
+const filteredObjects = computed(() => {
+  if (nameModel.value || locationModel.value) {
+    return objects.value?.filter(({ Name, Location }) => Name === nameModel.value || Location === locationModel.value)
+  }
+
+  return objects.value
+})
+
+const breadcrumbs = [
+  { link: '/', title: "НАШИ ОБЪЕКТЫ" },
+]
 
 </script>
 
@@ -202,7 +231,7 @@ select {
 
 .image-text-object {
   position: relative;
-  bottom: 15px;
+  bottom: 30px;
   left: 0px;
   width: 100%;
   filter: drop-shadow(2px 1px 3px rgb(255, 254, 254));
@@ -217,11 +246,12 @@ select {
   justify-content: space-between;
 }
 img {
-  width: 50%;
+  width: 100%;
 }
 .gallery-item {
   position: relative;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: -15px;
 }
 
 .gallery-item img {

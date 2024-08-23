@@ -40,8 +40,8 @@ const fetchData = async (brand) => {
 fetchData(brand)
 
 const breadcrumbs = computed(() => [
-  { link: '/', title: 'ДОКУМЕНТЫ' },
-  { link: '/documents/hookup', title: 'МОНТАЖНЫЕ СХЕМЫ' },
+  { link: '/', title: '...' },
+  { link: '/documents/hookup', title: 'СХЕМА' },
   { title: brand }
 ])
 </script>
