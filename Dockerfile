@@ -23,7 +23,7 @@ RUN npm run build
 FROM nginx:alpine AS nginx
 
 # Указываем стандартный каталог для проетков nginx (любой из указанных сдесь каталогов будет далее будет явалятся корневым)
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
 # Команда "RUN" позволяет выполнить команду в нутри контейнера во время его сборки (удаляем дефолтный контент nginx)
 RUN rm -rf ./*
@@ -31,7 +31,7 @@ RUN rm -rf ./*
 # RUN apk add --no-cache bash
 
 #Копируем файлы проекта web_calc в контейнер
-COPY --from=builder ./app/dist/ /usr/share/nginx/html
+COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 # копируем сертификаты и ключ в контейнер
 COPY ./certificate.crt /etc/nginx/ssl/
