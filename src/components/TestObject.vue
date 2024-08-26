@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
     <div v-if="divVisible" class="col-11 information-block composition"
         :style="{ top: position.y + 'px', left: position.x + 'px' }">
@@ -254,4 +254,4 @@ select {
 .select-object option {
     word-wrap: break-word;
 }
-</style>
+</style> -->

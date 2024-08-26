@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     
     <div class="col-11 information-block composition" :style="{ top: position.y + 'px', left: position.x + 'px' }">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-   <!-- ffff -->
+
     <div v-if="dialogVisible" class="col-11 information-block composition"
       :style="{ top: position.y + 'px', left: position.x + 'px' }">
       <button type="button" class="btn close-btn" @click="dialogVisible = false">
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-// import 'swiper/swiper-bundle.css';
+
 import { register } from 'swiper/element/bundle';
 register();
 
@@ -175,19 +175,17 @@ export default {
       this.dialogVisible = true;
     },
     downloadImages() {
-      // Создаем ссылу с данными всех изображений
+      
       const blob = new Blob([JSON.stringify(this.images.map(image => image.src))], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'images.json'; // Имя файла для скачивания
+      link.download = 'images.json'; 
       document.body.appendChild(link);
 
-      // Запускаем скачивание
       link.click();
 
-      // Удаляем ссылку после скачивания
       document.body.removeChild(link);
     }
   },
@@ -204,7 +202,6 @@ export default {
   background-color: rgb(236, 230, 230);
   color: black;
   border: solid 1px gray;
-  /* padding: 10px 20px; */
   border-radius: 5px;
   cursor: pointer;
 }
@@ -284,4 +281,4 @@ select {
 .select-object option {
   word-wrap: break-word;
 }
-</style>
+</style> -->

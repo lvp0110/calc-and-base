@@ -23,6 +23,7 @@
                 {{ material }}
             </li>
         </ul> -->
+       
     </div>
 </template>
 
@@ -62,7 +63,7 @@ const fetchObject = async (code) => {
 fetchObject(code)
 
 const breadcrumbs = [
-    { link: '/', title: "НАШИ ОБЪЕКТЫ" },
+    { link: '/', title: "..." },
     { title: code }
 ]
 </script>
