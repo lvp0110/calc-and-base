@@ -5,35 +5,35 @@ import App from './App.vue'
 import Layout from './Layout.vue'
 
 import SoundproofConstructions from './pages/soundproof/constructions/index.vue'
-import SoundproofConstructionsId from './pages/soundproof/constructions/[id]/index.vue'
-import SoundproofMaterialsId from './pages/soundproof/materials/[id]/index.vue'
+import SoundproofConstructionsId from './pages/soundproof/constructions/id/index.vue'
+import SoundproofMaterialsId from './pages/soundproof/materials/id/index.vue'
 import SoundproofMaterials from './pages/soundproof/materials/Index.vue'
 
 import AcousticBrands from './pages/acoustic/brands/index.vue'
-import AcousticBrandsId from './pages/acoustic/brands/[id]/Index.vue'
+import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
 import AcousticMaterials from './pages/acoustic/materials/index.vue'
-import AcousticMaterialsId from './pages/acoustic/materials/[id]/index.vue'
+import AcousticMaterialsId from './pages/acoustic/materials/id/index.vue'
 
-import VibrationMaterialsId from './pages/vibration_isolation/materials/[id]/index.vue'
+import VibrationMaterialsId from './pages/vibration_isolation/materials/id/index.vue'
 import VibrationMaterials from './pages/vibration_isolation/materials/index.vue'
 
 import DocumentAir from './pages/documents/air/index.vue'
-import DocumentAirId from './pages/documents/air/[id]/index.vue'
+import DocumentAirId from './pages/documents/air/id/index.vue'
 
 import DocumentSertificates from './pages/documents/certificates/index.vue'
-import DocumentSertificatesId from './pages/documents/certificates/[id]/index.vue'
+import DocumentSertificatesId from './pages/documents/certificates/id/index.vue'
 
 import DocumentTechcard from './pages/documents/techcard/index.vue'
-import DocumentTechcardId from './pages/documents/techcard/[id]/index.vue'
+import DocumentTechcardId from './pages/documents/techcard/id/index.vue'
 
 import DocumentHookup from './pages/documents/hookup/index.vue'
-import DocumentHookupId from './pages/documents/hookup/[id]/index.vue'
+import DocumentHookupId from './pages/documents/hookup/id/index.vue'
 
-import DocumentProtocol from './pages/documents/protocol/[id]/index.vue'
-import DocumentBim from './pages/documents/bim/[id]/index.vue'
+import DocumentProtocol from './pages/documents/protocol/id/index.vue'
+import DocumentBim from './pages/documents/bim/id/index.vue'
 
 import OurObjects from './pages/our-objects/Index.vue'
-import OurObject from './pages/our-objects/[id]/index.vue'
+import OurObject from './pages/our-objects/id/index.vue'
 
 import Calc from './pages/calc/index.vue'
 import store from './store'

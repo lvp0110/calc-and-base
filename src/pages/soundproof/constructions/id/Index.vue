@@ -6,8 +6,8 @@
         
         <div class="image-descript">
             <div class="image-block">
-                <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
-                <img class="img2" :src="filesApi.getImageFileUrl(selectElement.Img)" alt="wwwww" />
+                <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" />
+                <img class="img2" :src="filesApi.getImageFileUrl(selectElement.CadImg)" />
             </div>
             <ul class="ul-descript" >
                 <li v-if="selectElement.SoundIndex != 'неопределен'">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
