@@ -27,4 +27,4 @@ jobs:
       run: make build
 
     - name: Run container
-      run: make runc
+      run: make run
