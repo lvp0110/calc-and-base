@@ -1,13 +1,10 @@
-# dependencies
 FROM node:20.10.0-alpine AS dependencies
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install -g npm@10.2.3
 RUN npm ci
 
 # builder
@@ -19,29 +16,24 @@ COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build
 
-#Используем официальный образ nginx
-FROM nginx:alpine AS nginx
+# production stage using Nginx
+FROM nginx:alpine
 
-# Указываем стандартный каталог для проетков nginx (любой из указанных сдесь каталогов будет далее будет явалятся корневым)
-WORKDIR /app
+# Удаляем стандартные файлы
+RUN rm -rf /usr/share/nginx/html/*
 
-# Команда "RUN" позволяет выполнить команду в нутри контейнера во время его сборки (удаляем дефолтный контент nginx)
-RUN rm -rf ./*
-# устанавливаем BASH
-# RUN apk add --no-cache bash
+# Копируем готовые файлы
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-#Копируем файлы проекта web_calc в контейнер
-COPY --from=builder /app/dist/ /usr/share/nginx/html
+# Копируем сертификаты и ключи
+COPY ./certificate.crt /etc/nginx/ssl/certificate.crt 
+COPY ./private.key /etc/nginx/ssl/private.key
 
-# копируем сертификаты и ключ в контейнер
-COPY ./certificate.crt /etc/nginx/ssl/
-COPY ./private.key /etc/nginx/ssl/
-
-# копируем файл конфигурации по умолчанию
+# Копируем конфигурацию Nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
-#Порт на котором работает наше приложение
+# Открываем порты
 EXPOSE 80 443
 
-#Запуск сервера nginx в фоновом режиме
+# Запуск Nginx
 CMD ["nginx", "-g", "daemon off;"]
