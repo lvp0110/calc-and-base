@@ -1,4 +1,4 @@
-name: deploy on constrdase
+name: deploy-on-constrdase
 
 on:
   push:
