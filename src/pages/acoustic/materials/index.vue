@@ -55,7 +55,7 @@ ul li a:hover {
     transition: all .5s;
     color: rgb(255, 255, 255);
 }
-@media screen and ( min-width: 768px) {
+@media screen and ( min-width: 1024px) {
   ul li a {
     width: 310px;
   }

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
     <div v-if="divVisible" class="col-11 information-block composition"
         :style="{ top: position.y + 'px', left: position.x + 'px' }">
@@ -175,7 +175,6 @@ export default {
     background-color: rgb(236, 230, 230);
     color: black;
     border: solid 1px gray;
-    /* padding: 10px 20px; */
     border-radius: 5px;
     cursor: pointer;
 }
@@ -254,4 +253,4 @@ select {
 .select-object option {
     word-wrap: break-word;
 }
-</style>
+</style> -->

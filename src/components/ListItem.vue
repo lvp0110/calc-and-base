@@ -74,7 +74,7 @@ export default {
     transition: all .4s;
     color: aliceblue;
 }
-@media screen and ( min-width: 768px) {
+@media screen and ( min-width: 1024px) {
   .item {
     width: 310px;
   }

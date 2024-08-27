@@ -61,6 +61,7 @@ ul li {
     font-weight: 300;
     background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
+    padding-left: 10px;
 }
 
 ul {

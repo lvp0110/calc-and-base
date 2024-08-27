@@ -129,7 +129,7 @@ ul li a:hover {
     border: solid 1px rgb(173, 170, 170);
 
 }
-@media screen and ( min-width: 768px) {
+@media screen and ( min-width: 1024px) {
   ul li a {
     width: 310px;
   }
