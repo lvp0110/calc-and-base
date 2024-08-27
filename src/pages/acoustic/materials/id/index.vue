@@ -60,6 +60,9 @@ ul li {
     background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
 }
+ul {
+    margin-top: 15px;
+}
 span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;

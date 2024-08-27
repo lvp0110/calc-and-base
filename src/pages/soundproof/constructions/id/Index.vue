@@ -97,21 +97,20 @@ ul li {
     width: 50%;
     border-radius: 5px;
     transition: all .3s ease;
-    padding-right: 1px;
 }
 .img1:hover {
     transform: translateX(50%) translateY(50%) scale(2);
+    border-radius: 3px;
 }
 
 .img2 {
     width: 50%;
     border-radius: 5px;
     transition: all .3s ease;
-    padding-right: 1px;
 }
 .img2:hover {
     transform: translateX(-50%) translateY(50%) scale(2);
-    
+    border-radius: 3px;
 }
 @media screen and (min-width: 1024px) {
     .img1 {

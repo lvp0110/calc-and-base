@@ -250,7 +250,7 @@ img {
 }
 .gallery-item {
   position: relative;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: -15px;
 }
 

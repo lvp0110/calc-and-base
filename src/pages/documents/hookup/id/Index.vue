@@ -42,7 +42,7 @@ fetchData(brand)
 const breadcrumbs = computed(() => [
   { link: '/', title: '...' },
   { link: '/documents/hookup', title: 'СХЕМА' },
-  { title: brand }
+  { title: selectElement.value?.Name  }
 ])
 </script>
 

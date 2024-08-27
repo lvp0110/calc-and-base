@@ -23,6 +23,7 @@
                 {{ material }}
             </li>
         </ul> -->
+       
     </div>
 </template>
 
@@ -43,7 +44,7 @@
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue';
 import ObjectsSlider from '../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../components/Slider/ImageSlide.vue'
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { objectsApi } from '../../../config';
 import { filesApi } from '../../../config';
@@ -61,10 +62,10 @@ const fetchObject = async (code) => {
 
 fetchObject(code)
 
-const breadcrumbs = [
-    { link: '/', title: "НАШИ ОБЪЕКТЫ" },
-    { title: code }
-]
+const breadcrumbs = computed(() =>[
+    { link: '/', title: "..." },
+    { title: selectElement.value?.Name }
+])
 </script>
 
 <style scoped>
