@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "cross-env VITE_API_URL=http://51.250.123.41:3005 VITE_BASE_URL=/ vite",
-    "build": "cross-env VITE_API_URL= VITE_BASE_URL=/ vite build",
+    "build": "cross-env VITE_API_URL=/api VITE_BASE_URL=/ vite build",
     "preview": "vite preview"
   },
   "dependencies": {
