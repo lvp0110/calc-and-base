@@ -47,6 +47,6 @@ export const filesApi = {
 }
 
 export const objectsApi = {
-    getObjects: () => requestInstance.get(`${baseURL}/api/v1/objects/all`),
-    getObject: (code) => requestInstance.get(`${baseURL}/api/v1/objects/info/${code}`),
+    getObjects: () => requestInstance.get('api/v1/objects/all'),
+    getObject: (code) => requestInstance.get('api/v1/objects/info/${code}'),
 }
