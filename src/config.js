@@ -7,46 +7,46 @@ const requestInstance = axios.create({
 })
 
 export const materialsApi = {
-    getMaterials: (usage) => requestInstance.get(`/v1/Materials/${usage}`),
-    getMarerialsWithSertificates: () => requestInstance.get('/v1/MaterialsWithCerts'),
+    getMaterials: (usage) => requestInstance.get(`api/v1/Materials/${usage}`),
+    getMarerialsWithSertificates: () => requestInstance.get('api/v1/MaterialsWithCerts'),
 }
 
 export const brandsApi = {
-    getBrands: () => requestInstance.get('/v1/AcousticCategories'),
+    getBrands: () => requestInstance.get('api/v1/AcousticCategories'),
 }
 
 export const modelsApi = {
-    getModelParams: (model) => requestInstance.get(`/v1/ParamsByAModels/${model}`),
-    getModelsByBrand: (brand) => requestInstance.get(`/v1/AModelsByBrand/${brand}`),
+    getModelParams: (model) => requestInstance.get(`api/v1/ParamsByAModels/${model}`),
+    getModelsByBrand: (brand) => requestInstance.get(`api/v1/AModelsByBrand/${brand}`),
 }
 
 export const constructionsApi = {
-    getConstructions: (usage) => requestInstance.get(`/v1/${usage}`),
+    getConstructions: (usage) => requestInstance.get(`v1/${usage}`),
 }
 
 export const albumsApi = {
-    getAlbums: () => requestInstance.get('/v1/albums'),
+    getAlbums: () => requestInstance.get('api/v1/albums'),
 }
 
 export const certificatesApi = {
-    getCertificates: (id) => requestInstance.get(`/v1/certs/byMaterial/${id}`),
+    getCertificates: (id) => requestInstance.get(`api/v1/certs/byMaterial/${id}`),
 }
 
 export const techCardApi = {
-    getTechCards: () => requestInstance.get('/v1/techCards'),
+    getTechCards: () => requestInstance.get('api/v1/techCards'),
 }
 
 export const installSchemesApi = {
-    getInstallSchemes: () => requestInstance.get('/v1/brandsWithInstallSchemas'),
-    getInstallSchemeByBrand: (brand) => requestInstance.get(`/v1/installSchemasByBrand/${brand}`),
+    getInstallSchemes: () => requestInstance.get('api/v1/brandsWithInstallSchemas'),
+    getInstallSchemeByBrand: (brand) => requestInstance.get(`api/v1/installSchemasByBrand/${brand}`),
 }
 
 export const filesApi = {
-    getImageFileUrl: (fileName) => `${baseURL}/v1/constr/${fileName}`,
-    getCertificateFileUrl: (fileName) => `${baseURL}/v1/certificate/${fileName}`
+    getImageFileUrl: (fileName) => `${baseURL}/api//v1/constr/${fileName}`,
+    getCertificateFileUrl: (fileName) => `${baseURL}/api//v1/certificate/${fileName}`
 }
 
 export const objectsApi = {
-    getObjects: () => requestInstance.get(`${baseURL}/v1/objects/all`),
-    getObject: (code) => requestInstance.get(`${baseURL}/v1/objects/info/${code}`),
+    getObjects: () => requestInstance.get(`${baseURL}/api/v1/objects/all`),
+    getObject: (code) => requestInstance.get(`${baseURL}/api/v1/objects/info/${code}`),
 }
