@@ -21,7 +21,7 @@ export const modelsApi = {
 }
 
 export const constructionsApi = {
-    getConstructions: (usage) => requestInstance.get(`v1/${usage}`),
+    getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
 }
 
 export const albumsApi = {
@@ -42,8 +42,8 @@ export const installSchemesApi = {
 }
 
 export const filesApi = {
-    getImageFileUrl: (fileName) => `${baseURL}/api//v1/constr/${fileName}`,
-    getCertificateFileUrl: (fileName) => `${baseURL}/api//v1/certificate/${fileName}`
+    getImageFileUrl: (fileName) => `${baseURL}/api/v1/constr/${fileName}`,
+    getCertificateFileUrl: (fileName) => `${baseURL}/api/v1/certificate/${fileName}`
 }
 
 export const objectsApi = {
