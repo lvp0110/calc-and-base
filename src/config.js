@@ -48,5 +48,5 @@ export const filesApi = {
 
 export const objectsApi = {
     getObjects: () => requestInstance.get('api/v1/objects/all'),
-    getObject: (code) => requestInstance.get('api/v1/objects/info/${code}'),
+    getObject: (code) => requestInstance.get(`api/v1/objects/info/${code}`),
 }
