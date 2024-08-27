@@ -30,6 +30,7 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+
 const store = useStore()
 const route = useRoute()
 

@@ -4,7 +4,10 @@
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">
-            <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+            <div>
+                <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+                <span class="span1">{{ selectElement.Specification }}</span>
+            </div>
             <ul class="ul-descript">
                 <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
                 <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
@@ -16,7 +19,7 @@
             </ul>
         </div>
         <hr>
-        <span>{{ selectElement.Specification }}</span>
+        <span class="span2">{{ selectElement.Specification }}</span>
     </div>
 </template>
 
@@ -52,9 +55,15 @@ ul li {
 ul {
     margin-top: 15px;
 }
-span {
+.span1 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 300; 
+    font-weight: 300;
+    display: none;
+}
+
+.span2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
 }
 .img {
     width: 100%;
@@ -76,7 +85,20 @@ span {
 }
 @media screen and (min-width: 1024px) {
     .img {
-    width: 40%;
-}
+        width: 40%;
+    }
+    ul {
+        width: 40%;
+    }
+    .span1 {
+        display: inline-flex;
+        width: 50%;
+        position: absolute;
+        margin-left: 15px;
+    }
+    .span2 {
+        display: none;
+    }
+
 }
 </style>

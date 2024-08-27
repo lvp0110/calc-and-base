@@ -18,6 +18,7 @@
 import VoiceSearch from '../VoiceSearch.vue'
 const { breadcrumbs } = defineProps(['breadcrumbs'])
 </script>
+
 <style scoped>
 h6 {
     font-family: 'Montserrat', sans-serif;
