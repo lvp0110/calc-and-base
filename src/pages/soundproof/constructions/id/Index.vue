@@ -1,6 +1,6 @@
 <template>
     <Fragment v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         
         <div class="title-construction">{{ selectElement.Description }}</div>
         

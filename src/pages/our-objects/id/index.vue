@@ -1,10 +1,10 @@
 <template>
     <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <div class="title">{{ selectElement.Name }} </div>
         <hr>
         <ul>
-            <li v-if="selectElement.Location">{{ locationPrefix}} {{ selectElement.Location }}</li>
+            <li v-if="selectElement.Location">{{ locationPrefix }} {{ selectElement.Location }}</li>
             <!-- <li v-if="selectElement.Cover">{{ selectElement.Cover }}</li> -->
             <li v-if="selectElement.Contractor">{{ selectElement.Contractor }}</li>
             <li v-if="selectElement.Designer">{{ selectElement.Designer }}</li>
@@ -16,29 +16,20 @@
         </ul>
         <span>Используемые материалы :</span>
         <ul>
-            <li v-for="(material, index) in selectElement.UsedMaterials" :key="index">
-                {{ material.Name }}
+            <li class="list-materials" v-for="(material, index) in selectElement.UsedMaterials" :key="index">
+                <RouterLink :to="`/acoustic/brands/${material.Code}`">
+                    {{ material.Name }}...
+                </RouterLink>
             </li>
         </ul>
-        <ObjectsSlider :slides="selectElement.Images.map(({ File }) => filesApi.getImageFileUrl(File))" :slideComponent="ImageSlide" />
+        <div :class="['slider-position', { 'full-screen': fullScreen }]">
+            <section @click="toggleFullScreen"><img src="/increase_white.svg" alt=""></section>
+            <ObjectsSlider :slides="selectElement.Images.map(({ File }) => filesApi.getImageFileUrl(File))"
+                :slideComponent="ImageSlide" />
+        </div>
 
-       
-       
     </div>
 </template>
-
- <!-- Code     string
- Name     string
- Location string
- Cover    string
- Contractor     string
- Designer       string
- ProjectOwner   string
- TotalArea      string
- CompletionYear int
- PerformedWorks int
- Description    int
- Images [{ File: string }] -->
 
 <script setup>
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue';
@@ -56,20 +47,30 @@ const code = route.params.id
 
 const fetchObject = async (code) => {
     const response = await objectsApi.getObject(code)
-    
+
     selectElement.value = response.data.data
 }
 
 fetchObject(code)
 
-const breadcrumbs = computed(() =>[
+const breadcrumbs = computed(() => [
     { link: '/', title: "..." },
     { title: selectElement.value?.Name }
 ])
 
+const fullScreen = ref(false);
+
+const toggleFullScreen = () => {
+    fullScreen.value = !fullScreen.value;
+};
 </script>
 
 <style scoped>
+.list-materials a {
+    color: rgb(12, 138, 192);
+
+}
+
 .title {
     margin-top: 15px;
     width: 100%;
@@ -79,6 +80,7 @@ const breadcrumbs = computed(() =>[
     padding: 5px;
     text-align: center;
 }
+
 ul li {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
@@ -87,9 +89,45 @@ ul li {
     padding-left: 10px;
 }
 
-@media screen and (min-width: 1280px) {
+span {
+    text-transform: uppercase;
+    font-weight: 300;
+}
 
+section {
+    display: none;
+}
 
-} 
+@media screen and (max-width: 500px) {
+    section img {
+        width: 30px;
+        
+    }
+
+    section {
+        display: block;
+        position: absolute;
+        color: aliceblue;
+        z-index: 111;
+        width: 15%;
+        height: 8%;
+        padding: 10px;
+        
+    }
+
+    .slider-position {
+        transition: transform 0.5s, width 0.5s, height 0.5s;
+    }
+
+    .slider-position.full-screen {
+        transform: rotate(90deg);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 75vh;
+        height: 100vw;
+        transform-origin: center;
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+}
 </style>
-

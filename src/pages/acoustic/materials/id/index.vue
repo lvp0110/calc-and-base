@@ -1,6 +1,6 @@
 <template>
     <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">

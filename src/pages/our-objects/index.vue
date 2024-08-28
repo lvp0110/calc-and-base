@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <nav class="navbar navbar-light bg-light">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

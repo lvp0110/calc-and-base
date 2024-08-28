@@ -1,6 +1,6 @@
 <template>
   <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <!-- <p class="title-certificates">{{ selectElement.Name }}</p> -->
     <p>КОЛИЧЕСТВО ДОКУМЕНТОВ: {{ slides.length }}</p>
     <hr>

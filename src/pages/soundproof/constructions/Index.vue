@@ -9,8 +9,9 @@
             </li>
         </ul>
     </div>
+    
 </template>
-
+ 
 <script setup>
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue'
 import { useStore } from 'vuex';
