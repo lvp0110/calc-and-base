@@ -1,25 +1,29 @@
 <template>
     <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <div class="list">
-        <ul>
-            <li v-for="item in selectAllIsolationConstrSound">
-                <RouterLink :to="'/soundproof/constructions/' + item.Code">
-                    {{ item.Name }}
-                </RouterLink>
-            </li>
-        </ul>
-    </div>
-        <div class="custom-collage">
-            <img src="" alt="Photo 1" class="img1">
-            <img src="" alt="Photo 2" class="img2">
-            <img src="" alt="Photo 3" class="img3">
-            <img src="" alt="Photo 4" class="img4">
-            <img src="" alt="Photo 5" class="img5">
-            <img src="" alt="Photo 6" class="img6">
-            <img src="" alt="Photo 7" class="img7">
+    <div class="content">
+        <div class="list">
+            <ul>
+                <li v-for="item in selectAllIsolationConstrSound" :key="item.Code">
+                    <RouterLink :to="'/soundproof/constructions/' + item.Code">
+                        {{ item.Name }}
+                    </RouterLink>
+                </li>
+            </ul>
         </div>
-
+        <div class="collage-container">
+            <div class="custom-collage">
+                <img src="" alt="Photo 1" class="img1">
+                <img src="" alt="Photo 2" class="img2">
+                <img src="" alt="Photo 3" class="img3">
+                <img src="" alt="Photo 4" class="img4">
+                <img src="" alt="Photo 5" class="img5">
+                <img src="" alt="Photo 6" class="img6">
+                <img src="" alt="Photo 7" class="img7">
+            </div>
+        </div>
+    </div>
 </template>
+
 
 <script setup>
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue'
@@ -39,6 +43,11 @@ const breadcrumbs = computed(() => [
 </script>
 
 <style scoped>
+.content {
+    display: flex;
+    justify-content: flex-start;
+}
+
 ul {
     list-style: none;
     padding: 0;
@@ -68,20 +77,33 @@ ul li a:hover {
     color: rgb(255, 255, 255);
 }
 
+.collage-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; 
+}
+
 .custom-collage {
     display: none;
 }
 
 @media screen and (min-width: 1024px) {
+    .content {
+        align-items: flex-start;        
+
+    }
+
     ul li a {
-        width: 310px;
+        width: 300px;
     }
 
     .custom-collage {
-        display: none;
+        display: grid;
         grid-template-columns: repeat(4, 100px);
         grid-template-rows: repeat(4, 100px);
-        gap: 20px;
+        gap: 20px;        
+        position: fixed;
+
     }
 
     .custom-collage img {
@@ -111,9 +133,13 @@ ul li a:hover {
     .img5 {
         grid-area: 3 / 1 / 5 / 3;
     }
-
-    .img5 {
-        grid-area: 3 / 1 / 5 / 3;
+}
+@media screen and (min-width: 1240px) {
+    .custom-collage {
+        grid-template-columns: repeat(4, 150px); 
+        grid-template-rows: repeat(4, 150px);    
+        gap: 30px;                               
     }
 }
 </style>
+
