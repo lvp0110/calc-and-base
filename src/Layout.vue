@@ -116,7 +116,7 @@ body {
 .up-button {
   position: fixed;
   bottom: 18%;
-  right: 7%;
+  right: 1%;
   z-index: 1000;
   background: none;
   border: none;

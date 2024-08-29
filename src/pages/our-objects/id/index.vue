@@ -92,6 +92,8 @@ ul li {
 span {
     text-transform: uppercase;
     font-weight: 300;
+    font-size: 15px;
+    padding-left: 15px;
 }
 
 section {
@@ -124,8 +126,8 @@ section {
         position: fixed;
         top: 50%;
         left: 50%;
-        width: 75vh;
-        height: 100vw;
+        width: 100vh;
+        max-height: 100vw;
         transform-origin: center;
         transform: translate(-50%, -50%) rotate(90deg);
     }

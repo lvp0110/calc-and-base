@@ -186,6 +186,10 @@ export default {
 </script> -->
 
 <style scoped>
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
 .select-descript-wrapper {
   width: 100%;
   display: flex;
@@ -203,7 +207,7 @@ export default {
 
 .navbar {
   padding: 0;
-  margin-top: 70px;
+  margin-top: 10px;
   border: solid 1px #6c757d;
   border-radius: 4px;
 }

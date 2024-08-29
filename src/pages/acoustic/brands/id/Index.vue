@@ -66,7 +66,12 @@
             <template v-else>
                 <span v-html="selectedModelDescription"></span>
             </template>
-            <button class="copy-link" @click="copyLink">копировать ссылку</button>
+            <button class="copy-link" @click="copyLink">
+                <div class="icon-img">
+                    <img src="/share_icon_grey.svg" alt="">
+                </div>
+                копировать ссылку
+            </button>
         </div>
 
     </div>
@@ -242,6 +247,13 @@ export default {
 </script>
 
 <style scoped>
+.icon-img {
+    display: flex;
+    width: 30px;
+    position: absolute;
+    margin: -3px;
+}
+
 .add-image {
     margin-top: 10px;
 }
@@ -266,7 +278,6 @@ export default {
 
 .select-wrapper {
     width: 50%;
-    /* border: solid 1px rgb(245, 242, 242); */
     margin-bottom: 4px;
 }
 
@@ -307,6 +318,9 @@ export default {
     padding: 5px;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
     margin-bottom: 15px;
+    padding: 8px;
+    color: #575656;
+
 }
 
 .copy-link:hover {
@@ -317,6 +331,7 @@ export default {
 .copy-link:focus {
     background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
     color: rgb(158, 161, 163);
+    border-radius: 10px;
 }
 
 .img {
@@ -327,10 +342,6 @@ span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
 }
-
-/* .select {
-    display: block;
-} */
 
 @media screen and (min-width: 768px) {
     .colorsizes {
@@ -350,12 +361,13 @@ span {
 }
 
 @media screen and (min-width: 1024px) {
-   
+
     .block-span {
         width: 50%;
         position: relative;
 
     }
+
     .colorsizes {
         width: 50%;
     }
