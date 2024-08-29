@@ -12,7 +12,6 @@
             <li v-if="selectElement.TotalArea">{{ selectElement.TotalArea }} м2</li>
             <li v-if="selectElement.CompletionYear">{{ selectElement.CompletionYear }} г.</li>
             <li v-if="selectElement.PerformedWorks">{{ selectElement.PerformedWorks }}</li>
-            <li v-if="selectElement.Description">{{ selectElement.Description }}</li>
         </ul>
         <span>Используемые материалы :</span>
         <ul>
@@ -27,6 +26,8 @@
             <ObjectsSlider :slides="selectElement.Images.map(({ File }) => filesApi.getImageFileUrl(File))"
                 :slideComponent="ImageSlide" />
         </div>
+
+        <p class="block-description" v-if="selectElement.Description">{{ selectElement.Description }}</p>
 
     </div>
 </template>
@@ -66,9 +67,18 @@ const toggleFullScreen = () => {
 </script>
 
 <style scoped>
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
 .list-materials a {
     color: rgb(12, 138, 192);
 
+}
+
+.block-description {
+    margin-top: 15px;
 }
 
 .title {
@@ -82,8 +92,7 @@ const toggleFullScreen = () => {
 }
 
 ul li {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+
     background: radial-gradient(circle at left, #a8b1b88c, #d7dadf62);
     margin-top: 5px;
     padding-left: 10px;
@@ -103,7 +112,6 @@ section {
 @media screen and (max-width: 500px) {
     section img {
         width: 30px;
-        
     }
 
     section {
@@ -114,7 +122,6 @@ section {
         width: 15%;
         height: 8%;
         padding: 10px;
-        
     }
 
     .slider-position {

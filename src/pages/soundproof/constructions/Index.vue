@@ -2,16 +2,25 @@
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="list">
         <ul>
-            <li v-for="item in selectAllIsolationConstrSound" >
+            <li v-for="item in selectAllIsolationConstrSound">
                 <RouterLink :to="'/soundproof/constructions/' + item.Code">
                     {{ item.Name }}
                 </RouterLink>
             </li>
         </ul>
     </div>
-    
+        <div class="custom-collage">
+            <img src="" alt="Photo 1" class="img1">
+            <img src="" alt="Photo 2" class="img2">
+            <img src="" alt="Photo 3" class="img3">
+            <img src="" alt="Photo 4" class="img4">
+            <img src="" alt="Photo 5" class="img5">
+            <img src="" alt="Photo 6" class="img6">
+            <img src="" alt="Photo 7" class="img7">
+        </div>
+
 </template>
- 
+
 <script setup>
 import MainPageLayout from '../../../components/Layouts/MainPageLayout.vue'
 import { useStore } from 'vuex';
@@ -24,7 +33,7 @@ store.dispatch('getAllIsolationConstr')
 const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' }, 
+    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' },
     { title: 'КОНСТРУКЦИИ' }
 ])
 </script>
@@ -35,11 +44,12 @@ ul {
     padding: 0;
 }
 
-ul li{
+ul li {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
 }
-ul li a{ 
+
+ul li a {
     color: rgb(58, 57, 57);
     text-decoration: none;
     border: 1px solid transparent;
@@ -51,15 +61,59 @@ ul li a{
     background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
     transition: all .5s;
 }
+
 ul li a:hover {
     background: radial-gradient(circle at left, #6c757d, #bdbfc2);
     transition: all .5s;
     color: rgb(255, 255, 255);
 }
-@media screen and ( min-width: 1024px) {
-  ul li a {
-    width: 310px;
-  }
-  
+
+.custom-collage {
+    display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    ul li a {
+        width: 310px;
+    }
+
+    .custom-collage {
+        display: none;
+        grid-template-columns: repeat(4, 100px);
+        grid-template-rows: repeat(4, 100px);
+        gap: 20px;
+    }
+
+    .custom-collage img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+        border: solid 2px lightgray;
+    }
+
+    .img1 {
+        grid-area: 1 / 1 / 3 / 3;
+    }
+
+    .img2 {
+        grid-area: 1 / 3 / 2 / 5;
+    }
+
+    .img3 {
+        grid-area: 2 / 3 / 4 / 4;
+    }
+
+    .img4 {
+        grid-area: 3 / 4 / 5 / 5;
+    }
+
+    .img5 {
+        grid-area: 3 / 1 / 5 / 3;
+    }
+
+    .img5 {
+        grid-area: 3 / 1 / 5 / 3;
+    }
 }
 </style>

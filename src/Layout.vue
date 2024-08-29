@@ -1,18 +1,19 @@
 <template>
     <div class="main">
-      <RouterLink to="/">
+      <!-- <RouterLink to="/">
           <img src="" alt="" class="logo">
-      </RouterLink>
+      </RouterLink> -->
         <RouterView />
         <TabBar />
     </div>
     <button class="up-button" v-if="!isHiddenScrollUpButton" @click="scrollTop">
-      <svg height="105" width="105" type="button">
+      <!-- <svg height="105" width="105" type="button">
         <circle r="40" cx="50%" cy="50%" fill="transparent" stroke="darkgrey" stroke-width="3" />
         <line x1="51" y1="33" x2="51" y2="75" stroke="darkgrey" stroke-width="4" />
         <line x1="51" y1="34" x2="30" y2="50" stroke="darkgrey" stroke-width="4" />
         <line x1="51" y1="34" x2="70" y2="50" stroke="darkgrey" stroke-width="4" />
-      </svg>
+      </svg> -->
+      <img src="/back_icon.svg" alt="">
     </button>
 </template>
 
@@ -53,7 +54,7 @@ export default {
 <style>
 .main {
   padding-bottom: 75px;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 .logo {
     opacity: 1;
@@ -113,24 +114,28 @@ body {
   filter: drop-shadow(3px 3px 1px #96b3cd);
 } 
 
-.up-button {
+.up-button img{
   position: fixed;
-  bottom: 18%;
+  bottom: 15%;
   right: 1%;
   z-index: 1000;
   background: none;
   border: none;
-  height: 50px;
+  width: 70px;
+  rotate: 90deg;
+  
 }
 @media screen and ( min-width: 500px) {
-  .up-button {
+  .up-button img{
   position: fixed;
-  bottom: 10%;
+  bottom: 5%;
   right: 7%;
   z-index: 1000;
   background: none;
   border: none;
-  height: 50px;
+  width: 70px;
+  rotate: 90deg;
+  
 }
 }
 </style>
