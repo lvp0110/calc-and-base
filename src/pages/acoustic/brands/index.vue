@@ -23,7 +23,7 @@ store.dispatch('getAcousticCategories')
 const selectAcousticCategories = computed(() => store.getters['selectAcousticCategories'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'АКУСТИКА' }, 
+    { link: '/acoustic', title: 'АКУСТИКА' }, 
     { title: 'БРЕНДЫ' }
 ])
 </script>

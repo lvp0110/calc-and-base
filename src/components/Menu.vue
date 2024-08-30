@@ -1,9 +1,5 @@
 <template>
-<AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle"
-src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
-    <!-- <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" />
-    <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" /> -->
-
+<AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" to="/soundproof" src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg">
     <ul class="list_sound">
         <li>
             <RouterLink to="/soundproof/constructions">
@@ -18,7 +14,7 @@ src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="АКУСТИКА" name="acoustic" :open="opened === 'acoustic'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/acoustic.svg">
+<AccordionItem header="АКУСТИКА" to="/acoustic" src="https://db.acoustic.ru:3005/api/v1/constr/acoustic.svg">
     <ul class="list_sound">
         <li>
             <RouterLink to="/acoustic/brands">
@@ -33,7 +29,7 @@ src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" name="vibration_isolation" :open="opened === 'vibration_isolation'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/vibroisolanion.svg">
+<AccordionItem header="ВИБРОИЗОЛЯЦИЯ" to="/vibration_isolation" src="https://db.acoustic.ru:3005/api/v1/constr/vibroisolanion.svg">
     <ul class="list_sound">
         <li>
             <RouterLink to="/vibration_isolation/materials">
@@ -43,7 +39,7 @@ src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<AccordionItem header="ДОКУМЕНТЫ" name="documents" :open="opened === 'documents'" :onToggle="onToggle" src="https://db.acoustic.ru:3005/api/v1/constr/documents.svg" >
+<AccordionItem header="ДОКУМЕНТЫ" to="/documents" src="https://db.acoustic.ru:3005/api/v1/constr/documents.svg" >
     <ul class="list_sound">
         <li>
             <RouterLink to="/documents/certificates">
@@ -68,28 +64,12 @@ src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
     </ul>
 </AccordionItem>
 
-<RouterLink to="/our-objects">
-  <AccordionItem header="НАШИ ОБЪЕКТЫ" src="https://db.acoustic.ru:3005/api/v1/constr/object.svg" />
-</RouterLink>
+<AccordionItem header="НАШИ ОБЪЕКТЫ" to="/our-objects" src="https://db.acoustic.ru:3005/api/v1/constr/object.svg" />
 
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useStore } from 'vuex';
 import AccordionItem from "./AccordionItem.vue";
-
-const store = useStore()
-
-const opened = ref()
-
-const onToggle = (name) => {
-  if (name === opened.value) {
-    opened.value = undefined
-  } else {
-    opened.value = name
-  }
-}
 </script>
 
 <style scoped>

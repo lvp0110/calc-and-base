@@ -11,7 +11,8 @@
             </ul>
         </div>
         <div class="container">
-            <div class="block block-1"> </div>
+            <div class="block block-1">
+               </div>
             <div class="block block-2">2</div>
             <div class="block block-3">3</div>
             <div class="block block-4">4</div>
@@ -35,7 +36,7 @@ store.dispatch('getAllIsolationConstr')
 const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ЗВУКОИЗОЛЯЦИЯ' },
+    { link: '/soundproof', title: 'ЗВУКОИЗОЛЯЦИЯ' },
     { title: 'КОНСТРУКЦИИ' }
 ])
 </script>
@@ -115,7 +116,7 @@ ul li a:hover {
 
     .block-1 {
         grid-area: a;
-
+ 
     }
 
     .block-2 {

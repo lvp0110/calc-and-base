@@ -23,7 +23,7 @@ store.dispatch('getMaterialsVi')
 const selectMaterials = computed(() => store.getters['selectMaterialsVi'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ВИБРОИЗОЛЯЦИЯ' }, 
+    { link: '/vibration_isolation', title: 'ВИБРОИЗОЛЯЦИЯ' }, 
     { title: 'МАТЕРИАЛЫ' }
 ])
 </script>

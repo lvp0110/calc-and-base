@@ -55,7 +55,7 @@ const fetchObject = async (code) => {
 fetchObject(code)
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: "..." },
+    { link: '/our-objects', title: "..." },
     { title: selectElement.value?.Name }
 ])
 

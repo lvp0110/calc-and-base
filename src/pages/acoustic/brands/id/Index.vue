@@ -56,10 +56,27 @@
                         :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
-
+            
+            <div class="block-span1">
+                <template v-if="!selectedModelCode">
+                    <span class="span" v-html="selectElement?.Description"></span>
+                </template>
+                <template v-else>
+                    <span v-html="selectedModelDescription"></span>
+                </template>
+                <button class="copy-link" @click="copyLink">
+                <div class="icon-img">
+                    <img src="/share_icon_grey.svg" alt="">
+                </div>
+                копировать ссылку
+            </button>
+            </div>
+         
         </div>
-        <hr>
-        <div class="block-span">
+
+        <!-- <hr> -->
+
+        <div class="block-span2">
             <template v-if="!selectedModelCode">
                 <span class="span" v-html="selectElement?.Description"></span>
             </template>
@@ -144,7 +161,7 @@ export default {
         },
         breadcrumbs() {
             return [
-                { link: '/', title: '...' },
+                { link: '/acoustic', title: '...' },
                 { link: '/acoustic/brands', title: 'БРЕНДЫ' },
                 { title: this.selectElement.Name },
             ]
@@ -247,6 +264,11 @@ export default {
 </script>
 
 <style scoped>
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
 .icon-img {
     display: flex;
     width: 30px;
@@ -296,15 +318,11 @@ export default {
 .select-descript {
     background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
 }
 
 .selected {
     background: radial-gradient(circle at left, #8e9092, #f9f9fa00);
     color: aliceblue;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
     border: solid 1px rgb(204, 198, 198);
 }
 
@@ -313,14 +331,11 @@ export default {
     margin-left: 15px;
     border: 1px solid gray;
     border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
     padding: 5px;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
     margin-bottom: 15px;
     padding: 8px;
     color: #575656;
-
 }
 
 .copy-link:hover {
@@ -338,9 +353,14 @@ export default {
     width: 100%;
 }
 
-span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+.block-span2 {
+    display: block;
+    margin-top: 10px;
+}
+
+.block-span1 {
+    display: none;
+
 }
 
 @media screen and (min-width: 768px) {
@@ -351,20 +371,25 @@ span {
 
     .size {
         width: 50%;
-
     }
 
     .colors {
         width: 50%;
-
     }
 }
 
 @media screen and (min-width: 1024px) {
 
-    .block-span {
-        width: 50%;
-        position: relative;
+    .block-span1 {
+        display: block;
+        width: 45%;
+        margin-left: 46%;
+        top: 130px;
+        position: absolute;
+    }
+
+    .block-span2 {
+        display: none;
 
     }
 

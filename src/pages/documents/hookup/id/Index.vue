@@ -40,7 +40,7 @@ const fetchData = async (brand) => {
 fetchData(brand)
 
 const breadcrumbs = computed(() => [
-  { link: '/', title: '...' },
+  { link: '/documents', title: '...' },
   { link: '/documents/hookup', title: 'СХЕМА' },
   { title: selectElement.value?.Name  }
 ])

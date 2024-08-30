@@ -1,19 +1,22 @@
 <template>
-  <button :name="name" class="button" @click="toggle">
+  <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="">
-  </button>
-  <section class="section" v-if="open">
+  </RouterLink>
+  <section class="section" v-if="path === to">
     <slot />
   </section>
 </template>
 
 <script setup>
-const { header, open, name, onToggle, src } = defineProps(['header', 'name', 'open', 'onToggle', 'src'])
+import { computed } from 'vue'
+import { useRoute } from 'vue-router';
 
-const toggle = () => {
-  onToggle(name)
-}
+const { header, src, to } = defineProps(['header', 'src', 'to'])
+
+const route = useRoute()
+
+const path = computed(() => route.path)
 </script>
 
 <style scoped>
@@ -45,7 +48,7 @@ const toggle = () => {
   height: 100px;
   margin-top: 5px;
   box-shadow: 2px -3px 5px 1px rgb(167, 163, 163);
-  
+  text-decoration: none;
 }
 
 .button:active {

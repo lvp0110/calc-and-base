@@ -23,7 +23,7 @@ store.dispatch('getMaterialsAc')
 const selectMaterialsAc = computed(() => store.getters['selectMaterialsAc'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'АКУСТИКА' }, 
+    { link: '/acoustic', title: 'АКУСТИКА' }, 
     { title: 'МАТЕРИАЛЫ' }
 ])
 </script>

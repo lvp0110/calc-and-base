@@ -40,7 +40,7 @@ export default {
     },
     breadcrumbs() {
       return [
-        { link: '/', title: '...' },
+        { link: '/documents', title: '...' },
         { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
         { title: this.selectElement?.Name }
       ]
