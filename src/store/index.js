@@ -258,6 +258,7 @@ export default createStore({
             currentOption: 'Name',
             searchText: '',
             voiceSearchText: '',
+            isOpenSearch: false,
             labels: 
                 {
                     locationPrefix: 'Адрес :',
@@ -291,6 +292,9 @@ export default createStore({
         updateImagesData(state, images) {
             state.ImagesData = images;
         },
+        setIsOpenStore(state, payload) {
+            state.isOpenSearch = payload
+        }
     },
     actions: {
         async getObjects({ state }) {

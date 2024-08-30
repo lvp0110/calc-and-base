@@ -111,6 +111,7 @@ ul li {
 .img1:hover {
     transform: translateX(50%) translateY(50%) scale(2);
     border-radius: 3px;
+ 
 }
 
 .img2 {

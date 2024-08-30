@@ -8,7 +8,7 @@
                 <img class="logo_p" src="/person_logo.png" alt="">
             </li>
             <li>
-                <img class="logo_p" src="/search_logo.png" alt="">
+                <img class="logo_p" src="/search_logo.png" alt="" @click="handleSearch">
             </li>
             <li>
                 <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
@@ -18,7 +18,15 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
 
+const store = useStore()
+
+const handleSearch = () => {
+  store.commit('setIsOpenStore', true)
+
+  document.getElementById('result_voice')?.focus()
+}
 </script>
 
 <style scoped>

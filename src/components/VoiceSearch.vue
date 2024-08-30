@@ -1,55 +1,70 @@
 <template>
-  <div class="input-container">
-    <input type="text" class="search" ref="voiceInput" id="result_voice" placeholder=""
-  v-model="$store.state.voiceSearchText" />
-    <button type="button" id="btn_voice" @click="activateVoiceSearch"
-      @touchstart="activateVoiceSearch">
-      <figure>
-        <svg height="34" width="34">
-          <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
-          <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
-          <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
-        </svg>
-      </figure>
-    </button>
+  <div>
+    <div class="input-container">
+      <input type="text" 
+            :class="{ 'search': true, 'search__open': isOpen }" 
+            id="result_voice" 
+            placeholder="" 
+            ref="input" 
+            :value="voiceSearchText" 
+            @input="handleInput"
+            @focus="handleFocus" 
+        />
+      <button type="button" id="btn_voice" @click="activateVoiceSearch" @touchstart="activateVoiceSearch">
+        <figure>
+          <svg height="34" width="34">
+            <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+            <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+            <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
+            <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
+            <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
+            <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
+            <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
+          </svg>
+        </figure>
+      </button>
+    </div>
+    <button v-if="isOpen" @click="handleClear" style="position: absolute; right: 0; top: 0;">Х</button>
   </div>
-  
-
 </template>
-<script>
-import { mapGetters, mapActions} from 'vuex'
+<script setup>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
+const input = ref(null)
 
-  computed: {
-    ...mapGetters(['getItemsM']),
+const store = useStore()
 
-  }, 
-  data() {
-    
-    return {
-      isSoundInsulationVisible: false,  
-    }
-  },
+const voiceSearchText = computed(() => store.state.voiceSearchText)
+const isOpen = computed(() => store.state.isOpenSearch)
 
-  methods: {
-   
-    toggleSoundInsulation() {
-      this.isSoundInsulationVisible = !this.isSoundInsulationVisible;
-    },
-    ...mapActions(['startVoiceRecognition']),
-    activateVoiceSearch(event) {
-      event.stopPropagation()
-      this.$refs.voiceInput.focus();
-      this.startVoiceRecognition();
-    }
+const activateVoiceSearch = () => {
+  if (isOpen.value) {
+    store.dispatch('startVoiceRecognition')
+  } else {
+    input.value.focus()
+    store.commit('setIsOpenStore', true)
   }
 }
 
+const handleClear = () => {
+  store.commit('setIsOpenStore', false)
+  store.commit('updateVoiceSearchText', '')
+}
+
+const handleInput = (event) => {
+  store.commit('updateVoiceSearchText', event.target.value)
+}
+
+const handleFocus = () => {
+  store.commit('setIsOpenStore', true)
+}
+
+// const handleBlur = () => {
+//   if (!voiceSearchText.value) {
+//     store.commit('setIsOpenStore', false)
+//   }
+// }
 </script>
 
 <style scoped>
@@ -74,6 +89,7 @@ export default {
         color: transparent;
         border: 1px solid gray;
         overflow: hidden;
+       
     }
 
     .search:hover {
@@ -81,7 +97,7 @@ export default {
         border: 1px solid rgb(10, 115, 160);
     }
 
-    .search:focus {
+    .search__open {
         width: 330px;
         cursor: pointer;
         color: gray;
