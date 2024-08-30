@@ -1,25 +1,23 @@
 <template>
     <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div class="content">
-    <div class="list">
-        <ul>
-            <li v-for="item in selectAllIsolationConstrSound" :key="item.Code">
-                <RouterLink :to="'/soundproof/constructions/' + item.Code">
-                    {{ item.Name }}
-                </RouterLink>
-            </li>
-        </ul>
-    </div>
-    <div class="collage-container">
-        <div class="custom-collage">
-            <img src="/Img_constr/floor/100G_K.png" alt="Photo 1" class="img1">
-            <img src="/Img_constr/ceiling/ceiling_130.webp" alt="Photo 2" class="img2">
-            <img src="/Img_constr/frame/frame_IIIUltra.webp" alt="Photo 3" class="img3">
-            <img src="/Img_constr/frame/frame_connect_kc.webp" alt="Photo 4" class="img4">
-            <img src="/Img_constr/partition/partition_50_2.webp" alt="Photo 5" class="img5">
-            <img src="/Img_constr/floor/termo.png" alt="Photo 6" class="img6">
-            <img src="/Img_constr/floor/acuflexLP.png" alt="Photo 7" class="img7">
+        <div class="list">
+            <ul>
+                <li v-for="item in selectAllIsolationConstrSound" :key="item.Code">
+                    <RouterLink :to="'/soundproof/constructions/' + item.Code">
+                        {{ item.Name }}
+                    </RouterLink>
+                </li>
+            </ul>
         </div>
+        <div class="container">
+            <div class="block block-1"> </div>
+            <div class="block block-2">2</div>
+            <div class="block block-3">3</div>
+            <div class="block block-4">4</div>
+            <div class="block block-5">5</div>
+            <div class="block block-6">6</div>
+            <div class="block block-7">7</div>
         </div>
     </div>
 </template>
@@ -43,11 +41,6 @@ const breadcrumbs = computed(() => [
 </script>
 
 <style scoped>
-.content {
-    display: flex;
-    justify-content: flex-start;
-}
-
 ul {
     list-style: none;
     padding: 0;
@@ -77,69 +70,82 @@ ul li a:hover {
     color: rgb(255, 255, 255);
 }
 
-.collage-container {
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
+.container {
+    display: none;
 }
 
-.custom-collage {
-    display: none;
+@media (max-width: 1024px) {
+    .container {
+        width: 90vmin;
+        height: 90vmin;
+    }
+
+    .block {
+        font-size: 1em;
+    }
 }
 
 @media screen and (min-width: 1024px) {
     .content {
-        align-items: flex-start;
+        display: flex;
+    }
+
+    .container {
+        display: none;
+        grid-template-areas:
+            "a a b"
+            "c d d"
+            "e f g";
+        width: 80vmin;
+        height: 80vmin;
+        gap: 10px;
+        box-sizing: border-box;
+        margin-top: 5px;
+    }
+
+    .block {
+        background-color: #f0f0f0;
+        border: 2px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font-size: 1.5em;
+    }
+
+    .block-1 {
+        grid-area: a;
+
+    }
+
+    .block-2 {
+        grid-area: b;
+        background: url(/Img_constr/floor/sPlast.png);
+    }
+
+    .block-3 {
+        grid-area: c;
+    }
+
+    .block-4 {
+        grid-area: d;
+    }
+
+    .block-5 {
+        grid-area: e;
+    }
+
+    .block-6 {
+        grid-area: f;
+    }
+
+    .block-7 {
+        grid-area: g;
     }
 
     ul li a {
-        width: 300px;
+        width: 350px;
     }
 
-    .custom-collage {
-        display: grid;
-        grid-template-columns: repeat(4, 100px);
-        grid-template-rows: repeat(4, 100px);
-        gap: 20px;
-        position: fixed;
-
-    }
-
-    .custom-collage img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 5px;
-        border: solid 1px lightgray;
-        box-shadow: 2px 2px 5px gray;
-    }
-
-    .img1 {
-        grid-area: 1 / 1 / 3 / 3;
-    }
-
-    .img2 {
-        grid-area: 1 / 3 / 2 / 5;
-    }
-
-    .img3 {
-        grid-area: 2 / 3 / 4 / 4;
-    }
-
-    .img4 {
-        grid-area: 3 / 4 / 5 / 5;
-    }
-
-    .img5 {
-        grid-area: 3 / 1 / 5 / 3;
-    }
-}
-
-@media screen and (min-width: 1280px) {
-    .custom-collage {
-        grid-template-columns: repeat(4, 150px);
-        grid-template-rows: repeat(4, 150px);
-        gap: 20px;
-    }
 }
 </style>
