@@ -18,7 +18,7 @@
             </select>
         </div>
 
-
+ 
         <div class="select-container colorsizes">
             <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
                 <select class="form-select select-descript" :class="{ selected: selectedSizeCode }"
