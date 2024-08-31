@@ -10,6 +10,7 @@
                 :alt="selectedColor?.Name" />
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
+
         <div class="select-container models">
             <select class="form-select select-descript" :class="{ selected: selectedModelCode }"
                 aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
@@ -18,7 +19,7 @@
             </select>
         </div>
 
- 
+
         <div class="select-container colorsizes">
             <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
                 <select class="form-select select-descript" :class="{ selected: selectedSizeCode }"
@@ -56,27 +57,28 @@
                         :alt="selectedEdgeType?.Name" />
                 </div>
             </div>
-            
-            <div class="block-span1">
+
+        </div>
+        <div class="block-span2">
+                
                 <template v-if="!selectedModelCode">
                     <span class="span" v-html="selectElement?.Description"></span>
                 </template>
+
                 <template v-else>
                     <span v-html="selectedModelDescription"></span>
                 </template>
-                <button class="copy-link" @click="copyLink">
-                <div class="icon-img">
-                    <img src="/share_icon_grey.svg" alt="">
-                </div>
-                копировать ссылку
-            </button>
-            </div>
-         
-        </div>
 
+                <button class="copy-link" @click="copyLink">
+                    <div class="icon-img">
+                        <img src="/share_icon_grey.svg" alt="">
+                    </div>
+                    копировать ссылку
+                </button>
+            </div>
         <!-- <hr> -->
 
-        <div class="block-span2">
+        <div class="block-span1">
             <template v-if="!selectedModelCode">
                 <span class="span" v-html="selectElement?.Description"></span>
             </template>
@@ -423,4 +425,15 @@ export default {
         width: 50%;
     }
 }
+@media screen and (min-width: 1240px) {
+
+.block-span1 {
+    display: block;
+    width: 43%;
+    margin-left: 48%;
+    top: 130px;
+    position: absolute;
+}
+}
+
 </style>

@@ -109,7 +109,7 @@ section {
     display: none;
 }
 
-@media screen and (max-width: 500px) {
+/* @media screen and (max-width: 500px) {
     section img {
         width: 30px;
     }
@@ -138,5 +138,5 @@ section {
         transform-origin: center;
         transform: translate(-50%, -50%) rotate(90deg);
     }
-}
+} */
 </style>

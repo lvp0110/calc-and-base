@@ -96,10 +96,12 @@ ul {
         width: 50%;
         position: absolute;
         margin-left: 15px;
+        margin-top: -5px;
+        font-size: 15.5px;
     }
     .span2 {
         display: none;
     }
-
+    
 }
 </style>
