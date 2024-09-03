@@ -1,11 +1,12 @@
 <template>
     <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <p class="title-materials">{{ selectElement.Description }}</p>
         <hr>
         <div class="image-descript">
             <div>
                 <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+                <span class="span1">{{ selectElement.Specification }}</span>
             </div>
             <ul class="ul-descript">
                 <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
@@ -16,7 +17,7 @@
             </ul>
         </div>
         <hr>
-        <span>{{ selectElement.Specification }}</span>
+        <span class="span2">{{ selectElement.Specification }}</span>
     </div>
 </template>
 
@@ -36,16 +37,18 @@ store.dispatch('getMaterials')
 const selectElement = computed(() => store.getters['selectMaterials'].find(({ Code }) => Code === id))
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: '...' },
+    { link: '/soundproof', title: '...' },
     { link: '/soundproof/materials', title: 'МАТЕРИАЛЫ' },
     { title: id }
 ])
 </script>
 
 <style scoped>
-.title-materials {
+* {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
+}
+.title-materials {
     text-transform: uppercase;
     margin-top: 5px;
     width: 100%;
@@ -54,27 +57,48 @@ const breadcrumbs = computed(() => [
     border-radius: 5px;
     text-align: center;
 }
+
 ul li {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+   
     background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
+    padding-left: 10px;
 }
-span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+
+ul {
+    margin-top: 15px;
 }
+
+.span1 {
+  
+    display: none;
+}
+
 img {
     width: 100%;
 }
+
 @media screen and (min-width: 768px) {
     .img {
-    width: 50%;
+        width: 50%;
+    }
 }
-}
+
 @media screen and (min-width: 1024px) {
     .img {
-    width: 40%;
-}
+        width: 40%;
+    }
+    ul {
+        width: 40%;
+    }
+    .span1 {
+        display: inline-flex;
+        width: 50%;
+        position: absolute;
+        margin-left: 15px;
+    }
+    .span2 {
+        display: none;
+    }
 }
 </style>

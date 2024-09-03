@@ -1,6 +1,6 @@
 <template>
   <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <p>{{ selectElement.Name }}</p>
     {{ selectElement.Description }}
     <hr>
@@ -25,7 +25,7 @@ store.dispatch('getTechCards');
 const selectElement = computed(() => store.getters['selectMaterialsWithTechCards'].find(({ Code }) => Code === id))
 
 const breadcrumbs = computed(() => [
-  { link: '/', title: '...' },
+  { link: '/documents', title: '...' },
   { link: '/documents/techcard', title: 'ТЕХ.КАРТЫ' },
   { title: id }
 ])

@@ -44,7 +44,27 @@ const router = createRouter({
     { 
       path: '/', 
       children: [
-        { path: "/", component: App },
+        { 
+          path: "/",
+          component: App 
+        },
+        {
+          path: '/soundproof',
+          component: App 
+        },
+        {
+          path: '/acoustic',
+          component: App 
+        },
+        {
+          path: '/vibration_isolation',
+          component: App 
+        },
+        {
+          path: '/documents',
+          component: App 
+        },
+
         { path: "/soundproof/materials", component: SoundproofMaterials },
         { path: "/soundproof/constructions", component: SoundproofConstructions },
         { path: "/soundproof/materials/:id", component: SoundproofMaterialsId },

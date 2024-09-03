@@ -23,7 +23,7 @@ store.dispatch('getAlbums')
 const selectAlbums = computed(() => store.getters['selectAlbums'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ДОКУМЕНТЫ' }, 
+    { link: '/documents', title: 'ДОКУМЕНТЫ' }, 
     { title: 'АЛЬБОМЫ...' }
 ])
 </script>

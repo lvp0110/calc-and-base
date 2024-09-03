@@ -24,7 +24,7 @@ store.dispatch('getTechCards')
 const selectTechcard = computed(() => store.getters['selectMaterialsWithTechCards'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ДОКУМЕНТЫ' },
+    { link: '/documents', title: 'ДОКУМЕНТЫ' },
     { title: 'ТЕХ.КАРТЫ' }
 ])
 </script>

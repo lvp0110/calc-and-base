@@ -9,3 +9,11 @@ export enum ConstructionsUsage {
     SoundIsolation = 'AllIsolationConstr',
 }
 
+
+export interface Filter {
+    key: string
+    name: string
+    values: { name: string, value: string }[]
+}
+
+type Filters = Filter[]

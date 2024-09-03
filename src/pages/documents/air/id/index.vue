@@ -1,6 +1,6 @@
 <template>
   <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <!-- <p class="title-hookup">{{ selectElement.Name }}</p> -->
     <p>{{ selectElement.Description }}</p>
     
@@ -26,7 +26,7 @@ store.dispatch('getAlbums')
 const selectElement = computed(() => store.getters['selectAlbums'].find(({ Name }) => Name === id))
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: '...' }, 
+    { link: '/documents', title: '...' }, 
     { link: '/documents/air', title: 'АЛЬБОМЫ' },
     { title: id }
 ])

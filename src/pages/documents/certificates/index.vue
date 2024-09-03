@@ -23,7 +23,7 @@ store.dispatch('getMaterialsWithCerts')
 const selectMaterials = computed(() => store.getters['selectMaterialsWithCerts'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ДОКУМЕНТЫ' },
+    { link: '/documents', title: 'ДОКУМЕНТЫ' },
     { title: 'СЕРТИФИКАТЫ' }
 ])
 </script>

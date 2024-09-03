@@ -24,7 +24,7 @@ store.dispatch('getBrandsInstalSchemas')
 const selectBrandsInstalSchemas = computed(() => store.getters['selectBrandsInstalSchemas'])
 
 const breadcrumbs = computed(() => [
-    { link: '/', title: 'ДОКУМЕНТЫ' },
+    { link: '/documents', title: 'ДОКУМЕНТЫ' },
     { title: 'МОНТАЖНЫЕ СХЕМЫ' }
 ])
 </script>
