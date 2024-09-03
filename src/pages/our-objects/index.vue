@@ -1,7 +1,7 @@
 <template>
   <div>
     <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
-    <nav class="navbar navbar-light bg-light">
+    <!-- <nav class="navbar navbar-light bg-light">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
@@ -10,7 +10,7 @@
         </button>
         <span class="navbar-filter">ФИЛЬТР</span>
       </div>
-    </nav>
+    </nav> -->
 
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
       <div v-for="filter in filters" :key="filter.key" class="select-descript-wrapper">
