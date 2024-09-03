@@ -3,22 +3,22 @@
         <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <div class="title">{{ selectElement.Name }} </div>
         <hr>
-        <ul>
-            <li v-if="selectElement.Location">{{ locationPrefix }} {{ selectElement.Location }}</li>
+        <ul> 
+            <li v-if="selectElement.Location"><p >Адрес:</p> {{ selectElement.Location }}</li>
             <!-- <li v-if="selectElement.Cover">{{ selectElement.Cover }}</li> -->
-            <li v-if="selectElement.Contractor">{{ selectElement.Contractor }}</li>
-            <li v-if="selectElement.Designer">{{ selectElement.Designer }}</li>
-            <li v-if="selectElement.ProjectOwner">{{ selectElement.ProjectOwner }}</li>
-            <li v-if="selectElement.TotalArea">{{ selectElement.TotalArea }} м2</li>
-            <li v-if="selectElement.CompletionYear">{{ selectElement.CompletionYear }} г.</li>
-            <li v-if="selectElement.PerformedWorks">{{ selectElement.PerformedWorks }}</li>
+            <li v-if="selectElement.Contractor"> <p >Заказчик:</p>  {{ selectElement.Contractor }}</li>
+            <li v-if="selectElement.Designer"><p >Проектировщик:</p>{{ selectElement.Designer }}</li>
+            <li v-if="selectElement.ProjectOwner"><p >Ген.подрядчик :</p>{{ selectElement.ProjectOwner }}</li>
+            <li v-if="selectElement.TotalArea"><p >Площадь:</p>{{ selectElement.TotalArea }} м2</li>
+            <li v-if="selectElement.CompletionYear"><p >Год:</p>{{ selectElement.CompletionYear }} г.</li>
+            <li v-if="selectElement.PerformedWorks"><p >Выполненные работы :</p>{{ selectElement.PerformedWorks }}</li>
         </ul>
         <span>Используемые материалы :</span>
         <ul>
             <li class="list-materials" v-for="(material, index) in selectElement.UsedMaterials" :key="index">
                 <RouterLink :to="`/acoustic/brands/${material.Code}`">
-                    {{ material.Name }}...
-                </RouterLink>
+                    {{ material.Name }}<span class="ellipses">...</span>
+                </RouterLink><span class="ellipses">...</span>
             </li>
         </ul>
         <div :class="['slider-position', { 'full-screen': fullScreen }]">
@@ -86,16 +86,35 @@ const toggleFullScreen = () => {
     width: 100%;
     font-weight: 400;
     text-transform: uppercase;
-    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+    background: radial-gradient(circle at center, #8992998c, #dfe1e662);
     padding: 5px;
     text-align: center;
 }
-
-ul li {
-
+p {
+    background: radial-gradient(circle at left, #feffff8c, #afb6c262);;
+    padding-left: 5px;
+    margin: 0;
+}
+li {
+    list-style-type: none;
     background: radial-gradient(circle at left, #a8b1b88c, #d7dadf62);
-    margin-top: 5px;
+    margin-top: 10px;
     padding-left: 10px;
+    margin-left: -34px;
+}
+.ellipses {
+    padding: 0;
+    display: none;
+}
+
+a:hover {
+    color: rgb(34, 33, 33);
+    text-decoration: none;
+}
+
+ a:hover + .ellipses {
+    display: inline-block;
+    text-decoration: none;
 }
 
 span {

@@ -11,8 +11,17 @@
         <span class="navbar-filter">ФИЛЬТР</span>
       </div>
     </nav>
+
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-      <div class="select-descript-wrapper">
+      <div v-for="filter in filters" :key="filter.key" class="select-descript-wrapper">
+        <select class="form-select select-descript" aria-label="Default select example" :name="filter.key" :value="appliedFilters[filter.key]" @change="applyFilter">
+          <option disabled value="null">{{ filter.name }}</option>
+          <option v-for="value in filter.values" :key="value.value" :value="value.value">
+            {{ value.name }}
+          </option>
+        </select>
+      </div>
+      <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" v-model="nameModel">
           <option disabled value="null">НАЗВАНИЕ</option>
           <option v-for="(name, index) in names" :key="index" :value="name">
@@ -27,8 +36,8 @@
             {{ address }}
           </option>
         </select>
-      </div>
-      <!-- <div class="select-descript-wrapper">
+      </div> -->
+       <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials">
           <option selected disabled>МАТЕРИАЛЫ</option>
           <option v-for="(material, index) in dynamicMaterials" :key="index" :value="material">
@@ -36,7 +45,7 @@
           </option>
         </select>
       </div>
-      <div class="select-descript-wrapper">
+     <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example">
           <option selected disabled>ДАТА</option>
         </select>
@@ -70,14 +79,60 @@
 
 <script setup>
 import { useStore } from 'vuex';
+import { useRoute, useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
 import { filesApi } from '../../config';
 import MainPageLayout from '../../components/Layouts/MainPageLayout.vue'
 
 const store = useStore()
+const route = useRoute()
+const router = useRouter()
+
+const filters = ref([
+    {
+      "key": "materials",
+      "name": "Материалы",
+      "values": [
+        {
+          "name": "Материал 1",
+          "value": "material_1",
+          "count": 10
+        },
+        {
+          "name": "Материал 2",
+          "value": "material_2",
+          "count": 4
+        } 
+      ]
+    },
+    {
+      "key": "cities",
+      "name": "Города",
+      "values": [
+        {
+          "name": "Город 1",
+          "value": "city_1"
+        },
+        {
+          "name": "Город 2",
+          "value": "sity_2"
+        } 
+      ]
+    }
+])
+const appliedFilters = computed(() => route.query)
 
 const nameModel = ref(null)
 const locationModel = ref(null)
+
+const applyFilter = (event) => {
+  const newAppliedFilters = {
+    ...appliedFilters.value,
+    [event.target.name]: event.target.value
+  }
+
+  router.push({ path: route.path, query: newAppliedFilters })
+}
 
 store.dispatch('getObjects')
 

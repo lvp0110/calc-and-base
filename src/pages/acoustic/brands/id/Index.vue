@@ -32,7 +32,10 @@
             </div>
 
             <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
-                <ImageSelect placeholder="Цвет" :value="selectedColor?.Description" :items="params?.Colors"
+                <ImageSelect 
+                    placeholder="Цвет" 
+                    :value="selectedColor?.Description" 
+                    :items="params?.Colors"
                     :onSelect="selectColor" />
             </div>
         </div>
@@ -41,8 +44,11 @@
 
             <div class="select-container perforation">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description"
-                        :items="params?.Perforations" :onSelect="selectPerforation" />
+                    <ImageSelect 
+                        placeholder="Тип перфорации" 
+                        :value="selectedPerforation?.Description"
+                        :items="params?.Perforations" 
+                        :onSelect="selectPerforation" />
                     <img v-if="selectedPerforation" class="add-image"
                         :src="filesApi.getImageFileUrl(selectedPerforation.Img)" :alt="selectedPerforation?.Name" />
                     <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
@@ -51,7 +57,10 @@
                 </div>
 
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType?.Name" :items="params?.EdgesTypes"
+                    <ImageSelect 
+                        placeholder="Тип кромки" 
+                        :value="selectedEdgeType?.Name" 
+                        :items="params?.EdgesTypes"
                         :onSelect="selectEdgeType" />
                     <img v-if="selectedEdgeType" class="add-image" :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
                         :alt="selectedEdgeType?.Name" />
@@ -60,22 +69,22 @@
 
         </div>
         <div class="block-span2">
-                
-                <template v-if="!selectedModelCode">
-                    <span class="span" v-html="selectElement?.Description"></span>
-                </template>
 
-                <template v-else>
-                    <span v-html="selectedModelDescription"></span>
-                </template>
+            <template v-if="!selectedModelCode">
+                <span class="span" v-html="selectElement?.Description"></span>
+            </template>
 
-                <button class="copy-link" @click="copyLink">
-                    <div class="icon-img">
-                        <img src="/share_icon_grey.svg" alt="">
-                    </div>
-                    копировать ссылку
-                </button>
-            </div>
+            <template v-else>
+                <span v-html="selectedModelDescription"></span>
+            </template>
+
+            <button class="copy-link" @click="copyLink">
+                <div class="icon-img">
+                    <img src="/share_icon_grey.svg" alt="">
+                </div>
+                копировать ссылку
+            </button>
+        </div>
         <!-- <hr> -->
 
         <div class="block-span1">
@@ -97,7 +106,7 @@
 </template>
 
 <script>
-import ImageSelect from '../../../../components/ImageSelect.vue';
+import ImageSelect from '../../../../components/ImageSelect/ImageSelect.vue';
 import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
 import { filesApi, modelsApi } from '../../../../config';
@@ -121,7 +130,8 @@ export default {
             selectedPerforation: null,
             selectedEdgeType: null,
             image_slide: ImageSlide,
-            filesApi
+            filesApi,
+            activeSelect: null, // это свойство будет отслеживать, какой элемент сейчас активен
         };
     },
     components: {
@@ -425,15 +435,15 @@ export default {
         width: 50%;
     }
 }
+
 @media screen and (min-width: 1240px) {
 
-.block-span1 {
-    display: block;
-    width: 43%;
-    margin-left: 48%;
-    top: 130px;
-    position: absolute;
+    .block-span1 {
+        display: block;
+        width: 43%;
+        margin-left: 48%;
+        top: 130px;
+        position: absolute;
+    }
 }
-}
-
 </style>

@@ -153,7 +153,7 @@ figure {
 
 #result_voice {
   padding-left: 35px;
-  background-color: rgb(248, 243, 243);
+  background-color: rgba(248, 243, 243,0.7);
   font-weight: 250;
   padding-bottom: 3px;
 }
