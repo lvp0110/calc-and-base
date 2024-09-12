@@ -1,28 +1,36 @@
 <template>
     <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
-        <p class="title-materials">{{ selectElement.Description }}</p>
-        <hr>
-        <div class="image-descript">
-            <div>
-                <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+    <SidebarLayout :hasContent="selectElement">
+        <template #sidebar>
+            <List :items="selectMaterialsAc" to="/acoustic/materials" />
+        </template>
+        <template #content>
+            <div v-if="selectElement">
+                <p class="title-materials">{{ selectElement.Description }}</p>
+                <hr>
+                <div class="image-descript">
+                    <div>
+                        <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+                    </div>
+                    <ul class="ul-descript">
+                        <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
+                        <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
+                        <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
+                        <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
+                        <li>Аpтикул: {{ selectElement.Code }}</li>
+                    </ul>
+                </div>
+                <hr>
+                <span>{{ selectElement.Specification }}</span>
             </div>
-            <ul class="ul-descript">
-                <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
-                <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
-                <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
-                <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
-                <li>Аpтикул: {{ selectElement.Code }}</li>
-            </ul>
-        </div>
-        <hr>
-        <span>{{ selectElement.Specification }}</span>
-    </div>
+        </template>
+    </SidebarLayout>
 </template>
 
 <script setup>
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
+import List from '../../../../components/List/List.vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
@@ -32,15 +40,21 @@ const route = useRoute()
 
 store.dispatch('getMaterialsAc')
 
-const id = route.params.id
+const selectMaterialsAc = computed(() => store.getters['selectMaterialsAc'])
+const selectElement = computed(() => store.getters['selectMaterialsAc'].find(({ Code }) => Code === route.params.id))
 
-const selectElement = computed(() => store.getters['selectMaterialsAc'].find(({ Code }) => Code === id))
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/', title: '...' },
+        { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
+    ]
 
-const breadcrumbs = computed(() => [
-    { link: '/', title: '...' },
-    { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
-    { title: id }
-])
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
+
+    return breadcrumbs
+})
 </script>
 
 <style scoped>

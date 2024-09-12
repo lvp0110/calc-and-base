@@ -1,18 +1,27 @@
 <template>
-  <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <p>{{ selectElement.Name }}</p>
-    {{ selectElement.Code }}
-    <hr>
-    <Slider :hookup="slides" />
-  </div>
+  <MainPageLayout :breadcrumbs="breadcrumbs" />
+  <SidebarLayout :hasContent="selectElement">
+    <template #sidebar>
+      <List :items="selectBrandsInstalSchemas" to="/documents/hookup" keyPath="ShortName" />
+    </template>
+    <template #content>
+      <div v-if="selectElement" class="content">
+        <p>{{ selectElement.Name }}</p>
+        {{ selectElement.Code }}
+        <hr>
+        <Slider :hookup="slides" />
+      </div>
+    </template>
+  </SidebarLayout>
 </template>
 
 <script setup>
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 import { installSchemesApi } from '../../../../config.js';
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import Slider from '../../../../components/Slider.vue';
+import List from '../../../../components/List/List.vue';
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -25,25 +34,40 @@ const route = useRoute()
 
 const slides = ref([])
 
-const brand = route.params.id
-
 store.dispatch('getBrandsInstalSchemas')
 
-const selectElement = computed(() => store.getters['selectBrandsInstalSchemas']?.find(({ ShortName }) => ShortName === brand))
+const selectBrandsInstalSchemas = computed(() => store.getters['selectBrandsInstalSchemas'])
+const selectElement = computed(() => store.getters['selectBrandsInstalSchemas'].find(({ ShortName }) => ShortName === route.params.id))
 
 const fetchData = async (brand) => {
+  slides.value = []
+
   const response = await installSchemesApi.getInstallSchemeByBrand(brand)
 
   slides.value = response.data.data
 }
 
-fetchData(brand)
+fetchData(route.params.id)
 
-const breadcrumbs = computed(() => [
-  { link: '/', title: '...' },
-  { link: '/documents/hookup', title: 'СХЕМА' },
-  { title: brand }
-])
+watch(
+  () => route.params.id, 
+  (brand) => {
+    fetchData(brand)
+  }
+)
+
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/', title: '...' },
+        { title: 'МОНТАЖНЫЕ СХЕМЫ' }
+    ]
+
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
+
+    return breadcrumbs
+})
 </script>
 
 <style scoped>
@@ -54,5 +78,10 @@ p {
   text-transform: uppercase;
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
+}
+
+.content {
+  flex-grow: 1;
+  overflow: hidden;
 }
 </style>

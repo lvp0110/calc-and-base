@@ -90,19 +90,22 @@ export default {
             return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
         },
         renderBullet(index, className) {
-            if (this.$props.hookup) {
+            if (this.$props.hookup?.length > 0) {
                 return '<span class="' + className + '">' + (this.$props.hookup[index].Name) + '</span>'
             }
 
             const arr = this.$props.images ?? this.$props.pdfs
 
-            return '<span class="' + className + '">' + (arr[index].Type) + '</span>'
+            return '<span class="' + className + '">' + (arr?.[index]?.Type) + '</span>'
         }
     }
 }
 </script>
 
 <style scoped>
+swiper-container {
+    flex-grow: 1;
+}
 swiper-container::part(pagination) {
     top: 0;
     background-color: none;
