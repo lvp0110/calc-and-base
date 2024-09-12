@@ -1,9 +1,6 @@
 <template>
 <AccordionItem header="ЗВУКОИЗОЛЯЦИЯ" name="soundproof" :open="opened === 'soundproof'" :onToggle="onToggle"
 src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg" >
-    <!-- <ListItem name="КОНСТРУКЦИИ" to="/soundproof/constructions" :items="selectAllIsolationConstrSound" />
-    <ListItem name="СПИСОК МАТЕРИАЛОВ" to="/soundproof/materials" :items="selectMaterials" /> -->
-
     <ul class="list_sound">
         <li>
             <RouterLink to="/soundproof/constructions">

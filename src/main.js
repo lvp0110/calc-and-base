@@ -4,10 +4,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import App from './App.vue'
 import Layout from './Layout.vue'
 
-import SoundproofConstructions from './pages/soundproof/constructions/Index.vue'
 import SoundproofConstructionsId from './pages/soundproof/constructions/id/Index.vue'
 import SoundproofMaterialsId from './pages/soundproof/materials/id/Index.vue'
-import SoundproofMaterials from './pages/soundproof/materials/Index.vue'
 
 import AcousticBrands from './pages/acoustic/brands/index.vue'
 import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
@@ -15,7 +13,6 @@ import AcousticMaterials from './pages/acoustic/materials/index.vue'
 import AcousticMaterialsId from './pages/acoustic/materials/id/index.vue'
 
 import VibrationMaterialsId from './pages/vibration_isolation/materials/id/index.vue'
-import VibrationMaterials from './pages/vibration_isolation/materials/index.vue'
 
 import DocumentAir from './pages/documents/air/index.vue'
 import DocumentAirId from './pages/documents/air/id/index.vue'
@@ -45,13 +42,10 @@ const router = createRouter({
       path: '/', 
       children: [
         { path: "/", component: App },
-        { path: "/soundproof/materials", component: SoundproofMaterials },
-        { path: "/soundproof/constructions", component: SoundproofConstructions },
-        { path: "/soundproof/materials/:id", component: SoundproofMaterialsId },
-        { path: "/soundproof/constructions/:id", component: SoundproofConstructionsId },
 
-        { path: "/vibration_isolation/materials", component: VibrationMaterials },
-        { path: "/vibration_isolation/materials/:id", component: VibrationMaterialsId },
+        { path: "/soundproof/materials/:id?", component: SoundproofMaterialsId },
+        { path: "/soundproof/constructions/:id?", component: SoundproofConstructionsId },
+        { path: "/vibration_isolation/materials/:id?", component: VibrationMaterialsId },
 
         { path: "/acoustic/brands", component: AcousticBrands },
         { path: "/acoustic/brands/:id", component: AcousticBrandsId },

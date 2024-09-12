@@ -1,4 +1,5 @@
 <template>
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
     <div v-if="selectElement">
         <MainPageLayout :breadcrumbs="breadcrumbs" />
         <p class="title-materials">{{ selectElement.Description }}</p>
@@ -21,10 +22,10 @@
 </template>
 
 <script setup>
+import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
 
 const store = useStore()
 const route = useRoute()

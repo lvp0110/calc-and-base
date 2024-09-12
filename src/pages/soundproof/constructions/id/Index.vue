@@ -1,30 +1,37 @@
 <template>
-    <Fragment v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
-        
-        <div class="title-construction">{{ selectElement.Description }}</div>
-        
-        <div class="image-descript">
-            <div class="image-block">
-                <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" />
-                <img class="img2" :src="filesApi.getImageFileUrl(selectElement.CadImg)" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <SidebarLayout :hasContent="selectElement">
+        <template #sidebar>
+            <List :items="selectAllIsolationConstrSound" to="/soundproof/constructions" />
+        </template>
+        <template #content>
+            <div class="title-construction">{{ selectElement.Description }}</div>
+            
+            <div class="image-descript">
+                <div class="image-block">
+                    <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" />
+                    <img class="img2" :src="filesApi.getImageFileUrl(selectElement.CadImg)" />
+                </div>
+                <ul class="ul-descript" >
+                    <li v-if="selectElement.SoundIndex != 'неопределен'">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
+                    <li v-if="selectElement.ImpactNoseIndex != 0">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
+                    </li>
+                    <li>Толщина: {{ selectElement.Thickness }} мм.</li>
+                </ul>
             </div>
-            <ul class="ul-descript" >
-                <li v-if="selectElement.SoundIndex != 'неопределен'">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
-                <li v-if="selectElement.ImpactNoseIndex != 0">Индекс звукоизоляции ударного шума, Lnw = {{ selectElement.ImpactNoseIndex }} дБ.
-                </li>
-                <li>Толщина: {{ selectElement.Thickness }} мм.</li>
-            </ul>
-        </div>
-        
-        <span class="span"> {{ selectElement.Specification }}</span>
-        <RouterLink :to="`/calc/${selectElement.Code}`" class="btn btn-outline-secondary calculate">РАССЧИТАТЬ
-            КОЛИЧЕСТВО МАТЕРИАЛОВ</RouterLink>
-    </Fragment>
+            
+            <span class="span"> {{ selectElement.Specification }}</span>
+            <RouterLink :to="`/calc/${selectElement.Code}`" class="btn btn-outline-secondary calculate">РАССЧИТАТЬ
+                КОЛИЧЕСТВО МАТЕРИАЛОВ
+            </RouterLink>
+        </template>
+    </SidebarLayout>
 </template>
  
 <script setup>
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue'
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
+import List from '../../../../components/List/List.vue';
 import { filesApi } from '../../../../config';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
@@ -33,18 +40,22 @@ import { useRoute } from 'vue-router';
 const store = useStore()
 const route = useRoute()
 
-const id = route.params.id
-
 store.dispatch('getAllIsolationConstr')
 
-const selectElement = computed(() => store.getters['selectAllIsolationConstrSound'].find(({ Code }) => Code === id))
+const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
+const selectElement = computed(() => selectAllIsolationConstrSound.value.find(({ Code }) => Code === route.params.id))
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/', title: '...' },
+        { link: '/soundproof/constructions', title: 'КОНСТРУКЦИИ' },
+    ]
 
-const breadcrumbs = computed(() => [
-    { link: '/', title: '...' },
-    { link: '/soundproof/constructions', title: 'КОНСТРУКЦИИ' },
-    { title: selectElement.value?.Code }
-])
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
 
+    return breadcrumbs
+})
 </script>
 
 <style scoped>

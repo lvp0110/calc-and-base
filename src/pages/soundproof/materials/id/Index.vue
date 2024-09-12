@@ -1,23 +1,28 @@
 <template>
-    <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
-        <p class="title-materials">{{ selectElement.Description }}</p>
-        <hr>
-        <div class="image-descript">
-            <div>
-                <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <SidebarLayout :hasContent="selectElement">
+        <template #sidebar>
+            <List :items="selectMaterials" to="/soundproof/materials" />
+        </template>
+        <template #content>
+            <p class="title-materials">{{ selectElement.Description }}</p>
+            <hr>
+            <div class="image-descript">
+                <div>
+                    <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
+                </div>
+                <ul class="ul-descript">
+                    <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
+                    <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
+                    <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
+                    <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
+                    <li>Аpтикул: {{ selectElement.Code }}</li>
+                </ul>
             </div>
-            <ul class="ul-descript">
-                <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
-                <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
-                <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
-                <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
-                <li>Аpтикул: {{ selectElement.Code }}</li>
-            </ul>
-        </div>
-        <hr>
-        <span>{{ selectElement.Specification }}</span>
-    </div>
+            <hr>
+            <span>{{ selectElement.Specification }}</span>
+        </template>
+    </SidebarLayout>
 </template>
 
 <script setup>
@@ -25,21 +30,28 @@ import { computed } from 'vue';
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
+import List from '../../../../components/List/List.vue';
 
 const store = useStore()
 const route = useRoute()
 
-const id = route.params.id
-
 store.dispatch('getMaterials')
 
-const selectElement = computed(() => store.getters['selectMaterials'].find(({ Code }) => Code === id))
+const selectMaterials = computed(() => store.getters['selectMaterials'])
+const selectElement = computed(() => store.getters['selectMaterials'].find(({ Code }) => Code === route.params.id))
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/', title: '...' },
+        { link: '/soundproof/materials', title: 'МАТЕРИАЛЫ' }
+    ]
 
-const breadcrumbs = computed(() => [
-    { link: '/', title: '...' },
-    { link: '/soundproof/materials', title: 'МАТЕРИАЛЫ' },
-    { title: id }
-])
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
+
+    return breadcrumbs
+})
 </script>
 
 <style scoped>
@@ -67,14 +79,15 @@ span {
 img {
     width: 100%;
 }
+
 @media screen and (min-width: 768px) {
     .img {
-    width: 50%;
-}
+        width: 50%;
+    }
 }
 @media screen and (min-width: 1024px) {
     .img {
-    width: 40%;
-}
+        width: 40%;
+    }
 }
 </style>
