@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li v-for="item in items" >
-                <RouterLink :to="`${to}/${item[keyPath]}`">
+                <RouterLink :to="`${to}/${item[keyPath ?? 'Code']}`">
                     {{ item.Name }}
                 </RouterLink>
             </li>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-const { items, to, keyPath = 'Code' } = defineProps(['items', 'to', 'keyPath'])
+const { items, to, keyPath } = defineProps(['items', 'to', 'keyPath'])
 </script>
 
 <style scoped lang="scss">
