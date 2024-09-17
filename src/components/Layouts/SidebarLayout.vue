@@ -17,12 +17,17 @@ const { hasContent } = defineProps(['hasContent'])
 .page {
     display: flex;
     overflow: hidden;
-    
+    height: 100%;
     gap: 16px;
 }
 
 .sidebar {
     width: 100%;
+}
+
+.content {
+    overflow: hidden;
+    flex-grow: 1;
 }
 
 .sidebar__hidden {

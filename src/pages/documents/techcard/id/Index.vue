@@ -1,11 +1,16 @@
 <template>
-  <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <p>{{ selectElement.Name }}</p>
-    {{ selectElement.Description }}
-    <hr>
-    <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
-  </div>
+  <MainPageLayout :breadcrumbs="breadcrumbs" />
+  <SidebarLayout :hasContent="selectElement">
+    <template #sidebar>
+      <List :items="selectTechcard" to="/documents/techcard" />
+    </template>
+    <template #content>
+      <p>{{ selectElement.Name }}</p>
+      {{ selectElement.Description }}
+      <hr>
+      <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
+    </template>
+  </SidebarLayout>
 </template>
 
 <script setup>
@@ -13,22 +18,30 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router';
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
+import List from '../../../../components/List/List.vue';
 import { filesApi } from '../../../../config.js';
 
 const store = useStore();
 const route = useRoute();
 
-const id = route.params.id;
-
 store.dispatch('getTechCards');
 
-const selectElement = computed(() => store.getters['selectMaterialsWithTechCards'].find(({ Code }) => Code === id))
+const selectTechcard = computed(() => store.getters['selectMaterialsWithTechCards'])
+const selectElement = computed(() => store.getters['selectMaterialsWithTechCards'].find(({ Code }) => Code === route.params.id))
 
-const breadcrumbs = computed(() => [
-  { link: '/', title: '...' },
-  { link: '/documents/techcard', title: 'ТЕХ.КАРТЫ' },
-  { title: id }
-])
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/', title: '...' },
+        { link: '/documents/techcard', title: 'ТЕХ.КАРТЫ' },
+    ]
+
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
+
+    return breadcrumbs
+})
 </script>
 
 <style scoped>

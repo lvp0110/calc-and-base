@@ -14,14 +14,11 @@ import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
 import VibrationMaterialsId from './pages/vibration_isolation/materials/id/index.vue'
 
 import DocumentAirId from './pages/documents/air/id/index.vue'
+import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
+import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
 
 import DocumentSertificates from './pages/documents/certificates/index.vue'
 import DocumentSertificatesId from './pages/documents/certificates/id/Index.vue'
-
-import DocumentTechcard from './pages/documents/techcard/Index.vue'
-import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
-
-import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
 
 import OurObjects from './pages/our-objects/index.vue'
 import OurObject from './pages/our-objects/id/index.vue'
@@ -50,8 +47,7 @@ const router = createRouter({
         { path: "/documents/air/:id?", component: DocumentAirId },
         { path: "/documents/certificates", component: DocumentSertificates },
         { path: "/documents/certificates/:id", component: DocumentSertificatesId },
-        { path: "/documents/techcard", component: DocumentTechcard },
-        { path: "/documents/techcard/:id", component: DocumentTechcardId },
+        { path: "/documents/techcard/:id?", component: DocumentTechcardId },
         { path: "/documents/hookup/:id?", component: DocumentHookupId },
         
         { path: "/our-objects", component: OurObjects },

@@ -9,7 +9,9 @@
         <p>{{ selectElement.Name }}</p>
         {{ selectElement.Code }}
         <hr>
-        <Slider :hookup="slides" />
+        <iframe v-if="slides.length === 1" class="pdf-cert" :src="filesApi.getCertificateFileUrl(slides[0].File)">
+        </iframe>
+        <Slider v-else-if="slides.length > 1" :hookup="slides" />
       </div>
     </template>
   </SidebarLayout>
@@ -24,6 +26,7 @@ import List from '../../../../components/List/List.vue';
 import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import { filesApi } from '../../../../config.js';
 
 import 'swiper/swiper-bundle.css';
 import { register } from 'swiper/element/bundle';
@@ -43,7 +46,7 @@ const fetchData = async (brand) => {
   slides.value = []
 
   const response = await installSchemesApi.getInstallSchemeByBrand(brand)
-
+  
   slides.value = response.data.data
 }
 
@@ -83,5 +86,11 @@ p {
 .content {
   flex-grow: 1;
   overflow: hidden;
+}
+
+.pdf-cert {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 </style>
