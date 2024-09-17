@@ -1,6 +1,6 @@
 <template>
     <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" />
+        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <!-- <p class="title">{{ selectElement.Name }}</p> -->
         <hr>
 
@@ -10,6 +10,7 @@
                 :alt="selectedColor?.Name" />
             <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
         </div>
+
         <div class="select-container models">
             <select class="form-select select-descript" :class="{ selected: selectedModelCode }"
                 aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
@@ -31,7 +32,10 @@
             </div>
 
             <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
-                <ImageSelect placeholder="Цвет" :value="selectedColor?.Description" :items="params?.Colors"
+                <ImageSelect 
+                    placeholder="Цвет" 
+                    :value="selectedColor?.Description" 
+                    :items="params?.Colors"
                     :onSelect="selectColor" />
             </div>
         </div>
@@ -40,8 +44,11 @@
 
             <div class="select-container perforation">
                 <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип перфорации" :value="selectedPerforation?.Description"
-                        :items="params?.Perforations" :onSelect="selectPerforation" />
+                    <ImageSelect 
+                        placeholder="Тип перфорации" 
+                        :value="selectedPerforation?.Description"
+                        :items="params?.Perforations" 
+                        :onSelect="selectPerforation" />
                     <img v-if="selectedPerforation" class="add-image"
                         :src="filesApi.getImageFileUrl(selectedPerforation.Img)" :alt="selectedPerforation?.Name" />
                     <img v-if="selectedPerforation && selectedPerforation.SectionImg" class="add-image"
@@ -50,7 +57,10 @@
                 </div>
 
                 <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
-                    <ImageSelect placeholder="Тип кромки" :value="selectedEdgeType?.Name" :items="params?.EdgesTypes"
+                    <ImageSelect 
+                        placeholder="Тип кромки" 
+                        :value="selectedEdgeType?.Name" 
+                        :items="params?.EdgesTypes"
                         :onSelect="selectEdgeType" />
                     <img v-if="selectedEdgeType" class="add-image" :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
                         :alt="selectedEdgeType?.Name" />
@@ -58,22 +68,45 @@
             </div>
 
         </div>
-        <hr>
-        <div class="block-span">
+        <div class="block-span2">
+
+            <template v-if="!selectedModelCode">
+                <span class="span" v-html="selectElement?.Description"></span>
+            </template>
+
+            <template v-else>
+                <span v-html="selectedModelDescription"></span>
+            </template>
+
+            <button class="copy-link" @click="copyLink">
+                <div class="icon-img">
+                    <img src="/share_icon_grey.svg" alt="">
+                </div>
+                копировать ссылку
+            </button>
+        </div>
+        <!-- <hr> -->
+
+        <div class="block-span1">
             <template v-if="!selectedModelCode">
                 <span class="span" v-html="selectElement?.Description"></span>
             </template>
             <template v-else>
                 <span v-html="selectedModelDescription"></span>
             </template>
-            <button class="copy-link" @click="copyLink">копировать ссылку</button>
+            <button class="copy-link" @click="copyLink">
+                <div class="icon-img">
+                    <img src="/share_icon_grey.svg" alt="">
+                </div>
+                копировать ссылку
+            </button>
         </div>
 
     </div>
 </template>
 
 <script>
-import ImageSelect from '../../../../components/ImageSelect.vue';
+import ImageSelect from '../../../../components/ImageSelect/ImageSelect.vue';
 import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
 import { filesApi, modelsApi } from '../../../../config';
@@ -97,7 +130,8 @@ export default {
             selectedPerforation: null,
             selectedEdgeType: null,
             image_slide: ImageSlide,
-            filesApi
+            filesApi,
+            activeSelect: null, // это свойство будет отслеживать, какой элемент сейчас активен
         };
     },
     components: {
@@ -139,7 +173,7 @@ export default {
         },
         breadcrumbs() {
             return [
-                { link: '/', title: '...' },
+                { link: '/acoustic', title: '...' },
                 { link: '/acoustic/brands', title: 'БРЕНДЫ' },
                 { title: this.selectElement.Name },
             ]
@@ -242,6 +276,18 @@ export default {
 </script>
 
 <style scoped>
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+.icon-img {
+    display: flex;
+    width: 30px;
+    position: absolute;
+    margin: -3px;
+}
+
 .add-image {
     margin-top: 10px;
 }
@@ -266,7 +312,6 @@ export default {
 
 .select-wrapper {
     width: 50%;
-    /* border: solid 1px rgb(245, 242, 242); */
     margin-bottom: 4px;
 }
 
@@ -285,15 +330,11 @@ export default {
 .select-descript {
     background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
     box-shadow: 2px 3px 3px rgb(161, 160, 160);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
 }
 
 .selected {
     background: radial-gradient(circle at left, #8e9092, #f9f9fa00);
     color: aliceblue;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
     border: solid 1px rgb(204, 198, 198);
 }
 
@@ -302,11 +343,11 @@ export default {
     margin-left: 15px;
     border: 1px solid gray;
     border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
     padding: 5px;
     background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
     margin-bottom: 15px;
+    padding: 8px;
+    color: #575656;
 }
 
 .copy-link:hover {
@@ -317,20 +358,22 @@ export default {
 .copy-link:focus {
     background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
     color: rgb(158, 161, 163);
+    border-radius: 10px;
 }
 
 .img {
     width: 100%;
 }
 
-span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+.block-span2 {
+    display: block;
+    margin-top: 10px;
 }
 
-/* .select {
-    display: block;
-} */
+.block-span1 {
+    display: none;
+
+}
 
 @media screen and (min-width: 768px) {
     .colorsizes {
@@ -340,22 +383,28 @@ span {
 
     .size {
         width: 50%;
-
     }
 
     .colors {
         width: 50%;
-
     }
 }
 
 @media screen and (min-width: 1024px) {
-   
-    .block-span {
-        width: 50%;
-        position: relative;
+
+    .block-span1 {
+        display: block;
+        width: 45%;
+        margin-left: 46%;
+        top: 130px;
+        position: absolute;
+    }
+
+    .block-span2 {
+        display: none;
 
     }
+
     .colorsizes {
         width: 50%;
     }
@@ -384,6 +433,17 @@ span {
 
     .colors {
         width: 50%;
+    }
+}
+
+@media screen and (min-width: 1240px) {
+
+    .block-span1 {
+        display: block;
+        width: 43%;
+        margin-left: 48%;
+        top: 130px;
+        position: absolute;
     }
 }
 </style>

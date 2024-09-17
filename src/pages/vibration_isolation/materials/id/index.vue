@@ -60,10 +60,20 @@ ul li {
     font-weight: 300;
     background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
+    padding-left: 10px;
 }
-span {
+ul {
+    margin-top: 15px;
+}
+.span1 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 300; 
+    font-weight: 300;
+    display: none;
+}
+
+.span2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
 }
 .img {
     width: 100%;
@@ -85,7 +95,22 @@ span {
 }
 @media screen and (min-width: 1024px) {
     .img {
-    width: 40%;
-}
+        width: 40%;
+    }
+    ul {
+        width: 40%;
+    }
+    .span1 {
+        display: inline-flex;
+        width: 50%;
+        position: absolute;
+        margin-left: 15px;
+        margin-top: -5px;
+        font-size: 15.5px;
+    }
+    .span2 {
+        display: none;
+    }
+    
 }
 </style>

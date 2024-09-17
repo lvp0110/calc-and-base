@@ -58,9 +58,11 @@ const breadcrumbs = computed(() => {
 </script>
 
 <style scoped>
-.title-materials {
+* {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
+}
+.title-materials {
     text-transform: uppercase;
     margin-top: 5px;
     width: 100%;
@@ -70,14 +72,16 @@ const breadcrumbs = computed(() => {
     text-align: center;
 }
 ul li {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+    
     background: radial-gradient(circle at center, #8992998c, #d7dadf62);
     margin-top: 5px;
 }
-span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+ul {
+    margin-top: 15px;
+}
+.span1 {
+  
+  display: none;
 }
 img {
     width: 100%;
@@ -89,7 +93,19 @@ img {
 }
 @media screen and (min-width: 1024px) {
     .img {
-    width: 40%;
-}
+        width: 40%;
+    }
+    ul {
+        width: 40%;
+    }
+    .span1 {
+        display: inline-flex;
+        width: 50%;
+        position: absolute;
+        margin-left: 15px;
+    }
+    .span2 {
+        display: none;
+    }
 }
 </style>

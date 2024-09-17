@@ -17,3 +17,11 @@ export interface Material {
 export interface Album {
     Name: string
 }
+
+export interface Filter {
+    key: string
+    name: string
+    values: { name: string, value: string }[]
+}
+
+type Filters = Filter[]

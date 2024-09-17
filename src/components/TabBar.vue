@@ -1,23 +1,37 @@
 <template>
     <div class="tabbar">
-        <ui class="list">
+        <ul class="list">
             <li>
-                <RouterLink to="/"><img class="logo_w"  src="/logo_1234.png" alt=""></RouterLink>
+                <RouterLink to="/"><img class="logo_w" src="/logo_1234.png" alt=""></RouterLink>
             </li>
             <li>
-                <img class="logo_p" src="/person_logo.png" alt="">
+                <img class="logo_p" src="/person_logo.png" alt="" @click="dialogWindow">
             </li>
             <li>
-                <img class="logo_p" src="/search_logo.png" alt="">
+                <button style="border: none;background: none;">
+                    <img class="logo_p" src="/search_logo.png" alt="" @click="handleSearch">
+                </button>
             </li>
             <li>
                 <RouterLink to="/calc"><img class="calc" src="/calc.svg" alt=""></RouterLink>
             </li>
-        </ui>
+        </ul>
     </div>
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+const handleSearch = () => {
+    store.commit('setIsOpenStore', true)
+
+    document.getElementById('result_voice')?.focus()
+}
+const dialogWindow = () => {
+    alert('Раздел "ЛИЧНЫЙ КАБИНЕТ" находится в разработке 🛠' )
+}
 
 </script>
 

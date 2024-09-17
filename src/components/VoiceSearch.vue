@@ -1,94 +1,130 @@
 <template>
-  <div class="input-container">
-    <input type="text" class="search" ref="voiceInput" id="result_voice" placeholder=""
-  v-model="$store.state.voiceSearchText" />
-    <button type="button" id="btn_voice" @click="activateVoiceSearch"
-      @touchstart="activateVoiceSearch">
-      <figure>
-        <svg height="34" width="34">
-          <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
-          <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
-          <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
-        </svg>
-      </figure>
-    </button>
+  <div>
+    
+      <div  class="input-container">
+        <input type="text" :class="{ 'search': true, 'search__open': isOpen }" id="result_voice" placeholder=""
+          ref="input" :value="voiceSearchText" @input="handleInput" @focus="handleFocus" />
+        <button type="button" id="btn_voice"  @click="activateVoiceSearch" @touchstart="activateVoiceSearch">
+
+          <figure ref="figureVoice" >
+            <svg height="34" width="34">
+              <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+              <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+              <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
+              <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
+              <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
+              <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
+              <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
+            </svg>
+          </figure>
+        </button>
+      </div>
+    
+    <button v-if="isOpen" @click="handleClear" class="close-input-btn">╳</button>
   </div>
-  
 
 </template>
-<script>
-import { mapGetters, mapActions} from 'vuex'
+<script setup>
+import { computed, ref,onMounted  } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
+const input = ref(null)
+const figureVoice = ref(null) 
 
-  computed: {
-    ...mapGetters(['getItemsM']),
+const store = useStore()
 
-  }, 
-  data() {
-    
-    return {
-      isSoundInsulationVisible: false,  
-    }
-  },
+const voiceSearchText = computed(() => store.state.voiceSearchText)
+const isOpen = computed(() => store.state.isOpenSearch)
 
-  methods: {
-   
-    toggleSoundInsulation() {
-      this.isSoundInsulationVisible = !this.isSoundInsulationVisible;
-    },
-    ...mapActions(['startVoiceRecognition']),
-    activateVoiceSearch(event) {
-      event.stopPropagation()
-      this.$refs.voiceInput.focus();
-      this.startVoiceRecognition();
-    }
+
+const activateVoiceSearch = () => {
+  if (isOpen.value) {
+    store.dispatch('startVoiceRecognition')
+  } else {
+    input.value.focus()
+    store.commit('setIsOpenStore', true)
   }
 }
 
+const handleClear = () => {
+  store.commit('setIsOpenStore', false)
+  store.commit('updateVoiceSearchText', '')
+  figureVoice.value.style.opacity = '0'
+}
+
+const handleInput = (event) => {
+  store.commit('updateVoiceSearchText', event.target.value)
+  
+}
+
+const handleFocus = () => {
+  store.commit('setIsOpenStore', true)
+  figureVoice.value.style.opacity = '1'
+}
+onMounted(() => {
+  figureVoice.value.style.opacity = '0';
+});
+
+// const handleBlur = () => {
+//   if (!voiceSearchText.value) {
+//     store.commit('setIsOpenStore', false)
+//   }
+// }
 </script>
 
 <style scoped>
+.close-input-btn {
+  border: none;
+  border-radius: 50%;
+  background: none;
+  position: absolute;
+  left: 95px;
+  top: 6px;
+  width: 48px;
+  height: 48px;
+  z-index: 20022222;
+  color: grey;
+}
 
 .input-container {
   position: absolute;
   display: flex;
   align-items: center;
+  height: 1px;
+  
 }
 
 .search {
-        top: -55px;
-        left: 4px;
-        position: relative;
-        width: 50px;
-        height: 50px;
-        border-radius: 50px ;
-        transition-duration: 500ms;
-        cursor: pointer;
-        background-repeat: no-repeat;
-        font-size: 20px;
-        color: transparent;
-        border: 1px solid gray;
-        overflow: hidden;
-    }
+  top: -32px;
+  left: 4px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  transition-duration: 500ms;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  font-size: 20px;
+  color: transparent;
+  border: 1px solid gray;
+  overflow: hidden;
+  opacity: 0;
+}
 
-    .search:hover {
-        cursor: pointer;
-        border: 1px solid rgb(10, 115, 160);
-    }
+.search:hover {
+  cursor: pointer;
+  border: 1px solid rgb(10, 115, 160);
+}
 
-    .search:focus {
-        width: 330px;
-        cursor: pointer;
-        color: gray;
-        outline: none;
-        border: 1px solid rgb(10, 115, 160);
-        background-color: transparent;
-    }
+.search__open {
+  width: 330px;
+  cursor: pointer;
+  color: gray;
+  outline: none;
+  border: 1px solid rgb(10, 115, 160);
+  background-color: transparent;
+  opacity: 1;
+}
 
 figure {
   height: 34px;
@@ -106,21 +142,27 @@ figure {
   padding: 0 2px 3px 2px;
   background: none;
   transition: all 2s;
+  
 }
 
 #btn_voice:active {
   background: rgb(204, 203, 203);
   transition: all 0.1s;
+
 }
 
 #result_voice {
-  padding-left: 5px;
-  background-color: rgb(248, 243, 243);
+  padding-left: 35px;
+  background-color: rgba(248, 243, 243,0.7);
   font-weight: 250;
+  padding-bottom: 3px;
 }
-@media screen and (min-width: 500px) {
-  #btn_voice {
-    right: 2;
+
+@media screen and (max-width: 500px) {
+  .close-input-btn {
+    position: absolute;
+    left: 20px;
+    top: 6px;
   }
 }
 </style>

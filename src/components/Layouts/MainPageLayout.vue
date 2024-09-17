@@ -1,4 +1,5 @@
 <template>
+    <VoiceSearch v-if="!hiddenSearch" />
     <header class="header">
         <section v-for="(breadcrumb, index) in breadcrumbs" class="section">
             <h6 v-if="breadcrumb.link">
@@ -10,14 +11,16 @@
             <span v-if="breadcrumbs.length > index + 1" class="text">&nbsp;/</span>
         </section>
     </header>
-    <VoiceSearch />
+    
     <slot />
 </template>
 
 <script setup>
 import VoiceSearch from '../VoiceSearch.vue'
-const { breadcrumbs } = defineProps(['breadcrumbs'])
+
+const { breadcrumbs } = defineProps(['breadcrumbs', 'hiddenSearch'])
 </script>
+
 <style scoped>
 h6 {
     font-family: 'Montserrat', sans-serif;
@@ -33,8 +36,8 @@ h6 {
     color: white;
     height: 42px;
     border-radius: 5px;
-    margin-bottom: 60px;
-    margin-top: -50px;
+    margin-bottom: 10px;
+    margin-top: 0px;
     padding-left: 5px;
     padding-top: 5px;
 }
@@ -54,11 +57,11 @@ h6 {
     font-size: 15px;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
 
     .back {
         color: white;
         font-size: 15px;
     }
-}
+} */
 </style>

@@ -2,8 +2,16 @@
     <button type="button" @click="hasHistory()
         ? $router.go(-1)
         : $router.push('/')"
-        style="width: 80px;height: 40px; position: absolute;top: 1%;right: 8%;background: none;color: #000;">&laquo;
-        Назад
+        style="width: 50px;
+        height: 50px; 
+        position: absolute;
+        top: 1%;
+        padding: 1px;
+        right: 8%;
+        background: none;
+        border-radius: 50% ;
+        border: none;">
+     <img src="/back_icon.svg" alt="" >
     </button>
 
     <!-- * Кнопки вывода данных на экран * -->

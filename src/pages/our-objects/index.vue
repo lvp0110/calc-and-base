@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <nav class="navbar navbar-light bg-light">
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
+    <!-- <nav class="navbar navbar-light bg-light">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
@@ -10,9 +10,18 @@
         </button>
         <span class="navbar-filter">ФИЛЬТР</span>
       </div>
-    </nav>
+    </nav> -->
+
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-      <div class="select-descript-wrapper">
+      <div v-for="filter in filters" :key="filter.key" class="select-descript-wrapper">
+        <select class="form-select select-descript" aria-label="Default select example" :name="filter.key" :value="appliedFilters[filter.key]" @change="applyFilter">
+          <option disabled value="null">{{ filter.name }}</option>
+          <option v-for="value in filter.values" :key="value.value" :value="value.value">
+            {{ value.name }}
+          </option>
+        </select>
+      </div>
+      <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" v-model="nameModel">
           <option disabled value="null">НАЗВАНИЕ</option>
           <option v-for="(name, index) in names" :key="index" :value="name">
@@ -27,8 +36,8 @@
             {{ address }}
           </option>
         </select>
-      </div>
-      <!-- <div class="select-descript-wrapper">
+      </div> -->
+       <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials">
           <option selected disabled>МАТЕРИАЛЫ</option>
           <option v-for="(material, index) in dynamicMaterials" :key="index" :value="material">
@@ -36,7 +45,7 @@
           </option>
         </select>
       </div>
-      <div class="select-descript-wrapper">
+     <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example">
           <option selected disabled>ДАТА</option>
         </select>
@@ -70,14 +79,60 @@
 
 <script setup>
 import { useStore } from 'vuex';
+import { useRoute, useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
 import { filesApi } from '../../config';
 import MainPageLayout from '../../components/Layouts/MainPageLayout.vue'
 
 const store = useStore()
+const route = useRoute()
+const router = useRouter()
+
+const filters = ref([
+    {
+      "key": "materials",
+      "name": "Материалы",
+      "values": [
+        {
+          "name": "Материал 1",
+          "value": "material_1",
+          "count": 10
+        },
+        {
+          "name": "Материал 2",
+          "value": "material_2",
+          "count": 4
+        } 
+      ]
+    },
+    {
+      "key": "cities",
+      "name": "Города",
+      "values": [
+        {
+          "name": "Город 1",
+          "value": "city_1"
+        },
+        {
+          "name": "Город 2",
+          "value": "sity_2"
+        } 
+      ]
+    }
+])
+const appliedFilters = computed(() => route.query)
 
 const nameModel = ref(null)
 const locationModel = ref(null)
+
+const applyFilter = (event) => {
+  const newAppliedFilters = {
+    ...appliedFilters.value,
+    [event.target.name]: event.target.value
+  }
+
+  router.push({ path: route.path, query: newAppliedFilters })
+}
 
 store.dispatch('getObjects')
 
@@ -100,92 +155,11 @@ const breadcrumbs = [
 
 </script>
 
-<!-- <script>
-import { RouterLink } from 'vue-router';
-import Dialog from '../../components/Dialog.vue';
-import { mapGetters } from 'vuex';
-
-export default {
-  data() {
-    return {
-      selectedAddress: null,
-      selectedMaterials: null,
-    };
-  },
-  components: {
-    Dialog,
-  },
-  computed: {
-    ...mapGetters(['selectAcousticCategories', 'selectImages']),
-    // Сгенерируем динамический список материалов, зависящий от выбранного адреса
-    dynamicMaterials() {
-      if (!this.selectedAddress) {
-        return this.uniqueMaterials;
-      }
-      const addressImages = this.selectImages.filter(image => image.text === this.selectedAddress);
-      const materials = addressImages.flatMap(image =>
-        image.images.flatMap(img =>
-          Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).filter(Boolean)
-        )
-      );
-      return Array.from(new Set(materials));
-    },
-    // Сгенерируем динамический список адресов, зависящий от выбранного материала
-    dynamicAddresses() {
-      if (!this.selectedMaterials) {
-        return this.uniqueAddresses;
-      }
-      const materialImages = this.selectImages.filter(image =>
-        image.images.some(img =>
-          Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).includes(this.selectedMaterials)
-        )
-      );
-      return Array.from(new Set(materialImages.map(image => image.text)));
-    },
-    uniqueMaterials() {
-      const materials = this.selectImages.flatMap(image =>
-        image.images.flatMap(img =>
-          Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).filter(Boolean)
-        )
-      );
-      return Array.from(new Set(materials));
-    },
-    uniqueAddresses() {
-      return Array.from(new Set(this.selectImages.map(image => image.text)));
-    },
-    filteredImages() {
-      return this.selectImages.filter(image => {
-        const matchesAddress = this.selectedAddress ? image.text === this.selectedAddress : true;
-        const matchesMaterial = this.selectedMaterials ? 
-          image.images.some(img => 
-            Object.values(img.usedmaterials).flatMap(mat => Object.values(mat)).includes(this.selectedMaterials)
-          ) 
-          : true;
-        return matchesAddress && matchesMaterial;
-      });
-    },
-  },
-  methods: {
-    selectAddress(event) {
-      this.selectedAddress = event.target.value;
-      this.selectedMaterials = null;
-    },
-    selectMaterials(event) {
-      this.selectedMaterials = event.target.value;
-      this.selectedAddress = null;
-    },
-    openDialog(image) {
-      // Functionality to open dialog
-    },
-    hideDiv() {
-      this.selectedElement = null;
-      this.isSoundInsulationVisible = false;
-    },
-  },
-};
-</script> -->
-
 <style scoped>
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
 .select-descript-wrapper {
   width: 100%;
   display: flex;
@@ -203,7 +177,7 @@ export default {
 
 .navbar {
   padding: 0;
-  margin-top: 70px;
+  margin-top: 10px;
   border: solid 1px #6c757d;
   border-radius: 4px;
 }
@@ -250,7 +224,7 @@ img {
 }
 .gallery-item {
   position: relative;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: -15px;
 }
 

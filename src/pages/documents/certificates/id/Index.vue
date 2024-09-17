@@ -1,6 +1,6 @@
 <template>
   <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
+    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <!-- <p class="title-certificates">{{ selectElement.Name }}</p> -->
     <p>КОЛИЧЕСТВО ДОКУМЕНТОВ: {{ slides.length }}</p>
     <hr>
@@ -40,7 +40,7 @@ export default {
     },
     breadcrumbs() {
       return [
-        { link: '/', title: '...' },
+        { link: '/documents', title: '...' },
         { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
         { title: this.selectElement?.Name }
       ]
