@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 import VoiceSearch from '../VoiceSearch.vue'
 
 const { breadcrumbs } = defineProps(['breadcrumbs', 'hiddenSearch'])

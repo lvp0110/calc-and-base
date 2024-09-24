@@ -35,7 +35,7 @@ const selectElement = computed(() => store.getters['selectAlbums'].find(({ Name 
 
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/', title: '...' },
+        { link: '/documents', title: '...' },
         { link: '/documents/air', title: 'АЛЬБОМЫ' },
     ]
 

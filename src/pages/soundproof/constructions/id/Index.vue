@@ -9,8 +9,18 @@
             
             <div class="image-descript">
                 <div class="image-block">
-                    <img class="img1" :src="filesApi.getImageFileUrl(selectElement.Img)" />
-                    <img class="img2" :src="filesApi.getImageFileUrl(selectElement.CadImg)" />
+                    <img
+                        class="img1"
+                        :class="{ active: isActive1 }"
+                        :src="filesApi.getImageFileUrl(selectElement.Img)"
+                        @click="toggleActive('img1')"
+                    />
+                    <img
+                        class="img2"
+                        :class="{ active: isActive2 }"
+                        :src="filesApi.getImageFileUrl(selectElement.CadImg)"
+                        @click="toggleActive('img2')"
+                    />                
                 </div>
                 <ul class="ul-descript" >
                     <li v-if="selectElement.SoundIndex != 'неопределен'">Индекс звукоизоляции воздушного шума, Rw = {{ selectElement.SoundIndex }} дБ. </li>
@@ -35,6 +45,7 @@ import List from '../../../../components/List/List.vue';
 import { filesApi } from '../../../../config';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue'
 
 const store = useStore();
 const route = useRoute();
@@ -42,10 +53,11 @@ const route = useRoute();
 store.dispatch('getAllIsolationConstr')
 
 const selectAllIsolationConstrSound = computed(() => store.getters['selectAllIsolationConstrSound'])
-const selectElement = computed(() => selectAllIsolationConstrSound.value.find(({ Code }) => Code === route.params.id))
+const selectElement = computed(() => store.getters['selectAllIsolationConstrSound'].find(({ Code }) => Code === route.params.id))
+
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/', title: '...' },
+        { link: '/soundproof', title: '...' },
         { link: '/soundproof/constructions', title: 'КОНСТРУКЦИИ' },
     ]
 
@@ -55,6 +67,17 @@ const breadcrumbs = computed(() => {
 
     return breadcrumbs
 })
+
+const isActive1 = ref(false);
+const isActive2 = ref(false);
+
+function toggleActive(img) {
+    if (img === 'img1') {
+        isActive1.value = !isActive1.value;
+    } else if (img === 'img2') {
+        isActive2.value = !isActive2.value;
+    }
+}
 </script>
 
 <style scoped>

@@ -32,7 +32,7 @@ const selectElement = computed(() => store.getters['selectMaterialsWithTechCards
 
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/', title: '...' },
+        { link: '/documents', title: '...' },
         { link: '/documents/techcard', title: 'ТЕХ.КАРТЫ' },
     ]
 

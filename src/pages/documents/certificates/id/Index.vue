@@ -1,74 +1,67 @@
 <template>
-  <div v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
-    <!-- <p class="title-certificates">{{ selectElement.Name }}</p> -->
-    <p>КОЛИЧЕСТВО ДОКУМЕНТОВ: {{ slides.length }}</p>
-    <hr>
-    <Slider :pdfs="slides" />
-  </div>
+  <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
+  <SidebarLayout :hasContent="slides != null">
+    <template #sidebar>
+      <List :items="selectMaterialsWithCerts" to="/documents/certificates" />
+    </template>
+    <template #content>
+      <p>КОЛИЧЕСТВО ДОКУМЕНТОВ: {{ slides.length }}</p>
+      <hr>
+      <Slider :pdfs="slides" />
+    </template>
+  </SidebarLayout>
 </template>
  
-<script>
+<script setup>
 import { certificatesApi } from '../../../../config.js';
-import { mapGetters } from 'vuex'
 import Slider from '../../../../components/Slider.vue';
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
+import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
+import List from '../../../../components/List/List.vue';
+import { useRoute } from 'vue-router';
+import { computed, watch, ref } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  created() {
-    this.$watch(
-      () => this.$route.params.id,
-      this.fetchData,
-      { immediate: true }
-    )
-  },
-  data() {
-    return {
-      slides: [],
-    }
-  },
-  components: {
-    Slider,
-    MainPageLayout
-  },
-  computed: {
-    ...mapGetters(['selectMaterialsWithCerts']),
-    selectElement() {
-      const id = this.$route.params.id
+const route = useRoute()
+const store = useStore()
 
-      return this.selectMaterialsWithCerts.find(({ Code }) => Code === id)
-    },
-    breadcrumbs() {
-      return [
-        { link: '/documents', title: '...' },
-        { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' },
-        { title: this.selectElement?.Name }
-      ]
-    }
-  },
-  methods: {
-    async fetchData(id) {
-      const response = await certificatesApi.getCertificates(id)
+const slides = ref(null)
 
-      this.slides = response.data.data
-    },
-    formatTime(value) {
-      const data = new Date(value)
-      return data.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-    },
-    downloadTextFile(slide) {
-      const textData = `Тип: ${slide.Type}\n№ ${slide.Code}\nСрок действия: ${this.formatTime(slide.ValPeriod)}\nКласс пожароопасности: ${slide.Indicators}`;
-      const blob = new Blob([textData], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'slide_info.txt';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
-   
-  },
+store.dispatch('getMaterialsWithCerts')
+
+const selectMaterialsWithCerts = computed(() => store.getters['selectMaterialsWithCerts'])
+
+const fetchSlides = async (id) => {
+  if (id) {
+    const response = await certificatesApi.getCertificates(id)
+
+    slides.value = response.data.data
+  } else {
+    slides.value = null
+  }
 }
+
+fetchSlides(route.params.id)
+
+watch(
+  () => route.params.id,
+  () => {
+    fetchSlides(route.params.id)
+  }
+)
+
+const breadcrumbs = computed(() => {
+    const breadcrumbs = [
+        { link: '/documents', title: '...' },
+        { link: '/documents/certificates', title: 'СЕРТИФИКАТЫ' }
+    ]
+
+    if (route.params.id) {
+        breadcrumbs.push({ title: route.params.id })
+    }
+
+    return breadcrumbs
+})
 </script>
 
 <style scoped>

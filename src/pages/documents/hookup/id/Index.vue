@@ -43,11 +43,15 @@ const selectBrandsInstalSchemas = computed(() => store.getters['selectBrandsInst
 const selectElement = computed(() => store.getters['selectBrandsInstalSchemas'].find(({ ShortName }) => ShortName === route.params.id))
 
 const fetchData = async (brand) => {
-  slides.value = []
+  if (brand) {
+    slides.value = []
 
-  const response = await installSchemesApi.getInstallSchemeByBrand(brand)
-  
-  slides.value = response.data.data
+    const response = await installSchemesApi.getInstallSchemeByBrand(brand)
+    
+    slides.value = response.data.data
+  } else {
+    slides.value = []
+  }
 }
 
 fetchData(route.params.id)
@@ -61,8 +65,8 @@ watch(
 
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/', title: '...' },
-        { title: 'МОНТАЖНЫЕ СХЕМЫ' }
+        { link: '/documents', title: '...' },
+        { link: '/documents/hookup', title: 'МОНТАЖНЫЕ СХЕМЫ' }
     ]
 
     if (route.params.id) {

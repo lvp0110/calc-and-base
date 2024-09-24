@@ -42,7 +42,7 @@ const selectMaterials = computed(() => store.getters['selectMaterialsVi'])
 const selectElement = computed(() => store.getters['selectMaterialsVi'].find(({ Code }) => Code === route.params.id))
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/', title: '...' },
+        { link: '/vibration_isolation', title: '...' },
         { link: '/vibration_isolation/materials', title: 'МАТЕРИАЛЫ' },
     ]
 

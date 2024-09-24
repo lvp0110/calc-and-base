@@ -1,19 +1,19 @@
 <template>
+    <MainPageLayout :breadcrumbs="breadcrumbs()" :hiddenSearch="true" />
     <div v-if="selectElement">
-        <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <!-- <p class="title">{{ selectElement.Name }}</p> -->
         <hr>
 
         <div class="block-image-colors">
-            <img v-if="selectedColor" :src="filesApi.getImageFileUrl(colorizedImage)" :alt="selectedColor?.Name" />
-            <img v-else-if="modelImages.length === 0" :src="filesApi.getImageFileUrl(selectElement.Img)"
+            <img v-if="selectedColor" :src="filesApi.getImageFileUrl(colorizedImage())" :alt="selectedColor?.Name" />
+            <img v-else-if="modelImages().length === 0" :src="filesApi.getImageFileUrl(selectElement.Img)"
                 :alt="selectedColor?.Name" />
-            <ObjectsSlider v-else :slides="modelImages" :slideComponent="image_slide" />
+            <ObjectsSlider v-else :slides="modelImages()" :slideComponent="ImageSlide" />
         </div>
 
         <div class="select-container models">
             <select class="form-select select-descript" :class="{ selected: selectedModelCode }"
-                aria-label="Default select example" v-model="selectedModelCode" @change="selectModel($event)">
+                aria-label="Default select example" v-model="selectedModelCode" @change="selectModel">
                 <option value="null" disabled>Выбрать модель</option>
                 <option v-for="model in models" :value="model.Code">{{ model.Name }}</option>
             </select>
@@ -75,7 +75,7 @@
             </template>
 
             <template v-else>
-                <span v-html="selectedModelDescription"></span>
+                <span v-html="selectedModelDescription()"></span>
             </template>
 
             <button class="copy-link" @click="copyLink">
@@ -92,7 +92,7 @@
                 <span class="span" v-html="selectElement?.Description"></span>
             </template>
             <template v-else>
-                <span v-html="selectedModelDescription"></span>
+                <span v-html="selectedModelDescription()"></span>
             </template>
             <button class="copy-link" @click="copyLink">
                 <div class="icon-img">
@@ -105,174 +105,161 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import ImageSelect from '../../../../components/ImageSelect/ImageSelect.vue';
 import ObjectsSlider from '../../../../components/Slider/ObjectsSlider.vue'
 import ImageSlide from '../../../../components/Slider/ImageSlide.vue'
 import { filesApi, modelsApi } from '../../../../config';
-import { mapGetters } from 'vuex';
 import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue'
+import { useStore } from 'vuex';
+import { computed, watch, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-export default {
-    data() {
-        return {
-            selectedImageIndex: null,
-            selectedImage: null,
-            selectedData: [],
-            selectedEdge: null,
+const store = useStore()
+const route = useRoute()
+const router = useRouter()
 
-            models: [],
-            params: {},
+const models = ref([])
+const params = ref({})
+const selectedModelCode = ref(null)
+const selectedColor = ref(null)
+const selectedSizeCode = ref(null)
+const selectedPerforation = ref(null)
+const selectedEdgeType = ref(null)
 
-            selectedModelCode: null,
-            selectedSizeCode: null,
-            selectedColor: null,
-            selectedPerforation: null,
-            selectedEdgeType: null,
-            image_slide: ImageSlide,
-            filesApi,
-            activeSelect: null, // это свойство будет отслеживать, какой элемент сейчас активен
-        };
-    },
-    components: {
-        ImageSelect,
-        ObjectsSlider,
-        ImageSlide,
-        MainPageLayout
-    },
-    computed: {
-        ...mapGetters(['selectAcousticCategories']),
-        selectElement() {
-            const id = this.$route.params.id;
+const selectElement = computed(() => store.getters['selectAcousticCategories'].find(({ ShortName }) => ShortName === route.params.id))
 
-            return this.selectAcousticCategories.find(({ ShortName }) => ShortName === id) || {};
-        },
-        isSaveButtonVisible() {
-            return this.selectedModelCode && this.selectedSizeCode && this.selectedColor && this.selectedPerforation && this.selectedEdgeType;
-        },
-        modelImages() {
-            if (this.selectedModelCode) {
-                const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
+const colorizedImage = () => {
+    if (selectedColor.value && selectedColor.value.Img) {
+        return selectedColor.value.Img;
+    }
 
-                if (selectedModel) {
-                    return [filesApi.getImageFileUrl(selectedModel.Img)];
-                }
-            }
+    return selectElement.value.Img;
+}
 
-            return [];
-        },
-        colorizedImage() {
-            if (this.selectedColor && this.selectedColor.Img) {
-                return this.selectedColor.Img;
-            }
-            return this.selectElement.Img;
-        },
-        selectedModelDescription() {
-            const selectedModel = this.models.find(model => model.Code === this.selectedModelCode);
-            return selectedModel ? selectedModel.Description : '';
-        },
-        breadcrumbs() {
-            return [
-                { link: '/acoustic', title: '...' },
-                { link: '/acoustic/brands', title: 'БРЕНДЫ' },
-                { title: this.selectElement.Name },
-            ]
+const modelImages = () => {
+    if (selectedModelCode.value) {
+        const selectedModel = models.value.find(model => model.Code === selectedModelCode.value);
+
+        if (selectedModel) {
+            return [filesApi.getImageFileUrl(selectedModel.Img)];
         }
-    },
-    methods: {
+    }
 
-        async fetchData(id) {
-            const response = await modelsApi.getModelsByBrand(id);
-            this.models = response.data.data;
+    return [];
+}
 
-            console.log('Models data:', this.models);
+const fetchBrand = async () => {
+    const response = await modelsApi.getModelsByBrand(route.params.id);
 
-            this.selectedModelCode = this.$route.query.model ?? null
+    models.value = response.data.data;
+    selectedModelCode.value = route.query.model ?? null
 
-            if (this.selectedModelCode) {
-                this.selectModelInitial()
-            }
-        },
-        async selectModelInitial() {
-            const response = await modelsApi.getModelParams(this.selectedModelCode)
+    if (route.query.model) {
+        selectModelInitial()
+    }
+}
 
-            this.params = response.data.data;
+const selectModel = async (event) => {
+    selectedModelCode.value = event.target.value;
 
-            this.selectedSizeCode = this.$route.query.size ?? null
-            this.selectedColor = this.params?.Colors.find((color) => color.Name === this.$route.query.color) ?? null
-            this.selectedPerforation = this.params?.Perforations.find((perforation) => perforation.Name === this.$route.query.perforation) ?? null
-            this.selectedEdgeType = this.params?.EdgesTypes.find((edgeType) => edgeType.Name === this.$route.query.edgeType) ?? null
+    const response = await modelsApi.getModelParams(event.target.value)
 
-            console.log('Params data:', this.params);
-        },
-        async selectModel(event) {
-            this.selectedModelCode = event.target.value;
+    params.value = response.data.data;
 
-            const response = await modelsApi.getModelParams(event.target.value)
+    selectedSizeCode.value = null
+    selectedPerforation.value = null
+    selectedColor.value = null;
+    selectedEdgeType.value = null
 
-            this.params = response.data.data;
-            this.selectedColor = null;
-            this.selectedSizeCode = null
-            this.selectedPerforation = null
-            this.selectedEdgeType = null
+    replaceLocation()
+}
 
-            this.replaceLocation()
+const selectModelInitial = async () => {
+    const response = await modelsApi.getModelParams(selectedModelCode.value)
 
-            console.log('Params data:', this.params);
-        },
-        selectSize(event) {
-            this.selectedSizeCode = event.target.value;
+    params.value = response.data.data;
 
-            this.replaceLocation()
-        },
-        selectColor(color) {
-            this.selectedColor = color;
+    selectedSizeCode.value = route.query.size ?? null
+    selectedColor.value = params.value?.Colors?.find((color) => color.Name === route.query.color) ?? null
+    selectedPerforation.value = params.value?.Perforations?.find((perforation) => perforation.Name === route.query.perforation) ?? null
+    selectedEdgeType.value = params.value?.EdgesTypes?.find((edgeType) => edgeType.Name === route.query.edgeType) ?? null
+}
 
-            this.replaceLocation()
-        },
-        selectPerforation(perforation) {
-            this.selectedPerforation = perforation;
+const selectColor = (color) => {
+    selectedColor.value = color;
 
-            this.replaceLocation()
-        },
-        selectEdgeType(edgeType) {
-            this.selectedEdgeType = edgeType;
+    replaceLocation()
+}
 
-            this.replaceLocation()
-        },
-        replaceLocation() {
-            let query = {}
+const selectedModelDescription = () => {
+    const selectedModel = models.value.find(model => model.Code === selectedModelCode.value);
 
-            if (this.selectedModelCode) {
-                query.model = this.selectedModelCode
-            }
+    return selectedModel ? selectedModel.Description : '';
+}
 
-            if (this.selectedSizeCode) {
-                query.size = this.selectedSizeCode
-            }
+const selectSize = (event) => {
+    selectedSizeCode.value = event.target.value;
 
-            if (this.selectedColor) {
-                query.color = this.selectedColor.Name
-            }
+    replaceLocation()
+}
+        
+const selectPerforation = (perforation) => {
+    selectedPerforation.value = perforation;
 
-            if (this.selectedPerforation) {
-                query.perforation = this.selectedPerforation.Name
-            }
+    replaceLocation()
+}
 
-            if (this.selectedEdgeType) {
-                query.edgeType = this.selectedEdgeType.Name
-            }
+const selectEdgeType = (edgeType) => {
+    selectedEdgeType.value = edgeType;
 
-            this.$router.replace({ path: this.$router.options.history.location, query })
-        },
-        copyLink() {
-            navigator.clipboard.writeText(window.location.href)
-        }
-    },
-    created() {
-        this.$watch(() => this.$route.params.id, this.fetchData, { immediate: true });
-    },
-};
+    replaceLocation()
+}
+
+const replaceLocation = () => {
+    let query = {}
+
+    if (selectedModelCode.value) {
+        query.model = selectedModelCode.value
+    }
+
+    if (selectedSizeCode.value) {
+        query.size = selectedSizeCode.value
+    }
+
+    if (selectedColor.value) {
+        query.color = selectedColor.value.Name
+    }
+
+    if (selectedPerforation.value) {
+        query.perforation = selectedPerforation.value.Name
+    }
+
+    if (selectedEdgeType.value) {
+        query.edgeType = selectedEdgeType.value.Name
+    }
+
+    router.replace({ path: router.options.history.location, query })
+}
+        
+const breadcrumbs = () => {
+    return [
+        { link: '/acoustic', title: '...' },
+        { link: '/acoustic/brands', title: 'БРЕНДЫ' },
+        { title: selectElement.value.Name },
+    ]
+}
+
+fetchBrand()
+
+watch(
+    () => route.params.id, 
+    () => fetchBrand()
+)
+
+const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href)
+}
 </script>
 
 <style scoped>
