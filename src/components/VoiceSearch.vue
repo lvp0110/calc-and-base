@@ -1,28 +1,24 @@
 <template>
-  <div>
-    
-      <div  class="input-container">
-        <input type="text" :class="{ 'search': true, 'search__open': isOpen }" id="result_voice" placeholder=""
-          ref="input" :value="voiceSearchText" @input="handleInput" @focus="handleFocus" />
-        <button type="button" id="btn_voice"  @click="activateVoiceSearch" @touchstart="activateVoiceSearch">
+  <div class="input-container">
+    <button type="button" id="btn_voice"  @click="activateVoiceSearch" @touchstart="activateVoiceSearch">
+      <figure ref="figureVoice" >
+        <svg height="34" width="34">
+          <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+          <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
+          <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
+          <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
+          <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
+          <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
+          <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
+        </svg>
+      </figure>
+    </button>
 
-          <figure ref="figureVoice" >
-            <svg height="34" width="34">
-              <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-              <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-              <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
-              <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
-              <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
-              <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
-              <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
-            </svg>
-          </figure>
-        </button>
-      </div>
-    
+    <input type="text" :class="{ 'search': true, 'search__open': isOpen }" id="result_voice" placeholder=""
+      ref="input" :value="voiceSearchText" @input="handleInput" @focus="handleFocus" />
+
     <button v-if="isOpen" @click="handleClear" class="close-input-btn">╳</button>
   </div>
-
 </template>
 <script setup>
 import { computed, ref,onMounted  } from 'vue'
@@ -78,8 +74,9 @@ onMounted(() => {
   border-radius: 50%;
   background: none;
   position: absolute;
-  left: 95px;
-  top: 6px;
+  left: 330px;
+  top: 50%;
+  transform: translateY(-50%) translateX(calc(-100% - 8px));
   width: 48px;
   height: 48px;
   z-index: 20022222;
@@ -87,16 +84,14 @@ onMounted(() => {
 }
 
 .input-container {
-  position: absolute;
   display: flex;
   align-items: center;
-  height: 1px;
-  
+  justify-content: flex-start;
+  position: relative;
+  width: auto;
 }
 
 .search {
-  top: -32px;
-  left: 4px;
   position: relative;
   width: 50px;
   height: 50px;
@@ -135,14 +130,12 @@ figure {
 #btn_voice {
   position: absolute;
   z-index: 3;
-  top: -49px;
   border-radius: 50%;
-  right: 2px;
   border: none;
   padding: 0 2px 3px 2px;
   background: none;
   transition: all 2s;
-  
+  left: 8px;
 }
 
 #btn_voice:active {
@@ -152,10 +145,9 @@ figure {
 }
 
 #result_voice {
-  padding-left: 35px;
+  padding: 0 50px;
   background-color: rgba(248, 243, 243,0.7);
   font-weight: 250;
-  padding-bottom: 3px;
 }
 
 @media screen and (max-width: 500px) {

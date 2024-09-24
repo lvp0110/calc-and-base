@@ -1,5 +1,4 @@
 <template>
-    <VoiceSearch v-if="!hiddenSearch" />
     <header class="header">
         <section v-for="(breadcrumb, index) in breadcrumbs" class="section">
             <h6 v-if="breadcrumb.link">
@@ -16,10 +15,6 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
-import VoiceSearch from '../VoiceSearch.vue'
-
 const { breadcrumbs } = defineProps(['breadcrumbs', 'hiddenSearch'])
 </script>
 
