@@ -16,8 +16,6 @@ const { hasContent } = defineProps(['hasContent'])
 <style scoped>
 .page {
     display: flex;
-    overflow: hidden;
-    height: 100%;
     gap: 16px;
 }
 

@@ -37,6 +37,9 @@ h6 {
     margin-top: 0px;
     padding-left: 5px;
     padding-top: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .section {

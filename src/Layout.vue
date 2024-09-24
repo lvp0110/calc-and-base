@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <VoiceSearch />
-    <div>
+    <div class="content">
       <RouterView />
     </div>
     <TabBar />
@@ -59,6 +59,13 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.content {
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .logo {
@@ -82,6 +89,13 @@ body {
   background-size: 200%;
   margin: 0px;
   user-select: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
