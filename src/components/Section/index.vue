@@ -14,25 +14,31 @@
 const { title, image } = defineProps(['title', "image"])
 </script>
 
-<style>
+<style scoped>
 .section {
-    /* border-right: solid 2px rgb(32, 145, 197);*/
     position: relative;
+}
+
+.section:nth-child(-n+3)::after {
+    border: none;
 }
 
 .section::after {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 0;
     right: 0%;
     width: 0;
     height: 0;
+    /* border-left: 2px solid rgb(32, 145, 197); */
     border-right: 2px solid rgb(32, 145, 197);
-    transition: height 0.3s, top 0.3s, right 0.3s;
+    border-bottom: 2px solid rgb(32, 145, 197);
+    transition: height 0.5s, bottom 0.5s, right 0.5s, widht 0.5s;
 }
 
 .section:hover::after {
     height: 100%;
+    width: 100%;
     right: 0;
     top: 0;
 }
@@ -55,10 +61,16 @@ const { title, image } = defineProps(['title', "image"])
 .section-title {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-
 }
 
 .section-content {
-    /* padding: 8px; */
+    padding: 10px;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+}
+.section:hover .section-content {
+    /* background-color: #e0f7fa;  */
+    transform: scale(1.04); 
+    /* color: gray; */
+    background: radial-gradient(circle at center, #c7ced4, rgba(249, 249, 250, 0));
 }
 </style>
