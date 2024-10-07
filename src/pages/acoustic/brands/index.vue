@@ -1,6 +1,6 @@
 <template>
     <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <List :items="selectAcousticCategories" to="/acoustic/brands" keyPath="ShortName" />
+    <List class="content" :items="selectAcousticCategories" to="/acoustic/brands" keyPath="ShortName" />
 </template>
 
 <script setup>
@@ -22,4 +22,8 @@ const breadcrumbs = computed(() => [
 </script>
 
 <style scoped>
+.content {
+    flex-grow: 1;
+    overflow: auto;
+}
 </style>

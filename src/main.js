@@ -38,6 +38,7 @@ const router = createRouter({
         { path: '/documents', component: App  },
 
         { path: "/soundproof/materials/:id?", component: SoundproofMaterialsId },
+
         { path: "/soundproof/constructions/:id?", component: SoundproofConstructionsId },
 
         { path: "/vibration_isolation/materials/:id?", component: VibrationMaterialsId },

@@ -13,7 +13,7 @@
         border: none;">
      <img src="/back_icon.svg" alt="" >
     </button>
-
+    <div class="content">
     <!-- * Кнопки вывода данных на экран * -->
     <div class="category">
         <button v-for="elem in getActiveCategories" :value="elem.id" :style="{ background: elem.background }"
@@ -1357,6 +1357,7 @@
     <div>
         <button v-if="template != null"  @click="tableToExcel" class="add_design_button"> сохранить в Excel </button>
     </div>
+</div>
 </template>
 
 <script>
@@ -2337,6 +2338,11 @@ export default {
 </script>
 
 <style scoped>
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
 .p1 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;

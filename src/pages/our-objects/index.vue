@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
     <!-- <nav class="navbar navbar-light bg-light">
       <div class="container">
@@ -156,6 +156,10 @@ const breadcrumbs = [
 </script>
 
 <style scoped>
+.content {
+  flex-grow: 1;
+  overflow: auto;
+}
 * {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;

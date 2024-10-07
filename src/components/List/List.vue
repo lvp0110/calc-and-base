@@ -18,7 +18,6 @@ const { items, to, keyPath } = defineProps(['items', 'to', 'keyPath'])
 ul {
     list-style: none;
     padding: 0;
-    min-width: 300px;
 
     li {
         font-family: 'Montserrat', sans-serif;

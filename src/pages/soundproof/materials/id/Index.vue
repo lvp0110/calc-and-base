@@ -106,7 +106,7 @@ const breadcrumbs = computed(() => {
 .sections {
     display: grid;
     gap: 26px;
-    grid-template-columns: 1fr; /* Default, one column */
+    grid-template-columns: 1fr; 
 }
 
 * {
@@ -145,13 +145,13 @@ img {
 
 @media screen and (min-width: 1024px) {
     .sections {
-        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        grid-template-columns: repeat(2, 1fr); 
     }
 }
 
 @media screen and (min-width: 1400px) {
     .sections {
-        grid-template-columns: repeat(3, 1fr); /* Three columns */
+        grid-template-columns: repeat(3, 1fr); 
     }
 }
 /* @media screen and (min-width: 768px) {

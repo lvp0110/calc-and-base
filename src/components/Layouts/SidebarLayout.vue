@@ -1,52 +1,61 @@
 <template>
-    <div class="page">
-        <div :class="{ sidebar: true, sidebar__hidden: hasContent }">
-            <slot name="sidebar"></slot>
-        </div>
-        <div v-if="hasContent" :class="{ content: true, content__hidden: !hasContent }">
-            <slot name="content"></slot>
-        </div>
+  <div class="page">
+    <div :class="{ sidebar: true, sidebar__hidden: hasContent }">
+      <slot name="sidebar"></slot>
     </div>
+    <div
+      v-if="hasContent"
+      :class="{ content: true, content__hidden: !hasContent }"
+    >
+    <div class="inner">
+      <slot name="content"></slot>
+    </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-const { hasContent } = defineProps(['hasContent'])
+const { hasContent } = defineProps(["hasContent"]);
 </script>
 
 <style scoped>
 .page {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  flex-grow: 1;
+  gap: 16px;
+  overflow: hidden;
 }
 
 .sidebar {
-    width: 100%;
+  overflow-y: auto;
 }
 
 .content {
-    overflow: hidden;
-    flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .sidebar__hidden {
-    display: none;
+  display: none;
 }
 
 .content__hidden {
-    display: none;
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
-    .sidebar {
-        width: 300px;
-    }
+  .sidebar {
+    min-width: 300px;
+    width: 300px;
+  }
 
-    .sidebar__hidden {
-        display: block;
-    }
+  .sidebar__hidden {
+    display: block;
+  }
 
-    .content__hidden {
-        display: block;
-    }
+  .content__hidden {
+    display: block;
+  }
 }
 </style>

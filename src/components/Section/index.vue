@@ -21,7 +21,9 @@ const { title, image } = defineProps(['title', "image"])
 
 .section:nth-child(-n+3)::after {
     border: none;
+    
 }
+
 
 .section::after {
     content: '';
@@ -68,9 +70,9 @@ const { title, image } = defineProps(['title', "image"])
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
 .section:hover .section-content {
-    /* background-color: #e0f7fa;  */
     transform: scale(1.04); 
-    /* color: gray; */
-    background: radial-gradient(circle at center, #c7ced4, rgba(249, 249, 250, 0));
+    /* color: white; */
+    background: radial-gradient(#c7ced4, rgba(249, 249, 250, 0));
 }
+
 </style>

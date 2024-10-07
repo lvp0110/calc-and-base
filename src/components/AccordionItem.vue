@@ -2,6 +2,7 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="">
+    <span class="text"> Звукоизоляция ограждающих конструкций зданий — это совокупность мероприятий, направленных на снижение уровня шума, проникающего в помещения извне через ограждения зданий.</span>
   </RouterLink>
   <section class="section" v-if="path === to">
     <slot />
@@ -30,6 +31,7 @@ const path = computed(() => route.path)
 .h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
+  width: 18%;
 }
 
 .button {
@@ -49,6 +51,7 @@ const path = computed(() => route.path)
   margin-top: 5px;
   box-shadow: 2px -3px 5px 1px rgb(167, 163, 163);
   text-decoration: none;
+  transition: height 0.5s;
 }
 
 .button:active {
@@ -71,10 +74,29 @@ const path = computed(() => route.path)
   background: radial-gradient(circle at center, #6c757d, #bdbfc2);
   transition: all 0.4s;
 }
+.text {
+  display: none;
+}
 @media screen and ( min-width: 1024px) {
   .button {
-    width: 340px;
+    width: 100%;
+    height: 18%;
   }
   
+  .text {
+    display: block;
+    width: 69%;
+    height: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-left: solid 1px white;
+    border-right: solid 1px white;
+    padding: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    background: #c7ced444;
+  }
+
 }
 </style>

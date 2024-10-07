@@ -1,5 +1,5 @@
 <template>
-    <div v-if="selectElement">
+    <div class="content" v-if="selectElement">
         <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
         <div class="title">{{ selectElement.Name }} </div>
         <hr>
@@ -67,6 +67,10 @@ const toggleFullScreen = () => {
 </script>
 
 <style scoped>
+.content {
+    flex-grow: 1;
+    overflow: auto;
+}
 * {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
