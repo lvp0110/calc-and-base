@@ -112,7 +112,7 @@ ul li a:hover {
 @media screen and ( min-width: 1024px) {
 
   ul li a {
-    width: 310px;
+    width: 270px;
   }
   .object {
     width: 310px;

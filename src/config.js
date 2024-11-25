@@ -6,9 +6,15 @@ const requestInstance = axios.create({
     baseURL,
 })
 
+const localRequestInstance = axios.create({
+    baseURL: 'http://localhost:3005',
+})
+
 export const materialsApi = {
     getMaterials: (usage) => requestInstance.get(`api/v1/Materials/${usage}`),
-    getMarerialsWithSertificates: () => requestInstance.get('api/v1/MaterialsWithCerts'),
+    getMaterialsByCategory: (category) => localRequestInstance.get(`api/v2/material/list/${category}`),
+    getMaterialsWithCertificates: () => requestInstance.get('api/v1/MaterialsWithCerts'),
+    getSections: (code) => localRequestInstance.get(`api/v2/material/props/${code}`)
 }
 
 export const brandsApi = {
@@ -22,6 +28,7 @@ export const modelsApi = {
 
 export const constructionsApi = {
     getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
+    // getConstructionMaterials
 }
 
 export const albumsApi = {

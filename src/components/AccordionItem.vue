@@ -2,7 +2,8 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="">
-    <span class="text"> Звукоизоляция ограждающих конструкций зданий — это совокупность мероприятий, направленных на снижение уровня шума, проникающего в помещения извне через ограждения зданий.</span>
+    <span class="text"> Звукоизоляция ограждающих конструкций зданий — это совокупность мероприятий, направленных на снижение уровня шума, проникающего в помещения извне через ограждения зданий.
+    </span>
   </RouterLink>
   <section class="section" v-if="path === to">
     <slot />
@@ -79,15 +80,16 @@ const path = computed(() => route.path)
 }
 @media screen and ( min-width: 1024px) {
   .button {
-    width: 100%;
+    width: 300px;
     height: 18%;
   }
   
   .text {
     display: block;
-    width: 69%;
-    height: 100%;
-    margin-left: 20px;
+    position: absolute;
+    width: 600px;
+    height: 99%;
+    margin-left: 300px;
     margin-bottom: 10px;
     border-left: solid 1px white;
     border-right: solid 1px white;
@@ -95,7 +97,7 @@ const path = computed(() => route.path)
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 18px;
-    background: #c7ced444;
+    background: #85898b44;
   }
 
 }

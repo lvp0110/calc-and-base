@@ -101,21 +101,27 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #e5e9ec;
+  background: #d6dce0;
+  display: none;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #d6dce0;
+  display: block;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #939393;
+  background: #c7ced4;
   border-radius: 8px;
-  border: 1px solid #d4d4d4;
+  border: 1px solid #d6dce0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c7c7c;
+  background: rgb(32, 145, 197);
 }
 
 .shown {

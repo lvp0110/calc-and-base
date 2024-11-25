@@ -8,7 +8,7 @@ import {
     installSchemesApi,
     objectsApi
 } from '../config';
-import { MaterialUsage, ConstructionsUsage } from '../types'
+import { MaterialUsage, ConstructionsUsage, Categories } from '../types'
 
 export const MATERIALS    = "Materials/si"
 export const MATERIALS_AC = "Materials/ac"
@@ -316,9 +316,7 @@ export default createStore({
         },
 
         async getMaterials({ state }, payload) {
-            const response = await materialsApi.getMaterials(MaterialUsage.SoundIsolation);
-            console.log("materials");
-            
+            const response = await materialsApi.getMaterialsByCategory(Categories.Sound);
 
             console.log(response);
 
@@ -340,7 +338,7 @@ export default createStore({
         },
 
         async getMaterialsWithCerts({ state }, payload) {
-            const response = await materialsApi.getMarerialsWithSertificates();
+            const response = await materialsApi.getMaterialsWithCertificates();
 
             state.data[MATERIALS_WITH_CERTS] = response.data.data;
         },
@@ -485,8 +483,15 @@ export default createStore({
             return state.data[ALBUMS].filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
         },
         selectObjects(state) {
-            const searchText = state.voiceSearchText || state.searchText;
-            return state.data.objects.filter((el) => el[state.currentOption].toLowerCase().includes(searchText.toLowerCase()))
+            const searchText = (state.voiceSearchText || state.searchText).toLowerCase();
+
+            const result = state.data.objects.filter((item) => 
+                item.Name.toLowerCase().includes(searchText) ||
+                item.Location.toLowerCase().includes(searchText) ||
+                item.UsedMaterials?.some(({ Name }) => Name.toLowerCase().includes(searchText))
+            )
+
+            return result
         }
     },
 })
