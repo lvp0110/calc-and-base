@@ -18,19 +18,17 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, toRefs } from "vue";
 
-const { items, selectedArticul, onChange } = defineProps([
-  "items",
-  "selectedArticul",
-  "onChange",
-]);
+const props = defineProps(["items", "selectedArticul", "onChange"]);
+
+const { items, selectedArticul } = toRefs(props);
 
 const selectedItem = computed(() =>
-  items.find(({ articul }) => articul === selectedArticul)
+  items.value.find(({ articul }) => articul === selectedArticul.value)
 );
 
 const change = (event) => {
-  onChange(event.target.value);
+  props.onChange(event.target.value);
 };
 </script>

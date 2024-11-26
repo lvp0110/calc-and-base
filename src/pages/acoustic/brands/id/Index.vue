@@ -202,21 +202,39 @@ const response = ref({
       articuls: ["articul 2", "articul 3"],
     },
   ],
-})
+});
 
-const selectedArticuls = ref(
+const selectedArticuls = computed(() =>
   Object.fromEntries(
     response.value.table.map(({ id, articuls }) => [id, articuls[0]])
   )
 );
 
-const tableWithData = computed(() => response.value.table.map(({ id, articuls }) => ({
-  id,
-  items: articuls.map((articul) => response.value.items[articul]),
-})))
+const tableWithData = computed(() =>
+  response.value.table.map(({ id, articuls }) => ({
+    id,
+    items: articuls.map((articul) => response.value.items[articul]),
+  }))
+);
 
 const changeArticul = (id) => (articul) => {
-  selectedArticuls.value[id] = articul;
+  response.value = {
+    items: response.value.items,
+    table: response.value.table.map((row) => {
+      if (row.id === id) {
+        const articuls = row.articuls.filter((item) => item !== articul);
+
+        articuls.unshift(articul);
+
+        return {
+          id: row.id,
+          articuls: articuls,
+        };
+      }
+
+      return row;
+    }),
+  };
 };
 
 const selectElement = computed(() =>
