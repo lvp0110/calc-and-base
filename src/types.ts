@@ -6,6 +6,7 @@ export enum MaterialUsage {
 
 export enum Categories {
   Sound = "sound",
+  Acoustic = 'acoustic'
 }
 
 export enum ConstructionsUsage {

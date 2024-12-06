@@ -101,6 +101,51 @@
         </div>
       </div>
     </div>
+
+    <div v-if="isAvailableSizes()" class="form">
+      <div class="form-header">
+        <div>
+          <button
+            @click="selectSquare"
+            class="form-toggle"
+            :class="{ 'form-toggle--active': isSquare }"
+          >
+            Площадь
+          </button>
+          <button
+            @click="selectSizes"
+            class="form-toggle"
+            :class="{ 'form-toggle--active': !isSquare }"
+          >
+            Размеры
+          </button>
+        </div>
+        <label class="form-label">
+          <select v-model="type">
+            <option value="wall">Стена</option>
+            <option value="ceiling">Потолок</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-content">
+        <label v-if="isSquare" class="form-label">
+          <span>Площадь</span>
+          <input type="number" inputmode="decimal" v-model="square" />
+        </label>
+        <template v-else>
+          <label class="form-label">
+            <span>Длина</span>
+            <input type="number" inputmode="decimal" v-model="length" />
+          </label>
+          <label class="form-label">
+            <span>Высота</span>
+            <input type="number" inputmode="decimal" v-model="height" />
+          </label>
+        </template>
+      </div>
+      <button class="form-button" @click="calculate">Рассчитать</button>
+    </div>
+
     <div class="block-span2">
       <template v-if="!selectedModelCode">
         <span class="span" v-html="selectElement?.Description"></span>
@@ -135,12 +180,18 @@
 
       <div>
         <table>
+          <tr>
+            <th v-for="column in calculationsTableColumns">
+              {{ column.name }}
+            </th>
+          </tr>
           <SelectMaterialRow
-            v-for="item in tableWithData"
-            :key="item.id"
-            :items="item.items"
-            :selectedArticul="selectedArticuls[item.id]"
-            :on-change="changeArticul(item.id)"
+            v-for="row in calculationsTableRows"
+            :key="row.id"
+            :columns="calculationsTableColumns"
+            :items="row.items"
+            :selectedArticul="selectedArticuls[row.id]"
+            :on-change="changeArticul(row.id)"
           />
         </table>
       </div>
@@ -152,7 +203,7 @@
 import ImageSelect from "../../../../components/ImageSelect/ImageSelect.vue";
 import ObjectsSlider from "../../../../components/Slider/ObjectsSlider.vue";
 import ImageSlide from "../../../../components/Slider/ImageSlide.vue";
-import { filesApi, modelsApi } from "../../../../config";
+import { filesApi, modelsApi, constructionsApi } from "../../../../config";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import { useStore } from "vuex";
 import { computed, watch, ref } from "vue";
@@ -165,76 +216,105 @@ const router = useRouter();
 
 const models = ref([]);
 const params = ref({});
+const isLoadingParams = ref(false);
 const selectedModelCode = ref(null);
 const selectedColor = ref(null);
 const selectedSizeCode = ref(null);
 const selectedPerforation = ref(null);
 const selectedEdgeType = ref(null);
 
-const response = ref({
-  items: {
-    "articul 1": {
-      articul: "articul 1",
-      name: "name 1",
-      amount: "10 шт",
-      units: "unit 1",
-    },
-    "articul 2": {
-      articul: "articul 2",
-      name: "name 2",
-      amount: "2 шт",
-      units: "unit 2",
-    },
-    "articul 3": {
-      articul: "articul 3",
-      name: "name 3",
-      amount: "3 шт",
-      units: "unit 3",
-    },
-  },
-  table: [
-    {
-      id: "1",
-      articuls: ["articul 1"],
-    },
-    {
-      id: "2",
-      articuls: ["articul 2", "articul 3"],
-    },
-  ],
-});
+const isSquare = ref(true);
+const square = ref("");
+const length = ref("");
+const height = ref("");
+const type = ref("wall");
+
+const availableParamsNames = ["Colors", "EdgesTypes", "Perforations", "Sizes"];
+
+const isAvailableSizes = () => {
+  if (isLoadingParams.value) {
+    return false;
+  }
+
+  const paramsCount =
+    Object.entries(params.value).filter(
+      ([key, value]) =>
+        availableParamsNames.includes(key) &&
+        Array.isArray(value) &&
+        value.length > 0
+    ).length + 1;
+
+  const selectedParamsCount = [
+    selectedModelCode.value,
+    selectedColor.value,
+    selectedSizeCode.value,
+    selectedPerforation.value,
+    selectedEdgeType.value,
+  ].filter(Boolean).length;
+
+  return selectedParamsCount >= paramsCount;
+};
+
+const selectSquare = () => {
+  isSquare.value = true;
+};
+
+const selectSizes = () => {
+  isSquare.value = false;
+};
+
+const validateForm = () => {
+  if (isSquare.value) {
+    return square.value !== "";
+  } else {
+    return length.value !== "" && height.value !== "";
+  }
+};
+
+const calculate = async () => {
+  if (!validateForm()) {
+    return;
+  }
+  // http://localhost:5173/acoustic/brands/DC?model=nature&size=2768_320_16.4&color=Anegri&perf=Decoustic_6_2&type=wall&length=30&height=20
+  // http://localhost:3005/api/v2/constr/calc?brand=dc&size=2768_320_16.4&length=30&height=20&model=p_dc&square=
+  replaceLocation();
+
+  const response = await constructionsApi.constructionsCalculate(
+    getLocationParams()
+  );
+
+  console.log("calc", response);
+
+  calculationsTableColumns.value = response.data.data.columns.filter(
+    ({ id }) => id !== "code"
+  );
+  calculationsTableRows.value = response.data.data.rows;
+};
+
+const calculationsTableColumns = ref([]);
+const calculationsTableRows = ref([]);
 
 const selectedArticuls = computed(() =>
   Object.fromEntries(
-    response.value.table.map(({ id, articuls }) => [id, articuls[0]])
+    calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
   )
 );
 
-const tableWithData = computed(() =>
-  response.value.table.map(({ id, articuls }) => ({
-    id,
-    items: articuls.map((articul) => response.value.items[articul]),
-  }))
-);
-
 const changeArticul = (id) => (articul) => {
-  response.value = {
-    items: response.value.items,
-    table: response.value.table.map((row) => {
-      if (row.id === id) {
-        const articuls = row.articuls.filter((item) => item !== articul);
+  calculationsTableRows.value = calculationsTableRows.value.map((row) => {
+    if (row.id === id) {
+      const selectedItem = row.items.find(({ code }) => code === articul);
+      const items = row.items.filter(({ code }) => code !== articul);
 
-        articuls.unshift(articul);
+      items.unshift(selectedItem);
 
-        return {
-          id: row.id,
-          articuls: articuls,
-        };
-      }
-
-      return row;
-    }),
-  };
+      return {
+        id: row.id,
+        items: items,
+      };
+    }
+    return row;
+  });
 };
 
 const selectElement = computed(() =>
@@ -271,6 +351,18 @@ const fetchBrand = async () => {
   models.value = response.data.data;
   selectedModelCode.value = route.query.model ?? null;
 
+  square.value = route.query.square;
+  length.value = route.query.length;
+  height.value = route.query.height;
+
+  if (route.query.type) {
+    type.value = route.query.type;
+  }
+
+  if (square.value == null && (length.value != null || height.value != null)) {
+    isSquare.value = false;
+  }
+
   if (route.query.model) {
     selectModelInitial();
   }
@@ -279,7 +371,11 @@ const fetchBrand = async () => {
 const selectModel = async (event) => {
   selectedModelCode.value = event.target.value;
 
+  isLoadingParams.value = true;
+
   const response = await modelsApi.getModelParams(event.target.value);
+
+  isLoadingParams.value = false;
 
   params.value = response.data.data;
 
@@ -302,12 +398,14 @@ const selectModelInitial = async () => {
     null;
   selectedPerforation.value =
     params.value?.Perforations?.find(
-      (perforation) => perforation.Name === route.query.perforation
+      (perforation) => perforation.Name === route.query.perf
     ) ?? null;
   selectedEdgeType.value =
     params.value?.EdgesTypes?.find(
-      (edgeType) => edgeType.Name === route.query.edgeType
+      (edgeType) => edgeType.Name === route.query.edge
     ) ?? null;
+
+  calculate();
 };
 
 const selectColor = (color) => {
@@ -342,11 +440,11 @@ const selectEdgeType = (edgeType) => {
   replaceLocation();
 };
 
-const replaceLocation = () => {
+const getLocationParams = () => {
   let query = {};
 
   if (selectedModelCode.value) {
-    query.model = selectedModelCode.value;
+    query.model =  selectedModelCode.value;
   }
 
   if (selectedSizeCode.value) {
@@ -358,14 +456,39 @@ const replaceLocation = () => {
   }
 
   if (selectedPerforation.value) {
-    query.perforation = selectedPerforation.value.Name;
+    query.perf = selectedPerforation.value.Name;
   }
 
   if (selectedEdgeType.value) {
-    query.edgeType = selectedEdgeType.value.Name;
+    query.edge = selectedEdgeType.value.Name;
   }
 
-  router.replace({ path: router.options.history.location, query });
+  if (type.value) {
+    query.type = type.value;
+  }
+
+  if (isSquare.value) {
+    if (square.value) {
+      query.square = square.value;
+    }
+  } else {
+    if (length.value) {
+      query.length = length.value;
+    }
+
+    if (height.value) {
+      query.height = height.value;
+    }
+  }
+
+  return query;
+};
+
+const replaceLocation = () => {
+  router.replace({
+    path: router.options.history.location,
+    query: getLocationParams(),
+  });
 };
 
 const breadcrumbs = () => {
@@ -389,6 +512,65 @@ const copyLink = () => {
 </script>
 
 <style scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 16px;
+  gap: 8px;
+  max-width: 400px;
+}
+
+.form-toggle {
+  background-color: transparent;
+  border-radius: 20px;
+  border: none;
+  transition: all 300ms;
+  padding: 8px 16px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.form-toggle--active {
+  background-color: rgb(36, 140, 185);
+  color: white;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.form-button {
+  align-self: flex-end;
+}
+
+table {
+  border: 1px solid;
+}
+
+th {
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid;
+}
+
 .content {
   flex-grow: 1;
   overflow: auto;

@@ -324,7 +324,8 @@ export default createStore({
         },
 
         async getMaterialsAc({ state }, payload) {
-            const response = await materialsApi.getMaterials(MaterialUsage.Acoustic);
+            const response = await materialsApi.getMaterialsByCategory(Categories.Acoustic);
+            // const response = await materialsApi.getMaterials(MaterialUsage.Acoustic);
 
             console.log(response);
 

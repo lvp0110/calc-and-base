@@ -28,7 +28,7 @@ export const modelsApi = {
 
 export const constructionsApi = {
     getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
-    // getConstructionMaterials
+    constructionsCalculate: (params) => localRequestInstance.get("api/v2/constr/calc", { params })
 }
 
 export const albumsApi = {

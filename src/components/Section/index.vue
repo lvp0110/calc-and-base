@@ -68,9 +68,9 @@ const { title, image } = defineProps(["title", "image"]);
   transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
 .section:hover .section-content {
-  /* transform: scale(1.04);  */
   color: black;
+  position: relative;
   background: radial-gradient(#c7ced4, rgba(249, 249, 250, 0));
-  /* padding-left: 16px; */
+  z-index: 1111;
 }
 </style>
