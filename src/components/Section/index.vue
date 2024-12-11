@@ -20,6 +20,11 @@ const { title, image } = defineProps(["title", "image"]);
   padding-right: 5px;
 }
 
+/* .section:hover> :not(:hover) {
+  filter:blur(5px);
+  opacity: .8;
+} */
+
 .section:nth-child(-n + 2)::after {
   border: none;
 }
@@ -67,10 +72,10 @@ const { title, image } = defineProps(["title", "image"]);
   color: gray;
   transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
-.section:hover .section-content {
+.section:hover {
   color: black;
   position: relative;
-  background: radial-gradient(#c7ced4, rgba(249, 249, 250, 0));
+  background: radial-gradient(#e0e4e7, #ffffff8d);
   z-index: 1111;
 }
 </style>

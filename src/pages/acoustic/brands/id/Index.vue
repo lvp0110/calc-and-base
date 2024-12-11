@@ -2,184 +2,167 @@
   <MainPageLayout :breadcrumbs="breadcrumbs()" :hiddenSearch="true" />
   <div class="content" v-if="selectElement">
     <!-- <p class="title">{{ selectElement.Name }}</p> -->
+    <div class="left">
+      <div class="block-image-colors">
+        <img
+          v-if="selectedColor"
+          :src="filesApi.getImageFileUrl(colorizedImage())"
+          :alt="selectedColor?.Name"
+        />
+        <img
+          v-else-if="modelImages().length === 0"
+          :src="filesApi.getImageFileUrl(selectElement.Img)"
+          :alt="selectedColor?.Name"
+        />
+        <ObjectsSlider
+          v-else
+          :slides="modelImages()"
+          :slideComponent="ImageSlide"
+        />
+      </div>
 
-    <div class="block-image-colors">
-      <img
-        v-if="selectedColor"
-        :src="filesApi.getImageFileUrl(colorizedImage())"
-        :alt="selectedColor?.Name"
-      />
-      <img
-        v-else-if="modelImages().length === 0"
-        :src="filesApi.getImageFileUrl(selectElement.Img)"
-        :alt="selectedColor?.Name"
-      />
-      <ObjectsSlider
-        v-else
-        :slides="modelImages()"
-        :slideComponent="ImageSlide"
-      />
-    </div>
-
-    <div class="select-container models">
-      <select
-        class="form-select select-descript"
-        :class="{ selected: selectedModelCode }"
-        aria-label="Default select example"
-        v-model="selectedModelCode"
-        @change="selectModel"
-      >
-        <option value="null" disabled>Выбрать модель</option>
-        <option v-for="model in models" :value="model.Code">
-          {{ model.Name }}
-        </option>
-      </select>
-    </div>
-
-    <div class="select-container colorsizes">
-      <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
+      <div class="select-container models">
         <select
           class="form-select select-descript"
-          :class="{ selected: selectedSizeCode }"
-          v-model="selectedSizeCode"
+          :class="{ selected: selectedModelCode }"
           aria-label="Default select example"
-          @change="selectSize($event)"
+          v-model="selectedModelCode"
+          @change="selectModel"
         >
-          <option value="null" disabled>Размеры</option>
-          <option v-for="size in params.Sizes" :value="size.Code">
-            {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
+          <option value="null" disabled>Выбрать модель</option>
+          <option v-for="model in models" :value="model.Code">
+            {{ model.Name }}
           </option>
         </select>
       </div>
 
-      <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
-        <ImageSelect
-          placeholder="Цвет"
-          :value="selectedColor?.Description"
-          :items="params?.Colors"
-          :onSelect="selectColor"
-        />
-      </div>
-    </div>
-
-    <div v-if="selectedModelCode" class="select">
-      <div class="select-container perforation">
-        <div v-if="params.Perforations?.length > 0" class="select-wrapper">
-          <ImageSelect
-            placeholder="Тип перфорации"
-            :value="selectedPerforation?.Description"
-            :items="params?.Perforations"
-            :onSelect="selectPerforation"
-          />
-          <img
-            v-if="selectedPerforation"
-            class="add-image"
-            :src="filesApi.getImageFileUrl(selectedPerforation.Img)"
-            :alt="selectedPerforation?.Name"
-          />
-          <img
-            v-if="selectedPerforation && selectedPerforation.SectionImg"
-            class="add-image"
-            :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)"
-            :alt="selectedPerforation?.Name"
-          />
-        </div>
-
-        <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
-          <ImageSelect
-            placeholder="Тип кромки"
-            :value="selectedEdgeType?.Name"
-            :items="params?.EdgesTypes"
-            :onSelect="selectEdgeType"
-          />
-          <img
-            v-if="selectedEdgeType"
-            class="add-image"
-            :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
-            :alt="selectedEdgeType?.Name"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div v-if="isAvailableSizes()" class="form">
-      <div class="form-header">
-        <div>
-          <button
-            @click="selectSquare"
-            class="form-toggle"
-            :class="{ 'form-toggle--active': isSquare }"
+      <div class="select-container colorsizes">
+        <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
+          <select
+            class="form-select select-descript"
+            :class="{ selected: selectedSizeCode }"
+            v-model="selectedSizeCode"
+            aria-label="Default select example"
+            @change="selectSize($event)"
           >
-            Площадь
-          </button>
-          <button
-            @click="selectSizes"
-            class="form-toggle"
-            :class="{ 'form-toggle--active': !isSquare }"
-          >
-            Размеры
-          </button>
-        </div>
-        <label class="form-label">
-          <select v-model="type">
-            <option value="wall">Стена</option>
-            <option value="ceiling">Потолок</option>
+            <option value="null" disabled>Размеры</option>
+            <option v-for="size in params.Sizes" :value="size.Code">
+              {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
+            </option>
           </select>
-        </label>
+        </div>
+
+        <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
+          <ImageSelect
+            placeholder="Цвет"
+            :value="selectedColor?.Description"
+            :items="params?.Colors"
+            :onSelect="selectColor"
+          />
+        </div>
       </div>
-      <div class="form-content">
-        <label v-if="isSquare" class="form-label">
-          <span>Площадь</span>
-          <input type="number" inputmode="decimal" v-model="square" />
-        </label>
-        <template v-else>
-          <label class="form-label">
-            <span>Длина</span>
-            <input type="number" inputmode="decimal" v-model="length" />
-          </label>
-          <label class="form-label">
-            <span>Высота</span>
-            <input type="number" inputmode="decimal" v-model="height" />
-          </label>
-        </template>
+
+      <div v-if="selectedModelCode" class="select">
+        <div class="select-container perforation">
+          <div v-if="params.Perforations?.length > 0" class="select-wrapper">
+            <ImageSelect
+              placeholder="Тип перфорации"
+              :value="selectedPerforation?.Description"
+              :items="params?.Perforations"
+              :onSelect="selectPerforation"
+            />
+            <img
+              v-if="selectedPerforation"
+              class="add-image"
+              :src="filesApi.getImageFileUrl(selectedPerforation.Img)"
+              :alt="selectedPerforation?.Name"
+            />
+            <img
+              v-if="selectedPerforation && selectedPerforation.SectionImg"
+              class="add-image"
+              :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)"
+              :alt="selectedPerforation?.Name"
+            />
+          </div>
+
+          <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
+            <ImageSelect
+              placeholder="Тип кромки"
+              :value="selectedEdgeType?.Name"
+              :items="params?.EdgesTypes"
+              :onSelect="selectEdgeType"
+            />
+            <img
+              v-if="selectedEdgeType"
+              class="add-image"
+              :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
+              :alt="selectedEdgeType?.Name"
+            />
+          </div>
+        </div>
       </div>
-      <button class="form-button" @click="calculate">Рассчитать</button>
     </div>
 
-    <div class="block-span2">
+    <div class="right">
       <template v-if="!selectedModelCode">
         <span class="span" v-html="selectElement?.Description"></span>
       </template>
-
       <template v-else>
         <span v-html="selectedModelDescription()"></span>
       </template>
-
       <button class="copy-link" @click="copyLink">
         <div class="icon-img">
           <img src="/share_icon_grey.svg" alt="" />
         </div>
         копировать ссылку
       </button>
-    </div>
-    <!-- <hr> -->
 
-    <div class="block-span1">
-      <template v-if="!selectedModelCode">
-        <span class="span" v-html="selectElement?.Description"></span>
-      </template>
-      <template v-else>
-        <span v-html="selectedModelDescription()"></span>
-      </template>
-      <button class="copy-link" @click="copyLink">
-        <div class="icon-img">
-          <img src="/share_icon_grey.svg" alt="" />
+      <div v-if="isAvailableSizes()" class="form">
+        <div class="form-header">
+          <div>
+            <button
+              @click="selectSquare"
+              class="form-toggle"
+              :class="{ 'form-toggle--active': isSquare }"
+            >
+              Площадь
+            </button>
+            <button
+              @click="selectSizes"
+              class="form-toggle"
+              :class="{ 'form-toggle--active': !isSquare }"
+            >
+              Размеры
+            </button>
+          </div>
+          <label class="form-label">
+            <select v-model="type">
+              <option value="wall">Стена</option>
+              <option value="ceiling">Потолок</option>
+            </select>
+          </label>
         </div>
-        копировать ссылку
-      </button>
+        <div class="form-content">
+          <label v-if="isSquare" class="form-label">
+            <span>Площадь</span>
+            <input type="number" inputmode="decimal" v-model="square" />
+          </label>
+          <template v-else>
+            <label class="form-label">
+              <span>Длина</span>
+              <input type="number" inputmode="decimal" v-model="length" />
+            </label>
+            <label class="form-label">
+              <span>Высота</span>
+              <input type="number" inputmode="decimal" v-model="height" />
+            </label>
+          </template>
+        </div>
+        <button class="form-button" @click="calculate">Рассчитать</button>
+      </div>
 
-      <div>
-        <table>
+      <div v-if="calculationsTableColumns.length > 0">
+        <table id="table">
           <tr>
             <th v-for="column in calculationsTableColumns">
               {{ column.name }}
@@ -275,15 +258,12 @@ const calculate = async () => {
   if (!validateForm()) {
     return;
   }
-  // http://localhost:5173/acoustic/brands/DC?model=nature&size=2768_320_16.4&color=Anegri&perf=Decoustic_6_2&type=wall&length=30&height=20
-  // http://localhost:3005/api/v2/constr/calc?brand=dc&size=2768_320_16.4&length=30&height=20&model=p_dc&square=
+
   replaceLocation();
 
   const response = await constructionsApi.constructionsCalculate(
     getLocationParams()
   );
-
-  console.log("calc", response);
 
   calculationsTableColumns.value = response.data.data.columns.filter(
     ({ id }) => id !== "code"
@@ -444,7 +424,7 @@ const getLocationParams = () => {
   let query = {};
 
   if (selectedModelCode.value) {
-    query.model =  selectedModelCode.value;
+    query.model = selectedModelCode.value;
   }
 
   if (selectedSizeCode.value) {
@@ -519,7 +499,7 @@ const copyLink = () => {
   border-radius: 8px;
   padding: 16px;
   gap: 8px;
-  max-width: 400px;
+  margin-bottom: 8px;
 }
 
 .form-toggle {
@@ -673,71 +653,21 @@ th {
   display: none;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
+  .left {
+    min-width: 500px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
   .colorsizes {
     display: flex;
     justify-content: space-between;
-  }
-
-  .size {
-    width: 50%;
-  }
-
-  .colors {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .block-span1 {
-    display: block;
-    width: 45%;
-    margin-left: 46%;
-    top: 130px;
-    position: absolute;
-  }
-
-  .block-span2 {
-    display: none;
-  }
-
-  .colorsizes {
-    width: 50%;
-  }
-
-  .perforation {
-    width: 50%;
-  }
-
-  .block-image-colors {
-    width: 50%;
-    /* height: 50%; */
-  }
-
-  .models {
-    width: 50%;
-  }
-
-  .select-wrapper {
-    width: 50%;
-  }
-
-  .size {
-    width: 50%;
-  }
-
-  .colors {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 1240px) {
-  .block-span1 {
-    display: block;
-    width: 43%;
-    margin-left: 48%;
-    top: 130px;
-    position: absolute;
   }
 }
 </style>
