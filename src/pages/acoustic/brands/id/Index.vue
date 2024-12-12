@@ -8,11 +8,13 @@
           v-if="selectedColor"
           :src="filesApi.getImageFileUrl(colorizedImage())"
           :alt="selectedColor?.Name"
+          class="model-image"
         />
         <img
           v-else-if="modelImages().length === 0"
           :src="filesApi.getImageFileUrl(selectElement.Img)"
           :alt="selectedColor?.Name"
+          class="model-image"
         />
         <ObjectsSlider
           v-else
@@ -104,18 +106,22 @@
     </div>
 
     <div class="right">
-      <template v-if="!selectedModelCode">
-        <span class="span" v-html="selectElement?.Description"></span>
-      </template>
-      <template v-else>
-        <span v-html="selectedModelDescription()"></span>
-      </template>
-      <button class="copy-link" @click="copyLink">
-        <div class="icon-img">
-          <img src="/share_icon_grey.svg" alt="" />
-        </div>
-        копировать ссылку
-      </button>
+      <div style="margin-bottom: 16px">
+        <template v-if="!selectedModelCode">
+          <span class="span" v-html="selectElement?.Description"></span>
+        </template>
+        <template v-else>
+          <span v-html="selectedModelDescription()"></span>
+        </template>
+      </div>
+      <div class="action-buttons">
+        <button class="copy-link" @click="copyLink">
+          <div class="icon-img">
+            <img src="/share_icon_grey.svg" alt="" />
+          </div>
+        </button>
+        <button class="copy-link">График</button>
+      </div>
 
       <div v-if="isAvailableSizes()" class="form">
         <div class="form-header">
@@ -214,6 +220,15 @@ const type = ref("wall");
 
 const availableParamsNames = ["Colors", "EdgesTypes", "Perforations", "Sizes"];
 
+const calculationsTableColumns = ref([]);
+const calculationsTableRows = ref([]);
+
+const selectedArticuls = computed(() =>
+  Object.fromEntries(
+    calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
+  )
+);
+
 const isAvailableSizes = () => {
   if (isLoadingParams.value) {
     return false;
@@ -270,15 +285,6 @@ const calculate = async () => {
   );
   calculationsTableRows.value = response.data.data.rows;
 };
-
-const calculationsTableColumns = ref([]);
-const calculationsTableRows = ref([]);
-
-const selectedArticuls = computed(() =>
-  Object.fromEntries(
-    calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
-  )
-);
 
 const changeArticul = (id) => (articul) => {
   calculationsTableRows.value = calculationsTableRows.value.map((row) => {
@@ -363,6 +369,8 @@ const selectModel = async (event) => {
   selectedPerforation.value = null;
   selectedColor.value = null;
   selectedEdgeType.value = null;
+  calculationsTableColumns.value = [];
+  calculationsTableRows.value = [];
 
   replaceLocation();
 };
@@ -392,6 +400,8 @@ const selectColor = (color) => {
   selectedColor.value = color;
 
   replaceLocation();
+
+  calculate();
 };
 
 const selectedModelDescription = () => {
@@ -406,18 +416,24 @@ const selectSize = (event) => {
   selectedSizeCode.value = event.target.value;
 
   replaceLocation();
+
+  calculate();
 };
 
 const selectPerforation = (perforation) => {
   selectedPerforation.value = perforation;
 
   replaceLocation();
+
+  calculate();
 };
 
 const selectEdgeType = (edgeType) => {
   selectedEdgeType.value = edgeType;
 
   replaceLocation();
+
+  calculate();
 };
 
 const getLocationParams = () => {
@@ -492,6 +508,18 @@ const copyLink = () => {
 </script>
 
 <style scoped>
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.model-image {
+  width: 100%;
+  aspect-ratio: 500 / 270;
+  object-fit: contain;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -564,8 +592,6 @@ th {
 .icon-img {
   display: flex;
   width: 30px;
-  position: absolute;
-  margin: -3px;
 }
 
 .add-image {
@@ -618,8 +644,6 @@ th {
 }
 
 .copy-link {
-  width: 300px;
-  margin-left: 15px;
   border: 1px solid gray;
   border-radius: 5px;
   padding: 5px;
@@ -627,6 +651,9 @@ th {
   margin-bottom: 15px;
   padding: 8px;
   color: #575656;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .copy-link:hover {
@@ -656,6 +683,11 @@ th {
 @media screen and (min-width: 1024px) {
   .left {
     min-width: 500px;
+    max-width: 500px;
+  }
+
+  .right {
+    flex-grow: 1;
   }
 
   .content {

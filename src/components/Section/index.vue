@@ -71,11 +71,11 @@ const { title, image } = defineProps(["title", "image"]);
   padding: 10px;
   color: gray;
   transition: background-color 0.3s, transform 0.3s, color 0.3s;
+  z-index: 1111;
+  position: relative;
 }
 .section:hover {
   color: black;
-  position: relative;
   background: radial-gradient(#e0e4e7, #ffffff8d);
-  z-index: 1111;
 }
 </style>
