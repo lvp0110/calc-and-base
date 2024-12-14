@@ -62,7 +62,7 @@ const dialogWindow = () => {
 }
 
 .tabbar {
-    z-index: 111111;
+    z-index: 900;
     position: fixed;
     bottom: 0;
     left: 0;

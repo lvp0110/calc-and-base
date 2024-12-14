@@ -54,7 +54,7 @@ const { sections } = defineProps(["sections"]);
 .title-materials {
   text-transform: uppercase;
   width: 100%;
-  background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+  background: radial-gradient(circle at center, #b0b8be8c, #d7dadf62);
   padding: 10px;
   border-radius: 5px;
   text-align: center;

@@ -1,9 +1,19 @@
 <template>
   <Line :data="chartData" :options="options" />
+  <select multiple @change="handleChange">
+    <option
+      v-for="item in items"
+      :value="item.name"
+      :selected="isSelected(item.name)"
+    >
+      {{ item.name }}
+    </option>
+  </select>
 </template>
 
 <script setup>
 import { Line } from "vue-chartjs";
+import { defineProps, ref, toRefs, onMounted } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -27,29 +37,61 @@ ChartJS.register(
   PointElement
 );
 
+const props = defineProps(["items", "diagram_params"]);
+
+const { items, diagram_params } = toRefs(props);
+
+const selectedItems = ref([]);
+const chartData = ref({
+  labels: [],
+  datasets: [],
+});
+
+onMounted(() => {
+  selectedItems.value = [items.value[0].name];
+
+  applyChartData();
+});
+
+const handleChange = (event) => {
+  const selectedValues = Array.from(event.target.selectedOptions).map(
+    ({ value }) => value
+  );
+
+  selectedItems.value = selectedValues;
+
+  applyChartData();
+};
+
+const isSelected = (name) =>
+  selectedItems.value.some((selectedItem) => selectedItem === name);
+
 const options = {
   scales: {
     y: {
-      beginAtZero: true,
-      min: 0,
-      max: 1.1,
+      beginAtZero: diagram_params.value.begin_at_zero,
+      min: diagram_params.value.min,
+      max: diagram_params.value.max,
       ticks: {
-        stepSize: 0.2,
+        stepSize: diagram_params.value.step_size,
       },
     },
   },
 };
 
-const chartData = {
-    labels: ['100', '125', '200', '250', '315', '400', '500', '630', '800', '1000', '1250', '1600', '2000', '2500', '3150', '4000', '5000'],
-  datasets: [
-    {
-      label: "Bonacoustic Perfo Point Block 8/16",
-      backgroundColor: "rgb(32, 145, 197)",
-      borderColor: "rgb(32, 145, 197)",
-      data: [0.58, 0.67, 0.90, 0.93, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.96, 0.88, 0.80, 0.69, 0.61, 0.46, 0.38],
+const applyChartData = () => {
+  const { x_axis } = items.value[0];
 
-    },
-  ],
+  chartData.value = {
+    labels: x_axis.map(String),
+    datasets: items.value
+      .filter(({ name }) => isSelected(name))
+      .map(({ name, y_axis }) => ({
+        label: name,
+        backgroundColor: "rgb(32, 145, 197)",
+        borderColor: "rgb(32, 145, 197)",
+        data: y_axis,
+      })),
+  };
 };
 </script>

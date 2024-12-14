@@ -62,6 +62,7 @@
             :onSelect="selectColor"
           />
         </div>
+        
       </div>
 
       <div v-if="selectedModelCode" class="select">
@@ -103,6 +104,49 @@
           </div>
         </div>
       </div>
+      <div v-if="isAvailableSizes()" class="form" >
+        <div class="form-header">
+          <div>
+            <button
+              @click="selectSquare"
+              class="form-toggle"
+              :class="{ 'form-toggle--active': isSquare }"
+            >
+              Площадь
+            </button>
+            <button
+              @click="selectSizes"
+              class="form-toggle"
+              :class="{ 'form-toggle--active': !isSquare }"
+            >
+              Размеры
+            </button>
+          </div>
+          <label class="form-label">
+            <select v-model="type" style="padding: 8px;">
+              <option value="wall">Стена</option>
+              <option value="ceiling">Потолок</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-content">
+          <label v-if="isSquare" class="form-label">
+            <span>Площадь</span>
+            <input type="number" inputmode="decimal" v-model="square" />
+          </label>
+          <template v-else>
+            <label class="form-label">
+              <span>Длина</span>
+              <input type="number" inputmode="decimal" v-model="length" />
+            </label>
+            <label class="form-label">
+              <span>Высота</span>
+              <input type="number" inputmode="decimal" v-model="height" />
+            </label>
+          </template>
+        </div>
+        <button class="form-button" @click="calculate">Расчет</button>
+      </div>
     </div>
 
     <div class="right">
@@ -120,10 +164,14 @@
             <img src="/share_icon_grey.svg" alt="" />
           </div>
         </button>
-        <button class="copy-link">График</button>
+        <button v-if="chartResponse" class="copy-link" style="background-color: rgb(32, 145, 197);" @click="handleOpenChartDialog">
+          <div class="icon-img" >
+            <img width="30px"  src="https://db.acoustic.ru:3005/api/v1/constr/acoustic_prop_icon.png" alt="">
+          </div>
+        </button>
       </div>
 
-      <div v-if="isAvailableSizes()" class="form">
+      <!-- <div v-if="isAvailableSizes()" class="form">
         <div class="form-header">
           <div>
             <button
@@ -165,7 +213,7 @@
           </template>
         </div>
         <button class="form-button" @click="calculate">Рассчитать</button>
-      </div>
+      </div> -->
 
       <div v-if="calculationsTableColumns.length > 0">
         <table id="table">
@@ -186,18 +234,23 @@
       </div>
     </div>
   </div>
+  <Dialog :open="openChartDialog" :on-close="handleCloseChartDialog">
+    <Chart :items="chartResponse.items" :diagram_params="chartResponse.diagram_params" />
+  </Dialog>
 </template>
 
 <script setup>
 import ImageSelect from "../../../../components/ImageSelect/ImageSelect.vue";
 import ObjectsSlider from "../../../../components/Slider/ObjectsSlider.vue";
 import ImageSlide from "../../../../components/Slider/ImageSlide.vue";
-import { filesApi, modelsApi, constructionsApi } from "../../../../config";
+import { filesApi, modelsApi, constructionsApi, dataV2Api } from "../../../../config";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import { useStore } from "vuex";
 import { computed, watch, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import SelectMaterialRow from "../../../../components/SelectMaterialRow.vue";
+import Dialog from '../../../../components/Dialog/index.vue'
+import Chart from '../../../../components/Chart/index.vue'
 
 const store = useStore();
 const route = useRoute();
@@ -218,10 +271,22 @@ const length = ref("");
 const height = ref("");
 const type = ref("wall");
 
+const openChartDialog = ref(false)
+
 const availableParamsNames = ["Colors", "EdgesTypes", "Perforations", "Sizes"];
 
 const calculationsTableColumns = ref([]);
 const calculationsTableRows = ref([]);
+
+const chartResponse = ref(null)
+
+const handleOpenChartDialog = () => {
+  openChartDialog.value = true
+}
+
+const handleCloseChartDialog = () => {
+  openChartDialog.value = false
+}
 
 const selectedArticuls = computed(() =>
   Object.fromEntries(
@@ -260,6 +325,14 @@ const selectSquare = () => {
 const selectSizes = () => {
   isSquare.value = false;
 };
+
+const resetForm = () => {
+  isSquare.value = true;
+  square.value = ""
+  length.value = ""
+  height.value = ""
+  type.value = "wall"
+}
 
 const validateForm = () => {
   if (isSquare.value) {
@@ -331,6 +404,12 @@ const modelImages = () => {
   return [];
 };
 
+const fetchChart = async () => {
+  const response = await dataV2Api.getMeasurements(route.params.id.toLowerCase());
+  
+  chartResponse.value = response.data.data
+}
+
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
 
@@ -371,6 +450,8 @@ const selectModel = async (event) => {
   selectedEdgeType.value = null;
   calculationsTableColumns.value = [];
   calculationsTableRows.value = [];
+  
+  resetForm()
 
   replaceLocation();
 };
@@ -496,10 +577,14 @@ const breadcrumbs = () => {
 };
 
 fetchBrand();
+fetchChart();
 
 watch(
   () => route.params.id,
-  () => fetchBrand()
+  () => {
+    fetchBrand()
+    fetchChart()
+  }
 );
 
 const copyLink = () => {
@@ -523,21 +608,23 @@ const copyLink = () => {
 .form {
   display: flex;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border: 1px solid gray;
   border-radius: 8px;
   padding: 16px;
   gap: 8px;
-  margin-bottom: 8px;
+  box-shadow: 5px 5px 2px #c7ced4;
+  font-family: Montserrat, sans-serif;
 }
 
 .form-toggle {
   background-color: transparent;
-  border-radius: 20px;
+  border-radius: 8px;
   border: none;
   transition: all 300ms;
   padding: 8px 16px;
   margin: 0;
-  font-weight: bold;
+  margin-top: 10px;
+  font-size: 18px;
 }
 
 .form-toggle--active {
@@ -562,11 +649,21 @@ const copyLink = () => {
 .form-label {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin-top: 14px;
+  font-size: 18px;
 }
 
 .form-button {
   align-self: flex-end;
+  font-size: 20px;
+  border: 2px solid grey;
+  border-radius: 8px;
+}
+
+.form-button:active {
+  font-size: 20px;
+  border: 2px solid grey;
+  background: lightgray;
 }
 
 table {
@@ -647,7 +744,7 @@ th {
   border: 1px solid gray;
   border-radius: 5px;
   padding: 5px;
-  background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+  /* background: radial-gradient(circle at center, #c7ced4, #f9f9fa00); */
   margin-bottom: 15px;
   padding: 8px;
   color: #575656;

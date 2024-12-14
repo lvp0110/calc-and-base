@@ -12,6 +12,7 @@ import VibrationMaterialsId from './pages/vibration_isolation/materials/id/index
 import AcousticMaterialsId from './pages/acoustic/materials/id/index.vue'
 import AcousticBrands from './pages/acoustic/brands/index.vue'
 import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
+import AcousticBrandsIdChartModel from './pages/acoustic/brands/id/chart/model/index.vue'
 
 import DocumentAirId from './pages/documents/air/id/index.vue'
 import DocumentSertificatesId from './pages/documents/certificates/id/Index.vue'
@@ -46,6 +47,7 @@ const router = createRouter({
         { path: "/acoustic/materials/:id?", component: AcousticMaterialsId },
         { path: "/acoustic/brands", component: AcousticBrands },
         { path: "/acoustic/brands/:id", component: AcousticBrandsId },
+        { path: "/acoustic/brands/:id/chart/:model", component: AcousticBrandsIdChartModel },
 
         { path: "/documents/air/:id?", component: DocumentAirId },
         { path: "/documents/certificates/:id?", component: DocumentSertificatesId },

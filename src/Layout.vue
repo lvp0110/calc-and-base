@@ -40,6 +40,7 @@ export default {
     this.$store.dispatch('getTechCards')
     this.$store.dispatch('getBrandsInstalSchemas')
     this.$store.dispatch('getAlbums')
+    this.$store.dispatch('getGeneralCategories')
 
     window.onscroll = () => {
       this.isHiddenScrollUpButton = window.scrollY < 250

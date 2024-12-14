@@ -2,7 +2,7 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="">
-    <span class="text"> Звукоизоляция ограждающих конструкций зданий — это совокупность мероприятий, направленных на снижение уровня шума, проникающего в помещения извне через ограждения зданий.
+    <span v-if="description" class="text">{{ description }}
     </span>
   </RouterLink>
   <section class="section" v-if="path === to">
@@ -14,7 +14,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router';
 
-const { header, src, to } = defineProps(['header', 'src', 'to'])
+const { header, src, description, to } = defineProps(['header', 'description', 'src', 'to'])
 
 const route = useRoute()
 

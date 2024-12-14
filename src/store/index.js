@@ -6,7 +6,8 @@ import {
     brandsApi,
     techCardApi,
     installSchemesApi,
-    objectsApi
+    objectsApi,
+    categoriesApi
 } from '../config';
 import { MaterialUsage, ConstructionsUsage, Categories } from '../types'
 
@@ -259,6 +260,7 @@ export default createStore({
             searchText: '',
             voiceSearchText: '',
             isOpenSearch: false,
+            generalCategories: [],
             labels: 
                 {
                     locationPrefix: 'Адрес :',
@@ -297,6 +299,11 @@ export default createStore({
         }
     },
     actions: {
+        async getGeneralCategories({ state }) {
+            const response = await categoriesApi.getGeneralCategories()
+
+            state.generalCategories = response.data.data
+        },
         async getObjects({ state }) {
             const response = await objectsApi.getObjects()
 
@@ -493,6 +500,9 @@ export default createStore({
             )
 
             return result
+        },
+        generalCategories(state) {
+            return state.generalCategories
         }
     },
 })

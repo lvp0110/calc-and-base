@@ -25,6 +25,7 @@
             @click="toggleActive('img2')"
           />
         </div>
+        <p style="margin-top: 16px;">Характеристики:</p>
         <ul class="ul-descript">
           <li v-if="selectElement.SoundIndex != 'неопределен'">
             Индекс звукоизоляции воздушного шума, Rw =
@@ -36,6 +37,7 @@
           </li>
           <li>Толщина: {{ selectElement.Thickness }} мм.</li>
         </ul>
+        <p>Состав конструкции:</p>
         <ul class="ul-descript">
           <li v-for="material in materials">
             <RouterLink :to="`/soundproof/materials/${material.code}`">
@@ -43,6 +45,7 @@
             </RouterLink>
           </li>
         </ul>
+        
       </div>
 
       <span class="span"> {{ selectElement.Specification }}</span>
