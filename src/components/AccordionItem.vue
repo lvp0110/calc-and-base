@@ -2,7 +2,7 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="image" />
-    <span v-if="description" class="text">{{ description }} </span>
+    <span v-if="description" class="text"> ⊚ {{ description }} </span>
   </RouterLink>
   <section class="section" v-if="path === to">
     <slot />
@@ -52,7 +52,7 @@ const path = computed(() => route.path);
     to right,
     rgba(10, 115, 160, 0.9),
     rgb(87, 177, 218)
-  ); /* rgba(73, 77, 78,.5) #8992998c*/
+  ); 
   border: 0;
   overflow-anchor: none;
   border-radius: 10px;
@@ -89,7 +89,7 @@ const path = computed(() => route.path);
   overflow: hidden;
   transition: max-height 0.1s ease-in-out, opacity 0.1s ease-in-out;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) and (min-height: 900px){
   .icon {
     position: relative;
     width: 100px;
@@ -100,10 +100,14 @@ const path = computed(() => route.path);
     width: 100%;
     height: 18%;
     background: linear-gradient(
-    to right,
-    rgba(10, 115, 160, 0.9),
-    rgba(78, 139, 154, 0.829)
-  ); /* rgba(73, 77, 78,.5) #899299fa*/
+      to right,
+      rgba(10, 115, 160, 0.9),
+      rgba(78, 139, 154, 0.829)
+    ); 
+  }
+  button:active {
+    background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
+    box-shadow: 0px -2px 3px 0px rgb(167, 163, 163);
   }
   .h5 {
     width: 300px;

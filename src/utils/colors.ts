@@ -14,6 +14,10 @@ const colors = [
     'brown',
     'blueGrey',
   ];
+
+  export const getColorByIndex = (index: number): string => {
+    return colors[index]
+  }
   
   export const getColorFromString = (text: string): string => {
     let hash = 0;

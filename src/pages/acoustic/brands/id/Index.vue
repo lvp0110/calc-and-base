@@ -177,15 +177,19 @@
             />
           </div>
         </button>
-        <button v-if="calculationsTableColumns.length > 0" class="copy-link" @click="exportToFile">
+        <button
+          v-if="calculationsTableColumns.length > 0"
+          class="copy-link"
+          @click="exportToFile"
+        >
           <div class="icon-img">
             <img
               width="30px"
               src="https://db.acoustic.ru:3005/api/v1/constr/Excel_icon.png"
-              alt="">
+              alt=""
+            />
           </div>
-         
-        </button> 
+        </button>
       </div>
 
       <!-- <div v-if="isAvailableSizes()" class="form">
@@ -277,7 +281,7 @@ import { useRoute, useRouter } from "vue-router";
 import SelectMaterialRow from "../../../../components/SelectMaterialRow.vue";
 import Dialog from "../../../../components/Dialog/index.vue";
 import Chart from "../../../../components/Chart/index.vue";
-import { getColorFromString } from "../../../../utils/colors";
+import { getColorByIndex } from "../../../../utils/colors";
 import { exportToCsv } from "../../../../utils/files";
 
 const store = useStore();
@@ -389,6 +393,7 @@ const calculate = async () => {
   replaceLocation();
 
   const response = await constructionsApi.constructionsCalculate(
+    route.params.id,
     getLocationParams()
   );
 
@@ -448,9 +453,9 @@ const fetchChart = async () => {
     route.params.id.toLowerCase()
   );
 
-  const itemsWithColors = response.data.data.items.map((item) => ({
+  const itemsWithColors = response.data.data.items.map((item, index) => ({
     ...item,
-    color: getColorFromString(item.name),
+    color: getColorByIndex(index),
   }));
 
   chartResponse.value = {
@@ -703,7 +708,8 @@ const copyLink = () => {
   font-size: 18px;
 }
 .form-label select {
-  padding: 9px;border-radius: 8px;
+  padding: 9px;
+  border-radius: 8px;
 }
 .form-button {
   align-self: flex-end;

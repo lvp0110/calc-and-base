@@ -38,8 +38,8 @@ export const modelsApi = {
 
 export const constructionsApi = {
   getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
-  constructionsCalculate: (params) =>
-    requestInstance.get("api/v2/constr/calc", { params }),
+  constructionsCalculate: (brand, params) =>
+    requestInstance.get(`api/v2/constr/calc/${brand}`, { params }),
 };
 
 export const albumsApi = {
