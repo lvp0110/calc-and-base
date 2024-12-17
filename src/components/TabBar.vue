@@ -67,7 +67,7 @@ const dialogWindow = () => {
     bottom: 0;
     left: 0;
     right: 0;
-    background: radial-gradient(circle at top, rgb(10, 115, 160), rgb(72, 170, 215));
+    background: radial-gradient(circle at top, rgba(10, 115, 160,.9), rgb(72, 170, 215));
     height: 70px;
     padding: 8px;
     color: white;

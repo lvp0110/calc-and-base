@@ -8,7 +8,7 @@ const requestInstance = axios.create({
 
 export const categoriesApi = {
   getGeneralCategories: () =>
-    requestInstance.get(`api/v1/GeneralCategories/list`),
+    requestInstance.get(`api/v2/globalMenuCategories`),
 };
 
 export const dataV2Api = {

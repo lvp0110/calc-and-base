@@ -62,7 +62,6 @@
             :onSelect="selectColor"
           />
         </div>
-        
       </div>
 
       <div v-if="selectedModelCode" class="select">
@@ -104,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div v-if="isAvailableSizes()" class="form" >
+      <div v-if="isAvailableSizes()" class="form">
         <div class="form-header">
           <div>
             <button
@@ -123,7 +122,7 @@
             </button>
           </div>
           <label class="form-label">
-            <select v-model="type" style="padding: 8px;">
+            <select v-model="type">
               <option value="wall">Стена</option>
               <option value="ceiling">Потолок</option>
             </select>
@@ -150,7 +149,7 @@
     </div>
 
     <div class="right">
-      <div style="margin-bottom: 16px">
+      <div class="description">
         <template v-if="!selectedModelCode">
           <span class="span" v-html="selectElement?.Description"></span>
         </template>
@@ -164,11 +163,29 @@
             <img src="/share_icon_grey.svg" alt="" />
           </div>
         </button>
-        <button v-if="chartResponse" class="copy-link" style="background-color: rgb(32, 145, 197);" @click="handleOpenChartDialog">
-          <div class="icon-img" >
-            <img width="30px"  src="https://db.acoustic.ru:3005/api/v1/constr/acoustic_prop_icon.png" alt="">
+        <button
+          v-if="chartResponse"
+          class="copy-link"
+          style="background-color: rgb(32, 145, 197)"
+          @click="handleOpenChartDialog"
+        >
+          <div class="icon-img">
+            <img
+              width="30px"
+              src="https://db.acoustic.ru:3005/api/v1/constr/acoustic_prop_icon.png"
+              alt=""
+            />
           </div>
         </button>
+        <button v-if="calculationsTableColumns.length > 0" class="copy-link" @click="exportToFile">
+          <div class="icon-img">
+            <img
+              width="30px"
+              src="https://db.acoustic.ru:3005/api/v1/constr/Excel_icon.png"
+              alt="">
+          </div>
+         
+        </button> 
       </div>
 
       <!-- <div v-if="isAvailableSizes()" class="form">
@@ -234,8 +251,12 @@
       </div>
     </div>
   </div>
+  <!-- <button @click="exportToFile">export</button> -->
   <Dialog :open="openChartDialog" :on-close="handleCloseChartDialog">
-    <Chart :items="chartResponse.items" :diagram_params="chartResponse.diagram_params" />
+    <Chart
+      :items="chartResponse.items"
+      :diagram_params="chartResponse.diagram_params"
+    />
   </Dialog>
 </template>
 
@@ -243,14 +264,21 @@
 import ImageSelect from "../../../../components/ImageSelect/ImageSelect.vue";
 import ObjectsSlider from "../../../../components/Slider/ObjectsSlider.vue";
 import ImageSlide from "../../../../components/Slider/ImageSlide.vue";
-import { filesApi, modelsApi, constructionsApi, dataV2Api } from "../../../../config";
+import {
+  filesApi,
+  modelsApi,
+  constructionsApi,
+  dataV2Api,
+} from "../../../../config";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import { useStore } from "vuex";
 import { computed, watch, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import SelectMaterialRow from "../../../../components/SelectMaterialRow.vue";
-import Dialog from '../../../../components/Dialog/index.vue'
-import Chart from '../../../../components/Chart/index.vue'
+import Dialog from "../../../../components/Dialog/index.vue";
+import Chart from "../../../../components/Chart/index.vue";
+import { getColorFromString } from "../../../../utils/colors";
+import { exportToCsv } from "../../../../utils/files";
 
 const store = useStore();
 const route = useRoute();
@@ -271,22 +299,33 @@ const length = ref("");
 const height = ref("");
 const type = ref("wall");
 
-const openChartDialog = ref(false)
+const openChartDialog = ref(false);
 
 const availableParamsNames = ["Colors", "EdgesTypes", "Perforations", "Sizes"];
 
 const calculationsTableColumns = ref([]);
 const calculationsTableRows = ref([]);
 
-const chartResponse = ref(null)
+const chartResponse = ref(null);
+
+const exportToFile = () => {
+  const columns = calculationsTableColumns.value.map(({ name }) => name);
+  const rows = calculationsTableRows.value.map(({ items }) => {
+    const firstItem = items[0];
+
+    return calculationsTableColumns.value.map(({ id }) => firstItem[id]);
+  });
+
+  exportToCsv(columns, rows);
+};
 
 const handleOpenChartDialog = () => {
-  openChartDialog.value = true
-}
+  openChartDialog.value = true;
+};
 
 const handleCloseChartDialog = () => {
-  openChartDialog.value = false
-}
+  openChartDialog.value = false;
+};
 
 const selectedArticuls = computed(() =>
   Object.fromEntries(
@@ -328,11 +367,11 @@ const selectSizes = () => {
 
 const resetForm = () => {
   isSquare.value = true;
-  square.value = ""
-  length.value = ""
-  height.value = ""
-  type.value = "wall"
-}
+  square.value = "";
+  length.value = "";
+  height.value = "";
+  type.value = "wall";
+};
 
 const validateForm = () => {
   if (isSquare.value) {
@@ -405,10 +444,20 @@ const modelImages = () => {
 };
 
 const fetchChart = async () => {
-  const response = await dataV2Api.getMeasurements(route.params.id.toLowerCase());
-  
-  chartResponse.value = response.data.data
-}
+  const response = await dataV2Api.getMeasurements(
+    route.params.id.toLowerCase()
+  );
+
+  const itemsWithColors = response.data.data.items.map((item) => ({
+    ...item,
+    color: getColorFromString(item.name),
+  }));
+
+  chartResponse.value = {
+    ...response.data.data,
+    items: itemsWithColors,
+  };
+};
 
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
@@ -450,8 +499,8 @@ const selectModel = async (event) => {
   selectedEdgeType.value = null;
   calculationsTableColumns.value = [];
   calculationsTableRows.value = [];
-  
-  resetForm()
+
+  resetForm();
 
   replaceLocation();
 };
@@ -582,8 +631,8 @@ fetchChart();
 watch(
   () => route.params.id,
   () => {
-    fetchBrand()
-    fetchChart()
+    fetchBrand();
+    fetchChart();
   }
 );
 
@@ -614,6 +663,7 @@ const copyLink = () => {
   gap: 8px;
   box-shadow: 5px 5px 2px #c7ced4;
   font-family: Montserrat, sans-serif;
+  margin-top: 4px;
 }
 
 .form-toggle {
@@ -652,7 +702,9 @@ const copyLink = () => {
   margin-top: 14px;
   font-size: 18px;
 }
-
+.form-label select {
+  padding: 9px;border-radius: 8px;
+}
 .form-button {
   align-self: flex-end;
   font-size: 20px;
@@ -775,6 +827,12 @@ th {
 
 .block-span1 {
   display: none;
+}
+.right {
+  margin-top: 10px;
+}
+.right .description {
+  margin-bottom: 16px;
 }
 
 @media screen and (min-width: 1024px) {

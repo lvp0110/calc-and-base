@@ -1,19 +1,19 @@
 <template>
-  <Line :data="chartData" :options="options" />
-  <select multiple @change="handleChange">
-    <option
-      v-for="item in items"
-      :value="item.name"
-      :selected="isSelected(item.name)"
-    >
-      {{ item.name }}
-    </option>
-  </select>
+  <div class="chart-container">
+    <Line :data="chartData" :options="options" />
+  </div>
+  <MultipleSelect
+    class="select"
+    :items="items"
+    :selectedItems="selectedItems"
+    :on-change="handleChange"
+  />
 </template>
 
 <script setup>
 import { Line } from "vue-chartjs";
 import { defineProps, ref, toRefs, onMounted } from "vue";
+import MultipleSelect from "../MultipleSelect/index.vue";
 import {
   Chart as ChartJS,
   Title,
@@ -53,10 +53,14 @@ onMounted(() => {
   applyChartData();
 });
 
-const handleChange = (event) => {
-  const selectedValues = Array.from(event.target.selectedOptions).map(
-    ({ value }) => value
-  );
+const handleChange = (name, checked) => {
+  let selectedValues = [...selectedItems.value];
+
+  if (selectedValues.includes(name)) {
+    selectedValues = selectedValues.filter((value) => value !== name);
+  } else {
+    selectedValues.push(name);
+  }
 
   selectedItems.value = selectedValues;
 
@@ -67,14 +71,43 @@ const isSelected = (name) =>
   selectedItems.value.some((selectedItem) => selectedItem === name);
 
 const options = {
+  maintainAspectRatio: false,
   scales: {
     y: {
+      //   stacked: true,
+      //   grid: {
+      //     display: true,
+      //   },
       beginAtZero: diagram_params.value.begin_at_zero,
       min: diagram_params.value.min,
       max: diagram_params.value.max,
       ticks: {
         stepSize: diagram_params.value.step_size,
       },
+    },
+    x: {
+      //   grid: {
+      //     display: true,
+      //   },
+    },
+  },
+
+  plugins: {
+    legend: {
+      display: false,
+    },
+    // title: {
+    //   display: false,
+    //   text: "Результаты измерений",
+    // },
+    // tooltip: {
+    //   enabled: false,
+    // },
+  },
+  elements: {
+    point: {
+      radius: 0,
+      hitRadius: 3,
     },
   },
 };
@@ -86,12 +119,29 @@ const applyChartData = () => {
     labels: x_axis.map(String),
     datasets: items.value
       .filter(({ name }) => isSelected(name))
-      .map(({ name, y_axis }) => ({
+      .map(({ name, color, y_axis }) => ({
         label: name,
-        backgroundColor: "rgb(32, 145, 197)",
-        borderColor: "rgb(32, 145, 197)",
+        backgroundColor: color,
+        borderColor: color,
         data: y_axis,
       })),
   };
 };
 </script>
+
+<style scoped>
+.select {
+  min-height: 200px;
+}
+
+canvas {
+  padding: 6px;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  flex-grow: 1;
+  width: 100%;
+}
+</style>

@@ -1,84 +1,13 @@
 <template>
-  <AccordionItem
-    header="ЗВУКОИЗОЛЯЦИЯ"
-    to="/soundproof"
-    src="https://db.acoustic.ru:3005/api/v1/constr/soundproof.svg"
-  >
-    <ul class="list_sound">
-      <li>
-        <RouterLink to="/soundproof/constructions"> КОНСТРУКЦИИ </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/soundproof/materials"> МАТЕРИАЛЫ </RouterLink>
-      </li>
-    </ul>
-  </AccordionItem>
-
-  <AccordionItem
-    header="АКУСТИКА"
-    to="/acoustic"
-    src="https://db.acoustic.ru:3005/api/v1/constr/acoustic.svg"
-  >
-    <ul class="list_sound">
-      <li>
-        <RouterLink to="/acoustic/brands"> АКУСТИКА ПО БРЕНДАМ </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/acoustic/materials"> МАТЕРИАЛЫ </RouterLink>
-      </li>
-    </ul>
-  </AccordionItem>
-
-  <AccordionItem
-    header="ВИБРОИЗОЛЯЦИЯ"
-    to="/vibration_isolation"
-    src="https://db.acoustic.ru:3005/api/v1/constr/vibroisolanion.svg"
-  >
-    <ul class="list_sound">
-      <li>
-        <RouterLink to="/vibration_isolation/materials"> МАТЕРИАЛЫ </RouterLink>
-      </li>
-    </ul>
-  </AccordionItem>
-
-  <AccordionItem
-    header="ДОКУМЕНТЫ"
-    to="/documents"
-    src="https://db.acoustic.ru:3005/api/v1/constr/documents.svg"
-  >
-    <ul class="list_sound">
-      <li>
-        <RouterLink to="/documents/certificates"> СЕРТИФИКАТЫ </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/documents/air">
-          АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ
-        </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/documents/techcard"> ТЕХ.КАРТЫ </RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/documents/hookup"> МОНТАЖНЫЕ СХЕМЫ </RouterLink>
-      </li>
-    </ul>
-  </AccordionItem>
-
-  <AccordionItem
-    header="НАШИ ОБЪЕКТЫ"
-    to="/our-objects"
-    src="https://db.acoustic.ru:3005/api/v1/constr/object.svg"
-  />
-
   <AccordionItem v-for="category in generalCategories" 
     :header="category.name" 
     :description="category.description" 
-    :src="category.img"
-    :to="`/${category.type}`"
+    :src="filesApi.getImageFileUrl(category.img)"
+    :to="`/${PathByCategory[category.type]}`"
   >
     <ul class="list_sound">
       <li v-for="subCategory in SubCategoriesByCategory[category.type]">
-        <RouterLink :to="`/${category.type}/${subCategory.code}`"> {{ subCategory.name }} </RouterLink>
+        <RouterLink :to="`/${PathByCategory[category.type]}/${subCategory.code}`"> {{ subCategory.name }} </RouterLink>
       </li>
     </ul>
   </AccordionItem>
@@ -88,7 +17,8 @@
 import AccordionItem from "./AccordionItem.vue";
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { SubCategoriesByCategory } from '../types'
+import { SubCategoriesByCategory, PathByCategory } from '../types'
+import { filesApi } from "../config";
 
 const store = useStore();
 
@@ -96,6 +26,7 @@ const generalCategories = computed(() => store.getters["generalCategories"]);
 </script>
 
 <style scoped>
+
 a {
   text-decoration: none;
 }

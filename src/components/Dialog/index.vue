@@ -2,7 +2,7 @@
   <div v-if="open" class="backdrop" @click="onClose">
     <div class="dialog" @click.stop>
       <div class="title">
-        <button @click="onClose" class="close-button">close</button>
+        <button @click="onClose" class="close-button">&#x2715;</button>
       </div>
       <div class="content">
         <slot />
@@ -18,6 +18,14 @@ const { open, onClose } = defineProps(["open", "onClose"]);
 </script>
 
 <style scoped>
+.close-button {
+  font-size: 30px;
+  border: 1px solid gray;
+  width: 50px;
+  color: gray;
+  border-radius: 20%;
+  background: none;
+}
 .backdrop {
   background-color: rgba(255, 255, 255, 0.2);
   position: fixed;
@@ -46,6 +54,8 @@ const { open, onClose } = defineProps(["open", "onClose"]);
 .content {
   flex-grow: 1;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (min-width: 1024px) {
