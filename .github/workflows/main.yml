@@ -15,15 +15,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t calc-and-base:latest ./calc-and-base --no-cache
+      run: sudo docker build -t calc-and-base:latest ./calc-and-base --no-cache
 
     - name: Stop and remove existing container
       run: |
         CONTAINER_ID=$(docker ps -q --filter ancestor=calc-and-base:latest)
         if [ ! -z "$CONTAINER_ID" ]; then
-          docker stop $CONTAINER_ID
-          docker rm $CONTAINER_ID
+          sudo docker stop $CONTAINER_ID
+          sudo docker rm $CONTAINER_ID
         fi
 
     - name: Run Docker container
-      run: docker run -p 3000:3000 -d calc-and-base:latest
+      run: sudo docker run -p 3000:3000 -d calc-and-base:latest
