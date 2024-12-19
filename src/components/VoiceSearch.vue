@@ -139,7 +139,7 @@ onMounted(() => {
   transform: translateY(-50%) translateX(calc(-100% - 8px));
   width: 48px;
   height: 48px;
-  z-index: 20022222;
+  z-index: 2;
   color: grey;
 }
 
