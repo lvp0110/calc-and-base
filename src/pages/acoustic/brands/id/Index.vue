@@ -139,7 +139,7 @@
               <input type="number" inputmode="decimal" v-model="length" />
             </label>
             <label class="form-label">
-              <span>Высота</span>
+              <span>Высота (Ширина)</span>
               <input type="number" inputmode="decimal" v-model="height" />
             </label>
           </template>
@@ -653,11 +653,11 @@ const copyLink = () => {
   align-items: center;
 }
 
-.model-image {
+/* .model-image {
   width: 100%;
   aspect-ratio: 500 / 270;
   object-fit: contain;
-}
+} */
 
 .form {
   display: flex;
@@ -669,6 +669,8 @@ const copyLink = () => {
   box-shadow: 5px 5px 2px #c7ced4;
   font-family: Montserrat, sans-serif;
   margin-top: 4px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .form-toggle {
@@ -676,10 +678,10 @@ const copyLink = () => {
   border-radius: 8px;
   border: none;
   transition: all 300ms;
-  padding: 8px 16px;
+  padding: 9px 16px;
   margin: 0;
-  margin-top: 10px;
-  font-size: 18px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .form-toggle--active {
@@ -704,24 +706,32 @@ const copyLink = () => {
 .form-label {
   display: flex;
   flex-direction: column;
-  margin-top: 14px;
+}
+.form-label input {
+  width: 50%;
+  padding: 6px;
   font-size: 18px;
 }
 .form-label select {
-  padding: 9px;
+  padding: 10px;
   border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 .form-button {
   align-self: flex-end;
-  font-size: 20px;
-  border: 2px solid grey;
+  border: 1px solid grey;
   border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 6px;
+  width: 110px;
 }
 
-.form-button:active {
-  font-size: 20px;
-  border: 2px solid grey;
-  background: lightgray;
+.form-button:hover {
+  border: 1px solid rgba(128, 128, 128, 0);
+  background: rgb(36, 140, 185);
+  color: white;
 }
 
 table {

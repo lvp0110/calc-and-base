@@ -2,7 +2,7 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="image" />
-    <span v-if="description" class="text"> ⊚ {{ description }} </span>
+    <span v-if="description" class="text">  {{ description }} </span>
   </RouterLink>
   <section class="section" v-if="path === to">
     <slot />
