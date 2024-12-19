@@ -131,8 +131,12 @@ const path = computed(() => route.path);
     margin-bottom: 8px;
   }
 }
-
-@media screen and (max-height: 500px) {
+@media screen and (max-width: 1130px) {
+  .text {
+    font-size: 15px;
+  }
+}
+@media screen and (min-height: 500px) {
   .button {
     min-height: 80px;
     margin-top: 4px;

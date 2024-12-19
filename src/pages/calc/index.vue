@@ -5,13 +5,14 @@
         style="width: 50px;
         height: 50px; 
         position: absolute;
+        font-size: 30px;
+        font-weight: 100;
         top: 1%;
-        padding: 1px;
         right: 8%;
+        color: gray;
         background: none;
-        border-radius: 50% ;
-        border: none;">
-     <img src="/back_icon.svg" alt="" >
+        border: 1px solid gray;">X
+     <!-- <img src="/back_icon.svg" alt="" > -->
     </button>
     <div class="content">
     <!-- * Кнопки вывода данных на экран * -->

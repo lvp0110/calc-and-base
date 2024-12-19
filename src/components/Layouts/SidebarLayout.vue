@@ -28,6 +28,7 @@ const { hasContent } = defineProps(["hasContent"]);
 
 .sidebar {
   overflow-y: auto;
+  width: 100%;
 }
 
 .content {
