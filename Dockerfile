@@ -1,4 +1,4 @@
-FROM node:20.10.0-alpine AS dependencies
+qFROM node:20.10.0-alpine AS dependencies
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
