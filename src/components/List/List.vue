@@ -24,7 +24,7 @@ ul {
         font-weight: 300;
 
         a {
-            color: #6c757d;
+            color: #767f86;
             text-decoration: none;
             margin-bottom: 1px;
             border: solid 1px #6c757d;
