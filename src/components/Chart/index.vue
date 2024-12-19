@@ -135,7 +135,8 @@ const applyChartData = () => {
 }
 
 canvas {
-  padding: 6px;
+  padding: 0px 6px 6px 6px;
+
 }
 
 .chart-container {

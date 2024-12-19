@@ -52,19 +52,20 @@ ul li a {
   display: block;
   width: 100%;
   text-align: center;
-  background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+  background: radial-gradient(circle at right, #acb2b9d2, #e2e2e9ec);
   transition: all 0.4s;
 }
 
 ul li a:hover {
-  background: radial-gradient(circle at center, #6c757d, #bdbfc2);
+  background: radial-gradient(circle at left, #acb2b9, #e2e2e9ec);
   transition: all 0.4s;
-  color: aliceblue;
+  color: white;
   border: solid 1px rgb(173, 170, 170);
 }
 @media screen and (min-width: 1024px) {
   ul li a {
-    width: 270px;
+    width: auto;
+    text-align: start;
   }
   .object {
     width: 310px;

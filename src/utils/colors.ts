@@ -1,18 +1,14 @@
 
 const colors = [
-    'cyan',
-    'pink',
-    'purple',
-    'deepPurple',
-    'indigo',
     "blue",
-    'teal',
-    'green',
-    "lightGreen",
-    "orange",
-    'deepOrange',
     'brown',
-    'blueGrey',
+    'red',
+    'green',
+    "orange", 
+    'gray',
+    'black',
+    'navy',
+    'yellowgreen',
   ];
 
   export const getColorByIndex = (index: number): string => {

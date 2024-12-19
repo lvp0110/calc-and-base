@@ -40,12 +40,12 @@ const { open, onClose } = defineProps(["open", "onClose"]);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  gap: 16px;
+  gap: 2px;
   z-index: 1000;
 }
 
 .title {
-  padding: 8px;
+  padding:8px 8px 0px 0px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
