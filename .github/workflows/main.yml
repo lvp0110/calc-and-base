@@ -1,30 +1,29 @@
-name: deploy-on-constrdase
+
+name: Build and Deploy
 
 on:
   push:
     branches:
-      - develop
+      - devtest
 
 jobs:
-  deploy:
+  build:
     runs-on: self-hosted
-    env:
-      ACTIONS_RUNNER_DEBUG: true
-      ACTIONS_STEP_DEBUG: true
+
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup certificate and key
+    - name: Build Docker image
+      run: docker build -t calc-and-base:latest ./calc-and-base --no-cache
+
+    - name: Stop and remove existing container
       run: |
-        echo "${{ secrets.CERTIFICATE_B64 }}" | base64 --decode > certificate.crt
-        echo "${{ secrets.PRIVATE_KEY_B64 }}" | base64 --decode > private.key
+        CONTAINER_ID=$(docker ps -q --filter ancestor=calc-and-base:latest)
+        if [ ! -z "$CONTAINER_ID" ]; then
+          docker stop $CONTAINER_ID
+          docker rm $CONTAINER_ID
+        fi
 
-    - name: Stop container
-      run: make del
-
-    - name: Build
-      run: make build
-
-    - name: Run container
-      run: make run
+    - name: Run Docker container
+      run: docker run -p 3000:3000 -d calc-and-base:latest
