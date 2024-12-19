@@ -15,20 +15,20 @@
     </button>
     <div class="content">
     <!-- * Кнопки вывода данных на экран * -->
-    <div class="category">
+    <div class="category content-item">
         <button v-for="elem in getActiveCategories" :value="elem.id" :style="{ background: elem.background }"
             :class="{ start_page: currentCategory == elem.id ? false : true, active: currentCategory == elem.id ? true : false }"
             @click="currentCategory = currentCategory ? 0 : $event.target.value">{{ elem.title }}
         </button>
     </div>
-    <div class="subcategory">
+    <div class="subcategory content-item">
         <button v-for="elem in getSubCategories" :value="elem.id"
             :class="{ type_page: currentSubCategory == elem.id ? false : true, type_active: currentSubCategory == elem.id ? true : false }"
             @click="currentSubCategory = currentSubCategory ? 0 : $event.target.value">{{ elem.title }}
             <img v-if="currentSubCategory == 0" :src="elem.img" alt="" class="img-icon-type">
         </button>
     </div>
-    <div class="items">
+    <div class="items content-item">
         <button v-for="elem in getItems" :value="elem.id"
             :class="{ const_page: currentItems == elem.id ? false : true, const_active: currentItems == elem.id ? true : false }"
             @click="currentItems = currentItems ? 0 : $event.target.value">
@@ -1455,7 +1455,7 @@ export default {
           
             Categories: [
                 { id: 1, title: 'РЕШЕНИЯ ПО ЗВУКОИЗОЛЯЦИИ', background: '#248CB9' },
-                { id: 2, title: 'АКУСТИЧЕСКИЕ РЕШЕНИЯ', background: '#11556F' },
+                // { id: 2, title: 'АКУСТИЧЕСКИЕ РЕШЕНИЯ', background: '#11556F' },
             ],
             SubCategories: [
                 { id: 'F', title: 'ПОЛ', c_id: 1, img: '../../../Img_constr/icon_floor_white.svg', imgBlack: 'img/icon_floor.svg' },
@@ -2370,6 +2370,13 @@ export default {
 }
 
 div {
+    margin: auto;
+    top: 10px;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content-item {
     width: 340px;
     margin: auto;
     top: 10px;
@@ -2640,5 +2647,9 @@ div:where(.swal2-container) .swal2-html-container {
     font-weight: 600;
     text-decoration: underline;
     margin-bottom: 10px;
+}
+
+.items {
+    padding-bottom: 25px
 }
 </style>

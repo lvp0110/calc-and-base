@@ -1,23 +1,30 @@
 <template>
-  <AccordionItem v-for="category in generalCategories" 
-    :header="category.name" 
-    :description="category.description" 
-    :src="filesApi.getImageFileUrl(category.img)"
-    :to="`/${PathByCategory[category.type]}`"
-  >
-    <ul class="list_sound">
-      <li v-for="subCategory in SubCategoriesByCategory[category.type]">
-        <RouterLink :to="`/${PathByCategory[category.type]}/${subCategory.code}`"> {{ subCategory.name }} </RouterLink>
-      </li>
-    </ul>
-  </AccordionItem>
+  <div class="menu-container">
+    <AccordionItem
+      v-for="category in generalCategories"
+      :header="category.name"
+      :description="category.description"
+      :src="filesApi.getImageFileUrl(category.img)"
+      :to="`/${PathByCategory[category.type]}`"
+    >
+      <ul class="list_sound">
+        <li v-for="subCategory in SubCategoriesByCategory[category.type]">
+          <RouterLink
+            :to="`/${PathByCategory[category.type]}/${subCategory.code}`"
+          >
+            {{ subCategory.name }}
+          </RouterLink>
+        </li>
+      </ul>
+    </AccordionItem>
+  </div>
 </template>
 
 <script setup>
 import AccordionItem from "./AccordionItem.vue";
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { SubCategoriesByCategory, PathByCategory } from '../types'
+import { SubCategoriesByCategory, PathByCategory } from "../types";
 import { filesApi } from "../config";
 
 const store = useStore();
@@ -26,6 +33,12 @@ const generalCategories = computed(() => store.getters["generalCategories"]);
 </script>
 
 <style scoped>
+.menu-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
 
 a {
   text-decoration: none;
@@ -69,6 +82,12 @@ ul li a:hover {
   }
   .object {
     width: 310px;
+  }
+}
+
+@media screen and (max-width: 370px) and (min-height: 500px) {
+  .menu-container {
+    overflow: hidden;
   }
 }
 </style>
