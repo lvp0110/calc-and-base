@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run:  docker build -t calc-and-base:latest -f ./calc-and-base/calc-and-base/Dockerfile ./calc-and-base/calc-and-base --no-cache
+      run:  docker build -t calc-and-base:latest . --no-cache
 
     - name: Stop and remove existing container
       run: |
