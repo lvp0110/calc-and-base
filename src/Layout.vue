@@ -61,7 +61,7 @@ export default {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: 100%;
+  height: 96%;
 }
 
 .content {
@@ -79,6 +79,7 @@ export default {
 @media screen and (min-width: 500px) {
   .main {
     padding: 8px 8px 8px 83px;
+    height: 100%;
   }
 
   .logo {
