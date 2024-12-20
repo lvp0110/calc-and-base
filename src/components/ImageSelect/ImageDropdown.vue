@@ -3,7 +3,7 @@
         <li v-for="item in items" :key="item.Code" class="dropdown__item" @click="select(item)">
             <img class="dropdown__item__image" :src="filesApi.getImageFileUrl(item.Img)" />
             <img v-if="item.SectionImg" class="dropdown__item__image" :src="filesApi.getImageFileUrl(item.SectionImg)" />
-            <div>{{ item.Name }}</div>
+            <div>{{ item.Description }}</div>
         </li>
     </ul>
     <div class="backdrop" @click="onClose" />

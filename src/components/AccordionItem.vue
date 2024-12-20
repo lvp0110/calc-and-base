@@ -2,7 +2,7 @@
   <RouterLink :to="path === to ? '/' : to" class="button">
     <h5 class="h5">{{ header }}</h5>
     <img v-if="src" class="icon" :src="src" alt="image" />
-    <span v-if="description" class="text">  {{ description }} </span>
+    <span v-if="description" class="text"> {{ description }} </span>
   </RouterLink>
   <section class="section" v-if="path === to">
     <slot />
@@ -52,7 +52,7 @@ const path = computed(() => route.path);
     to right,
     rgba(10, 115, 160, 0.9),
     rgb(87, 177, 218)
-  ); 
+  );
   border: 0;
   overflow-anchor: none;
   border-radius: 10px;
@@ -89,7 +89,7 @@ const path = computed(() => route.path);
   overflow: hidden;
   transition: max-height 0.1s ease-in-out, opacity 0.1s ease-in-out;
 }
-@media screen and (min-width: 1024px) and (min-height: 900px){
+@media screen and (min-width: 1024px) and (min-height: 900px) {
   .icon {
     position: relative;
     width: 100px;
@@ -103,7 +103,7 @@ const path = computed(() => route.path);
       to right,
       rgba(10, 115, 160, 0.9),
       rgba(78, 139, 154, 0.829)
-    ); 
+    );
   }
   button:active {
     background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
@@ -129,6 +129,17 @@ const path = computed(() => route.path);
     padding-left: 20px;
     padding-right: 20px;
     margin-bottom: 8px;
+  }
+}
+@media screen and (max-width: 1130px) {
+  .text {
+    font-size: 15px;
+  }
+}
+@media screen and (min-height: 500px) {
+  .button {
+    min-height: 80px;
+    margin-top: 4px;
   }
 }
 </style>

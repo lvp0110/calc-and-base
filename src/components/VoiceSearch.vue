@@ -1,64 +1,124 @@
 <template>
   <div class="input-container">
-    <button type="button" id="btn_voice"  @click="activateVoiceSearch" @touchstart="activateVoiceSearch">
-      <figure ref="figureVoice" >
+    <button
+      type="button"
+      id="btn_voice"
+      @click="activateVoiceSearch"
+      @touchstart="activateVoiceSearch"
+    >
+      <figure ref="figureVoice">
         <svg height="34" width="34">
-          <circle r="5" cx="17" cy="17" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <circle r="5" cx="17" cy="12" fill="darkgrey" stroke="darkgrey" stroke-width="1" />
-          <line x1="12" y1="11" x2="12" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="11" x2="22" y2="18" stroke="darkgrey" stroke-width="1" />
-          <line x1="22" y1="30" x2="12" y2="30" stroke="darkgrey" stroke-width="2" />
-          <line x1="17" y1="25" x2="17" y2="30" stroke="darkgrey" stroke-width="2" />
-          <path d="M10 20 C 10 26, 24 25, 24 20" stroke="darkgrey" fill="transparent" stroke-width="2" />
+          <circle
+            r="5"
+            cx="17"
+            cy="17"
+            fill="darkgrey"
+            stroke="darkgrey"
+            stroke-width="1"
+          />
+          <circle
+            r="5"
+            cx="17"
+            cy="12"
+            fill="darkgrey"
+            stroke="darkgrey"
+            stroke-width="1"
+          />
+          <line
+            x1="12"
+            y1="11"
+            x2="12"
+            y2="18"
+            stroke="darkgrey"
+            stroke-width="1"
+          />
+          <line
+            x1="22"
+            y1="11"
+            x2="22"
+            y2="18"
+            stroke="darkgrey"
+            stroke-width="1"
+          />
+          <line
+            x1="22"
+            y1="30"
+            x2="12"
+            y2="30"
+            stroke="darkgrey"
+            stroke-width="2"
+          />
+          <line
+            x1="17"
+            y1="25"
+            x2="17"
+            y2="30"
+            stroke="darkgrey"
+            stroke-width="2"
+          />
+          <path
+            d="M10 20 C 10 26, 24 25, 24 20"
+            stroke="darkgrey"
+            fill="transparent"
+            stroke-width="2"
+          />
         </svg>
       </figure>
     </button>
 
-    <input type="text" :class="{ 'search': true, 'search__open': isOpen }" id="result_voice" placeholder=""
-      ref="input" :value="voiceSearchText" @input="handleInput" @focus="handleFocus" />
+    <input
+      type="text"
+      :class="{ search: true, search__open: isOpen }"
+      id="result_voice"
+      placeholder=""
+      ref="input"
+      :value="voiceSearchText"
+      @input="handleInput"
+      @focus="handleFocus"
+    />
 
-    <button v-if="isOpen" @click="handleClear" class="close-input-btn">╳</button>
+    <button v-if="isOpen" @click="handleClear" class="close-input-btn">
+      ╳
+    </button>
   </div>
 </template>
 <script setup>
-import { computed, ref,onMounted  } from 'vue'
-import { useStore } from 'vuex'
+import { computed, ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
-const input = ref(null)
-const figureVoice = ref(null) 
+const input = ref(null);
+const figureVoice = ref(null);
 
-const store = useStore()
+const store = useStore();
 
-const voiceSearchText = computed(() => store.state.voiceSearchText)
-const isOpen = computed(() => store.state.isOpenSearch)
-
+const voiceSearchText = computed(() => store.state.voiceSearchText);
+const isOpen = computed(() => store.state.isOpenSearch);
 
 const activateVoiceSearch = () => {
   if (isOpen.value) {
-    store.dispatch('startVoiceRecognition')
+    store.dispatch("startVoiceRecognition");
   } else {
-    input.value.focus()
-    store.commit('setIsOpenStore', true)
+    input.value.focus();
+    store.commit("setIsOpenStore", true);
   }
-}
+};
 
 const handleClear = () => {
-  store.commit('setIsOpenStore', false)
-  store.commit('updateVoiceSearchText', '')
-  figureVoice.value.style.opacity = '0'
-}
+  store.commit("setIsOpenStore", false);
+  store.commit("updateVoiceSearchText", "");
+  figureVoice.value.style.opacity = "0";
+};
 
 const handleInput = (event) => {
-  store.commit('updateVoiceSearchText', event.target.value)
-  
-}
+  store.commit("updateVoiceSearchText", event.target.value);
+};
 
 const handleFocus = () => {
-  store.commit('setIsOpenStore', true)
-  figureVoice.value.style.opacity = '1'
-}
+  store.commit("setIsOpenStore", true);
+  figureVoice.value.style.opacity = "1";
+};
 onMounted(() => {
-  figureVoice.value.style.opacity = '0';
+  figureVoice.value.style.opacity = "0";
 });
 
 // const handleBlur = () => {
@@ -79,7 +139,7 @@ onMounted(() => {
   transform: translateY(-50%) translateX(calc(-100% - 8px));
   width: 48px;
   height: 48px;
-  z-index: 20022222;
+  z-index: 2;
   color: grey;
 }
 
@@ -141,20 +201,19 @@ figure {
 #btn_voice:active {
   background: rgb(204, 203, 203);
   transition: all 0.1s;
-
 }
 
 #result_voice {
   padding: 0 50px;
-  background-color: rgba(248, 243, 243,0.7);
+  background-color: rgba(248, 243, 243, 0.7);
   font-weight: 250;
 }
 
 @media screen and (max-width: 500px) {
   .close-input-btn {
     position: absolute;
-    left: 20px;
-    top: 6px;
+    right: 20px;
+    top: 50%;
   }
 }
 </style>
