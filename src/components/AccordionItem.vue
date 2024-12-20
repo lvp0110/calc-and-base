@@ -90,6 +90,7 @@ const path = computed(() => route.path);
   overflow: hidden;
   transition: max-height 0.1s ease-in-out, opacity 0.1s ease-in-out;
 }
+
 @media screen and (min-width: 1024px) and (min-height: 900px) {
   .icon {
     position: relative;
