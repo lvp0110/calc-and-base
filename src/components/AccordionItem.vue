@@ -83,6 +83,7 @@ const path = computed(() => route.path);
   background: radial-gradient(circle at center, #6c757d, #bdbfc2);
   transition: all 0.4s;
 }
+
 .text {
   max-height: 0;
   opacity: 0;
