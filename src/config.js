@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const cdnUrl = import.meta.env.VITE_CDN_URL;
+const baseURL = import.meta.env.VITE_API_URL
 
 const requestInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL,
 });
 
 export const categoriesApi = {
@@ -40,6 +41,7 @@ export const constructionsApi = {
   getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
   constructionsCalculate: (brand, params) =>
     requestInstance.get(`api/v2/constr/calc/${brand}`, { params }),
+  exportExcelUrl: (brand) => `${baseURL}/api/v2/constr/calc/excel/${brand}` 
 };
 
 export const albumsApi = {
