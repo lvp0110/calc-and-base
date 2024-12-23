@@ -177,10 +177,11 @@
             />
           </div>
         </button>
-        <button
+        <a
           v-if="calculationsTableColumns.length > 0"
           class="copy-link"
-          @click="exportToFile"
+          target="_blank"
+          :href="exportExcelLink"
         >
           <div class="icon-img">
             <img
@@ -189,7 +190,7 @@
               alt=""
             />
           </div>
-        </button>
+        </a>
       </div>
 
       <!-- <div v-if="isAvailableSizes()" class="form">
@@ -297,6 +298,8 @@ const selectedSizeCode = ref(null);
 const selectedPerforation = ref(null);
 const selectedEdgeType = ref(null);
 
+const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
+
 const isSquare = ref(true);
 const square = ref("");
 const length = ref("");
@@ -311,17 +314,6 @@ const calculationsTableColumns = ref([]);
 const calculationsTableRows = ref([]);
 
 const chartResponse = ref(null);
-
-const exportToFile = () => {
-  const columns = calculationsTableColumns.value.map(({ name }) => name);
-  const rows = calculationsTableRows.value.map(({ items }) => {
-    const firstItem = items[0];
-
-    return calculationsTableColumns.value.map(({ id }) => firstItem[id]);
-  });
-
-  exportToCsv(columns, rows);
-};
 
 const handleOpenChartDialog = () => {
   openChartDialog.value = true;
@@ -401,6 +393,20 @@ const calculate = async () => {
     ({ id }) => id !== "code"
   );
   calculationsTableRows.value = response.data.data.rows;
+
+  updateExcelLink();
+};
+
+const updateExcelLink = () => {
+  const urlSearchParams = new URLSearchParams(getLocationParams());
+
+  Object.values(selectedArticuls.value).forEach((articul) => {
+    urlSearchParams.append("articuls", articul);
+  });
+
+  exportExcelLink.value = `${constructionsApi.exportExcelUrl(
+    route.params.id
+  )}?${urlSearchParams.toString()}`;
 };
 
 const changeArticul = (id) => (articul) => {
@@ -641,6 +647,8 @@ watch(
   }
 );
 
+watch(selectedArticuls, updateExcelLink);
+
 const copyLink = () => {
   navigator.clipboard.writeText(window.location.href);
 };
@@ -742,6 +750,10 @@ th {
   font-weight: bold;
   padding: 8px;
   border: 1px solid;
+}
+
+option {
+  color: gray;
 }
 
 .content {
