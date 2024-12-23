@@ -61,7 +61,7 @@ export default {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: 96%;
+  height: 95%;
 }
 
 .content {
