@@ -105,6 +105,7 @@ export default {
 <style scoped>
 swiper-container {
     flex-grow: 1;
+    width: 100%;
 }
 swiper-container::part(pagination) {
     top: 0;

@@ -103,7 +103,7 @@
           </div>
         </div>
       </div>
-      <div v-if="isAvailableSizes()" class="form">
+      <div v-if="isAvailableCalculated && isAvailableSizes()" class="form">
         <div class="form-header">
           <div>
             <button
@@ -300,6 +300,7 @@ const selectedEdgeType = ref(null);
 
 const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
 
+const isAvailableCalculated = ref(true);
 const isSquare = ref(true);
 const square = ref("");
 const length = ref("");
@@ -473,7 +474,14 @@ const fetchChart = async () => {
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
 
-  models.value = response.data.data;
+  // FIXME: Убрать старую реализацию
+  if (Array.isArray(response.data.data)) {
+    models.value = response.data.data
+  } else {
+    models.value = response.data.data.models_list;
+    isAvailableCalculated.value = response.data.data.is_calculated
+  }
+
   selectedModelCode.value = route.query.model ?? null;
 
   square.value = route.query.square;
@@ -504,7 +512,12 @@ const selectModel = async (event) => {
 
   params.value = response.data.data;
 
-  selectedSizeCode.value = null;
+  if (response.data.data?.Sizes?.length === 1) {
+    selectedSizeCode.value = response.data.data?.Sizes?.[0]?.Code;
+  } else {
+    selectedSizeCode.value = null;
+  }
+
   selectedPerforation.value = null;
   selectedColor.value = null;
   selectedEdgeType.value = null;
@@ -522,6 +535,7 @@ const selectModelInitial = async () => {
   params.value = response.data.data;
 
   selectedSizeCode.value = route.query.size ?? null;
+
   selectedColor.value =
     params.value?.Colors?.find((color) => color.Name === route.query.color) ??
     null;
