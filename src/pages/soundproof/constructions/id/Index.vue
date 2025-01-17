@@ -66,7 +66,7 @@ import { filesApi } from "../../../../config";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { computed, ref, watch, onMounted } from "vue";
-import axios from 'axios'
+import { constructionsApi } from "../../../../config";
 
 const store = useStore();
 const route = useRoute();
@@ -90,7 +90,7 @@ const fetchMaterials = async () => {
       return 
     }
 
-    const response = await axios.get(`http://localhost:3005/api/v2/constr/mList/${route.params.id}`)
+    const response = await constructionsApi.materialsList(route.params.id)
 
     materials.value = response.data.data
   } catch {
