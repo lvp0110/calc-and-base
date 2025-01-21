@@ -41,7 +41,8 @@ export const constructionsApi = {
   getConstructions: (usage) => requestInstance.get(`api/v1/${usage}`),
   constructionsCalculate: (brand, params) =>
     requestInstance.get(`api/v2/constr/calc/${brand}`, { params }),
-  exportExcelUrl: (brand) => `${baseURL}/api/v2/constr/calc/excel/${brand}` 
+  exportExcelUrl: (brand) => `${baseURL}/api/v2/constr/calc/excel/${brand}`,
+  materialsList: (id) => requestInstance.get(`api/v2/constr/mList/${id}`),
 };
 
 export const albumsApi = {
