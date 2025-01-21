@@ -32,5 +32,8 @@ COPY ./private.key /etc/nginx/ssl/private.key
 # Копируем конфигурацию Nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
+# Открываем порты
+EXPOSE 80 443
+
 # Запуск Nginx
 CMD ["nginx", "-g", "daemon off;"]
