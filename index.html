@@ -29,7 +29,7 @@
     })
       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-    ym(96625252, "init", {
+    ym(%VITE_YM_KEY%, "init", {
       clickmap: true,
       trackLinks: true,
       accurateTrackBounce: true,
@@ -37,7 +37,7 @@
     });
   </script>
   <noscript>
-    <div><img src="https://mc.yandex.ru/watch/96625252" style="position:absolute; left:-9999px;" alt="" /></div>
+    <div><img src="https://mc.yandex.ru/watch/%VITE_YM_KEY%" style="position:absolute; left:-9999px;" alt="" /></div>
   </noscript>
   <!-- /Yandex.Metrika counter -->
   <div id="app"></div>
