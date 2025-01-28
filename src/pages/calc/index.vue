@@ -2491,9 +2491,11 @@ export default {
 
 div {
     margin: auto;
+    padding-right: 10px;
     top: 10px;
     position: relative;
     font-family: 'Montserrat', sans-serif;
+    width: 340px;
 }
 
 .content-item {

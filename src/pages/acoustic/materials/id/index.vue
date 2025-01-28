@@ -51,9 +51,9 @@ const breadcrumbs = computed(() => {
         { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
     ]
 
-    if (route.params.id) {
-        breadcrumbs.push({ title: route.params.id })
-    }
+    // if (route.params.id) {
+    //     breadcrumbs.push({ title: route.params.id })
+    // }
 
     return breadcrumbs
 })

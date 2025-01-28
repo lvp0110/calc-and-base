@@ -92,7 +92,7 @@ ul {
             display: block;
             width: 100%;
             text-align: left;
-            background: radial-gradient(circle at right, #c7ced4, #f9f9fa00);
+            background: radial-gradient(circle at right, #c7ced4, #f9f9fac1);
             transition: all .4s;
 
             &:hover {
