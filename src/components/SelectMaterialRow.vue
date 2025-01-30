@@ -2,14 +2,24 @@
   <tr>
     <td v-for="column in columns">
       <template v-if="column.id === 'name'">
-        <span v-if="items.length === 1">{{ selectedItem[column.id] }}</span>
+        <div v-if="items.length === 1">
+          {{ selectedItem[column.id] }}
+          <div
+            v-if="selectedItem.comment"
+            style="font-weight: 10px; color: gray; line-height: 1"
+          >
+            *{{ selectedItem.comment }}
+          </div>
+        </div>
         <select v-else :value="selectedArticul" @change="change">
           <option v-for="option in items" :value="option.code">
             {{ option[column.id] }}
           </option>
         </select>
       </template>
-      <span v-else>{{ selectedItem[column.id] }}</span>
+      <div v-else>
+        <div>{{ selectedItem[column.id] }}</div>
+      </div>
     </td>
   </tr>
 </template>
