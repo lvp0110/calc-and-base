@@ -10,10 +10,12 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
+
     "dev:local": "vite --mode developmentLocal",
     "dev": "vite --mode development",
     "build:stage": "vite build --mode stage",
     "build:prod": "vite build --mode production",
+
     "preview": "vite preview"
   },
   "dependencies": {

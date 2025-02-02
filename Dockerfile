@@ -25,9 +25,11 @@ RUN rm -rf /usr/share/nginx/html/*
 # Копируем готовые файлы
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+
 # Копируем сертификаты и ключи
 COPY ./certificate.crt /etc/nginx/ssl/certificate.crt 
 COPY ./private.key /etc/nginx/ssl/private.key
+
 
 # Копируем конфигурацию Nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf

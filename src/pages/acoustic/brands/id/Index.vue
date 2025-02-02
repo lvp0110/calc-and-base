@@ -302,11 +302,13 @@ const types = ref([]);
 
 const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
 
+
 const isAvailableCalculated = computed(
   () =>
     models.value.find(({ code }) => code === selectedModelCode.value)
       ?.is_calculated
 );
+
 const isSquare = ref(true);
 const square = ref("");
 const length = ref("");
@@ -490,7 +492,9 @@ const fetchChart = async () => {
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
 
+
   models.value = response.data.data.models_list;
+
 
   selectedModelCode.value = route.query.model ?? null;
 
@@ -523,8 +527,10 @@ const selectModel = async (event) => {
 
   params.value = response.data.data;
 
+
   if (response.data.data?.sizes?.length === 1) {
     selectedSizeCode.value = response.data.data?.sizes?.[0]?.code;
+
   } else {
     selectedSizeCode.value = null;
   }
