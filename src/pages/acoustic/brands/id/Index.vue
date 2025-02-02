@@ -32,14 +32,14 @@
           @change="selectModel"
         >
           <option value="null" disabled>Выбрать модель</option>
-          <option v-for="model in models" :value="model.Code">
-            {{ model.Name }}
+          <option v-for="model in models" :value="model.code">
+            {{ model.name }}
           </option>
         </select>
       </div>
 
       <div class="select-container colorsizes">
-        <div v-if="params.Sizes?.length > 0" class="select-wrapper size">
+        <div v-if="params.sizes?.length > 0" class="select-wrapper size">
           <select
             class="form-select select-descript"
             :class="{ selected: selectedSizeCode }"
@@ -48,17 +48,17 @@
             @change="selectSize($event)"
           >
             <option value="null" disabled>Размеры</option>
-            <option v-for="size in params.Sizes" :value="size.Code">
-              {{ `${size.LenX}/${size.LenZ}/${size.LenY} мм` }}
+            <option v-for="size in params.sizes" :value="size.code">
+              {{ `${size.len_x}/${size.len_z}/${size.len_y} мм` }}
             </option>
           </select>
         </div>
 
-        <div v-if="params.Colors?.length > 0" class="select-wrapper colors">
+        <div v-if="params.colors?.length > 0" class="select-wrapper colors">
           <ImageSelect
             placeholder="Цвет"
-            :value="selectedColor?.Description"
-            :items="params?.Colors"
+            :value="selectedColor?.description"
+            :items="params?.colors"
             :onSelect="selectColor"
           />
         </div>
@@ -66,39 +66,39 @@
 
       <div v-if="selectedModelCode" class="select">
         <div class="select-container perforation">
-          <div v-if="params.Perforations?.length > 0" class="select-wrapper">
+          <div v-if="params.perforations?.length > 0" class="select-wrapper">
             <ImageSelect
               placeholder="Тип перфорации"
-              :value="selectedPerforation?.Description"
-              :items="params?.Perforations"
+              :value="selectedPerforation?.description"
+              :items="params?.perforations"
               :onSelect="selectPerforation"
             />
             <img
               v-if="selectedPerforation"
               class="add-image"
-              :src="filesApi.getImageFileUrl(selectedPerforation.Img)"
-              :alt="selectedPerforation?.Name"
+              :src="filesApi.getImageFileUrl(selectedPerforation.img)"
+              :alt="selectedPerforation?.name"
             />
             <img
-              v-if="selectedPerforation && selectedPerforation.SectionImg"
+              v-if="selectedPerforation && selectedPerforation.section_img"
               class="add-image"
-              :src="filesApi.getImageFileUrl(selectedPerforation.SectionImg)"
-              :alt="selectedPerforation?.Name"
+              :src="filesApi.getImageFileUrl(selectedPerforation.section_img)"
+              :alt="selectedPerforation?.name"
             />
           </div>
 
-          <div v-if="params.EdgesTypes?.length > 0" class="select-wrapper">
+          <div v-if="params.edges_types?.length > 0" class="select-wrapper">
             <ImageSelect
               placeholder="Тип кромки"
-              :value="selectedEdgeType?.Name"
-              :items="params?.EdgesTypes"
+              :value="selectedEdgeType?.name"
+              :items="params?.edges_types"
               :onSelect="selectEdgeType"
             />
             <img
               v-if="selectedEdgeType"
               class="add-image"
-              :src="filesApi.getImageFileUrl(selectedEdgeType.Img)"
-              :alt="selectedEdgeType?.Name"
+              :src="filesApi.getImageFileUrl(selectedEdgeType.img)"
+              :alt="selectedEdgeType?.name"
             />
           </div>
         </div>
@@ -123,8 +123,9 @@
           </div>
           <label class="form-label">
             <select v-model="type">
-              <option value="wall">Стена</option>
-              <option value="ceiling">Потолок</option>
+              <option v-for="type in types" :value="type.code">
+                {{ type.name }}
+              </option>
             </select>
           </label>
         </div>
@@ -297,10 +298,17 @@ const selectedColor = ref(null);
 const selectedSizeCode = ref(null);
 const selectedPerforation = ref(null);
 const selectedEdgeType = ref(null);
+const types = ref([]);
 
 const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
 
-const isAvailableCalculated = ref(true);
+
+const isAvailableCalculated = computed(
+  () =>
+    models.value.find(({ code }) => code === selectedModelCode.value)
+      ?.is_calculated
+);
+
 const isSquare = ref(true);
 const square = ref("");
 const length = ref("");
@@ -309,7 +317,7 @@ const type = ref("wall");
 
 const openChartDialog = ref(false);
 
-const availableParamsNames = ["Colors", "EdgesTypes", "Perforations", "Sizes"];
+const availableParamsNames = ["colors", "edges_types", "perforations", "sizes"];
 
 const calculationsTableColumns = ref([]);
 const calculationsTableRows = ref([]);
@@ -372,14 +380,24 @@ const resetForm = () => {
 
 const validateForm = () => {
   if (isSquare.value) {
-    return square.value !== "";
+    return square.value != null && square.value !== "";
   } else {
-    return length.value !== "" && height.value !== "";
+    return (
+      length.value != null &&
+      length.value !== "" &&
+      height.value != null &&
+      height.value !== ""
+    );
   }
 };
 
 const calculate = async () => {
   if (!validateForm()) {
+    return;
+  }
+  console.log(isSquare.value, square.value, length.value, height.value);
+
+  if (!(isAvailableCalculated && isAvailableSizes())) {
     return;
   }
 
@@ -434,21 +452,21 @@ const selectElement = computed(() =>
 );
 
 const colorizedImage = () => {
-  if (selectedColor.value && selectedColor.value.Img) {
-    return selectedColor.value.Img;
+  if (selectedColor.value && selectedColor.value.img) {
+    return selectedColor.value.img;
   }
 
-  return selectElement.value.Img;
+  return selectElement.value.img;
 };
 
 const modelImages = () => {
   if (selectedModelCode.value) {
     const selectedModel = models.value.find(
-      (model) => model.Code === selectedModelCode.value
+      (model) => model.code === selectedModelCode.value
     );
 
     if (selectedModel) {
-      return [filesApi.getImageFileUrl(selectedModel.Img)];
+      return [filesApi.getImageFileUrl(selectedModel.img)];
     }
   }
 
@@ -474,13 +492,9 @@ const fetchChart = async () => {
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
 
-  // FIXME: Убрать старую реализацию
-  if (Array.isArray(response.data.data)) {
-    models.value = response.data.data
-  } else {
-    models.value = response.data.data.models_list;
-    isAvailableCalculated.value = response.data.data.is_calculated
-  }
+
+  models.value = response.data.data.models_list;
+
 
   selectedModelCode.value = route.query.model ?? null;
 
@@ -495,6 +509,7 @@ const fetchBrand = async () => {
   if (square.value == null && (length.value != null || height.value != null)) {
     isSquare.value = false;
   }
+
 
   if (route.query.model) {
     selectModelInitial();
@@ -512,8 +527,10 @@ const selectModel = async (event) => {
 
   params.value = response.data.data;
 
-  if (response.data.data?.Sizes?.length === 1) {
-    selectedSizeCode.value = response.data.data?.Sizes?.[0]?.Code;
+
+  if (response.data.data?.sizes?.length === 1) {
+    selectedSizeCode.value = response.data.data?.sizes?.[0]?.code;
+
   } else {
     selectedSizeCode.value = null;
   }
@@ -523,6 +540,13 @@ const selectModel = async (event) => {
   selectedEdgeType.value = null;
   calculationsTableColumns.value = [];
   calculationsTableRows.value = [];
+
+  const responseTypes = [
+    { code: "wall", name: "Стена" },
+    { code: "ceiling", name: "Потолок" }
+  ]
+  types.value = responseTypes
+  type.value = responseTypes[0]?.code
 
   resetForm();
 
@@ -537,16 +561,23 @@ const selectModelInitial = async () => {
   selectedSizeCode.value = route.query.size ?? null;
 
   selectedColor.value =
-    params.value?.Colors?.find((color) => color.Name === route.query.color) ??
+    params.value?.colors?.find((color) => color.name === route.query.color) ??
     null;
   selectedPerforation.value =
-    params.value?.Perforations?.find(
-      (perforation) => perforation.Name === route.query.perf
+    params.value?.perforations?.find(
+      (perforation) => perforation.name === route.query.perf
     ) ?? null;
   selectedEdgeType.value =
-    params.value?.EdgesTypes?.find(
-      (edgeType) => edgeType.Name === route.query.edge
+    params.value?.edges_types?.find(
+      (edgeType) => edgeType.name === route.query.edge
     ) ?? null;
+
+  const responseTypes = [
+    { code: "wall", name: "Стена" },
+    { code: "ceiling", name: "Потолок" }
+  ]
+  types.value = responseTypes
+  type.value = responseTypes[0]?.code
 
   calculate();
 };
@@ -561,10 +592,10 @@ const selectColor = (color) => {
 
 const selectedModelDescription = () => {
   const selectedModel = models.value.find(
-    (model) => model.Code === selectedModelCode.value
+    (model) => model.code === selectedModelCode.value
   );
 
-  return selectedModel ? selectedModel.Description : "";
+  return selectedModel ? selectedModel.description : "";
 };
 
 const selectSize = (event) => {
@@ -603,15 +634,15 @@ const getLocationParams = () => {
   }
 
   if (selectedColor.value) {
-    query.color = selectedColor.value.Name;
+    query.color = selectedColor.value.name;
   }
 
   if (selectedPerforation.value) {
-    query.perf = selectedPerforation.value.Name;
+    query.perf = selectedPerforation.value.name;
   }
 
   if (selectedEdgeType.value) {
-    query.edge = selectedEdgeType.value.Name;
+    query.edge = selectedEdgeType.value.name;
   }
 
   if (type.value) {

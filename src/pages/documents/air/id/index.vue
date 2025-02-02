@@ -8,48 +8,50 @@
       <div v-if="selectElement">
         <!-- <p class="title-hookup">{{ selectElement.Name }}</p> -->
         <p>{{ selectElement.Description }}</p>
-        
-        <hr>
-        <iframe class="pdf-cert" :src="filesApi.getCertificateFileUrl(selectElement.File)"></iframe>
+
+        <hr />
+        <iframe
+          class="pdf-cert"
+          :src="filesApi.getCertificateFileUrl(selectElement.File)"
+        ></iframe>
       </div>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router';
-import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
-import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
-import List from '../../../../components/List/List.vue';
-import { filesApi }from '../../../../config.js';
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
+import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
+import List from "../../../../components/List/List.vue";
+import { filesApi } from "../../../../config.js";
 
-const store = useStore()
+const store = useStore();
 const route = useRoute();
 
-store.dispatch('getAlbums')
+store.dispatch("getAlbums");
 
-const selectAlbums = computed(() => store.getters['selectAlbums'])
-const selectElement = computed(() => store.getters['selectAlbums'].find(({ Name }) => Name === route.params.id))
+const selectAlbums = computed(() => store.getters["selectAlbums"]);
+const selectElement = computed(() =>
+  store.getters["selectAlbums"].find(({ Name }) => Name === route.params.id)
+);
 
 const breadcrumbs = computed(() => {
-    const breadcrumbs = [
-        { link: '/documents', title: '...' },
-        { link: '/documents/air', title: 'АЛЬБОМЫ' },
-    ]
+  const breadcrumbs = [
+    { link: "/documents", title: "..." },
+    { link: "/documents/air", title: "АЛЬБОМЫ" },
+    { title: selectElement.value?.Description },
+  ];
 
-    if (route.params.id) {
-        breadcrumbs.push({ title: route.params.id })
-    }
-
-    return breadcrumbs
-})
+  return breadcrumbs;
+});
 </script>
 
 <style scoped>
 p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
   font-size: 14px;
   text-transform: uppercase;
