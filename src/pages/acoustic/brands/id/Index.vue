@@ -131,16 +131,16 @@
         </div>
         <div class="form-content">
           <label v-if="isSquare" class="form-label">
-            <span>Площадь</span>
+            <span>Площадь, м<sup>2</sup></span>
             <input type="number" inputmode="decimal" v-model="square" />
           </label>
           <template v-else>
             <label class="form-label">
-              <span>Длина</span>
+              <span>Длина, м</span>
               <input type="number" inputmode="decimal" v-model="length" />
             </label>
             <label class="form-label">
-              <span>Высота (Ширина)</span>
+              <span>Высота (Ширина), м</span>
               <input type="number" inputmode="decimal" v-model="height" />
             </label>
           </template>
@@ -510,7 +510,6 @@ const fetchBrand = async () => {
     isSquare.value = false;
   }
 
-
   if (route.query.model) {
     selectModelInitial();
   }
@@ -543,10 +542,10 @@ const selectModel = async (event) => {
 
   const responseTypes = [
     { code: "wall", name: "Стена" },
-    { code: "ceiling", name: "Потолок" }
-  ]
-  types.value = responseTypes
-  type.value = responseTypes[0]?.code
+    { code: "ceiling", name: "Потолок" },
+  ];
+  types.value = responseTypes;
+  type.value = responseTypes[0]?.code;
 
   resetForm();
 
@@ -574,10 +573,10 @@ const selectModelInitial = async () => {
 
   const responseTypes = [
     { code: "wall", name: "Стена" },
-    { code: "ceiling", name: "Потолок" }
-  ]
-  types.value = responseTypes
-  type.value = responseTypes[0]?.code
+    { code: "ceiling", name: "Потолок" },
+  ];
+  types.value = responseTypes;
+  type.value = responseTypes[0]?.code;
 
   calculate();
 };

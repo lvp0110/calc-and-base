@@ -1,6 +1,6 @@
 <template>
   <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
-  <SidebarLayout :hasContent="true">
+  <SidebarLayout :hasContent="route.params.id">
     <template #sidebar>
       <List :items="selectMaterialsWithCerts" to="/documents/certificates" />
     </template>

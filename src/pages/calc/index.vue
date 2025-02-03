@@ -283,7 +283,7 @@
         constrSent.Openings.length }}
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
-                            cписок
+                            список
                             проемов</th>
                     </tr>
                     <tr>
@@ -297,9 +297,9 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
+                            
                             </input>
                         </td>
                     </tr>
@@ -380,9 +380,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -464,9 +463,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -552,9 +550,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -719,9 +716,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -807,9 +803,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -891,9 +886,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -978,9 +972,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -1063,9 +1056,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -1150,9 +1142,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -1236,9 +1227,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -1325,9 +1315,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
@@ -1397,9 +1386,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
+                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
                             <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
                             </input>
                         </td>
                     </tr>
