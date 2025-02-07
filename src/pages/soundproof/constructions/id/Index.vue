@@ -25,7 +25,7 @@
             @click="toggleActive('img2')"
           />
         </div>
-        <p style="margin-top: 16px;">Характеристики:</p>
+        <p style="margin-top: 16px">Характеристики:</p>
         <ul class="ul-descript">
           <li v-if="selectElement.SoundIndex != 'неопределен'">
             Индекс звукоизоляции воздушного шума, Rw =
@@ -45,7 +45,6 @@
             </RouterLink>
           </li>
         </ul>
-        
       </div>
 
       <span class="span"> {{ selectElement.Specification }}</span>
@@ -71,7 +70,7 @@ import { constructionsApi } from "../../../../config";
 const store = useStore();
 const route = useRoute();
 
-const materials = ref([])
+const materials = ref([]);
 
 store.dispatch("getAllIsolationConstr");
 
@@ -87,19 +86,17 @@ const selectElement = computed(() =>
 const fetchMaterials = async () => {
   try {
     if (!route.params.id) {
-      return 
+      return;
     }
 
-    const response = await constructionsApi.materialsList(route.params.id)
+    const response = await constructionsApi.materialsList(route.params.id);
 
-    materials.value = response.data.data
-  } catch {
+    materials.value = response.data.data;
+  } catch {}
+};
 
-  }
-}
-
-watch(() => route.params.id, fetchMaterials)
-onMounted(fetchMaterials)
+watch(() => route.params.id, fetchMaterials);
+onMounted(fetchMaterials);
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
@@ -131,7 +128,11 @@ function toggleActive(img) {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
-
+@media (prefers-color-scheme: dark) {
+  * {
+    color: white;
+  }
+}
 ul li {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
@@ -155,6 +156,7 @@ ul li {
   padding: 10px;
   text-align: center;
 }
+
 
 .title-construction:hover {
   background: radial-gradient(circle at center, #d7dadf62, #8992998c);

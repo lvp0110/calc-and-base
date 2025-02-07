@@ -50,7 +50,11 @@ const { sections } = defineProps(["sections"]);
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
-
+@media (prefers-color-scheme: dark) {
+  * {
+    color: white;   
+  }
+}
 .title-materials {
   text-transform: uppercase;
   width: 100%;

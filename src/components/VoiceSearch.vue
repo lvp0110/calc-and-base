@@ -208,7 +208,14 @@ figure {
   background-color: rgba(248, 243, 243, 0.7);
   font-weight: 250;
 }
-
+@media (prefers-color-scheme: dark) {
+  .close-input-btn {
+    color: rgb(210, 205, 205);
+  }
+  #result_voice {
+    background-color: rgba(236, 231, 231, 0.26);
+  }
+}
 @media screen and (max-width: 500px) {
   .close-input-btn {
     position: absolute;

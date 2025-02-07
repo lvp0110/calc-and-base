@@ -19,6 +19,7 @@ const { breadcrumbs } = defineProps(['breadcrumbs', 'hiddenSearch'])
 </script>
 
 <style scoped>
+
 h6 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
