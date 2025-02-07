@@ -1,6 +1,6 @@
 <template>
   <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
-  <SidebarLayout :hasContent="true">
+  <SidebarLayout :hasContent="route.params.id">
     <template #sidebar>
       <List :items="selectMaterialsWithCerts" to="/documents/certificates" />
     </template>
@@ -77,7 +77,11 @@ p {
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
 }
-
+@media (prefers-color-scheme: dark) {
+  p {
+    color: black; 
+  }
+}
 li {
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;

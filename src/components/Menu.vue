@@ -65,16 +65,29 @@ ul li a {
   display: block;
   width: 100%;
   text-align: center;
-  background: radial-gradient(circle at right, #acb2b9d2, #e2e2e9ec);
+  background: radial-gradient(circle at right, #9b9fa3d2, #e2e2e9ec);
   transition: all 0.4s;
 }
-
+@media (prefers-color-scheme: dark) {
+  ul li a{
+    color: #aeb6bd;
+    background: radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
+    opacity: .9;
+  }
+}
 ul li a:hover {
   background: radial-gradient(circle at left, #acb2b9, #e2e2e9ec);
   transition: all 0.4s;
   color: white;
   border: solid 1px rgb(173, 170, 170);
 }
+@media (prefers-color-scheme: dark) {
+  ul li a:hover {
+    color: rgb(70, 69, 69);
+    background: radial-gradient(circle at center, black ,rgba(255, 255, 255, 0.619));
+  }
+}
+
 @media screen and (min-width: 1024px) {
   ul li a {
     width: auto;

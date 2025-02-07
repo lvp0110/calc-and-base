@@ -115,7 +115,11 @@ const toggleFullScreen = () => {
 .block-description {
   margin-top: 15px;
 }
-
+@media (prefers-color-scheme: dark) {
+  .block-description {
+    color: black; 
+  }
+}
 .title {
   margin-top: 15px;
   width: 100%;

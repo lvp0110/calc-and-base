@@ -86,7 +86,11 @@ p {
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
 }
-
+@media (prefers-color-scheme: dark) {
+  p {
+    color: black; 
+  }
+}
 .content {
   flex-grow: 1;
   overflow: hidden;
