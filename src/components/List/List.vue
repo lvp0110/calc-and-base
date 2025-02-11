@@ -175,7 +175,7 @@ ul {
       }
 
       @media (prefers-color-scheme: dark) {
-        color: rgb(209, 206, 206);
+        color: aliceblue;
         background: radial-gradient(circle at right, black, gray);
         opacity: .8;
       }
