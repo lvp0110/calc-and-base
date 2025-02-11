@@ -55,7 +55,6 @@ export default {
 </script>
 
 <style>
-
 .main {
   padding: 8px 8px 83px 8px;
   display: flex;
@@ -65,7 +64,7 @@ export default {
   height: calc(100% - 70px);
 }
 @media (prefers-color-scheme: dark) {
-  .main{
+  .main {
     color: rgb(186, 186, 186);
   }
 }
@@ -95,7 +94,9 @@ export default {
 
 body {
   background: url("https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg");
-  background-size: 200%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   margin: 0px;
   user-select: none;
   height: 100vh;
@@ -105,7 +106,9 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     background: url("https://db.acoustic.ru:3005/api/v1/constr/black_back_ground.png");
-    background-size: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     margin: 0px;
     user-select: none;
     height: 100vh;
