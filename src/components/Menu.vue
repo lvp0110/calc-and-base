@@ -38,8 +38,11 @@ const generalCategories = computed(() => store.getters["generalCategories"]);
   display: flex;
   flex-direction: column;
   overflow: auto;
-}
 
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
 a {
   text-decoration: none;
 }
@@ -68,20 +71,20 @@ ul li a {
   background: radial-gradient(circle at right, #9b9fa3d2, #e2e2e9ec);
   transition: all 0.4s;
 }
-@media (prefers-color-scheme: dark) {
-  ul li a{
-    color: #aeb6bd;
-    background: radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
-    opacity: .9;
-  }
-}
+
 ul li a:hover {
   background: radial-gradient(circle at left, #acb2b9, #e2e2e9ec);
   transition: all 0.4s;
   color: white;
   border: solid 1px rgb(173, 170, 170);
 }
+
 @media (prefers-color-scheme: dark) {
+  ul li a{
+    color: rgb(206, 211, 215);
+    background: radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
+    opacity: .9;
+  }
   ul li a:hover {
     color: rgb(70, 69, 69);
     background: radial-gradient(circle at center, black ,rgba(255, 255, 255, 0.619));
@@ -98,7 +101,7 @@ ul li a:hover {
   }
 }
 
-@media screen and (max-width: 370px) and (min-height: 500px) {
+@media screen and (max-width: 370px) and (min-height: 700px) {
   .menu-container {
     overflow: hidden;
   }

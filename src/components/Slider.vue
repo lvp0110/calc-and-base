@@ -34,6 +34,12 @@
             Класс пожарной опасности: {{ slide.Indicators }}
           </li>
         </ul>
+        <a
+          :href="filesApi.getCertificateFileUrl(slide.File)"
+          target="_blank"
+          @click.stop
+          >Посмотреть</a
+        >
         <div class="pdf-container">
           <iframe
             class="pdf-cert"
@@ -207,7 +213,7 @@ ul {
     color: rgb(160, 157, 157);
     border: solid 2px rgb(175, 175, 175);
   }
-  swiper-container::part(bullet){
+  swiper-container::part(bullet) {
     background: #f8f9fa;
   }
 }

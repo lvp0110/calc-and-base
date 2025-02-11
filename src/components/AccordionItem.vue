@@ -93,14 +93,7 @@ const path = computed(() => route.path);
   transition: all 0.4s;
 }
 
-.text {
-  max-height: 0;
-  opacity: 0;
-  
-  transition: max-height 0.1s ease-in-out, opacity 0.1s ease-in-out;
-}
-
-@media screen and (min-width: 1024px) and (min-height: 850px) {
+@media screen and (min-width: 1024px) and (min-height: 700px) {
   
   .icon {
     position: relative;
@@ -125,14 +118,33 @@ const path = computed(() => route.path);
   .h5 {
     width: 300px;
   }
+  
+}
+
+@media screen and (max-height: 700px){
+  .button {
+    min-height: 80px;
+    margin-top: 4px;
+  }
+  .icon {
+    width: 80px;
+  }
+}
+
+.text {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) and (min-height: 700px) {
   .text {
-    display: flex;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
     width: 100%;
     height: 80%;
-    text-align: left;
-    align-items: center;
+    text-align: left; 
     font-weight: 100;
-    font-size: 15px;
+    font-size: 13px;
     text-transform: uppercase;
     color: white;
     opacity: 1;
@@ -144,18 +156,5 @@ const path = computed(() => route.path);
     margin-bottom: 8px;
   }
 }
-@media screen and (max-width: 1250px) and (min-height: 950px) {
-  .text {
-    font-size: 15px;
-  }
-}
-@media screen and (max-height: 700px){
-  .button {
-    min-height: 80px;
-    margin-top: 4px;
-  }
-  .icon {
-    width: 80px;
-  }
-}
+
 </style>

@@ -119,6 +119,9 @@ const toggleFullScreen = () => {
   .block-description {
     color: black; 
   }
+  .list-materials a {
+  color: rgb(202, 208, 211);
+}
 }
 .title {
   margin-top: 15px;
