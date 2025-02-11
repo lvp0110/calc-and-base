@@ -19,6 +19,7 @@ const { hasContent } = defineProps(["hasContent"]);
 </script>
 
 <style scoped>
+
 .page {
   display: flex;
   flex-grow: 1;

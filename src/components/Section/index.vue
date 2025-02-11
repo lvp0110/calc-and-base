@@ -74,8 +74,14 @@ const { title, image } = defineProps(["title", "image"]);
   z-index: 1111;
   position: relative;
 }
+
 .section:hover {
   color: black;
   background: radial-gradient(#e0e4e7, #ffffff8d);
+}
+@media (prefers-color-scheme: dark) {
+  .section:hover {
+    background: radial-gradient(#e0e4e72a, #ffffff2b);
+  }
 }
 </style>

@@ -31,6 +31,7 @@ const handleChange = (event) => {
 </script>
 
 <style scoped>
+
 .multiselect-container {
   overflow: auto;
   padding: 16px;

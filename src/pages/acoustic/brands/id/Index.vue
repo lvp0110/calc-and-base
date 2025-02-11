@@ -255,9 +255,13 @@
           />
         </table>
         <p style="color: orange">
-          Внимание! 
-          <span style="color: gray;">Представленные в таблице расчеты материалов 
-            производятся по коэффициентам и имеют приближенный характер.</span> 
+
+          Внимание!
+          <span style="color: gray"
+            >Представленные в таблице расчеты материалов производятся по
+            коэффициентам и имеют приближенный характер.</span
+          >
+
         </p>
       </div>
     </div>
@@ -306,7 +310,6 @@ const selectedEdgeType = ref(null);
 const types = ref([]);
 
 const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
-
 
 const isAvailableCalculated = computed(
   () =>
@@ -497,9 +500,7 @@ const fetchChart = async () => {
 const fetchBrand = async () => {
   const response = await modelsApi.getModelsByBrand(route.params.id);
 
-
   models.value = response.data.data.models_list;
-
 
   selectedModelCode.value = route.query.model ?? null;
 
@@ -531,10 +532,8 @@ const selectModel = async (event) => {
 
   params.value = response.data.data;
 
-
   if (response.data.data?.sizes?.length === 1) {
     selectedSizeCode.value = response.data.data?.sizes?.[0]?.code;
-
   } else {
     selectedSizeCode.value = null;
   }
@@ -714,7 +713,7 @@ const copyLink = () => {
   width: 100%;
   aspect-ratio: 500 / 270;
   object-fit: contain;
-} */
+} #535c64*/
 
 .form {
   display: flex;
@@ -740,7 +739,22 @@ const copyLink = () => {
   text-transform: uppercase;
   font-size: 14px;
 }
+@media (prefers-color-scheme: dark) {
+  .form {
+    box-shadow: 5px 5px 2px #535c64;
+  }
+  .form-toggle {
+    color: rgb(173, 170, 170);
+  }
 
+  .add-image {
+    background-color: lightgray;
+  }
+
+  .select-descript {
+    color: aliceblue;
+  }
+}
 .form-toggle--active {
   background-color: rgb(36, 140, 185);
   color: white;
@@ -848,6 +862,7 @@ option {
 
 .models {
   margin-bottom: 4px;
+  background: radial-gradient(circle at right, #f9f9fa00, #8e9092);
 }
 
 .size {
@@ -912,6 +927,11 @@ option {
   margin-bottom: 16px;
 }
 
+.colorsizes {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (min-width: 1024px) {
   .left {
     min-width: 500px;
@@ -927,11 +947,6 @@ option {
     flex-direction: row;
     justify-content: space-between;
     gap: 16px;
-  }
-
-  .colorsizes {
-    display: flex;
-    justify-content: space-between;
   }
 }
 </style>

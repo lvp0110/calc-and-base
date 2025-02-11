@@ -13,48 +13,49 @@
         <line x1="51" y1="34" x2="30" y2="50" stroke="darkgrey" stroke-width="4" />
         <line x1="51" y1="34" x2="70" y2="50" stroke="darkgrey" stroke-width="4" />
       </svg> -->
-    <img src="/back_icon.svg" alt="">
+    <img src="/back_icon.svg" alt="" />
   </button>
 </template>
 
 <script>
-import TabBar from './components/TabBar.vue'
-import VoiceSearch from './components/VoiceSearch.vue';
+import TabBar from "./components/TabBar.vue";
+import VoiceSearch from "./components/VoiceSearch.vue";
 
 export default {
   data() {
     return {
-      isHiddenScrollUpButton: true
-    }
+      isHiddenScrollUpButton: true,
+    };
   },
   components: {
     TabBar,
-    VoiceSearch
+    VoiceSearch,
   },
   created() {
-    this.$store.dispatch('getMaterials')
-    this.$store.dispatch('getMaterialsAc')
-    this.$store.dispatch('getMaterialsVi')
-    this.$store.dispatch('getMaterialsWithCerts')
-    this.$store.dispatch('getAcousticCategories')
-    this.$store.dispatch('getTechCards')
-    this.$store.dispatch('getBrandsInstalSchemas')
-    this.$store.dispatch('getAlbums')
-    this.$store.dispatch('getGeneralCategories')
+    this.$store.dispatch("getMaterials");
+    this.$store.dispatch("getMaterialsAc");
+    this.$store.dispatch("getMaterialsVi");
+    this.$store.dispatch("getMaterialsWithCerts");
+    this.$store.dispatch("getAcousticCategories");
+    this.$store.dispatch("getTechCards");
+    this.$store.dispatch("getBrandsInstalSchemas");
+    this.$store.dispatch("getAlbums");
+    this.$store.dispatch("getGeneralCategories");
 
     window.onscroll = () => {
-      this.isHiddenScrollUpButton = window.scrollY < 250
+      this.isHiddenScrollUpButton = window.scrollY < 250;
     };
   },
   methods: {
     scrollTop() {
       window.scrollTo(0, 0);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
+
 .main {
   padding: 8px 8px 83px 8px;
   display: flex;
@@ -63,7 +64,11 @@ export default {
   overflow: hidden;
   height: calc(100% - 70px);
 }
-
+@media (prefers-color-scheme: dark) {
+  .main{
+    color: rgb(186, 186, 186);
+  }
+}
 .content {
   flex-grow: 1;
   display: flex;
@@ -89,12 +94,23 @@ export default {
 }
 
 body {
-  background: url('https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg');
+  background: url("https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg");
   background-size: 200%;
   margin: 0px;
   user-select: none;
   height: 100vh;
   overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: url("https://db.acoustic.ru:3005/api/v1/constr/black_back_ground.png");
+    background-size: 100%;
+    margin: 0px;
+    user-select: none;
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 
 #app {
@@ -145,7 +161,6 @@ body {
   border: none;
   width: 70px;
   rotate: 90deg;
-
 }
 
 @media screen and (min-width: 500px) {
@@ -158,7 +173,6 @@ body {
     border: none;
     width: 70px;
     rotate: 90deg;
-
   }
 }
 </style>
