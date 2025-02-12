@@ -79,11 +79,7 @@ p {
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
 }
-@media (prefers-color-scheme: dark) {
-  p {
-    color: black; 
-  }
-}
+
 li {
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
@@ -94,5 +90,11 @@ li {
   width: 100%;
   height: 100%;
   margin-top: 50px;
+}
+
+@media (prefers-color-scheme: dark) {
+  p {
+    color: black; 
+  }
 }
 </style>

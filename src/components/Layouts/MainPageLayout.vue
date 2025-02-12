@@ -63,11 +63,4 @@ h6 {
     font-size: 15px;
 }
 
-/* @media screen and (max-width: 768px) {
-
-    .back {
-        color: white;
-        font-size: 15px;
-    }
-} */
 </style>

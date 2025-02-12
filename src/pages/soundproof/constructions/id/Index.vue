@@ -206,6 +206,7 @@ a:hover + .ellipses {
   transform: translateX(-50%) translateY(50%) scale(2);
   border-radius: 3px;
 }
+
 @media (prefers-color-scheme: dark) {
   a {
     color: rgb(209, 206, 206);
@@ -214,6 +215,7 @@ a:hover + .ellipses {
     color: aliceblue;
   }
 }
+
 @media screen and (min-width: 1024px) {
   .img1,
   .img2 {

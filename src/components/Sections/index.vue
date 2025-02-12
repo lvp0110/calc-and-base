@@ -93,15 +93,5 @@ img {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-/* @media screen and (min-width: 768px) {
-    .img {
-        width: 50%;
-    }
-}
 
-@media screen and (min-width: 1024px) {
-    .img {
-        width: 40%;
-    }
-} */
 </style>

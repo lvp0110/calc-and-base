@@ -215,6 +215,9 @@ figure {
   #result_voice {
     background-color: rgba(236, 231, 231, 0.26);
   }
+  .search__open {
+    color: rgb(210, 205, 205);
+  }
 }
 @media screen and (max-width: 500px) {
   .close-input-btn {

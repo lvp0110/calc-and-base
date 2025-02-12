@@ -57,7 +57,11 @@ const { open, onClose } = defineProps(["open", "onClose"]);
   display: flex;
   flex-direction: column;
 }
-
+@media (prefers-color-scheme: dark) {
+  .dialog {
+    color: rgb(95, 94, 94);
+  }  
+}
 @media screen and (min-width: 1024px) {
   .dialog {
     border-radius: 8px;

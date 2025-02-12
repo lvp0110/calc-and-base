@@ -709,12 +709,6 @@ const copyLink = () => {
   align-items: center;
 }
 
-/* .model-image {
-  width: 100%;
-  aspect-ratio: 500 / 270;
-  object-fit: contain;
-} #535c64*/
-
 .form {
   display: flex;
   flex-direction: column;
@@ -739,22 +733,7 @@ const copyLink = () => {
   text-transform: uppercase;
   font-size: 14px;
 }
-@media (prefers-color-scheme: dark) {
-  .form {
-    box-shadow: 5px 5px 2px #535c64;
-  }
-  .form-toggle {
-    color: rgb(173, 170, 170);
-  }
 
-  .add-image {
-    background-color: lightgray;
-  }
-
-  .select-descript {
-    color: aliceblue;
-  }
-}
 .form-toggle--active {
   background-color: rgb(36, 140, 185);
   color: white;
@@ -930,6 +909,23 @@ option {
 .colorsizes {
   display: flex;
   justify-content: space-between;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form {
+    box-shadow: 5px 5px 2px #535c64;
+  }
+  .form-toggle {
+    color: rgb(173, 170, 170);
+  }
+
+  .add-image {
+    background-color: lightgray;
+  }
+
+  .select-descript {
+    color: aliceblue;
+  }
 }
 
 @media screen and (min-width: 1024px) {

@@ -49,10 +49,10 @@ const path = computed(() => route.path);
   color: #fff;
   text-align: left;
   background: linear-gradient(
-      to right,
-      rgba(10, 115, 160, 0.8),
-      rgba(78, 139, 154, 0.829)
-    );
+    to right,
+    rgba(10, 115, 160, 0.8),
+    rgba(78, 139, 154, 0.829)
+  );
   border: 0;
   overflow-anchor: none;
   border-radius: 10px;
@@ -72,15 +72,17 @@ const path = computed(() => route.path);
 .section {
   padding: 16px;
 }
+
 @media (prefers-color-scheme: dark) {
   .section {
     color: white;
     background: radial-gradient(circle at center, #c7ced464, #f9f9fa01);
   }
-  .button{
-    opacity: .8;
+  .button {
+    opacity: 0.8;
   }
 }
+
 .section a {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
@@ -94,7 +96,6 @@ const path = computed(() => route.path);
 }
 
 @media screen and (min-width: 1024px) and (min-height: 700px) {
-  
   .icon {
     position: relative;
     width: 100px;
@@ -109,7 +110,6 @@ const path = computed(() => route.path);
       rgba(10, 115, 160, 0.9),
       rgba(78, 139, 154, 0.829)
     );
-    
   }
   button:active {
     background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
@@ -118,10 +118,9 @@ const path = computed(() => route.path);
   .h5 {
     width: 300px;
   }
-  
 }
 
-@media screen and (max-height: 700px){
+@media screen and (max-height: 700px) {
   .button {
     min-height: 80px;
     margin-top: 4px;
@@ -137,12 +136,12 @@ const path = computed(() => route.path);
 
 @media screen and (min-width: 1024px) and (min-height: 700px) {
   .text {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 80%;
-    text-align: left; 
+    text-align: left;
     font-weight: 100;
     font-size: 13px;
     text-transform: uppercase;
@@ -156,5 +155,4 @@ const path = computed(() => route.path);
     margin-bottom: 8px;
   }
 }
-
 </style>

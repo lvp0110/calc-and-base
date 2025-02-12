@@ -109,7 +109,7 @@ const dialogWindow = () => {
   padding: 0;
   margin: 0;
 }
-/*  */
+
 @media screen and (min-width: 500px) {
   .tabbar {
     height: auto;

@@ -116,14 +116,7 @@ const toggleFullScreen = () => {
 .block-description {
   margin-top: 15px;
 }
-@media (prefers-color-scheme: dark) {
-  .block-description {
-    color: black; 
-  }
-  .list-materials a {
-  color: rgb(202, 208, 211);
-}
-}
+
 .title {
   margin-top: 15px;
   width: 100%;
@@ -171,6 +164,7 @@ span {
 section {
   display: none;
 }
+
 @media (prefers-color-scheme: dark) {
   a:hover {
   color: white;
@@ -181,35 +175,12 @@ a:hover + .ellipses {
 p {
   color: rgb(58, 57, 57);
 }
+.block-description {
+    color: black; 
+  }
+  .list-materials a {
+  color: rgb(202, 208, 211);
 }
-/* @media screen and (max-width: 500px) {
-    section img {
-        width: 30px;
-    }
+}
 
-    section {
-        display: block;
-        position: absolute;
-        color: aliceblue;
-        z-index: 111;
-        width: 15%;
-        height: 8%;
-        padding: 10px;
-    }
-
-    .slider-position {
-        transition: transform 0.5s, width 0.5s, height 0.5s;
-    }
-
-    .slider-position.full-screen {
-        transform: rotate(90deg);
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 100vh;
-        max-height: 100vw;
-        transform-origin: center;
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
-} */
 </style>

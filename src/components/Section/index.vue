@@ -20,11 +20,6 @@ const { title, image } = defineProps(["title", "image"]);
   padding-right: 5px;
 }
 
-/* .section:hover> :not(:hover) {
-  filter:blur(5px);
-  opacity: .8;
-} */
-
 .section:nth-child(-n + 2)::after {
   border: none;
 }
@@ -58,7 +53,6 @@ const { title, image } = defineProps(["title", "image"]);
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  /* background-color: rgb(32, 145, 197); */
   background: linear-gradient(
       to right,
       rgba(10, 115, 160, 0.8),
@@ -84,6 +78,7 @@ const { title, image } = defineProps(["title", "image"]);
   color: black;
   background: radial-gradient(#e0e4e7, #ffffff8d);
 }
+
 @media (prefers-color-scheme: dark) {
   .section:hover {
     background: radial-gradient(#e0e4e72a, #ffffff2b);
