@@ -30,7 +30,12 @@ h6 {
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
-    background-color: rgb(36, 140, 185);
+    /* background-color: rgb(36, 140, 185); */
+    background: linear-gradient(
+      to right,
+      rgba(10, 115, 160, 0.8),
+      rgba(78, 139, 154, 0.829)
+    );
     color: white;
     height: 42px;
     border-radius: 5px;

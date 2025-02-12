@@ -36,7 +36,7 @@ const { title, image } = defineProps(["title", "image"]);
   right: auto;
   width: 0;
   height: 0;
-  border-left: 2px solid rgb(32, 145, 197);
+  border-left: 2px solid rgba(10, 115, 160, 0.8);
   transition: height 0.5s, bottom 0.5s, right 0.5s, widht 0.5s;
 }
 
@@ -58,7 +58,12 @@ const { title, image } = defineProps(["title", "image"]);
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  background-color: rgb(32, 145, 197);
+  /* background-color: rgb(32, 145, 197); */
+  background: linear-gradient(
+      to right,
+      rgba(10, 115, 160, 0.8),
+      rgba(78, 139, 154, 0.829)
+    );
   color: white;
 }
 

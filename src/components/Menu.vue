@@ -86,7 +86,7 @@ ul li a:hover {
     opacity: .9;
   }
   ul li a:hover {
-    color: rgb(70, 69, 69);
+    color: rgb(184, 181, 181);
     background: radial-gradient(circle at center, black ,rgba(255, 255, 255, 0.619));
   }
 }

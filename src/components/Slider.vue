@@ -156,11 +156,11 @@ swiper-container::part(pagination) {
 
 swiper-container::part(bullet),
 swiper-container::part(bullet-active) {
-  border-right: solid 2px rgb(245, 242, 242);
+  /* border-right: solid 2px rgb(245, 242, 242); */
   border-radius: 5px;
   flex-grow: 1;
   height: 100%;
-  margin: 0;
+  margin: 1px;
   /* font-weight: bold; */
   font-size: 12px;
   opacity: 1;

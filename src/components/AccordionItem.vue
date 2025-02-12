@@ -49,16 +49,16 @@ const path = computed(() => route.path);
   color: #fff;
   text-align: left;
   background: linear-gradient(
-    to right,
-    rgba(10, 115, 160, 0.9),
-    rgb(87, 177, 218)
-  );
+      to right,
+      rgba(10, 115, 160, 0.8),
+      rgba(78, 139, 154, 0.829)
+    );
   border: 0;
   overflow-anchor: none;
   border-radius: 10px;
-  height: 100px;
+  height: 25%;
   margin-top: 8px;
-  box-shadow: 2px -3px 5px 1px rgb(97, 96, 96);
+  box-shadow: 2px -3px 5px 1px rgb(139, 138, 138);
   text-decoration: none;
   transition: height 0.5s;
   opacity: 1;
@@ -103,7 +103,7 @@ const path = computed(() => route.path);
   }
   .button {
     width: 100%;
-    height: 18%;
+    height: 25%;
     background: linear-gradient(
       to right,
       rgba(10, 115, 160, 0.9),

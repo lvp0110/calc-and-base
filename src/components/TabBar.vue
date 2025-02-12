@@ -93,6 +93,11 @@ const dialogWindow = () => {
 @media (prefers-color-scheme: dark) {
   .tabbar {
     opacity: 0.8;
+    background: radial-gradient(
+    circle at top,
+    rgba(10, 115, 160, 0.9),
+    rgba(78, 139, 154, 0.829)
+  );
   }
 }
 .list {
@@ -104,12 +109,13 @@ const dialogWindow = () => {
   padding: 0;
   margin: 0;
 }
-
+/*  */
 @media screen and (min-width: 500px) {
   .tabbar {
     height: auto;
     top: 0;
     width: 75px;
+   
   }
 
   .logo_w {

@@ -109,7 +109,8 @@ const toggleFullScreen = () => {
 }
 
 .list-materials a {
-  color: rgb(12, 138, 192);
+  color: rgb(15, 106, 144);
+  text-decoration: none;
 }
 
 .block-description {
@@ -134,8 +135,9 @@ const toggleFullScreen = () => {
 }
 p {
   background: radial-gradient(circle at left, #feffff8c, #afb6c262);
-  padding-left: 5px;
-  margin: 0;
+  padding-left: 10px;
+  margin-left: -8px;
+  margin-bottom: 0;
 }
 li {
   list-style-type: none;
@@ -169,7 +171,17 @@ span {
 section {
   display: none;
 }
-
+@media (prefers-color-scheme: dark) {
+  a:hover {
+  color: white;
+}
+a:hover + .ellipses {
+  color: white;
+}
+p {
+  color: rgb(58, 57, 57);
+}
+}
 /* @media screen and (max-width: 500px) {
     section img {
         width: 30px;

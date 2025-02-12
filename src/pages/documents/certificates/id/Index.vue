@@ -38,6 +38,8 @@ const selectMaterialsWithCerts = computed(
 
 const fetchSlides = async (id) => {
   if (id) {
+    slides.value = []
+
     const response = await certificatesApi.getCertificates(id);
 
     slides.value = response.data.data;

@@ -65,7 +65,7 @@ export default {
 }
 @media (prefers-color-scheme: dark) {
   .main {
-    color: rgb(186, 186, 186);
+    color: rgb(203, 201, 201);
   }
 }
 .content {
