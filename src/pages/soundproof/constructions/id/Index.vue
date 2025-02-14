@@ -41,8 +41,8 @@
         <ul class="ul-descript">
           <li v-for="material in materials">
             <RouterLink :to="`/soundproof/materials/${material.code}`">
-              {{ material.name }}<span class="ellipses">...</span>
-            </RouterLink><span class="ellipses">...</span>
+              {{ material.name }}<span class="ellipses">...</span> </RouterLink
+            ><span class="ellipses">...</span>
           </li>
         </ul>
       </div>
@@ -133,18 +133,19 @@ ul li {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
   padding-left: 10px;
-  
 }
-a{
-  text-decoration: none;
-  color: rgb(19, 104, 146);
-}
+
 .ellipses {
   display: none;
   font-weight: 500;
 }
+
+a {
+  text-decoration: none;
+  color: var(--link-text);
+}
 a:hover {
-  color: black;
+  color: var(--link-text-hover);
 }
 a:hover + .ellipses {
   display: inline-block;
@@ -205,15 +206,6 @@ a:hover + .ellipses {
 .img2.active {
   transform: translateX(-50%) translateY(50%) scale(2);
   border-radius: 3px;
-}
-
-@media (prefers-color-scheme: dark) {
-  a {
-    color: rgb(209, 206, 206);
-  }
-  a:hover {
-    color: aliceblue;
-  }
 }
 
 @media screen and (min-width: 1024px) {

@@ -75,13 +75,7 @@ const { title, image } = defineProps(["title", "image"]);
 }
 
 .section:hover {
-  color: black;
-  background: radial-gradient(#e0e4e7, #ffffff8d);
+  background: var(--section-hover-background);
 }
 
-@media (prefers-color-scheme: dark) {
-  .section:hover {
-    background: radial-gradient(#e0e4e72a, #ffffff2b);
-  }
-}
 </style>

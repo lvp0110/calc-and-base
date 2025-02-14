@@ -109,12 +109,13 @@ const toggleFullScreen = () => {
 }
 
 .list-materials a {
-  color: rgb(15, 106, 144);
+  color:var(--list-materials-color);
   text-decoration: none;
 }
 
 .block-description {
   margin-top: 15px;
+  color: var(--block-description-color);
 }
 
 .title {
@@ -131,6 +132,7 @@ p {
   padding-left: 10px;
   margin-left: -8px;
   margin-bottom: 0;
+  color: black;
 }
 li {
   list-style-type: none;
@@ -144,8 +146,12 @@ li {
   display: none;
 }
 
+a {
+  color: var(--link-text);
+}
+
 a:hover {
-  color: rgb(34, 33, 33);
+  color: var(--link-text-hover);
   text-decoration: none;
 }
 
@@ -163,24 +169,6 @@ span {
 
 section {
   display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  a:hover {
-  color: white;
-}
-a:hover + .ellipses {
-  color: white;
-}
-p {
-  color: rgb(58, 57, 57);
-}
-.block-description {
-    color: black; 
-  }
-  .list-materials a {
-  color: rgb(202, 208, 211);
-}
 }
 
 </style>

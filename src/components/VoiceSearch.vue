@@ -125,7 +125,7 @@ onMounted(() => {
 //   if (!voiceSearchText.value) {
 //     store.commit('setIsOpenStore', false)
 //   }
-// }
+// }--close-input-btn-color
 </script>
 
 <style scoped>
@@ -140,7 +140,7 @@ onMounted(() => {
   width: 48px;
   height: 48px;
   z-index: 2;
-  color: grey;
+  color: var(--close-input-btn-color);
 }
 
 .input-container {
@@ -174,7 +174,7 @@ onMounted(() => {
 .search__open {
   width: 330px;
   cursor: pointer;
-  color: gray;
+  color: var(--search-open-color);
   outline: none;
   border: 1px solid rgb(10, 115, 160);
   background-color: transparent;
@@ -205,19 +205,19 @@ figure {
 
 #result_voice {
   padding: 0 50px;
-  background-color: rgba(248, 243, 243, 0.7);
+  background-color: var(--result-voice-background-color);
   font-weight: 250;
 }
 @media (prefers-color-scheme: dark) {
-  .close-input-btn {
+  /* .close-input-btn {
     color: rgb(210, 205, 205);
-  }
-  #result_voice {
+  } */
+  /* #result_voice {
     background-color: rgba(236, 231, 231, 0.26);
-  }
-  .search__open {
+  } */
+  /* .search__open {
     color: rgb(210, 205, 205);
-  }
+  } */
 }
 @media screen and (max-width: 500px) {
   .close-input-btn {

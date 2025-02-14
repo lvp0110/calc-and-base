@@ -78,6 +78,7 @@ p {
   font-size: 14px;
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
+  color: black;
 }
 
 li {
@@ -92,9 +93,4 @@ li {
   margin-top: 50px;
 }
 
-@media (prefers-color-scheme: dark) {
-  p {
-    color: black; 
-  }
-}
 </style>

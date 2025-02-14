@@ -52,17 +52,14 @@ const onToggle = (event) => {
   box-shadow: 2px 3px 3px rgb(161, 160, 160);
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
+  color: var(--select-value-color);
 }
 
 .selected {
   background: radial-gradient(circle at left, #8e9092, #f9f9fa00);
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
+  color: azure;
 }
 
-@media (prefers-color-scheme: dark) {
-  .value {
-    color: aliceblue;
-  }
-}
 </style>

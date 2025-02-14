@@ -52,6 +52,7 @@ p {
   text-transform: uppercase;
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
+  color: black;
 }
 
 .pdf-cert {
@@ -59,9 +60,4 @@ p {
   height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  p {
-    color: black; 
-  }
-}
 </style>

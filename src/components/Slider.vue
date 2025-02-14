@@ -166,8 +166,16 @@ swiper-container::part(bullet-active) {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
 }
 
+ul {
+  margin-top: 55px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+  color: var(--list-swiper-color);
+  border: var(--list-swiper-border);
+}
 swiper-container::part(bullet-active) {
   background: grey;
   color: white;
@@ -194,22 +202,6 @@ swiper-container::part(bullet-active) {
   margin-top: 55px;
 }
 
-ul {
-  margin-top: 55px;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 18px;
-  color: rgb(7, 91, 128);
-  border: solid 2px rgb(7, 91, 128);
-}
-@media (prefers-color-scheme: dark) {
-  ul {
-    color: rgb(160, 157, 157);
-    border: solid 2px rgb(175, 175, 175);
-  }
-  swiper-container::part(bullet) {
-    background: #f8f9fa;
-  }
-}
 .pdf-cert {
   width: 100%;
   height: 100%;

@@ -716,7 +716,7 @@ const copyLink = () => {
   border-radius: 8px;
   padding: 16px;
   gap: 8px;
-  box-shadow: 5px 5px 2px #c7ced4;
+  box-shadow: var(--form-box-shadow);
   font-family: Montserrat, sans-serif;
   margin-top: 4px;
   text-transform: uppercase;
@@ -732,6 +732,7 @@ const copyLink = () => {
   margin: 0;
   text-transform: uppercase;
   font-size: 14px;
+  color: var(--form-toggle-color);
 }
 
 .form-toggle--active {
@@ -815,6 +816,7 @@ option {
 
 .add-image {
   margin-top: 10px;
+  background-color: var(--add-image-background);
 }
 
 .title {
@@ -855,6 +857,7 @@ option {
 .select-descript {
   background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
   box-shadow: 2px 3px 3px rgb(161, 160, 160);
+  color: var(--select-descript-color);
 }
 
 .selected {
@@ -909,23 +912,6 @@ option {
 .colorsizes {
   display: flex;
   justify-content: space-between;
-}
-
-@media (prefers-color-scheme: dark) {
-  .form {
-    box-shadow: 5px 5px 2px #535c64;
-  }
-  .form-toggle {
-    color: rgb(173, 170, 170);
-  }
-
-  .add-image {
-    background-color: lightgray;
-  }
-
-  .select-descript {
-    color: aliceblue;
-  }
 }
 
 @media screen and (min-width: 1024px) {

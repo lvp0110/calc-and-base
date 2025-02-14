@@ -1,4 +1,5 @@
 <template>
+    
   <div class="menu-container">
     <AccordionItem
       v-for="category in generalCategories"
@@ -59,7 +60,7 @@ ul li {
   font-weight: 300;
 }
 ul li a {
-  color: #6c757d;
+  color: var( --list-categogy-color);
   text-decoration: none;
   margin-bottom: 1px;
   border: solid 1px #6c757d;
@@ -68,27 +69,15 @@ ul li a {
   display: block;
   width: 100%;
   text-align: center;
-  background: radial-gradient(circle at right, #9b9fa3d2, #e2e2e9ec);
+  background:var(--list-categogy-background);
   transition: all 0.4s;
 }
 
 ul li a:hover {
-  background: radial-gradient(circle at left, #acb2b9, #e2e2e9ec);
+  background: var(--list-categogy-background-hover);
   transition: all 0.4s;
   color: white;
   border: solid 1px rgb(173, 170, 170);
-}
-
-@media (prefers-color-scheme: dark) {
-  ul li a{
-    color: rgb(206, 211, 215);
-    background: radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
-    opacity: .9;
-  }
-  ul li a:hover {
-    color: rgb(184, 181, 181);
-    background: radial-gradient(circle at center, black ,rgba(255, 255, 255, 0.619));
-  }
 }
 
 @media screen and (min-width: 1024px) {

@@ -27,6 +27,12 @@ import Calc from './pages/calc/index.vue'
 import SearchPage from './pages/search/index.vue'
 import store from './store'
 
+const theme = localStorage.getItem("theme") ?? "light";
+
+if (theme === 'light' || theme === 'dark') {
+  document.documentElement.setAttribute("color-scheme", theme);
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [

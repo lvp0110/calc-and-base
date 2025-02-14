@@ -1,16 +1,8 @@
 <template>
     <button type="button" @click="hasHistory()
         ? $router.go(-1)
-        : $router.push('/')" style="width: 50px;
-    height: 50px; 
-    position: absolute;
-    font-size: 30px;
-    font-weight: 100;
-    top: 1%;
-    right: 8%;
-    color: gray;
-    background: none;
-    border: 1px solid gray;">X
+        : $router.push('/')" 
+     class="close-btn">X
         <!-- <img src="/back_icon.svg" alt="" > -->
     </button>
     <div class="content-calc">
@@ -2446,6 +2438,27 @@ export default {
 </script>
 
 <style scoped>
+.close-btn {
+    display: block;
+    width: 50px;
+    height: 50px; 
+    position: absolute;
+    font-size: 30px;
+    font-weight: 100;
+    top: 1%;
+    left: 8%;
+    color: gray;
+    background: none;
+    border: 1px solid gray;
+}
+@media screen and (max-width: 1024px) {
+    .close-btn {
+    display: none;
+    }
+}
+.buttons {
+    display: none;
+}
 .content-calc {
     height: 100%;
     overflow-y: auto;

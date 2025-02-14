@@ -71,6 +71,7 @@ const path = computed(() => route.path);
 
 .section {
   padding: 16px;
+  color: black;
 }
 
 @media (prefers-color-scheme: dark) {
