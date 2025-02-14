@@ -6,7 +6,7 @@
       class="buttons button_dark"
       @click="toggleTheme"
     >
-      D
+      <img src="/day_white.svg" alt="" style="position: absolute;top: -4px;left: -4px;color: aliceblue;" width="35" height="35" >
     </button>
     <button
       ref="buttonLight"
@@ -14,7 +14,8 @@
       class="buttons button_light"
       @click="toggleTheme"
     >
-      L
+    <img src="/night.svg" alt="" style="position: absolute;top: -4px;left: -4px;color: aliceblue;" width="35" height="35" >
+
     </button>
   </div>
   <div class="main">
