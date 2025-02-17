@@ -3,13 +3,13 @@
     <ul class="list">
       <li>
         <RouterLink to="/"
-          ><img class="logo_w" src="/logo_1234.png" alt=""
+          ><img class="logo_w" src="http://51.250.123.41:3005/api/v1/constr/logo_1234.png" alt=""
         /></RouterLink>
       </li>
       <li>
         <img
           class="logo_p"
-          src="/person_logo.png"
+          src="http://51.250.123.41:3005/api/v1/constr/person_logo.png"
           alt=""
           @click="dialogWindow"
         />
@@ -18,7 +18,7 @@
         <button style="border: none; background: none">
           <img
             class="logo_p"
-            src="/search_logo.png"
+            src="http://51.250.123.41:3005/api/v1/constr/search_logo.png"
             alt=""
             @click="handleSearch"
           />
@@ -26,7 +26,7 @@
       </li>
       <li>
         <RouterLink to="/calc"
-          ><img class="calc" src="/calc.svg" alt=""
+          ><img class="calc" src="http://51.250.123.41:3005/api/v1/constr/calc.svg" alt=""
         /></RouterLink>
       </li>
     </ul>

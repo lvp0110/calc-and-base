@@ -30,7 +30,6 @@ h6 {
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
-    /* background-color: rgb(36, 140, 185); */
     background: linear-gradient(
       to right,
       rgba(10, 115, 160, 0.8),

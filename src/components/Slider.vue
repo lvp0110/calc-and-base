@@ -23,7 +23,6 @@
       @click="goToNextSlide"
     >
       <div>
-        <!-- <p class="cert-info" >{{ slide.Type }}</p> -->
         <ul @click.stop="downloadTextFile(slide)">
           <li v-if="slide.Type != 0">Тип: {{ slide.Type }}</li>
           <li v-if="slide.Code != 0">№ {{ slide.Code }}</li>
@@ -92,7 +91,6 @@ export default {
     };
 
     const onSlideChange = (e) => {
-      // console.log('slide changed')
     };
 
     return {

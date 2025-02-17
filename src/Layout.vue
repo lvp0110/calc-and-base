@@ -6,7 +6,13 @@
       class="buttons button_dark"
       @click="toggleTheme"
     >
-      <img src="/day_white.svg" alt="" style="position: absolute;top: -4px;left: -4px;color: aliceblue;" width="35" height="35" >
+      <img
+        src="http://51.250.123.41:3005/api/v1/constr/night_white.svg"
+        alt=""
+        style="position: absolute; top: -4px; left: -4px; color: aliceblue"
+        width="35"
+        height="35"
+      />
     </button>
     <button
       ref="buttonLight"
@@ -14,8 +20,13 @@
       class="buttons button_light"
       @click="toggleTheme"
     >
-    <img src="/night.svg" alt="" style="position: absolute;top: -4px;left: -4px;color: aliceblue;" width="35" height="35" >
-
+      <img
+        src="http://51.250.123.41:3005/api/v1/constr/day.svg"
+        alt=""
+        style="position: absolute; top: -4px; left: -4px; color: aliceblue"
+        width="35"
+        height="35"
+      />
     </button>
   </div>
   <div class="main">
@@ -109,6 +120,24 @@ export default {
 </script>
 
 <style>
+:root,
+[color-scheme="light"],
+[color-scheme="dark"] {
+  transition: all 0.7s ease;
+}
+
+body {
+  background: var(--background);
+  transition: background 1s ease;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0px;
+  user-select: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
 [color-scheme="light"] {
   --primary: rgb(32, 145, 197);
   --background: url("https://db.acoustic.ru:3005/api/v1/constr/back_ground.jpg");
@@ -126,29 +155,31 @@ export default {
   --list-background-selected: radial-gradient(circle at left, #6c757d, #bdbfc2);
   --list-color-selected: aliceblue;
 
-  --list-materials-color: rgb(15, 106, 144) ;
+  --list-materials-color: rgb(15, 106, 144);
   --block-description-color: rgb(45, 44, 44);
 
-  --list-categogy-color:#6c757d;
+  --list-categogy-color: #6c757d;
   --list-categogy-background: radial-gradient(circle at right, #9b9fa3d2, #e2e2e9ec);
   --list-categogy-background-hover: radial-gradient(circle at left, #acb2b9, #e2e2e9ec);
 
-  --list-swiper-color:rgb(7, 91, 128);
-  --list-swiper-border:solid 2px rgb(7, 91, 128);
+  --list-swiper-color: rgb(7, 91, 128);
+  --list-swiper-border: solid 2px rgb(7, 91, 128);
 
-  --form-box-shadow:5px 5px 2px #c7ced4;
-  --form-toggle-color:black;
-  --add-image-background:rgba(255, 255, 255, 0.291);
-  --select-descript-color:#030303fd;
+  --form-box-shadow: 5px 5px 2px #c7ced4;
+  --form-toggle-color: black;
+  --add-image-background: rgba(255, 255, 255, 0.291);
+  --select-descript-color: #030303fd;
 
-  --select-value-color:black;
+  --select-value-color: black;
 
-  --close-input-btn-color:grey;
-  --result-voice-background-color:rgba(248, 243, 243, 0.7);
-  --search-open-color:gray;
+  --close-input-btn-color: grey;
+  --result-voice-background-color: rgba(248, 243, 243, 0.7);
+  --search-open-color: gray;
 
-  --section-text-color:rgb(83, 79, 79);
-  --section-hover-background:radial-gradient(#e0e4e7, #ffffff8d);
+  --section-text-color: rgb(83, 79, 79);
+  --section-hover-background: radial-gradient(#e0e4e7, #ffffff8d);
+
+  --button-box-shadow: 2px -3px 5px 1px rgb(139, 138, 138);
 }
 
 [color-scheme="dark"] {
@@ -156,7 +187,7 @@ export default {
   --background: url("https://db.acoustic.ru:3005/api/v1/constr/black_back_ground.png");
 
   --primary-text: rgb(186, 186, 186);
-  
+
   --link-text: rgb(209, 206, 206);
   --link-text-hover: aliceblue;
 
@@ -171,26 +202,28 @@ export default {
   --list-materials-color: rgb(170, 176, 179);
   --block-description-color: rgb(25, 24, 24);
 
-  --list-categogy-color:rgb(206, 211, 215);;
-  --list-categogy-background:radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
-  --list-categogy-background-hover:radial-gradient(circle at center, black ,rgba(255, 255, 255, 0.619));
+  --list-categogy-color: rgb(206, 211, 215);
+  --list-categogy-background: radial-gradient(circle at center, rgba(139, 138, 138, 0.489), rgb(29, 28, 28));
+  --list-categogy-background-hover: radial-gradient(circle at center, black, rgba(255, 255, 255, 0.619));
 
-  --list-swiper-color:rgb(160, 157, 157);
-  --list-swiper-border:solid 2px rgb(175, 175, 175);
+  --list-swiper-color: rgb(160, 157, 157);
+  --list-swiper-border: solid 2px rgb(175, 175, 175);
 
-  --form-box-shadow:5px 5px 2px #535c64;
-  --form-form-toggle:color: rgb(173, 170, 170);
-  --add-image-background:lightgray;
-  --select-descript-color:aliceblue;
+  --form-box-shadow: 5px 5px 2px #535c64;
+  --form-form-toggle: color: rgb(173, 170, 170);
+  --add-image-background: lightgray;
+  --select-descript-color: aliceblue;
 
-  --select-value-color:aliceblue;
+  --select-value-color: aliceblue;
 
-  --close-input-btn-color:rgb(210, 205, 205);
-  --result-voice-background-color:rgba(236, 231, 231, 0.26);
-  --search-open-color:rgb(210, 205, 205);
+  --close-input-btn-color: rgb(210, 205, 205);
+  --result-voice-background-color: rgba(236, 231, 231, 0.26);
+  --search-open-color: rgb(210, 205, 205);
 
-  --section-text-color:aliceblue;
-  --section-hover-background:radial-gradient(#e0e4e72a, #ffffff2b);
+  --section-text-color: aliceblue;
+  --section-hover-background: radial-gradient(#e0e4e72a, #ffffff2b);
+
+  --button-box-shadow: 2px -3px 5px 1px rgb(209 204 204 / 50%);
 }
 
 .main {
@@ -201,17 +234,6 @@ export default {
   overflow: hidden;
   height: calc(100% - 70px);
   color: var(--primary-text);
-}
-
-body {
-  background: var(--background);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0px;
-  user-select: none;
-  height: 100vh;
-  overflow: hidden;
 }
 
 .buttons {

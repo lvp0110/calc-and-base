@@ -58,7 +58,7 @@ const path = computed(() => route.path);
   border-radius: 10px;
   height: 25%;
   margin-top: 8px;
-  box-shadow: 2px -3px 5px 1px rgb(139, 138, 138);
+  box-shadow: var(--button-box-shadow);
   text-decoration: none;
   transition: height 0.5s;
   opacity: 1;

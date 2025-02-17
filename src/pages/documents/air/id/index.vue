@@ -6,7 +6,6 @@
     </template>
     <template #content>
       <div v-if="selectElement">
-        <!-- <p class="title-hookup">{{ selectElement.Name }}</p> -->
         <p>{{ selectElement.Description }}</p>
 
         <hr />

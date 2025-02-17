@@ -2,7 +2,7 @@
     <button type="button" @click="hasHistory()
         ? $router.go(-1)
         : $router.push('/')" 
-     class="close-btn">X
+     class="close-btn"><p style="position: absolute; top: -2px; left: 10px;">X</p>
         <!-- <img src="/back_icon.svg" alt="" > -->
     </button>
     <div class="content-calc">
@@ -2440,13 +2440,13 @@ export default {
 <style scoped>
 .close-btn {
     display: block;
-    width: 50px;
-    height: 50px; 
+    width: 40px;
+    height: 40px; 
     position: absolute;
     font-size: 30px;
     font-weight: 100;
     top: 1%;
-    left: 8%;
+    right: 2%;
     color: gray;
     background: none;
     border: 1px solid gray;
@@ -2697,13 +2697,11 @@ h4 {
 }
 
 .add_design_button {
-    /* width: 50%; */
     height: 35px;
     border-radius: 8px;
     border: solid 1px rgb(184, 178, 178);
 }
 
-/*----------------------------*/
 div:where(.swal2-container) {
     display: grid;
     position: fixed;

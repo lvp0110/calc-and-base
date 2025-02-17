@@ -193,51 +193,6 @@
           </div>
         </a>
       </div>
-
-      <!-- <div v-if="isAvailableSizes()" class="form">
-        <div class="form-header">
-          <div>
-            <button
-              @click="selectSquare"
-              class="form-toggle"
-              :class="{ 'form-toggle--active': isSquare }"
-            >
-              Площадь
-            </button>
-            <button
-              @click="selectSizes"
-              class="form-toggle"
-              :class="{ 'form-toggle--active': !isSquare }"
-            >
-              Размеры
-            </button>
-          </div>
-          <label class="form-label">
-            <select v-model="type">
-              <option value="wall">Стена</option>
-              <option value="ceiling">Потолок</option>
-            </select>
-          </label>
-        </div>
-        <div class="form-content">
-          <label v-if="isSquare" class="form-label">
-            <span>Площадь</span>
-            <input type="number" inputmode="decimal" v-model="square" />
-          </label>
-          <template v-else>
-            <label class="form-label">
-              <span>Длина</span>
-              <input type="number" inputmode="decimal" v-model="length" />
-            </label>
-            <label class="form-label">
-              <span>Высота</span>
-              <input type="number" inputmode="decimal" v-model="height" />
-            </label>
-          </template>
-        </div>
-        <button class="form-button" @click="calculate">Рассчитать</button>
-      </div> -->
-
       <div v-if="calculationsTableColumns.length > 0">
         <table id="table">
           <tr>
@@ -266,7 +221,6 @@
       </div>
     </div>
   </div>
-  <!-- <button @click="exportToFile">export</button> -->
   <Dialog :open="openChartDialog" :on-close="handleCloseChartDialog">
     <Chart
       :items="chartResponse.items"
@@ -703,6 +657,7 @@ const copyLink = () => {
 </script>
 
 <style scoped>
+
 .action-buttons {
   display: flex;
   gap: 8px;
