@@ -1,11 +1,20 @@
 import axios from "axios";
 
 const cdnUrl = import.meta.env.VITE_CDN_URL;
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_API_URL;
+
+const country = "ru"
 
 const requestInstance = axios.create({
   baseURL,
 });
+
+
+export const setCountry = (country) => {
+  // requestInstance.defaults.headers.common['Db-Acoustic-Country'] = country
+}
+
+setCountry(country)
 
 export const categoriesApi = {
   getGeneralCategories: () =>

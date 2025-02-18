@@ -40,6 +40,7 @@
           >Посмотреть</a
         >
         <div class="pdf-container">
+          <img v-for="pdfPage in slide.pdfPages" :src="filesApi.getCertificateFileUrl(pdfPage)" style="width: 100%; margin-bottom: 8px;" />
           <iframe
             class="pdf-cert"
             :src="filesApi.getCertificateFileUrl(slide.File)"

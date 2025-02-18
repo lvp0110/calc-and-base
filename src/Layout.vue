@@ -68,11 +68,13 @@ export default {
     };
   },
   mounted() {
+    const theme = localStorage.getItem("theme") ?? "light";
+
     const buttonDark = this.$refs.buttonDark;
     const buttonLight = this.$refs.buttonLight;
 
-    buttonDark.style.zIndex = "2";
-    buttonLight.style.zIndex = "1";
+    buttonDark.style.zIndex = theme === "light" ? "2" : "1";
+    buttonLight.style.zIndex = theme === "light" ? "1" : "2";
 
     buttonDark.addEventListener("click", () => {
       this.moveButton(buttonDark);

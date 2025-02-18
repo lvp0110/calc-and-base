@@ -11,7 +11,7 @@
             *{{ selectedItem.comment }}
           </div>
         </div>
-        <select v-else :value="selectedArticul" @change="change">
+        <select class="test" v-else :value="selectedArticul" @change="change">
           <option v-for="option in items" :value="option.code">
             {{ option[column.id] }}
           </option>
@@ -44,6 +44,10 @@ const change = (event) => {
 td {
   border: 1px solid;
   padding: 8px;
+}
+
+.test {
+  width: 100%
 }
 
 </style>
