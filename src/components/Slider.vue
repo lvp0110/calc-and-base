@@ -34,18 +34,25 @@
           </li>
         </ul>
         <a
+          class="copy-link"
           :href="filesApi.getCertificateFileUrl(slide.File)"
           target="_blank"
           @click.stop
-          >Посмотреть</a
         >
+          
+            <img class="icon-img" src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg" alt="" />
+          
+        </a>
         <div class="pdf-container">
-          <img v-for="pdfPage in slide.pdfPages" :src="filesApi.getCertificateFileUrl(pdfPage)" style="width: 100%; margin-bottom: 8px;" />
-          <iframe
+          <img
+            v-for="pdfPage in slide.images"
+            :src="filesApi.getImageFileUrl(pdfPage.file)"
+          />
+          <!-- <iframe
             class="pdf-cert"
             :src="filesApi.getCertificateFileUrl(slide.File)"
             @click="goToNextSlide"
-          ></iframe>
+          ></iframe> -->
         </div>
       </div>
     </swiper-slide>
@@ -91,8 +98,7 @@ export default {
       const [swiper, progress] = e.detail;
     };
 
-    const onSlideChange = (e) => {
-    };
+    const onSlideChange = (e) => {};
 
     return {
       onProgress,
@@ -186,10 +192,9 @@ swiper-container::part(bullet-active) {
 
 .pdf-container {
   width: 100%;
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .hookup-container {
@@ -205,5 +210,31 @@ swiper-container::part(bullet-active) {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+.copy-link {
+  width: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 3px;
+  color: #575656;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-link:hover {
+  background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
+  border-radius: 10px;
+}
+
+.copy-link:focus {
+  background: radial-gradient(circle at center,#efeff16e, #d4d9de );
+  color: rgb(158, 161, 163);
+  border-radius: 10px;
+}
+.icon-img {
+  display: flex;
+  width: 40px;
 }
 </style>

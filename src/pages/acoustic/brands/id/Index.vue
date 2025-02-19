@@ -131,16 +131,16 @@
         </div>
         <div class="form-content">
           <label v-if="isSquare" class="form-label">
-            <span>Площадь, м<sup>2</sup></span>
+            <span>Площадь, <small>м</small><sup>2</sup></span>
             <input type="number" inputmode="decimal" v-model="square" />
           </label>
           <template v-else>
             <label class="form-label">
-              <span>Длина, м</span>
+              <span>Длина, <small>мм</small></span>
               <input type="number" inputmode="decimal" v-model="length" />
             </label>
             <label class="form-label">
-              <span>Высота (Ширина), м</span>
+              <span>Высота (Ширина), <small>мм</small></span>
               <input type="number" inputmode="decimal" v-model="height" />
             </label>
           </template>
