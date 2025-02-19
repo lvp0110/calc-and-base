@@ -44,15 +44,15 @@
           
         </a>
         <div class="pdf-container">
-          <img
+          <!-- <img
             v-for="pdfPage in slide.images"
             :src="filesApi.getImageFileUrl(pdfPage.file)"
-          />
-          <!-- <iframe
+          /> -->
+          <iframe
             class="pdf-cert"
             :src="filesApi.getCertificateFileUrl(slide.File)"
             @click="goToNextSlide"
-          ></iframe> -->
+          ></iframe>
         </div>
       </div>
     </swiper-slide>
@@ -208,7 +208,7 @@ swiper-container::part(bullet-active) {
 
 .pdf-cert {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 .copy-link {
