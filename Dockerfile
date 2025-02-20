@@ -33,7 +33,7 @@ COPY ./certs/private-5.key /etc/nginx/ssl/private.key
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Открываем порты
-EXPOSE 3000
+EXPOSE 80 443
 
 # Запуск Nginx
 CMD ["nginx", "-g", "daemon off;"]
