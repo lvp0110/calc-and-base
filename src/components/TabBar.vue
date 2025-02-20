@@ -3,13 +3,16 @@
     <ul class="list">
       <li>
         <RouterLink to="/"
-          ><img class="logo_w" src="http://51.250.123.41:3005/api/v1/constr/logo_1234.png" alt=""
+          ><img
+            class="logo_w"
+            :src="filesApi.getImageFileUrl(`logo_1234.png`)"
+            alt=""
         /></RouterLink>
       </li>
       <li>
         <img
           class="logo_p"
-          src="http://51.250.123.41:3005/api/v1/constr/person_logo.png"
+          :src="filesApi.getImageFileUrl(`person_logo.png`)"
           alt=""
           @click="dialogWindow"
         />
@@ -18,7 +21,7 @@
         <button style="border: none; background: none">
           <img
             class="logo_p"
-            src="http://51.250.123.41:3005/api/v1/constr/search_logo.png"
+            :src="filesApi.getImageFileUrl(`search_logo.png`)"
             alt=""
             @click="handleSearch"
           />
@@ -26,7 +29,7 @@
       </li>
       <li>
         <RouterLink to="/calc"
-          ><img class="calc" src="http://51.250.123.41:3005/api/v1/constr/calc.svg" alt=""
+          ><img class="calc" :src="filesApi.getImageFileUrl(`calc.svg`)" alt=""
         /></RouterLink>
       </li>
     </ul>
@@ -34,6 +37,7 @@
 </template>
 
 <script setup>
+import { filesApi } from "../config";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -88,16 +92,16 @@ const dialogWindow = () => {
   height: 70px;
   padding: 8px;
   color: white;
-  opacity: .9;
+  opacity: 0.9;
 }
 @media (prefers-color-scheme: dark) {
   .tabbar {
     opacity: 0.8;
     background: radial-gradient(
-    circle at top,
-    rgba(10, 115, 160, 0.9),
-    rgba(78, 139, 154, 0.829)
-  );
+      circle at top,
+      rgba(10, 115, 160, 0.9),
+      rgba(78, 139, 154, 0.829)
+    );
   }
 }
 .list {
@@ -115,7 +119,6 @@ const dialogWindow = () => {
     height: auto;
     top: 0;
     width: 75px;
-   
   }
 
   .logo_w {

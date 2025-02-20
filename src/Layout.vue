@@ -7,7 +7,7 @@
       @click="toggleTheme"
     >
       <img
-        src="http://51.250.123.41:3005/api/v1/constr/night_white.svg"
+        :src="filesApi.getImageFileUrl(`night_white.svg`)"
         alt=""
         style="position: absolute; top: -4px; left: -4px; color: aliceblue"
         width="35"
@@ -21,7 +21,7 @@
       @click="toggleTheme"
     >
       <img
-        src="http://51.250.123.41:3005/api/v1/constr/day.svg"
+        :src="filesApi.getImageFileUrl(`day.svg`)"
         alt=""
         style="position: absolute; top: -4px; left: -4px; color: aliceblue"
         width="35"
@@ -41,11 +41,13 @@
 <script>
 import TabBar from "./components/TabBar.vue";
 import VoiceSearch from "./components/VoiceSearch.vue";
+import { filesApi } from "./config";
 
 export default {
   data() {
     return {
       isHiddenScrollUpButton: true,
+      filesApi,
     };
   },
   components: {
