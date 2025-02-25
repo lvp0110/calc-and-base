@@ -194,6 +194,7 @@
         </a>
       </div>
       <div v-if="calculationsTableColumns.length > 0">
+
         <table id="table">
           <tr>
             <th v-for="column in calculationsTableColumns">
@@ -209,15 +210,10 @@
             :on-change="changeArticul(row.id)"
           />
         </table>
-        <p style="color: orange">
-
-          Внимание!
-          <span style="color: gray"
-            >Представленные в таблице расчеты материалов производятся по
-            коэффициентам и имеют приближенный характер.</span
-          >
-
-        </p>
+        <span style="color: #ff9009"
+          >Внимание !!!<br />Представленные в таблице расчеты материалов
+          производятся по коэффициентам и имеют приближенный характер.</span
+        >
       </div>
     </div>
   </div>
@@ -657,7 +653,6 @@ const copyLink = () => {
 </script>
 
 <style scoped>
-
 .action-buttons {
   display: flex;
   gap: 8px;
@@ -742,6 +737,7 @@ const copyLink = () => {
 
 table {
   border: 1px solid;
+  width: 100%;
 }
 
 th {

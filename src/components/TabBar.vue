@@ -2,19 +2,20 @@
   <div class="tabbar">
     <ul class="list">
       <li>
-        <RouterLink to="/"
-          ><img
+        <RouterLink to="/">
+          <img
             class="logo_w"
             :src="filesApi.getImageFileUrl(`logo_1234.png`)"
             alt=""
-        /></RouterLink>
+          />
+        </RouterLink>
       </li>
       <li>
         <img
           class="logo_p"
           :src="filesApi.getImageFileUrl(`person_logo.png`)"
           alt=""
-          @click="dialogWindow"
+          @click="openDialog"
         />
       </li>
       <li>
@@ -28,27 +29,63 @@
         </button>
       </li>
       <li>
-        <RouterLink to="/calc"
-          ><img class="calc" :src="filesApi.getImageFileUrl(`calc.svg`)" alt=""
-        /></RouterLink>
+        <RouterLink to="/calc">
+          <img
+            class="calc"
+            :src="filesApi.getImageFileUrl(`calc.svg`)"
+            alt=""
+          />
+        </RouterLink>
       </li>
     </ul>
   </div>
+
+  <Modal
+    :open="showDialog"
+    @close="closeDialog"
+    @submit="submitForm"
+    :isHiddenForm="isAuthorized"
+  >
+    <div v-if="isAuthorized">
+      <RouterLink to="/profile">Profile</RouterLink>
+    </div>
+  </Modal>
 </template>
 
 <script setup>
+import { ref, computed, watch } from "vue";
 import { filesApi } from "../config";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import Modal from "./Modal.vue";
 
+const router = useRouter();
 const store = useStore();
+const showDialog = ref(false);
+
+const isAuthorized = computed(() => store.getters["isAuthorizedSelector"]);
+
+watch(router.currentRoute, () => {
+  closeDialog();
+});
+
+const openDialog = () => {
+  showDialog.value = true;
+};
+
+const closeDialog = () => {
+  showDialog.value = false;
+};
+
+const submitForm = (form) => {
+  console.log("submitForm", form);
+
+  store.dispatch("login", form);
+};
 
 const handleSearch = () => {
   store.commit("setIsOpenStore", true);
-
   document.getElementById("result_voice")?.focus();
-};
-const dialogWindow = () => {
-  alert('Раздел "ЛИЧНЫЙ КАБИНЕТ" находится в разработке 🛠');
 };
 </script>
 
@@ -94,6 +131,7 @@ const dialogWindow = () => {
   color: white;
   opacity: 0.9;
 }
+
 @media (prefers-color-scheme: dark) {
   .tabbar {
     opacity: 0.8;
@@ -104,6 +142,7 @@ const dialogWindow = () => {
     );
   }
 }
+
 .list {
   display: flex;
   align-items: center;

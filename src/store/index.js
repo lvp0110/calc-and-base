@@ -283,7 +283,8 @@ export default createStore({
                 [TECHCARDS]: [],
                 [ALBUMS]: [],
                 objects: [],
-            }
+            },
+            user: null
         }
     },
     
@@ -299,6 +300,13 @@ export default createStore({
         }
     },
     actions: {
+        login({ state }, payload) {
+            console.log('login', payload);
+            state.user = { name: payload.username }
+        },
+        logout({ state }) {
+            state.user = null
+        },
         async getGeneralCategories({ state }) {
             const response = await categoriesApi.getGeneralCategories()
 
@@ -503,6 +511,12 @@ export default createStore({
         },
         generalCategories(state) {
             return state.generalCategories
+        },
+        userSelector(state) {
+            return state.user
+        },
+        isAuthorizedSelector(state) {
+            return state.user != null
         }
     },
 })

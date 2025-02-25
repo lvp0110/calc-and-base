@@ -137,7 +137,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin: 0px;
-  user-select: none;
+  /* user-select: none; */
   height: 100vh;
   overflow: hidden;
 }
