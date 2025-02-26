@@ -47,7 +47,27 @@
     :isHiddenForm="isAuthorized"
   >
     <div v-if="isAuthorized">
-      <RouterLink to="/profile">Profile</RouterLink>
+      <span style="text-decoration: none; font-size: 25px; color: azure"
+        >Vasya Poupkin</span
+      >
+      <img
+        class="logo_p"
+        :src="filesApi.getImageFileUrl(`person_logo.png`)"
+        alt=""
+        @click="openDialog"
+      />
+
+      <ul class="person-list">
+        <li>
+          <RouterLink to="/profile"> Your calculations </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/profile"> Your photos </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/profile"> Your documents </RouterLink>
+        </li>
+      </ul>
     </div>
   </Modal>
 </template>
@@ -90,6 +110,17 @@ const handleSearch = () => {
 </script>
 
 <style scoped>
+.person-list li{
+  color: azure;
+  text-decoration: none;
+  margin-top: 55px;
+  font-size: 20px;
+}
+.person-list a{
+  color: azure;
+  text-decoration: none;
+}
+
 .logo_p {
   width: 55px;
   position: relative;
