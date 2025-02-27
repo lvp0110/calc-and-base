@@ -123,8 +123,8 @@
           </div>
           <label class="form-label">
             <select v-model="type">
-              <option v-for="type in types" :value="type.code">
-                {{ type.name }}
+              <option v-for="type in types" :value="type.Code">
+                {{ type.Name }}
               </option>
             </select>
           </label>
@@ -194,7 +194,6 @@
         </a>
       </div>
       <div v-if="calculationsTableColumns.length > 0">
-
         <table id="table">
           <tr>
             <th v-for="column in calculationsTableColumns">
@@ -290,11 +289,7 @@ const handleCloseChartDialog = () => {
   openChartDialog.value = false;
 };
 
-const selectedArticuls = computed(() =>
-  Object.fromEntries(
-    calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
-  )
-);
+const selectedArticuls = ref({});
 
 const isAvailableSizes = () => {
   if (isLoadingParams.value) {
@@ -349,11 +344,10 @@ const validateForm = () => {
   }
 };
 
-const calculate = async () => {
+const calculate = async (isInitial = true) => {
   if (!validateForm()) {
     return;
   }
-  console.log(isSquare.value, square.value, length.value, height.value);
 
   if (!(isAvailableCalculated && isAvailableSizes())) {
     return;
@@ -370,6 +364,12 @@ const calculate = async () => {
     ({ id }) => id !== "code"
   );
   calculationsTableRows.value = response.data.data.rows;
+
+  if (isInitial) {
+    selectedArticuls.value = Object.fromEntries(
+      calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
+    );
+  }
 
   updateExcelLink();
 };
@@ -401,6 +401,11 @@ const changeArticul = (id) => (articul) => {
     }
     return row;
   });
+  selectedArticuls.value = Object.fromEntries(
+    calculationsTableRows.value.map(({ id, items }) => [id, items[0]?.code])
+  );
+
+  calculate(false);
 };
 
 const selectElement = computed(() =>
@@ -494,16 +499,23 @@ const selectModel = async (event) => {
   calculationsTableColumns.value = [];
   calculationsTableRows.value = [];
 
-  const responseTypes = [
-    { code: "wall", name: "Стена" },
-    { code: "ceiling", name: "Потолок" },
-  ];
-  types.value = responseTypes;
-  type.value = responseTypes[0]?.code;
+  getCalculationTypes();
 
   resetForm();
 
   replaceLocation();
+};
+
+const getCalculationTypes = async () => {
+  const response = await constructionsApi.getPrecalcParams(
+    route.params.id,
+    getLocationParams()
+  );
+
+  const responseTypes = response.data.data.SurfacesTypes;
+
+  types.value = responseTypes ?? [];
+  type.value = responseTypes[0]?.code;
 };
 
 const selectModelInitial = async () => {
@@ -525,12 +537,7 @@ const selectModelInitial = async () => {
       (edgeType) => edgeType.name === route.query.edge
     ) ?? null;
 
-  const responseTypes = [
-    { code: "wall", name: "Стена" },
-    { code: "ceiling", name: "Потолок" },
-  ];
-  types.value = responseTypes;
-  type.value = responseTypes[0]?.code;
+  getCalculationTypes();
 
   calculate();
 };
@@ -614,6 +621,12 @@ const getLocationParams = () => {
     if (height.value) {
       query.height = height.value;
     }
+  }
+
+  let articuls = Object.values(selectedArticuls.value);
+
+  if (articuls.length > 0) {
+    query.articuls = articuls;
   }
 
   return query;
