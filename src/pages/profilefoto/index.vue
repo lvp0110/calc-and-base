@@ -13,14 +13,14 @@
             display: block;
             position: absolute;
             color: white;
-            padding-left: 18px;
+            padding-left: 4px;
             padding-top: 15px;
             background-color: rgba(10, 115, 160, 0.9);
             width: 50px;
             height: 100vh;
             border-top-left-radius: 20px;
           "
-          >{{ section.label }}</span
+          >{{ section.content }}</span
         >
 
         <span
@@ -30,20 +30,20 @@
             margin: 150px;
             font-size: 100px;
           "
-          >{{ section.content }}
-        </span>
+          >{{ section.content }}</span
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const sections = ref([
-  { id: 1, label: "C", content: "CALC" },
-  { id: 2, label: "F", content: "FOTO" },
-  { id: 3, label: "D", content: "DOC" },
+  { id: 1, label: 'Your calculations', content: 'CALC' },
+  { id: 2, label: 'Your documents', content: 'DOC' },
+  { id: 3, label: 'Your photos', content: 'FOTO' },
 ]);
 
 const bringToFront = (selectedIndex) => {

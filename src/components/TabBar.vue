@@ -59,13 +59,13 @@
 
       <ul class="person-list">
         <li>
-          <RouterLink to="/profile"> Your calculations </RouterLink>
+          <RouterLink to="/profilecalc"> Your calculations </RouterLink>
         </li>
         <li>
-          <RouterLink to="/profile"> Your photos </RouterLink>
+          <RouterLink to="/profilefoto"> Your photos </RouterLink>
         </li>
         <li>
-          <RouterLink to="/profile"> Your documents </RouterLink>
+          <RouterLink to="/profiledoc"> Your documents </RouterLink>
         </li>
       </ul>
     </div>

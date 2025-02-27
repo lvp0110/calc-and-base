@@ -24,7 +24,9 @@ import OurObject from './pages/our-objects/id/index.vue'
 
 import Calc from './pages/calc/index.vue'
 
-import Profile from './pages/profile/index.vue'
+import ProfileCalc from './pages/profilecalc/index.vue'
+import ProfileDoc from './pages/profiledoc/index.vue'
+import ProfileFoto from './pages/profilefoto/index.vue'
 
 import SearchPage from './pages/search/index.vue'
 import store from './store'
@@ -69,9 +71,18 @@ const router = createRouter({
 
         { path: "/search", component: SearchPage },
         {
-          path: '/profile',
-          component: Profile
+          path: '/profilecalc',
+          component: ProfileCalc
         },
+        {
+          path: '/profiledoc',
+          component: ProfileDoc
+        },
+        {
+          path: '/profilefoto',
+          component: ProfileFoto
+        },
+        
      ]
     },
     {
