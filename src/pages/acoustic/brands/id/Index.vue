@@ -515,7 +515,7 @@ const getCalculationTypes = async () => {
   const responseTypes = response.data.data.SurfacesTypes;
 
   types.value = responseTypes ?? [];
-  type.value = responseTypes[0]?.code;
+  type.value = responseTypes[0]?.Code;
 };
 
 const selectModelInitial = async () => {
