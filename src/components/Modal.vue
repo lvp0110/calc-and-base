@@ -27,16 +27,20 @@
         </form>
         <slot />
       </div>
+      <div style="z-index: 1111; position: absolute; top: 500px;left: 20px;">
+        <ThemeSwitcher />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { defineProps, defineEmits, reactive } from "vue";
+import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 const props = defineProps({
   open: Boolean,
-  isHiddenForm: Boolean
+  isHiddenForm: Boolean,
 });
 
 const emit = defineEmits(["close", "submit"]);

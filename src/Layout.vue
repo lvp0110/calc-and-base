@@ -1,5 +1,5 @@
 <template>
-  <div class="darck-theme">
+  <!-- <div class="darck-theme">
     <button
       ref="buttonDark"
       type="button"
@@ -28,7 +28,7 @@
         height="35"
       />
     </button>
-  </div>
+  </div> -->
   <div class="main">
     <VoiceSearch />
     <div class="content">
@@ -41,6 +41,7 @@
 <script>
 import TabBar from "./components/TabBar.vue";
 import VoiceSearch from "./components/VoiceSearch.vue";
+
 import { filesApi } from "./config";
 
 export default {
@@ -69,57 +70,57 @@ export default {
       this.isHiddenScrollUpButton = window.scrollY < 250;
     };
   },
-  mounted() {
-    const theme = localStorage.getItem("theme") ?? "light";
+  // mounted() {
+  //   const theme = localStorage.getItem("theme") ?? "light";
 
-    const buttonDark = this.$refs.buttonDark;
-    const buttonLight = this.$refs.buttonLight;
+  //   const buttonDark = this.$refs.buttonDark;
+  //   const buttonLight = this.$refs.buttonLight;
 
-    buttonDark.style.zIndex = theme === "light" ? "2" : "1";
-    buttonLight.style.zIndex = theme === "light" ? "1" : "2";
+  //   buttonDark.style.zIndex = theme === "light" ? "2" : "1";
+  //   buttonLight.style.zIndex = theme === "light" ? "1" : "2";
 
-    buttonDark.addEventListener("click", () => {
-      this.moveButton(buttonDark);
-    });
+  //   buttonDark.addEventListener("click", () => {
+  //     this.moveButton(buttonDark);
+  //   });
 
-    buttonLight.addEventListener("click", () => {
-      this.moveButton(buttonLight);
-    });
+  //   buttonLight.addEventListener("click", () => {
+  //     this.moveButton(buttonLight);
+  //   });
 
-    window.onscroll = () => {
-      this.isHiddenScrollUpButton = window.scrollY < 250;
-    };
-  },
-  methods: {
-    switchButtons(button1, button2) {
-      if (button1.style.zIndex === "2") {
-        button1.style.zIndex = "1";
-        button2.style.zIndex = "2";
-      } else {
-        button1.style.zIndex = "2";
-        button2.style.zIndex = "1";
-      }
-    },
-    moveButton(button) {
-      button.style.left = "2%";
-      setTimeout(() => {
-        button.style.left = "0px";
-        this.switchButtons(this.$refs.buttonDark, this.$refs.buttonLight);
-      }, 300);
-    },
-    toggleTheme() {
-      const theme = localStorage.getItem("theme") ?? "light";
-      const newTheme = theme === "light" ? "dark" : "light";
+  //   window.onscroll = () => {
+  //     this.isHiddenScrollUpButton = window.scrollY < 250;
+  //   };
+  // },
+  // methods: {
+  //   switchButtons(button1, button2) {
+  //     if (button1.style.zIndex === "2") {
+  //       button1.style.zIndex = "1";
+  //       button2.style.zIndex = "2";
+  //     } else {
+  //       button1.style.zIndex = "2";
+  //       button2.style.zIndex = "1";
+  //     }
+  //   },
+  //   moveButton(button) {
+  //     button.style.left = "2%";
+  //     setTimeout(() => {
+  //       button.style.left = "0px";
+  //       this.switchButtons(this.$refs.buttonDark, this.$refs.buttonLight);
+  //     }, 300);
+  //   },
+  //   toggleTheme() {
+  //     const theme = localStorage.getItem("theme") ?? "light";
+  //     const newTheme = theme === "light" ? "dark" : "light";
 
-      console.log("toggle theme", theme, newTheme);
+  //     console.log("toggle theme", theme, newTheme);
 
-      document.documentElement.setAttribute("color-scheme", newTheme);
-      localStorage.setItem("theme", newTheme);
-    },
-    scrollTop() {
-      window.scrollTo(0, 0);
-    },
-  },
+  //     document.documentElement.setAttribute("color-scheme", newTheme);
+  //     localStorage.setItem("theme", newTheme);
+  //   },
+  //   scrollTop() {
+  //     window.scrollTo(0, 0);
+  //   },
+  // },
 };
 </script>
 

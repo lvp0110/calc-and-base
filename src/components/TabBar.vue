@@ -115,6 +115,7 @@ const handleSearch = () => {
   text-decoration: none;
   margin-top: 55px;
   font-size: 20px;
+  border-bottom: solid;
 }
 .person-list a{
   color: azure;
