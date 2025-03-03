@@ -31,7 +31,7 @@
         width="35"
         height="35"
       />
-       <span style="padding: 30px;color: darkgray;">dark</span>
+       <span style="padding: 30px;color: #3e4348;">dark</span>
     </button>
   </div>
 </template>
@@ -50,8 +50,8 @@ export default {
       const theme = localStorage.getItem("theme") ?? "light";
 
       if (buttonDark.value && buttonLight.value) {
-        buttonDark.value.style.zIndex = theme === "light" ? "2" : "1";
-        buttonLight.value.style.zIndex = theme === "light" ? "1" : "2";
+        buttonDark.value.style.opacity = theme === "light" ? "1" : "0.5";
+        buttonLight.value.style.opacity = theme === "light" ? "0.5" : "1";
       }
     });
     
@@ -68,12 +68,12 @@ export default {
 
     const switchButtons = (button1, button2) => {
       if (button1 && button2) {
-        if (button1.style.zIndex === "2") {
-          button1.style.zIndex = "1";
-          button2.style.zIndex = "2";
+        if (button1.style.opacity === "1") {
+          button1.style.opacity = "0.5";
+          button2.style.opacity = "1";
         } else {
-          button1.style.zIndex = "2";
-          button2.style.zIndex = "1";
+          button1.style.opacity = "1";
+          button2.style.opacity = "0.5";
         }
       }
     };
@@ -110,6 +110,7 @@ export default {
   left: -70px;
   transition: left 0.3s;
   z-index: 1;
+  opacity: .5;
 }
 
 .button_light {
@@ -119,7 +120,7 @@ export default {
 }
 
 .button_dark {
-  background: rgb(229, 229, 229);
+  background: rgb(244, 242, 242);
   border: solid 1px rgb(138, 136, 136);
 }
 </style>

@@ -48,6 +48,39 @@
       </div>
 
       <span class="span"> {{ selectElement.Specification }}</span>
+      <!-- --- -->
+      <hr />
+      <p>Параметры конструкции:</p>
+      <ul>
+        <label for="">шаг профиля</label>
+        <li>600 <input type="radio" id="1" name="step" /></li>
+        <li>400 <input type="radio" id="2" name="step" /></li>
+        <li>300 <input type="radio" id="3" name="step" /></li>
+        <hr />
+        <li>сдвоенный профиль <input type="checkbox" /></li>
+      </ul>
+      <ul>
+        <label for="">проемы</label>
+        <li>дверь <input type="checkbox" id="1" name="opening" v-model="doorCheckBoxChecked" /></li>
+        <ul v-if="doorCheckBoxChecked">
+          <li v-for="(dooropening, index) in dooropenings" :key="index">
+            <input type="number" v-model="dooropening.width" />
+            <input type="number" v-model="dooropening.height" />
+            <button class="btn btn-outline-light" @click="addDoorOpening">+</button>
+            <button class="btn" @click="removeDoorOpening(index)">-</button>
+          </li>
+        </ul>
+        <li>окно <input type="checkbox" id="1" name="opening" v-model="windowCheckBoxChecked"/></li>
+        <ul v-if="windowCheckBoxChecked">
+          <li v-for="(windowopening, index) in windowopenings" :key="index">
+            <input type="number" v-model="windowopening.width" />
+            <input type="number" v-model="windowopening.height" />
+            <button class="btn" @click="addWindowOpening">+</button>
+            <button class="btn" @click="removeWindowOpening(index)">-</button>
+          </li>
+        </ul>
+      </ul>
+      <!-- --- -->
       <RouterLink
         :to="`/calc/${selectElement.Code}`"
         class="btn btn-outline-secondary calculate"
@@ -69,6 +102,30 @@ import { constructionsApi } from "../../../../config";
 
 const store = useStore();
 const route = useRoute();
+
+const doorCheckBoxChecked = ref(false);
+const windowCheckBoxChecked = ref(false);
+
+const dooropenings = ref([{ width: null, height: null }]);
+const windowopenings = ref([{ width: null, height: null }]);
+
+function addDoorOpening() {
+  dooropenings.value.push({ width: null, height: null });
+}
+function addWindowOpening() {
+  windowopenings.value.push({ width: null, height: null });
+}
+
+function removeDoorOpening(index) {
+  if (index !== 0) {
+    dooropenings.value.splice(index, 1);
+  }
+}
+function removeWindowOpening(index) {
+  if (index !== 0) {
+    windowopenings.value.splice(index, 1);
+  }
+}
 
 const materials = ref([]);
 
@@ -128,7 +185,10 @@ function toggleActive(img) {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
+.btn {
+  color: white;
 
+}
 ul li {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
