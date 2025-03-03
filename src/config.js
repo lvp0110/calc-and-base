@@ -7,8 +7,10 @@ const country = "ru"
 
 const requestInstance = axios.create({
   baseURL,
+  paramsSerializer: {
+    indexes: null
+  }
 });
-
 
 export const setCountry = (country) => {
   // requestInstance.defaults.headers.common['Db-Acoustic-Country'] = country
