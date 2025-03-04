@@ -270,7 +270,7 @@ const isSquare = ref(true);
 const square = ref("");
 const length = ref("");
 const height = ref("");
-const type = ref("wall");
+const type = ref();
 
 const openChartDialog = ref(false);
 
@@ -328,7 +328,7 @@ const resetForm = () => {
   square.value = "";
   length.value = "";
   height.value = "";
-  type.value = "wall";
+  type.value = null;
 };
 
 const validateForm = () => {
@@ -547,6 +547,8 @@ const selectColor = (color) => {
 
   replaceLocation();
 
+  getCalculationTypes();
+
   calculate();
 };
 
@@ -563,6 +565,8 @@ const selectSize = (event) => {
 
   replaceLocation();
 
+  getCalculationTypes();
+
   calculate();
 };
 
@@ -571,6 +575,8 @@ const selectPerforation = (perforation) => {
 
   replaceLocation();
 
+  getCalculationTypes();
+
   calculate();
 };
 
@@ -578,6 +584,8 @@ const selectEdgeType = (edgeType) => {
   selectedEdgeType.value = edgeType;
 
   replaceLocation();
+
+  getCalculationTypes();
 
   calculate();
 };

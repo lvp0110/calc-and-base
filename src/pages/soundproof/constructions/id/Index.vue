@@ -24,19 +24,18 @@
             :src="filesApi.getImageFileUrl(selectElement.CadImg)"
             @click="toggleActive('img2')"
           />
+          <ul class="ul-descript">
+            <li v-if="selectElement.SoundIndex != 'неопределен'">
+              Индекс звукоизоляции воздушного шума, Rw =
+              {{ selectElement.SoundIndex }} дБ.
+            </li>
+            <li v-if="selectElement.ImpactNoseIndex != 0">
+              Индекс звукоизоляции ударного шума, Lnw =
+              {{ selectElement.ImpactNoseIndex }} дБ.
+            </li>
+            <li>Толщина: {{ selectElement.Thickness }} мм.</li>
+          </ul>
         </div>
-        <p style="margin-top: 16px">Характеристики:</p>
-        <ul class="ul-descript">
-          <li v-if="selectElement.SoundIndex != 'неопределен'">
-            Индекс звукоизоляции воздушного шума, Rw =
-            {{ selectElement.SoundIndex }} дБ.
-          </li>
-          <li v-if="selectElement.ImpactNoseIndex != 0">
-            Индекс звукоизоляции ударного шума, Lnw =
-            {{ selectElement.ImpactNoseIndex }} дБ.
-          </li>
-          <li>Толщина: {{ selectElement.Thickness }} мм.</li>
-        </ul>
         <p>Состав конструкции:</p>
         <ul class="ul-descript">
           <li v-for="material in materials">
@@ -47,8 +46,24 @@
         </ul>
       </div>
 
-      <span class="span"> {{ selectElement.Specification }}</span>
+      <p class="span">{{ selectElement.Specification }}</p>
+      <hr />
+      <RouterLink
+        :to="`/calc/${selectElement.Code}`"
+        class="btn btn-outline-secondary calculate"
+        >РАССЧИТАТЬ КОЛИЧЕСТВО МАТЕРИАЛОВ
+      </RouterLink>
       <!-- --- -->
+      <p>Размеры:</p>
+      <label for="">ширина</label>
+      <div class="size-constr">
+        <input type="number" />
+      </div>
+      <label for="">длина</label>
+      <div class="size-constr">
+        <input type="number" />
+      </div>
+
       <hr />
       <p>Параметры конструкции:</p>
       <ul>
@@ -61,16 +76,34 @@
       </ul>
       <ul>
         <label for="">проемы</label>
-        <li>дверь <input type="checkbox" id="1" name="opening" v-model="doorCheckBoxChecked" /></li>
+        <li>
+          дверь
+          <input
+            type="checkbox"
+            id="1"
+            name="opening"
+            v-model="doorCheckBoxChecked"
+          />
+        </li>
         <ul v-if="doorCheckBoxChecked">
           <li v-for="(dooropening, index) in dooropenings" :key="index">
             <input type="number" v-model="dooropening.width" />
             <input type="number" v-model="dooropening.height" />
-            <button class="btn btn-outline-light" @click="addDoorOpening">+</button>
+            <button class="btn btn-outline-light" @click="addDoorOpening">
+              +
+            </button>
             <button class="btn" @click="removeDoorOpening(index)">-</button>
           </li>
         </ul>
-        <li>окно <input type="checkbox" id="1" name="opening" v-model="windowCheckBoxChecked"/></li>
+        <li>
+          окно
+          <input
+            type="checkbox"
+            id="1"
+            name="opening"
+            v-model="windowCheckBoxChecked"
+          />
+        </li>
         <ul v-if="windowCheckBoxChecked">
           <li v-for="(windowopening, index) in windowopenings" :key="index">
             <input type="number" v-model="windowopening.width" />
@@ -80,12 +113,36 @@
           </li>
         </ul>
       </ul>
+      <table class="table table-bordered" style="color: aliceblue;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
       <!-- --- -->
-      <RouterLink
-        :to="`/calc/${selectElement.Code}`"
-        class="btn btn-outline-secondary calculate"
-        >РАССЧИТАТЬ КОЛИЧЕСТВО МАТЕРИАЛОВ
-      </RouterLink>
     </template>
   </SidebarLayout>
 </template>
@@ -185,13 +242,20 @@ function toggleActive(img) {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
+.span {
+  padding-right: 10px;
+}
+.image-block {
+  display: flex;
+  margin-bottom: 20px;
+}
 .btn {
   color: white;
-
 }
 ul li {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
+  padding-right: 10px;
   padding-left: 10px;
 }
 
@@ -267,7 +331,11 @@ a:hover + .ellipses {
   transform: translateX(-50%) translateY(50%) scale(2);
   border-radius: 3px;
 }
-
+@media screen and (max-width: 1024px) {
+  .image-block {
+    display: block;
+  }
+}
 @media screen and (min-width: 1024px) {
   .img1,
   .img2 {

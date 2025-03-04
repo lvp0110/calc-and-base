@@ -1,116 +1,170 @@
 <template>
-    <MainPageLayout :breadcrumbs="breadcrumbs" />
-    <SidebarLayout :hasContent="selectElement">
-        <template #sidebar>
-            <List :items="selectMaterials" to="/vibration_isolation/materials" />
-        </template>
-        <template #content>
-            <p class="title-materials">{{ selectElement.Description }}</p>
-            <hr>
-            <div class="image-descript">
-                <img class="img" :src="'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img" alt="wwwww">
-                <ul class="ul-descript">
-                    <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
+  <MainPageLayout :breadcrumbs="breadcrumbs" />
+  <SidebarLayout :hasContent="selectElement">
+    <template #sidebar>
+      <List :items="selectMaterials" to="/vibration_isolation/materials" />
+    </template>
+    <template #content>
+      <p class="title-materials">{{ selectElement.Description }}</p>
+      <hr />
+      <div class="image-descript">
+        <img
+          class="img"
+          :src="
+            'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img
+          "
+          alt="wwwww"
+        />
+        <div class="list-block">
+        <ul class="ul-descript">
+          <!-- <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
                     <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
-                    <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li>
-                    <li v-if="selectElement.Weight != 'неопределен'">{{ selectElement.Weight }} </li>
-                    <li v-if="selectElement.Volume != 'неопределен'">{{ selectElement.Volume }} </li>
+                    <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li> -->
+          <li>Номенклатура:</li>
+          <li v-if="selectElement.Volume != 'неопределен'">
+            {{ selectElement.Volume }}
+          </li>
+          <li v-if="selectElement.Weight != 'неопределен'">
+            {{ selectElement.Weight }}
+          </li>
+          <li>Минимальная резонансная частота: 11,4 Гц</li>
+          <li>Габариты: 98х50х46 мм</li>
+          <li>Присоединительная резьба: М8, М10</li>
+          <li>Производство: 2-3 дня в Домодедово</li>
 
-                    <li>Аpтикул: {{ selectElement.Code }}</li>
-                </ul>
-            </div>
-            <hr>
-            <span>{{ selectElement.Specification }}</span>
-        </template>
-    </SidebarLayout>
+          <li>Аpтикул: {{ selectElement.Code }}</li>
+        </ul>
+        <button class="btn btn-outline-light">
+          <a href="http://localhost:5173/documents/certificates/hanger">C</a>
+        </button>
+      </div>
+      </div>
+     
+      <hr />
+      <span
+        >Подвесы тип 1 монтируются к перекрытию через два отверстия с помощью
+        анкер-гвоздей диаметром 6 мм, а оборудование подвешивается к ним
+        посредством шпильки с резьбой М8 (М10)</span
+      >
+      <hr />
+      <!-- <span>{{ selectElement.Specification }}</span> -->
+      <span
+        >Более подробную информацию уточняйте у отдела “Виброизоляция” (Марусев
+        Юрий, Шуйков Алексей, Крюков Даниил)</span
+      >
+    </template>
+  </SidebarLayout>
 </template>
 
 <script setup>
-import MainPageLayout from '../../../../components/Layouts/MainPageLayout.vue';
-import List from '../../../../components/List/List.vue';
-import SidebarLayout from '../../../../components/Layouts/SidebarLayout.vue';
-import { computed } from 'vue';
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
+import List from "../../../../components/List/List.vue";
+import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
-const store = useStore()
-const route = useRoute()
+const store = useStore();
+const route = useRoute();
 
-store.dispatch('getMaterialsVi')
+store.dispatch("getMaterialsVi");
 
-const selectMaterials = computed(() => store.getters['selectMaterialsVi'])
-const selectElement = computed(() => store.getters['selectMaterialsVi'].find(({ Code }) => Code === route.params.id))
+const selectMaterials = computed(() => store.getters["selectMaterialsVi"]);
+const selectElement = computed(() =>
+  store.getters["selectMaterialsVi"].find(
+    ({ Code }) => Code === route.params.id
+  )
+);
 const breadcrumbs = computed(() => {
-    const breadcrumbs = [
-        { link: '/vibration_isolation', title: '...' },
-        { link: '/vibration_isolation/materials', title: 'МАТЕРИАЛЫ' },
-    ]
+  const breadcrumbs = [
+    { link: "/vibration_isolation", title: "..." },
+    { link: "/vibration_isolation/materials", title: "МАТЕРИАЛЫ" },
+  ];
 
-    if (route.params.id) {
-        breadcrumbs.push({ title: route.params.id })
-    }
+  if (route.params.id) {
+    breadcrumbs.push({ title: route.params.id });
+  }
 
-    return breadcrumbs
-})
+  return breadcrumbs;
+});
 </script>
 
 <style scoped>
+.btn {
+    margin-left: 20px;  
+}
+.list-block {
+    width: 100%;
+    margin-left: 10px;
+}
+.image-descript {
+  display: flex;
+}
 ul li {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
-    margin-top: 5px;
-    padding-left: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+  margin-top: 5px;
+  padding-left: 10px;
 }
 ul {
-    margin-top: 15px;
+  margin-top: 15px;
+  width: 100%;
 }
 .span1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    display: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  display: none;
 }
 
 .span2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
 }
 .img {
-    width: 100%;
+  width: 100%;
 }
 .title-materials {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    width: 100%;
-    background: radial-gradient(circle at center, #8992998c, #d7dadf62);
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  width: 100%;
+  background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
 }
 @media screen and (min-width: 768px) {
-    .img {
+  .img {
     width: 50%;
+    height: 100%;
+  }
+
 }
+@media screen and (max-width: 1024px) {
+  .image-descript {
+    display: block;
+  }
+  .list-block {
+    width: 100%;
+    margin-left: -12px;
 }
-@media screen and (min-width: 1024px) {
-    .img {
-        width: 40%;
-    }
-    ul {
-        width: 40%;
-    }
-    .span1 {
-        display: inline-flex;
-        width: 50%;
-        position: absolute;
-        margin-left: 15px;
-        margin-top: -5px;
-        font-size: 15.5px;
-    }
-    .span2 {
-        display: none;
-    }
-    
+  .img {
+    width: 100%;
+  }
+  ul {
+    width: 100%;
+  }
+  .span1 {
+    display: inline-flex;
+    width: 50%;
+    position: absolute;
+    margin-left: 15px;
+    margin-top: -5px;
+    font-size: 15.5px;
+  }
+  .span2 {
+    display: none;
+  }
 }
 </style>
