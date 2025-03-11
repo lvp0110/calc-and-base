@@ -23,6 +23,23 @@
         />
       </div>
 
+      <div class="selects-grid">
+        <div v-for="brandParam in brandParams">
+          <select
+            class="form-select select-descript"
+            :name="brandParam.code"
+            :class="{ selected: selectedBrandParams[brandParam.code] != null }"
+            v-model="selectedBrandParams[brandParam.code]"
+            @change="selectBrandParam($event)"
+          >
+            <option value="undefined" disabled>{{ brandParam.name }}</option>
+            <option v-for="item in brandParam.list" :value="item.code">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- 
       <div class="select-container models">
         <select
           class="form-select select-descript"
@@ -102,7 +119,8 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
+
       <div v-if="isAvailableCalculated && isAvailableSizes()" class="form">
         <div class="form-header">
           <div>
@@ -243,10 +261,14 @@ import Dialog from "../../../../components/Dialog/index.vue";
 import Chart from "../../../../components/Chart/index.vue";
 import { getColorByIndex } from "../../../../utils/colors";
 import { exportToCsv } from "../../../../utils/files";
+import { BrandParamPossibleCode } from "../../../../types";
 
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
+
+const brandParams = ref([]);
+const selectedBrandParams = ref({});
 
 const models = ref([]);
 const params = ref({});
@@ -290,6 +312,16 @@ const handleCloseChartDialog = () => {
 };
 
 const selectedArticuls = ref([]);
+
+const selectBrandParam = (event) => {
+  if (event.target.name === BrandParamPossibleCode.Model) {
+    selectedBrandParams.value = { [event.target.name]: event.target.value }
+  } else {
+    selectedBrandParams.value[event.target.name] = event.target.value;
+  }
+
+  fetchBrand(selectedBrandParams.value);
+};
 
 const isAvailableSizes = () => {
   if (isLoadingParams.value) {
@@ -365,7 +397,9 @@ const calculate = async (isInitial = true) => {
   );
   calculationsTableRows.value = response.data.data.rows;
 
-  selectedArticuls.value = calculationsTableRows.value.map(({ items }) => items[0]?.code)
+  selectedArticuls.value = calculationsTableRows.value.map(
+    ({ items }) => items[0]?.code
+  );
 
   replaceLocation();
 
@@ -399,7 +433,9 @@ const changeArticul = (id) => (articul) => {
     }
     return row;
   });
-  selectedArticuls.value = calculationsTableRows.value.map(({ items }) => items[0]?.code)
+  selectedArticuls.value = calculationsTableRows.value.map(
+    ({ items }) => items[0]?.code
+  );
 
   calculate(false);
 };
@@ -419,14 +455,14 @@ const colorizedImage = () => {
 };
 
 const modelImages = () => {
-  if (selectedModelCode.value) {
-    const selectedModel = models.value.find(
-      (model) => model.code === selectedModelCode.value
-    );
+  const selectedModelCode =
+    selectedBrandParams.value[BrandParamPossibleCode.Model];
+  const selectedModel = brandParams.value
+    .find(({ code }) => code === BrandParamPossibleCode.Model)
+    ?.list.find(({ code }) => code === selectedModelCode);
 
-    if (selectedModel) {
-      return [filesApi.getImageFileUrl(selectedModel.img)];
-    }
+  if (selectedModel) {
+    return [filesApi.getImageFileUrl(selectedModel.img)];
   }
 
   return [];
@@ -448,28 +484,33 @@ const fetchChart = async () => {
   };
 };
 
-const fetchBrand = async () => {
-  const response = await modelsApi.getModelsByBrand(route.params.id);
+const fetchBrand = async (params) => {
+  isLoadingParams.value = true;
 
-  models.value = response.data.data.models_list;
+  const response = await modelsApi.getBrandParams(route.params.id, params);
 
-  selectedModelCode.value = route.query.model ?? null;
+  brandParams.value = response.data.data;
+  isLoadingParams.value = false;
 
-  square.value = route.query.square;
-  length.value = route.query.length;
-  height.value = route.query.height;
+  // models.value = response.data.data.models_list;
 
-  if (route.query.type) {
-    type.value = route.query.type;
-  }
+  // selectedModelCode.value = route.query.model ?? null;
 
-  if (square.value == null && (length.value != null || height.value != null)) {
-    isSquare.value = false;
-  }
+  // square.value = route.query.square;
+  // length.value = route.query.length;
+  // height.value = route.query.height;
 
-  if (route.query.model) {
-    selectModelInitial();
-  }
+  // if (route.query.type) {
+  //   type.value = route.query.type;
+  // }
+
+  // if (square.value == null && (length.value != null || height.value != null)) {
+  //   isSquare.value = false;
+  // }
+
+  // if (route.query.model) {
+  //   selectModelInitial();
+  // }
 };
 
 const selectModel = async (event) => {
@@ -648,7 +689,7 @@ const breadcrumbs = () => {
   return [
     { link: "/acoustic", title: "..." },
     { link: "/acoustic/brands", title: "БРЕНДЫ" },
-    { title: selectElement.value.Name },
+    { title: selectElement.value?.Name },
   ];
 };
 
@@ -671,6 +712,16 @@ const copyLink = () => {
 </script>
 
 <style scoped>
+.selects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 4px;
+}
+
+.selects-grid > :first-child {
+  grid-column: 1 / span 2;
+}
+
 .action-buttons {
   display: flex;
   gap: 8px;

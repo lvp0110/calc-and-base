@@ -11,7 +11,8 @@ import VibrationMaterialsId from './pages/vibration_isolation/materials/id/index
 
 import AcousticMaterialsId from './pages/acoustic/materials/id/index.vue'
 import AcousticBrands from './pages/acoustic/brands/index.vue'
-import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
+// import AcousticBrandsId from './pages/acoustic/brands/id/Index.vue'
+import AcousticBrandsId from './pages/acoustic/brands/id/index-new.vue'
 import AcousticBrandsIdChartModel from './pages/acoustic/brands/id/chart/model/index.vue'
 
 import DocumentAirId from './pages/documents/air/id/index.vue'

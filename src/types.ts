@@ -1,3 +1,11 @@
+export enum BrandParamPossibleCode {
+  Model = "model",
+  Color = "color",
+  Size = "size",
+  Perforation = "perf",
+  EdgeTypes = "edge",
+}
+
 export enum MaterialUsage {
   SoundIsolation = "si",
   Acoustic = "ac",

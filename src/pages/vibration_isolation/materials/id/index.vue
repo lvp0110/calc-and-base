@@ -16,30 +16,57 @@
           alt="wwwww"
         />
         <div class="list-block">
-        <ul class="ul-descript">
-          <!-- <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
+          <ul class="ul-descript">
+            <!-- <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
                     <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
                     <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li> -->
-          <li>Номенклатура:</li>
-          <li v-if="selectElement.Volume != 'неопределен'">
-            {{ selectElement.Volume }}
-          </li>
-          <li v-if="selectElement.Weight != 'неопределен'">
-            {{ selectElement.Weight }}
-          </li>
-          <li>Минимальная резонансная частота: 11,4 Гц</li>
-          <li>Габариты: 98х50х46 мм</li>
-          <li>Присоединительная резьба: М8, М10</li>
-          <li>Производство: 2-3 дня в Домодедово</li>
+            <li>Номенклатура:</li>
+            <li v-if="selectElement.Volume != 'неопределен'">
+              {{ selectElement.Volume }}
+            </li>
+            <li v-if="selectElement.Weight != 'неопределен'">
+              {{ selectElement.Weight }}
+            </li>
+            <li>Минимальная резонансная частота: 11,4 Гц</li>
+            <li>Габариты: 98х50х46 мм</li>
+            <li>Присоединительная резьба: М8, М10</li>
+            <li>Производство: 2-3 дня в Домодедово</li>
 
-          <li>Аpтикул: {{ selectElement.Code }}</li>
-        </ul>
-        <button class="btn btn-outline-light">
-          <a href="http://localhost:5173/documents/certificates/hanger">C</a>
-        </button>
+            <li>Аpтикул: {{ selectElement.Code }}</li>
+
+            <label for="">Документы:</label>
+            <li>
+              <a
+                href="http://localhost:5173/documents/certificates/hanger"
+                style="
+                  color: aliceblue;
+                  text-decoration: none;
+                "
+                > <img
+                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
+                alt=""
+                style="width: 30px;margin-right: 10px;"
+              />Cертификаты</a
+              >
+            </li>
+            <li>
+              <a
+                href="http://localhost:5173/documents/certificates/hanger"
+                style="
+                  color: aliceblue;
+                  text-decoration: none;
+                "
+                > <img
+                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
+                alt=""
+                style="width: 30px;margin-right: 10px;"
+              />Тех.лист</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-      </div>
-     
+
       <hr />
       <span
         >Подвесы тип 1 монтируются к перекрытию через два отверстия с помощью
@@ -90,12 +117,9 @@ const breadcrumbs = computed(() => {
 </script>
 
 <style scoped>
-.btn {
-    margin-left: 20px;  
-}
 .list-block {
-    width: 100%;
-    margin-left: 10px;
+  width: 100%;
+  margin-left: 10px;
 }
 .image-descript {
   display: flex;
@@ -139,7 +163,6 @@ ul {
     width: 50%;
     height: 100%;
   }
-
 }
 @media screen and (max-width: 1024px) {
   .image-descript {
@@ -148,7 +171,7 @@ ul {
   .list-block {
     width: 100%;
     margin-left: -12px;
-}
+  }
   .img {
     width: 100%;
   }

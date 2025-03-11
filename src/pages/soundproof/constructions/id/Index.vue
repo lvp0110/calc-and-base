@@ -34,115 +34,137 @@
               {{ selectElement.ImpactNoseIndex }} дБ.
             </li>
             <li>Толщина: {{ selectElement.Thickness }} мм.</li>
+            <li>
+              <img
+                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
+                alt=""
+                style="width: 30px; margin-right: 10px"
+              />Технологическая карта
+            </li>
+            <li>
+              <RouterLink :to="`/calc/${selectElement.Code}`" class="calc"
+                ><img
+                  src="http://51.250.123.41:3005/api/v1/constr/calc.svg"
+                  style="width: 30px; margin-right: 10px; padding: 2px"
+                  alt=""
+                />
+                Калькулятор
+              </RouterLink>
+            </li>
           </ul>
         </div>
-        <p>Состав конструкции:</p>
+       
+            <p
+              type="button"
+              class="btn btn-outline-secondary show-hidden-list one"
+              @click="toggleComposition"
+            >
+              Состав конструкции:
+            </p>
+      
         <ul class="ul-descript">
-          <li v-for="material in materials">
-            <RouterLink :to="`/soundproof/materials/${material.code}`">
-              {{ material.name }}<span class="ellipses">...</span> </RouterLink
-            ><span class="ellipses">...</span>
-          </li>
+          <div class="hidden-list one" v-if="isCompositionVisible">
+            <li v-for="material in materials">
+              <RouterLink :to="`/soundproof/materials/${material.code}`">
+                {{ material.name
+                }}<span class="ellipses">...</span> </RouterLink
+              ><span class="ellipses">...</span>
+            </li>
+          </div>
         </ul>
       </div>
 
       <p class="span">{{ selectElement.Specification }}</p>
       <hr />
-      <RouterLink
-        :to="`/calc/${selectElement.Code}`"
-        class="btn btn-outline-secondary calculate"
-        >РАССЧИТАТЬ КОЛИЧЕСТВО МАТЕРИАЛОВ
-      </RouterLink>
-      <!-- --- -->
-      <p>Размеры:</p>
-      <label for="">ширина</label>
-      <div class="size-constr">
-        <input type="number" />
-      </div>
-      <label for="">длина</label>
-      <div class="size-constr">
-        <input type="number" />
-      </div>
-
-      <hr />
-      <p>Параметры конструкции:</p>
-      <ul>
-        <label for="">шаг профиля</label>
-        <li>600 <input type="radio" id="1" name="step" /></li>
-        <li>400 <input type="radio" id="2" name="step" /></li>
-        <li>300 <input type="radio" id="3" name="step" /></li>
+      <p type="button" class="btn btn-outline-secondary show-hidden-list two" @click="toggleCalc">
+        Расчет материалов конструкции:
+      </p>
+      <div class="hidden-list two" v-if="isCalcVisible">
+        <p>Размеры:</p>
+        <div style="display: flex; gap: 4px">
+          <label for=""> ширина <input type="number" /></label>
+          <label for=""> длина <input type="number" /></label>
+        </div>
         <hr />
-        <li>сдвоенный профиль <input type="checkbox" /></li>
-      </ul>
-      <ul>
-        <label for="">проемы</label>
-        <li>
-          дверь
-          <input
-            type="checkbox"
-            id="1"
-            name="opening"
-            v-model="doorCheckBoxChecked"
-          />
-        </li>
-        <ul v-if="doorCheckBoxChecked">
-          <li v-for="(dooropening, index) in dooropenings" :key="index">
-            <input type="number" v-model="dooropening.width" />
-            <input type="number" v-model="dooropening.height" />
-            <button class="btn btn-outline-light" @click="addDoorOpening">
-              +
-            </button>
-            <button class="btn" @click="removeDoorOpening(index)">-</button>
-          </li>
+        <p>Параметры конструкции:</p>
+        <ul>
+          <label for="">шаг профиля</label>
+          <li>600 <input type="radio" id="1" name="step" /></li>
+          <li>400 <input type="radio" id="2" name="step" /></li>
+          <li>300 <input type="radio" id="3" name="step" /></li>
+          <hr />
+          <li>сдвоенный профиль <input type="checkbox" /></li>
         </ul>
-        <li>
-          окно
-          <input
-            type="checkbox"
-            id="1"
-            name="opening"
-            v-model="windowCheckBoxChecked"
-          />
-        </li>
-        <ul v-if="windowCheckBoxChecked">
-          <li v-for="(windowopening, index) in windowopenings" :key="index">
-            <input type="number" v-model="windowopening.width" />
-            <input type="number" v-model="windowopening.height" />
-            <button class="btn" @click="addWindowOpening">+</button>
-            <button class="btn" @click="removeWindowOpening(index)">-</button>
+        <ul>
+          <label for="">проемы</label>
+          <li>
+            дверь
+            <input
+              type="checkbox"
+              id="1"
+              name="opening"
+              v-model="doorCheckBoxChecked"
+            />
           </li>
+          <ul v-if="doorCheckBoxChecked">
+            <li v-for="(dooropening, index) in dooropenings" :key="index">
+              <input type="number" v-model="dooropening.width" />
+              <input type="number" v-model="dooropening.height" />
+              <button class="btn btn-outline-light" @click="addDoorOpening">
+                +
+              </button>
+              <button class="btn" @click="removeDoorOpening(index)">-</button>
+            </li>
+          </ul>
+          <li>
+            окно
+            <input
+              type="checkbox"
+              id="1"
+              name="opening"
+              v-model="windowCheckBoxChecked"
+            />
+          </li>
+          <ul v-if="windowCheckBoxChecked">
+            <li v-for="(windowopening, index) in windowopenings" :key="index">
+              <input type="number" v-model="windowopening.width" />
+              <input type="number" v-model="windowopening.height" />
+              <button class="btn" @click="addWindowOpening">+</button>
+              <button class="btn" @click="removeWindowOpening(index)">-</button>
+            </li>
+          </ul>
         </ul>
-      </ul>
-      <table class="table table-bordered" style="color: aliceblue;">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- --- -->
+
+        <table class="table table-bordered" style="color: gray; width: 98%">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </template>
   </SidebarLayout>
 </template>
@@ -156,6 +178,17 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { computed, ref, watch, onMounted } from "vue";
 import { constructionsApi } from "../../../../config";
+
+const isCompositionVisible = ref(false);
+const isCalcVisible = ref(false);
+
+function toggleComposition() {
+  isCompositionVisible.value = !isCompositionVisible.value;
+}
+
+function toggleCalc() {
+  isCalcVisible.value = !isCalcVisible.value;
+}
 
 const store = useStore();
 const route = useRoute();
@@ -242,6 +275,10 @@ function toggleActive(img) {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
+.show-hidden-list {
+  font-size: large;  color: var(--link-text);
+
+}
 .span {
   padding-right: 10px;
 }
@@ -249,11 +286,9 @@ function toggleActive(img) {
   display: flex;
   margin-bottom: 20px;
 }
-.btn {
-  color: white;
-}
+
 ul li {
-  background: radial-gradient(circle at center, #8992998c, #d7dadf62);
+  background: radial-gradient(circle at left, #8992998c, #d7dadf62);
   margin-top: 5px;
   padding-right: 10px;
   padding-left: 10px;

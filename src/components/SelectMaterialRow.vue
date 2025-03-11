@@ -3,22 +3,22 @@
     <td v-for="column in columns">
       <template v-if="column.id === 'name'">
         <div v-if="items.length === 1">
-          {{ selectedItem[column.id] }}
+          {{ selectedItem?.[column.id] }}
           <div
-            v-if="selectedItem.comment"
+            v-if="selectedItem?.comment"
             style="font-weight: 10px; color: gray; line-height: 1"
           >
-            *{{ selectedItem.comment }}
+            *{{ selectedItem?.comment }}
           </div>
         </div>
-        <select class="test" v-else :value="selectedArticul" @change="change">
+        <select class="test" v-else :value="selectedItem?.code" @change="change">
           <option v-for="option in items" :value="option.code">
-            {{ option[column.id] }}
+            {{ option?.[column.id] }}
           </option>
         </select>
       </template>
       <div v-else>
-        <div>{{ selectedItem[column.id] }}</div>
+        <div>{{ selectedItem?.[column.id] }}</div>
       </div>
     </td>
   </tr>
@@ -27,12 +27,12 @@
 <script setup>
 import { computed, toRefs } from "vue";
 
-const props = defineProps(["items", "columns", "selectedArticul", "onChange"]);
+const props = defineProps(["items", "columns", "selectedArticuls", "onChange"]);
 
-const { items, columns, selectedArticul } = toRefs(props);
+const { items, columns, selectedArticuls } = toRefs(props);
 
-const selectedItem = computed(() =>
-  items.value.find(({ code }) => code === selectedArticul.value)
+const selectedItem = computed(() => 
+  items.value.find(({ code }) => selectedArticuls.value.includes(code))
 );
 
 const change = (event) => {
@@ -47,7 +47,6 @@ td {
 }
 
 .test {
-  width: 100%
+  width: 100%;
 }
-
 </style>

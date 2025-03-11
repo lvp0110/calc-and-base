@@ -46,6 +46,7 @@ export const modelsApi = {
     requestInstance.get(`api/v1/ParamsByAModels/${model}`),
   getModelsByBrand: (brand) =>
     requestInstance.get(`api/v1/AModelsByBrand/${brand}`),
+  getBrandParams: (brand, params) => requestInstance.get(`api/v1/brandParams/${brand}`, { params })
 };
 
 export const constructionsApi = {
