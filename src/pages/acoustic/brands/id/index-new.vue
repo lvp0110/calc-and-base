@@ -5,15 +5,13 @@
     <div class="left">
       <div class="block-image-colors">
         <img
-          v-if="selectedColor"
-          :src="filesApi.getImageFileUrl(colorizedImage())"
-          :alt="selectedColor?.Name"
+          v-if="selectedColorImage"
+          :src="filesApi.getImageFileUrl(selectedColorImage)"
           class="model-image"
         />
         <img
           v-else-if="modelImages().length === 0"
           :src="filesApi.getImageFileUrl(selectElement.Img)"
-          :alt="selectedColor?.Name"
           class="model-image"
         />
         <ObjectsSlider
@@ -26,6 +24,7 @@
       <div class="selects-grid">
         <div v-for="brandParam in brandParams">
           <select
+            v-if="brandParam.type === 'select'"
             class="form-select select-descript"
             :name="brandParam.code"
             :class="{ selected: selectedBrandParams[brandParam.code] != null }"
@@ -37,91 +36,32 @@
               {{ item.name }}
             </option>
           </select>
-        </div>
-      </div>
-      <!-- 
-      <div class="select-container models">
-        <select
-          class="form-select select-descript"
-          :class="{ selected: selectedModelCode }"
-          aria-label="Default select example"
-          v-model="selectedModelCode"
-          @change="selectModel"
-        >
-          <option value="null" disabled>Выбрать модель</option>
-          <option v-for="model in models" :value="model.code">
-            {{ model.name }}
-          </option>
-        </select>
-      </div>
-
-      <div class="select-container colorsizes">
-        <div v-if="params.sizes?.length > 0" class="select-wrapper size">
-          <select
-            class="form-select select-descript"
-            :class="{ selected: selectedSizeCode }"
-            v-model="selectedSizeCode"
-            aria-label="Default select example"
-            @change="selectSize($event)"
-          >
-            <option value="null" disabled>Размеры</option>
-            <option v-for="size in params.sizes" :value="size.code">
-              {{ `${size.len_x}/${size.len_z}/${size.len_y} мм` }}
-            </option>
-          </select>
-        </div>
-
-        <div v-if="params.colors?.length > 0" class="select-wrapper colors">
-          <ImageSelect
-            placeholder="Цвет"
-            :value="selectedColor?.description"
-            :items="params?.colors"
-            :onSelect="selectColor"
-          />
-        </div>
-      </div>
-
-      <div v-if="selectedModelCode" class="select">
-        <div class="select-container perforation">
-          <div v-if="params.perforations?.length > 0" class="select-wrapper">
+          <div v-else>
             <ImageSelect
-              placeholder="Тип перфорации"
-              :value="selectedPerforation?.description"
-              :items="params?.perforations"
-              :onSelect="selectPerforation"
+              :placeholder="brandParam.name"
+              :value="selectedBrandParams[brandParam.code]"
+              :items="brandParam.list"
+              :onSelect="selectImageBrandParam(brandParam.code)"
             />
             <img
-              v-if="selectedPerforation"
+              v-if="
+                selectedBrandParams[brandParam.code] &&
+                brandParam.code !== BrandParamPossibleCode.Color
+              "
               class="add-image"
-              :src="filesApi.getImageFileUrl(selectedPerforation.img)"
-              :alt="selectedPerforation?.name"
-            />
-            <img
-              v-if="selectedPerforation && selectedPerforation.section_img"
-              class="add-image"
-              :src="filesApi.getImageFileUrl(selectedPerforation.section_img)"
-              :alt="selectedPerforation?.name"
-            />
-          </div>
-
-          <div v-if="params.edges_types?.length > 0" class="select-wrapper">
-            <ImageSelect
-              placeholder="Тип кромки"
-              :value="selectedEdgeType?.name"
-              :items="params?.edges_types"
-              :onSelect="selectEdgeType"
-            />
-            <img
-              v-if="selectedEdgeType"
-              class="add-image"
-              :src="filesApi.getImageFileUrl(selectedEdgeType.img)"
-              :alt="selectedEdgeType?.name"
+              :src="
+                filesApi.getImageFileUrl(
+                  brandParam.list.find(
+                    ({ code }) => code === selectedBrandParams[brandParam.code]
+                  ).img
+                )
+              "
             />
           </div>
         </div>
-      </div> -->
+      </div>
 
-      <div v-if="isAvailableCalculated && isAvailableSizes()" class="form">
+      <div v-if="isAvailableCalculated" class="form">
         <div class="form-header">
           <div>
             <button
@@ -169,7 +109,7 @@
 
     <div class="right">
       <div class="description">
-        <template v-if="!selectedModelCode">
+        <template v-if="!selectedBrandParams[BrandParamPossibleCode.Model]">
           <span class="span" v-html="selectElement?.Description"></span>
         </template>
         <template v-else>
@@ -269,24 +209,34 @@ const router = useRouter();
 
 const brandParams = ref([]);
 const selectedBrandParams = ref({});
-
-const models = ref([]);
-const params = ref({});
 const isLoadingParams = ref(false);
-const selectedModelCode = ref(null);
-const selectedColor = ref(null);
-const selectedSizeCode = ref(null);
-const selectedPerforation = ref(null);
-const selectedEdgeType = ref(null);
+
+const selectedColorImage = computed(() => {
+  return brandParams.value
+    .find(({ code }) => code === BrandParamPossibleCode.Color)
+    ?.list?.find(
+      ({ code }) =>
+        code === selectedBrandParams.value[BrandParamPossibleCode.Color]
+    )?.img;
+});
+
 const types = ref([]);
 
-const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
+const isAvailableCalculated = computed(() => types.value.length > 0);
+const isAllBrandParamsSelected = computed(() => {
+  if (isLoadingParams.value) {
+    return false;
+  }
 
-const isAvailableCalculated = computed(
-  () =>
-    models.value.find(({ code }) => code === selectedModelCode.value)
-      ?.is_calculated
-);
+  const paramsCount = brandParams.value.length;
+  const selectedParamsCount = Object.values(selectedBrandParams.value).filter(
+    Boolean
+  ).length;
+
+  return selectedParamsCount >= paramsCount;
+});
+
+const exportExcelLink = ref(constructionsApi.exportExcelUrl(route.params.id));
 
 const isSquare = ref(true);
 const square = ref("");
@@ -295,8 +245,6 @@ const height = ref("");
 const type = ref();
 
 const openChartDialog = ref(false);
-
-const availableParamsNames = ["colors", "edges_types", "perforations", "sizes"];
 
 const calculationsTableColumns = ref([]);
 const calculationsTableRows = ref([]);
@@ -315,36 +263,26 @@ const selectedArticuls = ref([]);
 
 const selectBrandParam = (event) => {
   if (event.target.name === BrandParamPossibleCode.Model) {
-    selectedBrandParams.value = { [event.target.name]: event.target.value }
+    selectedBrandParams.value = { [event.target.name]: event.target.value };
   } else {
     selectedBrandParams.value[event.target.name] = event.target.value;
   }
 
-  fetchBrand(selectedBrandParams.value);
+  replaceLocation();
+
+  fetchBrandInitial();
 };
 
-const isAvailableSizes = () => {
-  if (isLoadingParams.value) {
-    return false;
+const selectImageBrandParam = (name) => (value) => {
+  if (event.target.name === BrandParamPossibleCode.Model) {
+    selectedBrandParams.value = { [name]: value.code };
+  } else {
+    selectedBrandParams.value[name] = value.code;
   }
 
-  const paramsCount =
-    Object.entries(params.value).filter(
-      ([key, value]) =>
-        availableParamsNames.includes(key) &&
-        Array.isArray(value) &&
-        value.length > 0
-    ).length + 1;
+  replaceLocation();
 
-  const selectedParamsCount = [
-    selectedModelCode.value,
-    selectedColor.value,
-    selectedSizeCode.value,
-    selectedPerforation.value,
-    selectedEdgeType.value,
-  ].filter(Boolean).length;
-
-  return selectedParamsCount >= paramsCount;
+  fetchBrandInitial();
 };
 
 const selectSquare = () => {
@@ -381,7 +319,7 @@ const calculate = async (isInitial = true) => {
     return;
   }
 
-  if (!(isAvailableCalculated && isAvailableSizes())) {
+  if (!(isAvailableCalculated.value && isAllBrandParamsSelected.value)) {
     return;
   }
 
@@ -446,14 +384,6 @@ const selectElement = computed(() =>
   )
 );
 
-const colorizedImage = () => {
-  if (selectedColor.value && selectedColor.value.img) {
-    return selectedColor.value.img;
-  }
-
-  return selectElement.value.img;
-};
-
 const modelImages = () => {
   const selectedModelCode =
     selectedBrandParams.value[BrandParamPossibleCode.Model];
@@ -484,172 +414,88 @@ const fetchChart = async () => {
   };
 };
 
-const fetchBrand = async (params) => {
+const fetchBrandInitial = async () => {
   isLoadingParams.value = true;
 
-  const response = await modelsApi.getBrandParams(route.params.id, params);
+  const response = await modelsApi.getBrandParams(
+    route.params.id,
+    Object.entries(route.query).reduce((accumulate, [key, value]) => {
+      if (typeof value === "string") {
+        return { ...accumulate, [key]: value };
+      }
+
+      return accumulate;
+    }, {})
+  );
 
   brandParams.value = response.data.data;
   isLoadingParams.value = false;
 
-  // models.value = response.data.data.models_list;
+  response.data.data.forEach(({ code }) => {
+    selectedBrandParams.value[code] = route.query[code];
+  });
 
-  // selectedModelCode.value = route.query.model ?? null;
+  square.value = route.query.square;
+  length.value = route.query.length;
+  height.value = route.query.height;
 
-  // square.value = route.query.square;
-  // length.value = route.query.length;
-  // height.value = route.query.height;
-
-  // if (route.query.type) {
-  //   type.value = route.query.type;
-  // }
-
-  // if (square.value == null && (length.value != null || height.value != null)) {
-  //   isSquare.value = false;
-  // }
-
-  // if (route.query.model) {
-  //   selectModelInitial();
-  // }
-};
-
-const selectModel = async (event) => {
-  selectedModelCode.value = event.target.value;
-
-  isLoadingParams.value = true;
-
-  const response = await modelsApi.getModelParams(event.target.value);
-
-  isLoadingParams.value = false;
-
-  params.value = response.data.data;
-
-  if (response.data.data?.sizes?.length === 1) {
-    selectedSizeCode.value = response.data.data?.sizes?.[0]?.code;
-  } else {
-    selectedSizeCode.value = null;
+  if (route.query.type) {
+    type.value = route.query.type;
   }
 
-  selectedPerforation.value = null;
-  selectedColor.value = null;
-  selectedEdgeType.value = null;
-  calculationsTableColumns.value = [];
-  calculationsTableRows.value = [];
+  if (square.value == null && (length.value != null || height.value != null)) {
+    isSquare.value = false;
+  }
 
-  getCalculationTypes();
+  if (isAllBrandParamsSelected.value) {
+    await getCalculationTypes();
+  }
 
-  resetForm();
-
-  replaceLocation();
+  calculate();
 };
 
 const getCalculationTypes = async () => {
-  const response = await constructionsApi.getPrecalcParams(
-    route.params.id,
-    getLocationParams()
-  );
+  try {
+    const response = await constructionsApi.getPrecalcParams(
+      route.params.id,
+      getLocationParams()
+    );
 
-  const responseTypes = response.data.data.SurfacesTypes;
+    const responseTypes = response.data.data.SurfacesTypes ?? [];
 
-  types.value = responseTypes ?? [];
-  type.value = responseTypes[0]?.Code;
-};
+    if (responseTypes.length === 0) {
+      throw new Error("Not available for calculate");
+    }
 
-const selectModelInitial = async () => {
-  const response = await modelsApi.getModelParams(selectedModelCode.value);
-
-  params.value = response.data.data;
-
-  selectedSizeCode.value = route.query.size ?? null;
-
-  selectedColor.value =
-    params.value?.colors?.find((color) => color.name === route.query.color) ??
-    null;
-  selectedPerforation.value =
-    params.value?.perforations?.find(
-      (perforation) => perforation.name === route.query.perf
-    ) ?? null;
-  selectedEdgeType.value =
-    params.value?.edges_types?.find(
-      (edgeType) => edgeType.name === route.query.edge
-    ) ?? null;
-  selectedArticuls.value = route.query.articuls;
-
-  getCalculationTypes();
-
-  calculate();
-};
-
-const selectColor = (color) => {
-  selectedColor.value = color;
-
-  replaceLocation();
-
-  getCalculationTypes();
-
-  calculate();
+    types.value = responseTypes;
+    type.value = responseTypes[0].Code;
+  } catch {
+    types.value = [];
+    type.value = null;
+  }
 };
 
 const selectedModelDescription = () => {
-  const selectedModel = models.value.find(
-    (model) => model.code === selectedModelCode.value
-  );
-
-  return selectedModel ? selectedModel.description : "";
+  return brandParams.value
+    .find(({ code }) => code === BrandParamPossibleCode.Model)
+    ?.list?.find(
+      ({ code }) =>
+        code === selectedBrandParams.value[BrandParamPossibleCode.Model]
+    )?.description;
 };
 
-const selectSize = (event) => {
-  selectedSizeCode.value = event.target.value;
+const getBrandParams = () => {
+  let query = {};
 
-  replaceLocation();
+  Object.entries(selectedBrandParams.value).forEach(([key, value]) => {
+    query[key] = value;
+  });
 
-  getCalculationTypes();
-
-  calculate();
-};
-
-const selectPerforation = (perforation) => {
-  selectedPerforation.value = perforation;
-
-  replaceLocation();
-
-  getCalculationTypes();
-
-  calculate();
-};
-
-const selectEdgeType = (edgeType) => {
-  selectedEdgeType.value = edgeType;
-
-  replaceLocation();
-
-  getCalculationTypes();
-
-  calculate();
+  return query;
 };
 
 const getLocationParams = () => {
-  let query = {};
-
-  if (selectedModelCode.value) {
-    query.model = selectedModelCode.value;
-  }
-
-  if (selectedSizeCode.value) {
-    query.size = selectedSizeCode.value;
-  }
-
-  if (selectedColor.value) {
-    query.color = selectedColor.value.name;
-  }
-
-  if (selectedPerforation.value) {
-    query.perf = selectedPerforation.value.name;
-  }
-
-  if (selectedEdgeType.value) {
-    query.edge = selectedEdgeType.value.name;
-  }
+  let query = getBrandParams();
 
   if (type.value) {
     query.type = type.value;
@@ -693,13 +539,13 @@ const breadcrumbs = () => {
   ];
 };
 
-fetchBrand();
+fetchBrandInitial();
 fetchChart();
 
 watch(
   () => route.params.id,
   () => {
-    fetchBrand();
+    fetchBrandInitial();
     fetchChart();
   }
 );

@@ -134,7 +134,26 @@
             </li>
           </ul>
         </ul>
-
+        <label for="">Конструкции</label>
+        <table class="table table-bordered" style="color: gray; width: 98%">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+        <label for="">Материалы</label>
         <table class="table table-bordered" style="color: gray; width: 98%">
           <thead>
             <tr>
@@ -277,6 +296,7 @@ function toggleActive(img) {
 }
 .show-hidden-list {
   font-size: large;  color: var(--link-text);
+  color: var(--link-text);
 
 }
 .span {

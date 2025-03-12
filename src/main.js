@@ -19,6 +19,8 @@ import DocumentAirId from './pages/documents/air/id/index.vue'
 import DocumentSertificatesId from './pages/documents/certificates/id/Index.vue'
 import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
 import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
+import DocumentTechlistId from './pages/documents/techlist/id/Index.vue'
+
 
 import OurObjects from './pages/our-objects/index.vue'
 import OurObject from './pages/our-objects/id/index.vue'
@@ -66,6 +68,8 @@ const router = createRouter({
         { path: "/documents/certificates/:id?", component: DocumentSertificatesId },
         { path: "/documents/techcard/:id?", component: DocumentTechcardId },
         { path: "/documents/hookup/:id?", component: DocumentHookupId },
+        { path: "/documents/techlist/:id?", component: DocumentTechlistId },
+
         
         { path: "/our-objects", component: OurObjects },
         { path: "/our-objects/:id", component: OurObject},
