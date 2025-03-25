@@ -17,8 +17,6 @@ import { useRoute } from "vue-router";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
-import Section from "../../../../components/Section/index.vue";
-import axios from "axios";
 import { materialsApi } from "../../../../config";
 import Sections from '../../../../components/Sections/index.vue'
 
@@ -54,9 +52,9 @@ const breadcrumbs = computed(() => {
     { link: "/soundproof/materials", title: "МАТЕРИАЛЫ" },
   ];
 
-  // if (route.params.id) {
-  //   breadcrumbs.push({ title: route.params.id });
-  // }
+  if (route.params.id) {
+    breadcrumbs.push({ title: route.params.id });
+  }
 
   return breadcrumbs;
 });

@@ -261,26 +261,26 @@ const handleCloseChartDialog = () => {
 
 const selectedArticuls = ref([]);
 
-const selectBrandParam = (event) => {
+const selectBrandParam = async (event) => {
   if (event.target.name === BrandParamPossibleCode.Model) {
     selectedBrandParams.value = { [event.target.name]: event.target.value };
   } else {
     selectedBrandParams.value[event.target.name] = event.target.value;
   }
 
-  replaceLocation();
+  await replaceLocation();
 
   fetchBrandInitial();
 };
 
-const selectImageBrandParam = (name) => (value) => {
-  if (event.target.name === BrandParamPossibleCode.Model) {
+const selectImageBrandParam = (name) => async (value) => {
+  if (name === BrandParamPossibleCode.Model) {
     selectedBrandParams.value = { [name]: value.code };
   } else {
     selectedBrandParams.value[name] = value.code;
   }
 
-  replaceLocation();
+  await replaceLocation();
 
   fetchBrandInitial();
 };
@@ -323,25 +323,27 @@ const calculate = async (isInitial = true) => {
     return;
   }
 
-  replaceLocation();
+  await replaceLocation();
 
-  const response = await constructionsApi.constructionsCalculate(
-    route.params.id,
-    getLocationParams()
-  );
+  try {
+    const response = await constructionsApi.constructionsCalculate(
+      route.params.id,
+      getLocationParams()
+    );
 
-  calculationsTableColumns.value = response.data.data.columns.filter(
-    ({ id }) => id !== "code"
-  );
-  calculationsTableRows.value = response.data.data.rows;
+    calculationsTableColumns.value = response.data.data.columns.filter(
+      ({ id }) => id !== "code"
+    );
+    calculationsTableRows.value = response.data.data.rows;
 
-  selectedArticuls.value = calculationsTableRows.value.map(
-    ({ items }) => items[0]?.code
-  );
+    selectedArticuls.value = calculationsTableRows.value.map(
+      ({ items }) => items[0]?.code
+    );
 
-  replaceLocation();
+    await replaceLocation();
 
-  updateExcelLink();
+    updateExcelLink();
+  } catch {}
 };
 
 const updateExcelLink = () => {
@@ -431,8 +433,18 @@ const fetchBrandInitial = async () => {
   brandParams.value = response.data.data;
   isLoadingParams.value = false;
 
-  response.data.data.forEach(({ code }) => {
-    selectedBrandParams.value[code] = route.query[code];
+  let isAutoSelectedParams = false;
+
+  response.data.data.forEach(({ code, list }) => {
+    const value = route.query[code];
+
+    if (value) {
+      selectedBrandParams.value[code] = value;
+    } else if (list.length === 1 && selectedBrandParams.value[code] == null) {
+      selectedBrandParams.value[code] = list[0]?.code;
+
+      isAutoSelectedParams = true;
+    }
   });
 
   square.value = route.query.square;
@@ -451,7 +463,13 @@ const fetchBrandInitial = async () => {
     await getCalculationTypes();
   }
 
-  calculate();
+  await calculate();
+
+  if (isAutoSelectedParams) {
+    await replaceLocation()
+
+    fetchBrandInitial();
+  }
 };
 
 const getCalculationTypes = async () => {
@@ -524,8 +542,8 @@ const getLocationParams = () => {
   return query;
 };
 
-const replaceLocation = () => {
-  router.replace({
+const replaceLocation = async () => {
+  await router.replace({
     path: router.options.history.location,
     query: getLocationParams(),
   });
@@ -623,17 +641,20 @@ const copyLink = () => {
   display: flex;
   flex-direction: column;
 }
+
 .form-label input {
   width: 50%;
   padding: 6px;
   font-size: 18px;
 }
+
 .form-label select {
   padding: 10px;
   border-radius: 8px;
   text-transform: uppercase;
   font-size: 14px;
 }
+
 .form-button {
   align-self: flex-end;
   border: 1px solid grey;
@@ -768,9 +789,11 @@ option {
 .block-span1 {
   display: none;
 }
+
 .right {
   margin-top: 10px;
 }
+
 .right .description {
   margin-bottom: 16px;
 }

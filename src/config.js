@@ -63,7 +63,7 @@ export const albumsApi = {
 };
 
 export const certificatesApi = {
-  getCertificates: (id) => requestInstance.get(`api/v1/certs/byMaterial/${id}`),
+  getCertificates: (type, id) => requestInstance.get(`api/v1/certs/${type}/${id}`),
 };
 
 export const techCardApi = {

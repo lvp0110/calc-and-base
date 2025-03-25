@@ -20,6 +20,7 @@ import DocumentSertificatesId from './pages/documents/certificates/id/Index.vue'
 import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
 import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
 import DocumentTechlistId from './pages/documents/techlist/id/Index.vue'
+import DocumentProtocol from './pages/documents/protocol/id/Index.vue'
 
 
 import OurObjects from './pages/our-objects/index.vue'
@@ -65,10 +66,11 @@ const router = createRouter({
         { path: "/acoustic/brands/:id/chart/:model", component: AcousticBrandsIdChartModel },
 
         { path: "/documents/air/:id?", component: DocumentAirId },
-        { path: "/documents/certificates/:id?", component: DocumentSertificatesId },
+        { path: "/documents/certificates/:type?/:id?", component: DocumentSertificatesId },
         { path: "/documents/techcard/:id?", component: DocumentTechcardId },
         { path: "/documents/hookup/:id?", component: DocumentHookupId },
         { path: "/documents/techlist/:id?", component: DocumentTechlistId },
+        { path: "/documents/protocol/:id?", component: DocumentProtocol },
 
         
         { path: "/our-objects", component: OurObjects },

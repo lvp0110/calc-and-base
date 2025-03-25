@@ -48,6 +48,8 @@ export const SubCategoriesByCategory: Record<Categories, SubCategory[]> = {
     { code: "air", name: "АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" },
     { code: "techcard", name: "ТЕХ.КАРТЫ" },
     { code: "hookup", name: "МОНТАЖНЫЕ СХЕМЫ" },
+    { code: "techlist", name: "ТЕХЛИСТ" },
+    { code: "protocol", name: "ПРОТОКОЛЫ ИСПЫТАНИЙ" },
   ],
   [Categories.Objects]: [],
 };
@@ -129,4 +131,10 @@ interface ChartResponse {
   title: string;
   diagram_params: DiagramParams;
   items: ChartItem[];
+}
+
+export enum CertificateType {
+  Brand = "byBrand",
+  Model = "byModel",
+  Material = "byMaterial"
 }

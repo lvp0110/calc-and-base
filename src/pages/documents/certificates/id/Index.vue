@@ -36,11 +36,11 @@ const selectMaterialsWithCerts = computed(
   () => store.getters["selectMaterialsWithCerts"]
 );
 
-const fetchSlides = async (id) => {
-  if (id) {
+const fetchSlides = async (type, id) => {
+  if (type && id) {
     slides.value = []
 
-    const response = await certificatesApi.getCertificates(id);
+    const response = await certificatesApi.getCertificates(type, id);
 
     slides.value = response.data.data;
   } else {
@@ -48,12 +48,12 @@ const fetchSlides = async (id) => {
   }
 };
 
-fetchSlides(route.params.id);
+fetchSlides(route.params.type, route.params.id);
 
 watch(
-  () => route.params.id,
+  () => [route.params.type, route.params.id],
   () => {
-    fetchSlides(route.params.id);
+    fetchSlides(route.params.type, route.params.id);
   }
 );
 

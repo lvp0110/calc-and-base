@@ -2,7 +2,7 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="selectElement">
     <template #sidebar>
-      <List :items="selectTechlist" to="/documents/techlist" />
+      <List :items="selectTechlist" to="/documents/protocol" />
     </template>
     <template #content>
       <p>{{ selectElement.Name }}</p>
@@ -42,7 +42,7 @@ const selectElement = computed(() =>
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
     { link: "/documents", title: "..." },
-    { link: "/documents/techlist", title: "ТЕХЛИСТ" },
+    { link: "/documents/protocol", title: "ПРОТОКОЛЫ ИСПЫТАНИЙ" },
   ];
 
   if (route.params.id) {

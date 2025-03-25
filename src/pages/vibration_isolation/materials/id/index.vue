@@ -5,94 +5,8 @@
       <List :items="selectMaterials" to="/vibration_isolation/materials" />
     </template>
     <template #content>
-      <p class="title-materials">{{ selectElement.Description }}</p>
-      <hr />
-      <div class="image-descript">
-        <img
-          class="img"
-          :src="
-            'https://db.acoustic.ru:3005/api/v1/constr/' + selectElement.Img
-          "
-          alt="wwwww"
-        />
-        <div class="list-block">
-          <ul class="ul-descript">
-            <!-- <li v-if="selectElement.Length != 0">Длина: {{ selectElement.Length }} мм</li>
-                    <li v-if="selectElement.Width != 0"> Ширина: {{ selectElement.Width }} мм</li>
-                    <li v-if="selectElement.Height != 0">Толщина: {{ selectElement.Height }} мм</li> -->
-            <li>Номенклатура:</li>
-            <li v-if="selectElement.Volume != 'неопределен'">
-              {{ selectElement.Volume }}
-            </li>
-            <li v-if="selectElement.Weight != 'неопределен'">
-              {{ selectElement.Weight }}
-            </li>
-            <li>Минимальная резонансная частота: 11,4 Гц</li>
-            <li>Габариты: 98х50х46 мм</li>
-            <li>Присоединительная резьба: М8, М10</li>
-            <li>Производство: 2-3 дня в Домодедово</li>
-
-            <li>Аpтикул: {{ selectElement.Code }}</li>
-
-            <label for="">Документы:</label>
-            <li>
-              <a
-                href="http://localhost:5173/documents/certificates/hanger"
-                style="
-                  color: aliceblue;
-                  text-decoration: none;
-                "
-                > <img
-                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
-                alt=""
-                style="width: 30px;margin-right: 10px;"
-              />Cертификаты</a
-              >
-            </li>
-            <li>
-              <a
-                href="http://localhost:5173/documents/certificates/hanger"
-                style="
-                  color: aliceblue;
-                  text-decoration: none;
-                "
-                > <img
-                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
-                alt=""
-                style="width: 30px;margin-right: 10px;"
-              />Тех.лист</a
-              >
-            </li>
-            <li>
-              <a
-              href="http://localhost:5173/documents/air/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B9.%D0%92%D0%B8%D0%B1%D1%80%D0%BE%D0%B8%D0%B7%D0%BE%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F"
-                style="
-                  color: aliceblue;
-                  text-decoration: none;
-                "
-                > <img
-                src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
-                alt=""
-                style="width: 30px;margin-right: 10px;"
-              />Каталог решений</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <hr />
-      <span
-        >Подвесы тип 1 монтируются к перекрытию через два отверстия с помощью
-        анкер-гвоздей диаметром 6 мм, а оборудование подвешивается к ним
-        посредством шпильки с резьбой М8 (М10)</span
-      >
-      <hr />
-      <!-- <span>{{ selectElement.Specification }}</span> -->
-      <span
-        >Более подробную информацию уточняйте у отдела “Виброизоляция” (Марусев
-        Юрий, Шуйков Алексей, Крюков Даниил)</span
-      >
+      <Sections :sections="sections" />
+      
     </template>
   </SidebarLayout>
 </template>
@@ -101,14 +15,30 @@
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import List from "../../../../components/List/List.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
-import { computed } from "vue";
+import Sections from "../../../../components/Sections/index.vue";
+import { computed, onMounted, watch, ref } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import { materialsApi } from "../../../../config";
 
 const store = useStore();
 const route = useRoute();
 
 store.dispatch("getMaterialsVi");
+
+const sections = ref([]);
+
+const fetchSections = async () => {
+  try {
+    if (!route.params.id) {
+      return;
+    }
+
+    const response = await materialsApi.getSections(route.params.id);
+
+    sections.value = response.data.data;
+  } catch {}
+};
 
 const selectMaterials = computed(() => store.getters["selectMaterialsVi"]);
 const selectElement = computed(() =>
@@ -128,6 +58,9 @@ const breadcrumbs = computed(() => {
 
   return breadcrumbs;
 });
+
+onMounted(fetchSections);
+watch(() => route.params.id, fetchSections);
 </script>
 
 <style scoped>

@@ -269,7 +269,7 @@ const breadcrumbs = computed(() => {
     { link: "/soundproof", title: "..." },
     { link: "/soundproof/constructions", title: "КОНСТРУКЦИИ" },
   ];
-
+ 
   if (route.params.id) {
     breadcrumbs.push({ title: route.params.id });
   }

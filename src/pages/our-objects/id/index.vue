@@ -43,7 +43,7 @@
       >
         <RouterLink :to="`/acoustic/brands/${material.Code}`">
           {{ material.Name }}<span class="ellipses">...</span> </RouterLink
-        ><span class="ellipses">...</span>
+        ><span class="ellipses">...</span> 
       </li>
     </ul>
     <div :class="['slider-position', { 'full-screen': fullScreen }]">
