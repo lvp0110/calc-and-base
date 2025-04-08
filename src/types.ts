@@ -50,6 +50,7 @@ export const SubCategoriesByCategory: Record<Categories, SubCategory[]> = {
     { code: "hookup", name: "МОНТАЖНЫЕ СХЕМЫ" },
     { code: "techlist", name: "ТЕХНИЧЕСКИЕ ЛИСТЫ" },
     { code: "protocol", name: "ПРОТОКОЛЫ ИСПЫТАНИЙ" },
+    { code: "brochure", name: "КАТАЛОГИ | БРОШЮРЫ" },
   ],
   [Categories.Objects]: [],
 };

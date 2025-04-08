@@ -21,6 +21,7 @@ import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
 import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
 import DocumentTechlistId from './pages/documents/techlist/id/Index.vue'
 import DocumentProtocol from './pages/documents/protocol/id/Index.vue'
+import DocumentBrochure from './pages/documents/brochure/id/Index.vue'
 
 
 import OurObjects from './pages/our-objects/index.vue'
@@ -71,6 +72,7 @@ const router = createRouter({
         { path: "/documents/hookup/:id?", component: DocumentHookupId },
         { path: "/documents/techlist/:id?", component: DocumentTechlistId },
         { path: "/documents/protocol/:id?", component: DocumentProtocol },
+        { path: "/documents/brochure/:id?", component: DocumentBrochure },
 
         
         { path: "/our-objects", component: OurObjects },
