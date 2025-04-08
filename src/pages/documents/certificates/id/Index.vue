@@ -10,13 +10,15 @@
         <hr />
         <Slider :pdfs="slides" />
       </div>
-      <div v-else> <h4 style="color: gray;">Материал в процессе сертификации</h4> </div>
+      <div v-else>
+        <h4 style="color: gray">Материал в процессе сертификации</h4>
+      </div>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { certificatesApi } from "../../../../config.js";
+import { documentsApi } from "../../../../config.js";
 import Slider from "../../../../components/Slider.vue";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
@@ -24,6 +26,7 @@ import List from "../../../../components/List/List.vue";
 import { useRoute } from "vue-router";
 import { computed, watch, ref } from "vue";
 import { useStore } from "vuex";
+import { DocumentType } from "../../../../types";
 
 const route = useRoute();
 const store = useStore();
@@ -36,11 +39,14 @@ const selectMaterialsWithCerts = computed(
   () => store.getters["selectMaterialsWithCerts"]
 );
 
-const fetchSlides = async (type, id) => {
-  if (type && id) {
-    slides.value = []
+const fetchSlides = async (id) => {
+  if (id) {
+    slides.value = [];
 
-    const response = await certificatesApi.getCertificates(type, id);
+    const response = await documentsApi.getDocument(
+      DocumentType.TypeDocCertificates,
+      id
+    );
 
     slides.value = response.data.data;
   } else {
@@ -48,12 +54,12 @@ const fetchSlides = async (type, id) => {
   }
 };
 
-fetchSlides(route.params.type, route.params.id);
+fetchSlides(route.params.id);
 
 watch(
-  () => [route.params.type, route.params.id],
+  () => route.params.id,
   () => {
-    fetchSlides(route.params.type, route.params.id);
+    fetchSlides(route.params.id);
   }
 );
 

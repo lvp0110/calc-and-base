@@ -80,10 +80,24 @@ export const installSchemesApi = {
 export const filesApi = {
   getImageFileUrl: (fileName) => `${cdnUrl}/api/v1/constr/${fileName}`,
   getCertificateFileUrl: (fileName) =>
-    `${cdnUrl}/api/v1/certificate/${fileName}`,
+    `${cdnUrl}/api/v2/certificate/${fileName}`,
+  getTechSheetFileUrl: (fileName) =>
+    `${cdnUrl}/api/v2/techSheet/${fileName}`,
+  getTestProtocolFileUrl: (fileName) =>
+    `${cdnUrl}/api/v2/testProtocol/${fileName}`,
 };
 
 export const objectsApi = {
   getObjects: () => requestInstance.get("api/v1/objects/all"),
   getObject: (code) => requestInstance.get(`api/v1/objects/info/${code}`),
 };
+
+export const documentsApi = {
+  getDocuments: (type) => requestInstance.get(`api/v2/documents/${type}`),
+  getDocument: (type, code) => requestInstance.get(`api/v2/documents/${type}/${code}`),
+}
+
+export const isolationConstructionsApi = {
+  getIsolationConstructions: () => requestInstance.get('api/v2/isolationConstructions/all'),
+  getIsolationConstructionProps: (constCode) => requestInstance.get(`api/v2/isolationConstructions/props/${constCode}`),
+}

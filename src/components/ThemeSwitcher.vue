@@ -1,8 +1,122 @@
 <template>
-  <div class="theme-switcher" style="color: aliceblue;font-size: 20px;">
-    <span>
-        Theme
-    </span> 
+  <div class="theme-switcher">
+    <!-- Кнопка для темы light -->
+    <transition name="fade">
+      <button
+        v-if="theme === 'light'"
+        type="button"
+        class="theme-button button_dark"
+        @click="toggleTheme"
+      >
+        <img
+          :src="filesApi.getImageFileUrl('day.svg')"
+          alt="Темная тема"
+          width="40"
+          height="40"
+        />
+      </button>
+    </transition>
+
+    <!-- Кнопка для темы dark -->
+    <transition name="fade">
+      <button
+        v-if="theme === 'dark'"
+        type="button"
+        class="theme-button button_light"
+        @click="toggleTheme"
+      >
+        <img
+          :src="filesApi.getImageFileUrl('night_white.svg')"
+          alt="Светлая тема"
+          width="40"
+          height="40"
+        />
+      </button>
+    </transition>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from "vue";
+import { filesApi } from "../config";
+
+export default {
+  setup() {
+    // Инициализируем тему из localStorage, по умолчанию "light"
+    const theme = ref(localStorage.getItem("theme") || "light");
+    
+    onMounted(() => {
+      document.documentElement.setAttribute("color-scheme", theme.value);
+    });
+
+    const toggleTheme = () => {
+      // Переключение темы
+      theme.value = theme.value === "light" ? "dark" : "light";
+      localStorage.setItem("theme", theme.value);
+      document.documentElement.setAttribute("color-scheme", theme.value);
+    };
+
+    return {
+      theme,
+      toggleTheme,
+      filesApi,
+    };
+  },
+};
+</script>
+
+<style scoped>
+/* Контейнер фиксированного размера, в котором кнопки располагаются абсолютно */
+.theme-switcher {
+  position: relative;
+  width: 45px;
+  height: 45px;
+}
+
+/* Кнопки с абсолютным позиционированием, чтобы они всегда занимали одни и те же координаты */
+.theme-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Значения стилей для каждой темы */
+.button_light {
+  background: rgb(93, 90, 90);
+  border: 1px solid rgb(187, 186, 186);
+  color: #c7ced4;
+}
+
+.button_dark {
+  background: rgb(244, 242, 242);
+  border: 1px solid rgb(138, 136, 136);
+}
+
+/* Анимация плавного появления/исчезновения кнопок */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
+
+
+<!-- <template>
+  <div class="theme-switcher" style="color: aliceblue;font-size: 30px;">
+
     <button
       ref="buttonDark"
       type="button"
@@ -13,10 +127,9 @@
         :src="filesApi.getImageFileUrl(`day.svg`)"
         alt=""
         style="position: absolute; top: -4px; left: -4px; color: aliceblue"
-        width="35"
-        height="35"
+        width ="40"
+        height="40"
       />
-      <span style="padding: 30px;color: aliceblue;">light</span>
     </button>
     <button
       ref="buttonLight"
@@ -31,7 +144,6 @@
         width="35"
         height="35"
       />
-       <span style="padding: 30px;color: #3e4348;">dark</span>
     </button>
   </div>
 </template>
@@ -102,12 +214,12 @@ export default {
 
 <style scoped>
 .buttons {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: none;
   position: relative;
-  left: -70px;
+  left: -45px;
   transition: left 0.3s;
   z-index: 1;
   opacity: .5;
@@ -123,4 +235,4 @@ export default {
   background: rgb(244, 242, 242);
   border: solid 1px rgb(138, 136, 136);
 }
-</style>
+</style> -->

@@ -5,10 +5,32 @@
         <p class="title-materials">
           {{ section.title }}
         </p>
-        <div style="white-space: pre-wrap" v-html="section.content" />
+        <div class="list-content" v-html="section.content" />
+        <RouterLink to="/calc" v-if="enableCalc">Расчет</RouterLink>
       </Section>
 
       <Section v-else-if="section.type === 'Image'">
+        <div v-if="Array.isArray(section.file)">
+          <swiper :slides-per-view="1" :loop="true" class="mySwiper">
+            <swiper-slide v-for="(file, index) in section.file" :key="index">
+              <img
+                class="img"
+                :src="filesApi.getImageFileUrl(file)"
+                alt="Слайд"
+              />
+            </swiper-slide>
+          </swiper>
+        </div>
+        <div v-else>
+          <img
+            class="img"
+            :src="section.file && filesApi.getImageFileUrl(section.file)"
+            alt="Изображение"
+          />
+        </div>
+      </Section>
+
+      <Section v-else-if="section.type === 'ImageWithTitle'">
         <img
           class="img"
           :src="section.file && filesApi.getImageFileUrl(section.file)"
@@ -16,16 +38,60 @@
         />
       </Section>
 
-      <Section v-else-if="section.type === 'ImageWithTitle'" :title="section.title" :image="section.img && filesApi.getImageFileUrl(section.img)">
-        <img
-          class="img"
-          :src="section.file && filesApi.getImageFileUrl(section.file)"
-          alt="wwwww"
-        />
+      <Section
+        v-else-if="section.type === 'Materials'"
+        :title="section.title"
+        :image="section.img && filesApi.getImageFileUrl(section.img)"
+      >
+        <ul class="list-content">
+          <li v-for="item in section.constr_materials">
+            <RouterLink
+              :to="`/soundproof/materials/${encodeURIComponent(item.code)}`"
+              >{{ item.name ?? item.code }}</RouterLink
+            >
+          </li>
+        </ul>
       </Section>
 
-      <Section v-else :title="section.title" :image="section.img && filesApi.getImageFileUrl(section.img)">
-        <span style="white-space: pre-wrap" v-html="section.content" />
+      <Section
+        v-else-if="section.type === 'Documents'"
+        :title="section.title"
+        :image="section.img && filesApi.getImageFileUrl(section.img)"
+      >
+        <ul class="list-content">
+          <li
+            style="padding-top: 6px"
+            v-for="[type, items] in Object.entries(section.content).filter(
+              ([_, items]) => items?.length > 0
+            )"
+          >
+            <img
+              src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
+              alt=""
+              style="width: 30px; margin-right: 10px"
+            />
+            {{ DocumentTypeNames[SectionDocumentType[type]] }}
+            <ul class="list-content">
+              <li v-for="item in items">
+                <RouterLink
+                  :to="`/documents/${
+                    DocumentTypeLink[SectionDocumentType[type]]
+                  }/${encodeURIComponent(item.material_code)}`"
+                  >{{ item.name ?? item.code }}</RouterLink
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </Section>
+
+      <Section
+        v-else
+        :title="section.title"
+        :image="section.img && filesApi.getImageFileUrl(section.img)"
+      >
+        <span v-html="section.content" />
+        <!-- style="white-space: pre-wrap" -->
       </Section>
     </template>
   </div>
@@ -33,10 +99,31 @@
 
 <script setup>
 import { filesApi } from "../../config";
-import { defineProps } from "vue";
+import { defineProps, onMounted, ref } from "vue";
 import Section from "../Section/index.vue";
+import { marked } from "marked";
 
-const { sections } = defineProps(["sections"]);
+import { Swiper, SwiperSlide } from "swiper/vue";
+import {
+  SectionDocumentType,
+  DocumentTypeNames,
+  DocumentTypeLink,
+} from "../../types";
+import "swiper/css";
+
+const { sections, enableCalc = false } = defineProps(["sections", "enableCalc"]);
+
+// const sections = ref([]);
+
+// onMounted(async () => {
+//   for (const section of props.sections) {
+//     if (section.content) {
+//       section.content = await marked(section.content);
+//     }
+
+//     sections.value.push(section);
+//   }
+// });
 </script>
 
 <style scoped>
@@ -61,16 +148,14 @@ const { sections } = defineProps(["sections"]);
   text-align: center;
 }
 
-ul li {
+:deep .list-content li {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
   padding-left: 10px;
 }
-
-ul {
-  margin-top: 15px;
+:deep .list-content li a {
+  text-decoration: none;
 }
-
 .span1 {
   display: none;
 }
@@ -90,5 +175,4 @@ img {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 </style>

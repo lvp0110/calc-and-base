@@ -65,18 +65,17 @@
         </svg>
       </figure>
     </button>
-
-    <input
-      type="text"
-      :class="{ search: true, search__open: isOpen }"
-      id="result_voice"
-      placeholder=""
-      ref="input"
-      :value="voiceSearchText"
-      @input="handleInput"
-      @focus="handleFocus"
-    />
-
+    <!-- :class="{ search: true, search__open: isOpen }" -->
+      <input
+        type="text"
+        class="form-control"
+        id="result_voice"
+        placeholder=""
+        ref="input"
+        :value="voiceSearchText"
+        @input="handleInput"
+        @focus="handleFocus"
+      />
     <button v-if="isOpen" @click="handleClear" class="close-input-btn">
       ╳
     </button>
@@ -106,7 +105,7 @@ const activateVoiceSearch = () => {
 const handleClear = () => {
   store.commit("setIsOpenStore", false);
   store.commit("updateVoiceSearchText", "");
-  figureVoice.value.style.opacity = "0";
+  figureVoice.value.style.opacity = "1";
 };
 
 const handleInput = (event) => {
@@ -118,7 +117,7 @@ const handleFocus = () => {
   figureVoice.value.style.opacity = "1";
 };
 onMounted(() => {
-  figureVoice.value.style.opacity = "0";
+  figureVoice.value.style.opacity = "1";
 });
 
 // const handleBlur = () => {
@@ -129,12 +128,19 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.form-control {
+  width: 290px;
+  height: 45px;
+  color: var(--search-text);
+  border-color: var(--search-border-color);
+}
 .close-input-btn {
   border: none;
   border-radius: 50%;
   background: none;
   position: absolute;
-  left: 330px;
+  left: 300px;
   top: 50%;
   transform: translateY(-50%) translateX(calc(-100% - 8px));
   width: 48px;
@@ -172,7 +178,7 @@ onMounted(() => {
 }
 
 .search__open {
-  width: 330px;
+  width: 300px;
   cursor: pointer;
   color: var(--search-open-color);
   outline: none;
@@ -219,11 +225,20 @@ figure {
     color: rgb(210, 205, 205);
   } */
 }
+
+@media screen and (max-width: 768px) {
+ 
+  .form-control {
+  width: 99%;
+}
+}
+
 @media screen and (max-width: 500px) {
   .close-input-btn {
     position: absolute;
     right: 20px;
     top: 50%;
   }
+
 }
 </style>

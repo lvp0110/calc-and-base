@@ -2,41 +2,64 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="selectElement">
     <template #sidebar>
-      <List :items="selectTechlist" to="/documents/techlist" />
+      <List :items="techList" to="/documents/techlist" keyPath="Code" />
     </template>
     <template #content>
-      <p>{{ selectElement.Name }}</p>
-      {{ selectElement.Description }}
+      <p>{{ selectElement.name }}</p>
+      {{ selectElement.description }}
       <hr />
       <iframe
         class="pdf-cert"
-        :src="filesApi.getCertificateFileUrl(selectElement.File)"
+        :src="filesApi.getTechSheetFileUrl(selectElement.file)"
       ></iframe>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
-import { filesApi } from "../../../../config.js";
+import { filesApi, documentsApi } from "../../../../config.js";
+import { DocumentType } from "../../../../types";
 
-const store = useStore();
 const route = useRoute();
+const techList = ref([]);
+const selectElement = ref(null);
 
-store.dispatch("getTechList");
+const fetchTechList = async () => {
+  try {
+    const response = await documentsApi.getDocuments(
+      DocumentType.TypeDocTechSheets
+    );
 
-const selectTechlist = computed(
-  () => store.getters["selectMaterialsWithTechList"]
-);
-const selectElement = computed(() =>
-  store.getters["selectMaterialsWithTechList"]?.find(
-    ({ Code }) => Code === route.params.id
-  )
+    techList.value = response.data.data;
+  } catch {}
+};
+
+const fetchTechElement = async (id) => {
+  if (id) {
+    const response = await documentsApi.getDocument(
+      DocumentType.TypeDocTechSheets,
+      id
+    );
+
+    selectElement.value = response.data.data?.[0];
+  } else {
+    selectElement.value = null;
+  }
+};
+
+fetchTechList();
+fetchTechElement(route.params.id);
+
+watch(
+  () => route.params.id,
+  () => {
+    fetchTechElement(route.params.id);
+  }
 );
 
 const breadcrumbs = computed(() => {

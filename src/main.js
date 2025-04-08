@@ -66,7 +66,7 @@ const router = createRouter({
         { path: "/acoustic/brands/:id/chart/:model", component: AcousticBrandsIdChartModel },
 
         { path: "/documents/air/:id?", component: DocumentAirId },
-        { path: "/documents/certificates/:type?/:id?", component: DocumentSertificatesId },
+        { path: "/documents/certificates/:id?", component: DocumentSertificatesId },
         { path: "/documents/techcard/:id?", component: DocumentTechcardId },
         { path: "/documents/hookup/:id?", component: DocumentHookupId },
         { path: "/documents/techlist/:id?", component: DocumentTechlistId },

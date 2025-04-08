@@ -15,7 +15,7 @@
         class="dropdown__item__image"
         :src="filesApi.getImageFileUrl(item.section_img)"
       />
-      <div>{{ item.description }}</div>
+      <div>{{ item.name }}</div>
     </li>
   </ul>
   <div class="backdrop" @click="onClose" />

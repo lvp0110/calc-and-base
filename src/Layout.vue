@@ -30,7 +30,7 @@
     </button>
   </div> -->
   <div class="main">
-    <VoiceSearch />
+    <!-- <VoiceSearch /> -->
     <div class="content">
       <RouterView />
     </div>
@@ -40,7 +40,7 @@
 
 <script>
 import TabBar from "./components/TabBar.vue";
-import VoiceSearch from "./components/VoiceSearch.vue";
+// import VoiceSearch from "./components/VoiceSearch.vue";
 
 import { filesApi } from "./config";
 
@@ -53,7 +53,7 @@ export default {
   },
   components: {
     TabBar,
-    VoiceSearch,
+    // VoiceSearch,
   },
   created() {
     this.$store.dispatch("getMaterials");
@@ -185,6 +185,10 @@ body {
   --section-hover-background: radial-gradient(#e0e4e7, #ffffff8d);
 
   --button-box-shadow: 2px -3px 5px 1px rgb(139, 138, 138);
+
+  --search-text:gray;
+  --search-border-color:gray;
+
 }
 
 [color-scheme="dark"] {
@@ -229,6 +233,9 @@ body {
   --section-hover-background: radial-gradient(#e0e4e72a, #ffffff2b);
 
   --button-box-shadow: 2px -3px 5px 1px rgb(209 204 204 / 50%);
+
+  --search-text:white;
+  --search-border-color:lightgray;
 }
 
 .main {
@@ -237,7 +244,7 @@ body {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: calc(100% - 70px);
+  height: calc(100% - 0px);
   color: var(--primary-text);
 }
 

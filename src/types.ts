@@ -16,7 +16,7 @@ export enum Categories {
   Sound = "sound",
   Acoustic = "acoustic",
   Vibroisolation = "vibro",
-  Documents = "documets",
+  Documents = "documents",
   Objects = "objects",
 }
 
@@ -46,9 +46,9 @@ export const SubCategoriesByCategory: Record<Categories, SubCategory[]> = {
   [Categories.Documents]: [
     { code: "certificates", name: "СЕРТИФИКАТЫ" },
     { code: "air", name: "АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" },
-    { code: "techcard", name: "ТЕХ.КАРТЫ" },
+    { code: "techcard", name: "ТЕХНОЛОГИЧЕСКИЕ КАРТЫ" },
     { code: "hookup", name: "МОНТАЖНЫЕ СХЕМЫ" },
-    { code: "techlist", name: "ТЕХЛИСТ" },
+    { code: "techlist", name: "ТЕХНИЧЕСКИЕ ЛИСТЫ" },
     { code: "protocol", name: "ПРОТОКОЛЫ ИСПЫТАНИЙ" },
   ],
   [Categories.Objects]: [],
@@ -136,5 +136,29 @@ interface ChartResponse {
 export enum CertificateType {
   Brand = "byBrand",
   Model = "byModel",
-  Material = "byMaterial"
+  Material = "byMaterial",
 }
+
+export enum DocumentType {
+  TypeDocCertificates = "certificate",
+  TypeDocTechSheets = "techSheet",
+  TypeDocTestProtocols = "testProtocol",
+}
+
+export const SectionDocumentType: Record<string, DocumentType> = {
+  certificates: DocumentType.TypeDocCertificates,
+  tech_protocols: DocumentType.TypeDocTechSheets,
+  test_protocol: DocumentType.TypeDocTestProtocols,
+};
+
+export const DocumentTypeNames: Record<DocumentType, string> = {
+  [DocumentType.TypeDocCertificates]: "Сертификаты",
+  [DocumentType.TypeDocTechSheets]: "Технический лист",
+  [DocumentType.TypeDocTestProtocols]: "Протоколы испытаний",
+};
+
+export const DocumentTypeLink: Record<DocumentType, string> = {
+  [DocumentType.TypeDocCertificates]: "certificates",
+  [DocumentType.TypeDocTechSheets]: "techlist",
+  [DocumentType.TypeDocTestProtocols]: "protocol",
+};

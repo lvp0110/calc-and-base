@@ -39,24 +39,29 @@
           <div v-else>
             <ImageSelect
               :placeholder="brandParam.name"
-              :value="selectedBrandParams[brandParam.code]"
+              :value="
+                brandParam.list.find(
+                  ({ code }) => selectedBrandParams[brandParam.code] === code
+                )?.name
+              "
               :items="brandParam.list"
               :onSelect="selectImageBrandParam(brandParam.code)"
             />
-            <img
-              v-if="
-                selectedBrandParams[brandParam.code] &&
-                brandParam.code !== BrandParamPossibleCode.Color
-              "
-              class="add-image"
-              :src="
-                filesApi.getImageFileUrl(
-                  brandParam.list.find(
-                    ({ code }) => code === selectedBrandParams[brandParam.code]
-                  ).img
-                )
-              "
-            />
+              <img
+                v-if="
+                  selectedBrandParams[brandParam.code] &&
+                  brandParam.code !== BrandParamPossibleCode.Color
+                "
+                class="add-image"
+                :src="
+                  filesApi.getImageFileUrl(
+                    brandParam.list.find(
+                      ({ code }) =>
+                        code === selectedBrandParams[brandParam.code]
+                    )?.img
+                  )
+                "
+              />
           </div>
         </div>
       </div>
@@ -437,13 +442,18 @@ const fetchBrandInitial = async () => {
 
   response.data.data.forEach(({ code, list }) => {
     const value = route.query[code];
+    const hasValue = list.find(({ code }) => code === value);
 
-    if (value) {
-      selectedBrandParams.value[code] = value;
-    } else if (list.length === 1 && selectedBrandParams.value[code] == null) {
-      selectedBrandParams.value[code] = list[0]?.code;
+    if (hasValue) {
+      if (value) {
+        selectedBrandParams.value[code] = value;
+      } else if (list.length === 1 && selectedBrandParams.value[code] == null) {
+        selectedBrandParams.value[code] = list[0]?.code;
 
-      isAutoSelectedParams = true;
+        isAutoSelectedParams = true;
+      }
+    } else {
+      selectedBrandParams.value[code] = undefined;
     }
   });
 
@@ -461,12 +471,15 @@ const fetchBrandInitial = async () => {
 
   if (isAllBrandParamsSelected.value) {
     await getCalculationTypes();
+  } else {
+    types.value = [];
+    type.value = null;
   }
 
   await calculate();
 
   if (isAutoSelectedParams) {
-    await replaceLocation()
+    await replaceLocation();
 
     fetchBrandInitial();
   }
@@ -702,6 +715,8 @@ option {
 }
 
 .add-image {
+  object-fit: cover;
+  width: 100%;
   margin-top: 10px;
   background-color: var(--add-image-background);
 }

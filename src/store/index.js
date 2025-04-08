@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import {
   materialsApi,
+  documentsApi,
   albumsApi,
   constructionsApi,
   brandsApi,
@@ -9,7 +10,7 @@ import {
   objectsApi,
   categoriesApi,
 } from "../config";
-import { MaterialUsage, ConstructionsUsage, Categories } from "../types";
+import { MaterialUsage, ConstructionsUsage, Categories, DocumentType } from "../types";
 
 export const MATERIALS = "Materials/si";
 export const MATERIALS_AC = "Materials/ac";
@@ -305,7 +306,12 @@ export default createStore({
     },
 
     async getMaterialsWithCerts({ state }, payload) {
-      const response = await materialsApi.getMaterialsWithCertificates();
+      const response = await documentsApi.getDocuments(DocumentType.TypeDocCertificates)
+
+      state.data[MATERIALS_WITH_CERTS] = response.data.data;
+    },
+    async getTechList({ state }, payload) {
+      const response = await documentsApi.getDocuments(DocumentType.TypeDocCertificates)
 
       state.data[MATERIALS_WITH_CERTS] = response.data.data;
     },
@@ -442,12 +448,12 @@ export default createStore({
       const searchText = state.voiceSearchText || state.searchText;
       return state.data[MATERIALS_WITH_CERTS].filter((el) =>
         el[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
-      ).map((item) => ({ ...item, Code: `${item.Type}/${item.Code}` }));
+      );
     },
     selectMaterialsWithTechCards(state) {
       const searchText = state.voiceSearchText || state.searchText;
       return state.data[TECHCARDS].filter((el) =>
-        el[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
+        el.name.toLowerCase().includes(searchText.toLowerCase())
       );
     },
     selectBrandsInstalSchemas(state) {
@@ -465,7 +471,7 @@ export default createStore({
     selectAlbums(state) {
       const searchText = state.voiceSearchText || state.searchText;
       return state.data[ALBUMS].filter((el) =>
-        el[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
+        el.name.toLowerCase().includes(searchText.toLowerCase())
       );
     },
     selectObjects(state) {

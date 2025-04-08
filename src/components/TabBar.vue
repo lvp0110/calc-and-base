@@ -19,16 +19,17 @@
         />
       </li>
       <li>
-        <button style="border: none; background: none">
+        <!-- <button style="border: none; background: none">
           <img
             class="logo_p"
             :src="filesApi.getImageFileUrl(`search_logo.png`)"
             alt=""
             @click="handleSearch"
           />
-        </button>
+        </button> -->
+        <ThemeSwitcher />
       </li>
-      <li>
+      <li style="margin-top: 12px;">
         <RouterLink to="/calc">
           <img
             class="calc"
@@ -70,6 +71,7 @@
       </ul>
     </div>
   </Modal>
+
 </template>
 
 <script setup>
@@ -78,6 +80,7 @@ import { filesApi } from "../config";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Modal from "./Modal.vue";
+import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 const router = useRouter();
 const store = useStore();

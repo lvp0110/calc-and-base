@@ -27,9 +27,9 @@
         </form>
         <slot />
       </div>
-      <div style="z-index: 1111; position: absolute; top: 500px;left: 20px;">
+      <!-- <div style="z-index: 1111; position: absolute; top: 500px;left: 20px;">
         <ThemeSwitcher />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

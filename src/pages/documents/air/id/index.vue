@@ -2,16 +2,16 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="selectElement">
     <template #sidebar>
-      <List :items="selectAlbums" to="/documents/air" keyPath="Name" />
+      <List :items="selectAlbums" to="/documents/air" keyPath="name" namePath="name" />
     </template>
     <template #content>
       <div v-if="selectElement">
-        <p>{{ selectElement.Description }}</p>
+        <p>{{ selectElement.description }}</p>
 
         <hr />
         <iframe
           class="pdf-cert"
-          :src="filesApi.getCertificateFileUrl(selectElement.File)"
+          :src="filesApi.getCertificateFileUrl(selectElement.file)"
         ></iframe>
       </div>
     </template>
@@ -34,14 +34,14 @@ store.dispatch("getAlbums");
 
 const selectAlbums = computed(() => store.getters["selectAlbums"]);
 const selectElement = computed(() =>
-  store.getters["selectAlbums"].find(({ Name }) => Name === route.params.id)
+  store.getters["selectAlbums"].find(({ name }) => name === route.params.id)
 );
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
     { link: "/documents", title: "..." },
     { link: "/documents/air", title: "АЛЬБОМЫ" },
-    { title: selectElement.value?.Description },
+    { title: selectElement.value?.description },
   ];
 
   return breadcrumbs;

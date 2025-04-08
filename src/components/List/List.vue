@@ -1,4 +1,5 @@
 <template>
+      <VoiceSearch />
   <div>
     <ul>
       <li
@@ -8,7 +9,7 @@
         @click="selectItem(item)"
       >
         <RouterLink :to="`${to}/${item[keyPath ?? 'Code']}`">
-          {{ item.Name }}
+          {{ item[namePath ?? "Name"] }}
         </RouterLink>
       </li>
     </ul>
@@ -17,8 +18,14 @@
 
 <script setup>
 import { ref } from "vue";
-
-const { items, to, keyPath } = defineProps(["items", "to", "keyPath"]);
+import VoiceSearch from "../VoiceSearch.vue";
+ 
+const { items, to, keyPath, namePath } = defineProps([
+  "items",
+  "to",
+  "keyPath",
+  "namePath",
+]);
 const selectedItem = ref(null);
 
 function selectItem(item) {
@@ -30,6 +37,7 @@ function selectItem(item) {
 ul {
   list-style: none;
   padding: 0;
+  margin-top: 10px;
   margin-right: 3px;
   li {
     font-family: "Montserrat", sans-serif;

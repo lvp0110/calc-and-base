@@ -24,24 +24,36 @@
     >
       <div>
         <ul @click.stop="downloadTextFile(slide)">
-          <li v-if="slide.Type != 0">Тип: {{ slide.Type }}</li>
-          <li v-if="slide.Code != 0">№ {{ slide.Code }}</li>
-          <li v-if="slide.ValPeriod != 0 && slide.ExpireDate">
-            Срок действия: {{ formatTime(slide.ExpireDate) }}
+          <li v-if="slide.type && slide.type != 0">Тип: {{ slide.type }}</li>
+          <li v-if="slide.code && slide.code != 0">№ {{ slide.code }}</li>
+          <li
+            v-if="
+              slide.val_period && slide.val_period != 0 && slide.expire_date
+            "
+          >
+            Срок действия: {{ formatTime(slide.expire_date) }}
           </li>
-          <li v-if="slide.Indicators != 0">
-            Класс пожарной опасности: {{ slide.Indicators }}
+          <li v-if="slide.indicators && slide.indicators != 0">
+            Класс пожарной опасности: {{ slide.indicators }}
+          </li>
+          <li v-if="slide.name">
+            {{ slide.name }}
+          </li>
+          <li v-if="slide.description">
+            {{ slide.description }}
           </li>
         </ul>
         <a
           class="copy-link"
-          :href="filesApi.getCertificateFileUrl(slide.File)"
+          :href="filesApi(slide.file)"
           target="_blank"
           @click.stop
         >
-          
-            <img class="icon-img" src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg" alt="" />
-          
+          <img
+            class="icon-img"
+            src="https://db.acoustic.ru:3005/api/v1/constr/i_pdf.svg"
+            alt=""
+          />
         </a>
         <div class="pdf-container">
           <!-- <img
@@ -50,7 +62,7 @@
           /> -->
           <iframe
             class="pdf-cert"
-            :src="filesApi.getCertificateFileUrl(slide.File)"
+            :src="filesApi(slide.file)"
             @click="goToNextSlide"
           ></iframe>
         </div>
@@ -65,11 +77,7 @@
       <p style="bottom: 20px"></p>
       <div>
         <div class="hookup-container">
-          <iframe
-            class="pdf-cert"
-            :src="filesApi.getCertificateFileUrl(slide.File)"
-          >
-          </iframe>
+          <iframe class="pdf-cert" :src="filesApi(slide.file)"> </iframe>
         </div>
       </div>
     </swiper-slide>
@@ -86,10 +94,10 @@ export default {
     pdfs: Array,
     images: Array,
     hookup: Array,
+    getFileApi: Function,
   },
   data() {
     return {
-      filesApi,
       swiper: null,
     };
   },
@@ -132,16 +140,33 @@ export default {
           '<span class="' +
           className +
           '">' +
-          this.$props.hookup[index].Name +
+          this.$props.hookup[index].name +
           "</span>"
         );
       }
 
-      const arr = this.$props.images ?? this.$props.pdfs;
+      if (this.$props.pdfs?.length > 0) {
+        return (
+          '<span class="' +
+          className +
+          '">' +
+          (this.$props.pdfs[index]?.type ?? this.$props.pdfs[index]?.name) +
+          "</span>"
+        );
+      }
 
       return (
-        '<span class="' + className + '">' + arr?.[index]?.Type + "</span>"
+        '<span class="' +
+        className +
+        '">' +
+        this.$props.images?.[index]?.Type +
+        "</span>"
       );
+    },
+  },
+  computed: {
+    filesApi() {
+      return this.$props.getFileApi ?? filesApi.getCertificateFileUrl;
     },
   },
 };
@@ -229,7 +254,7 @@ swiper-container::part(bullet-active) {
 }
 
 .copy-link:focus {
-  background: radial-gradient(circle at center,#efeff16e, #d4d9de );
+  background: radial-gradient(circle at center, #efeff16e, #d4d9de);
   color: rgb(158, 161, 163);
   border-radius: 10px;
 }

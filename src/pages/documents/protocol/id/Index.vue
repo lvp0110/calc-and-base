@@ -1,42 +1,65 @@
 <template>
   <MainPageLayout :breadcrumbs="breadcrumbs" />
-  <SidebarLayout :hasContent="selectElement">
+  <SidebarLayout :hasContent="route.params.id">
     <template #sidebar>
-      <List :items="selectTechlist" to="/documents/protocol" />
+      <List :items="protocols" to="/documents/protocol" />
     </template>
     <template #content>
-      <p>{{ selectElement.Name }}</p>
-      {{ selectElement.Description }}
-      <hr />
-      <iframe
-        class="pdf-cert"
-        :src="filesApi.getCertificateFileUrl(selectElement.File)"
-      ></iframe>
+      <div v-if="protocolDocuments?.length > 0">
+        <Slider :pdfs="protocolDocuments" :getFileApi="filesApi.getTestProtocolFileUrl" />
+      </div>
+      <div v-else>
+        <h4 style="color: gray">Протокол не найден</h4>
+      </div>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
-import { filesApi } from "../../../../config.js";
+import Slider from "../../../../components/Slider.vue";
+import { DocumentType } from "../../../../types";
+import { documentsApi, filesApi } from "../../../../config.js";
 
-const store = useStore();
 const route = useRoute();
+const protocols = ref([]);
+const protocolDocuments = ref([]);
 
-store.dispatch("getTechList");
+const fetchProtocols = async () => {
+  try {
+    const response = await documentsApi.getDocuments(
+      DocumentType.TypeDocTestProtocols
+    );
 
-const selectTechlist = computed(
-  () => store.getters["selectMaterialsWithTechList"]
-);
-const selectElement = computed(() =>
-  store.getters["selectMaterialsWithTechList"]?.find(
-    ({ Code }) => Code === route.params.id
-  )
+    protocols.value = response.data.data;
+  } catch {}
+};
+
+const fetchProtocol = async (id) => {
+  if (id) {
+    const response = await documentsApi.getDocument(
+      DocumentType.TypeDocTestProtocols,
+      id
+    );
+
+    protocolDocuments.value = response.data.data ?? [];
+  } else {
+    protocolDocuments.value = null;
+  }
+};
+
+fetchProtocols();
+fetchProtocol(route.params.id);
+
+watch(
+  () => route.params.id,
+  () => {
+    fetchProtocol(route.params.id);
+  }
 );
 
 const breadcrumbs = computed(() => {

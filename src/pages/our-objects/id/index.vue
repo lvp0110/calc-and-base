@@ -4,46 +4,46 @@
     <div class="title">{{ selectElement.Name }}</div>
     <hr />
     <ul>
-      <li v-if="selectElement.Location">
+      <li class="list-item" v-if="selectElement.Location">
         <p>Адрес:</p>
         {{ selectElement.Location }}
       </li>
       <!-- <li v-if="selectElement.Cover">{{ selectElement.Cover }}</li> -->
-      <li v-if="selectElement.Contractor">
+      <li class="list-item" v-if="selectElement.Contractor">
         <p>Заказчик:</p>
         {{ selectElement.Contractor }}
       </li>
-      <li v-if="selectElement.Designer">
+      <li class="list-item" v-if="selectElement.Designer">
         <p>Проектировщик:</p>
         {{ selectElement.Designer }}
       </li>
-      <li v-if="selectElement.ProjectOwner">
+      <li class="list-item" v-if="selectElement.ProjectOwner">
         <p>Ген.подрядчик :</p>
         {{ selectElement.ProjectOwner }}
       </li>
-      <li v-if="selectElement.TotalArea">
+      <li class="list-item" v-if="selectElement.TotalArea">
         <p>Площадь:</p>
         {{ selectElement.TotalArea }} м2
       </li>
-      <li v-if="selectElement.CompletionYear">
+      <li class="list-item" v-if="selectElement.CompletionYear">
         <p>Год:</p>
         {{ selectElement.CompletionYear }} г.
       </li>
-      <li v-if="selectElement.PerformedWorks">
+      <li class="list-item" v-if="selectElement.PerformedWorks">
         <p>Выполненные работы :</p>
-        {{ selectElement.PerformedWorks }}
+        <p v-html="selectElement.PerformedWorks"></p>
       </li>
     </ul>
     <span>Используемые материалы :</span>
     <ul>
       <li
-        class="list-materials"
+        class="list-materials list-item"
         v-for="(material, index) in selectElement.UsedMaterials"
         :key="index"
       >
         <RouterLink :to="`/acoustic/brands/${material.Code}`">
           {{ material.Name }}<span class="ellipses">...</span> </RouterLink
-        ><span class="ellipses">...</span> 
+        ><span class="ellipses">...</span>
       </li>
     </ul>
     <div :class="['slider-position', { 'full-screen': fullScreen }]">
@@ -109,7 +109,7 @@ const toggleFullScreen = () => {
 }
 
 .list-materials a {
-  color:var(--list-materials-color);
+  color: var(--list-materials-color);
   text-decoration: none;
 }
 
@@ -134,7 +134,7 @@ p {
   margin-bottom: 0;
   color: black;
 }
-li {
+.list-item {
   list-style-type: none;
   background: radial-gradient(circle at left, #a8b1b88c, #d7dadf62);
   margin-top: 10px;
@@ -170,5 +170,4 @@ span {
 section {
   display: none;
 }
-
 </style>
