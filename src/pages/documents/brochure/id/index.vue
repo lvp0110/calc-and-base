@@ -1,47 +1,55 @@
 <template>
   <MainPageLayout :breadcrumbs="breadcrumbs" />
-  <SidebarLayout :hasContent="selectElement">
+  <SidebarLayout :hasContent="brochure">
     <template #sidebar>
-      <List :items="selectAlbums" to="/documents/brochure" keyPath="name" namePath="name" />
+      <List
+        :items="brochures"
+        to="/documents/brochure"
+        keyPath="file"
+        namePath="name"
+      />
     </template>
     <template #content>
-      <div v-if="selectElement">
-        <p>{{ selectElement.name }}</p>
-
-        <hr />
-        <iframe
-          class="pdf-cert"
-          :src="filesApi.getCertificateFileUrl(selectElement.file)"
-        ></iframe>
-      </div>
+      <p>{{ brochure.name }}</p>
+      <hr />
+      <iframe
+        class="pdf-cert"
+        :src="filesApi.getBrochureFileUrl(brochure.file)"
+      ></iframe>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
-import { filesApi } from "../../../../config.js";
+import { filesApi, brochuresApi } from "../../../../config.js";
 
-const store = useStore();
 const route = useRoute();
 
-store.dispatch("getAlbums");
-
-const selectAlbums = computed(() => store.getters["selectAlbums"]);
-const selectElement = computed(() =>
-  store.getters["selectAlbums"].find(({ name }) => name === route.params.id)
+const brochures = ref([]);
+const brochure = computed(() =>
+  brochures.value.find(({ file }) => file === route.params.id)
 );
+
+const fetchBrochures = async () => {
+  const response = await brochuresApi.getBrochures();
+
+  brochures.value = response.data.data ?? [];
+};
+
+onMounted(() => {
+  fetchBrochures();
+});
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
     { link: "/documents", title: "..." },
     { link: "/documents/brochure", title: "КАТАЛОГИ | БРОШЮРЫ" },
-    { title: selectElement.value?.description },
+    { title: brochure.value?.description },
   ];
 
   return breadcrumbs;
@@ -63,5 +71,4 @@ p {
   width: 100%;
   height: 100vh;
 }
-
 </style>

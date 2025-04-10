@@ -62,6 +62,10 @@ export const albumsApi = {
   getAlbums: () => requestInstance.get("api/v1/albums"),
 };
 
+export const brochuresApi = {
+  getBrochures: () => requestInstance.get("api/v2/brochures"),
+}
+
 export const certificatesApi = {
   getCertificates: (type, id) => requestInstance.get(`api/v1/certs/${type}/${id}`),
 };
@@ -85,6 +89,7 @@ export const filesApi = {
     `${cdnUrl}/api/v2/techSheet/${fileName}`,
   getTestProtocolFileUrl: (fileName) =>
     `${cdnUrl}/api/v2/testProtocol/${fileName}`,
+  getBrochureFileUrl: (fileName) => `${cdnUrl}/api/v2/brochures/${fileName}`
 };
 
 export const objectsApi = {

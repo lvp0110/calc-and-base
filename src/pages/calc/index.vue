@@ -2236,23 +2236,23 @@ export default {
             else if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
 
                 if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
-                else if (+this.constR.lenX > 30000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
                 else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
-                else if (+this.constR.lenY > 30000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
             }
             else if (this.currentSubCategory == 'F' && this.template == 111) {
 
                 if (isNaN(+this.constR.lenX) || +this.constR.lenX < 200) return '<span class="p1">Введите правильную ширину</span> <br>Обрезанные панели ЗИПС ШИРИНОЙ менее 200 мм не используются';
-                else if (+this.constR.lenX > 30000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
                 else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 200) return '<span class="p1">Введите правильную длину</span> <br>Обрезанные панели ЗИПС ДЛИНОЙ менее 200 мм не используются';
-                else if (+this.constR.lenY > 30000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
             }
             else if (this.currentSubCategory == 'F' && this.template == 3) {
 
                 if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
-                else if (+this.constR.lenX > 30000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
                 else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
-                else if (+this.constR.lenY > 30000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
             }
             else if (this.currentSubCategory == 'C' && this.template == 4) {
 
@@ -2265,7 +2265,7 @@ export default {
 
         },
         calcConstruction(constrList) {
-            this.request('https://db.acoustic.ru:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
+            this.request('http://localhost:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
         },
         addConstrToCalc() {
 

@@ -5,8 +5,18 @@
         <p class="title-materials">
           {{ section.title }}
         </p>
-        <div class="list-content" v-html="section.content" />
-        <RouterLink to="/calc" v-if="enableCalc">Расчет</RouterLink>
+        <div
+          v-if="section.content"
+          class="list-content"
+          v-html="unescapeHTML(section.content)"
+          @click="copyData(section.content)"
+        />
+        <RouterLink to="/calc" v-if="enableCalc"
+          ><img
+            src="https://db.acoustic.ru:3005/api/v1/constr/calc.svg"
+            alt=""
+            style="width: 50px; padding-top: 20px"
+        /></RouterLink>
       </Section>
 
       <Section v-else-if="section.type === 'Image'">
@@ -91,7 +101,6 @@
         :image="section.img && filesApi.getImageFileUrl(section.img)"
       >
         <span v-html="section.content" />
-        <!-- style="white-space: pre-wrap" -->
       </Section>
     </template>
   </div>
@@ -111,8 +120,31 @@ import {
 } from "../../types";
 import "swiper/css";
 
-const { sections, enableCalc = false } = defineProps(["sections", "enableCalc"]);
+const { sections, enableCalc = false } = defineProps([
+  "sections",
+  "enableCalc",
+]);
 
+function unescapeHTML(html) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = html;
+  return textarea.value;
+}
+
+function copyData(content) {
+  const element = document.querySelector("[data-articul]");
+  const articul = element.getAttribute("data-articul");
+
+  navigator.clipboard
+    .writeText(articul)
+    .then(() => {
+      alert(`Данные скопированы в буфер обмена! ${articul}`);
+    })
+    .catch((err) => {
+      console.error("Ошибка при копировании:", err);
+    });
+}
+// click="navigator.clipboard.write('sadsad')"
 // const sections = ref([]);
 
 // onMounted(async () => {

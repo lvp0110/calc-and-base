@@ -10,7 +10,7 @@
       />
     </template>
     <template #content>
-      <Sections :sections="sections" :enableCalc="true" />й
+      <Sections :sections="sections" :enableCalc="true" />
     </template>
   </SidebarLayout>
 </template>

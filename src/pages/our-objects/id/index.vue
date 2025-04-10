@@ -35,13 +35,24 @@
       </li>
     </ul>
     <span>Используемые материалы :</span>
-    <ul>
+    <ul v-if="selectElement?.UsedBrands?.length > 0">
+      <li
+        class="list-materials list-item"
+        v-for="(material, index) in selectElement.UsedBrands"
+        :key="index"
+      >
+        <RouterLink :to="`/acoustic/brands/${material.Code}`">
+          {{ material.Name }}<span class="ellipses">...</span> </RouterLink
+        ><span class="ellipses">...</span>
+      </li>
+    </ul>
+    <ul v-if="selectElement?.UsedMaterials?.length > 0">
       <li
         class="list-materials list-item"
         v-for="(material, index) in selectElement.UsedMaterials"
         :key="index"
       >
-        <RouterLink :to="`/acoustic/brands/${material.Code}`">
+        <RouterLink :to="`/soundproof/materials/${material.Code}`">
           {{ material.Name }}<span class="ellipses">...</span> </RouterLink
         ><span class="ellipses">...</span>
       </li>
