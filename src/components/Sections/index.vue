@@ -9,13 +9,19 @@
           v-if="section.content"
           class="list-content"
           v-html="unescapeHTML(section.content)"
-          @click="copyData(section.content)"
         />
+        <!-- @click="copyData(section.content)"   ✏️ -->
         <RouterLink to="/calc" v-if="enableCalc"
           ><img
             src="https://db.acoustic.ru:3005/api/v1/constr/calc.svg"
             alt=""
-            style="width: 50px; padding-top: 20px"
+            style="
+              width: 50px;
+              margin-top: 10px;
+              padding: 6px;
+              background: grey;
+              border-radius: 20%;
+            "
         /></RouterLink>
       </Section>
 

@@ -18,6 +18,7 @@
           @click="openDialog"
         />
       </li>
+
       <li>
         <!-- <button style="border: none; background: none">
           <img
@@ -29,7 +30,8 @@
         </button> -->
         <ThemeSwitcher />
       </li>
-      <li style="margin-top: 12px;">
+
+      <li style="margin-top: 12px">
         <RouterLink to="/calc">
           <img
             class="calc"
@@ -38,6 +40,7 @@
           />
         </RouterLink>
       </li>
+
     </ul>
   </div>
 
@@ -71,7 +74,6 @@
       </ul>
     </div>
   </Modal>
-
 </template>
 
 <script setup>
@@ -79,7 +81,7 @@ import { ref, computed, watch } from "vue";
 import { filesApi } from "../config";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import Modal from "./Modal.vue";
+// import Modal from "./Modal.vue";
 import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 const router = useRouter();
@@ -93,6 +95,7 @@ watch(router.currentRoute, () => {
 });
 
 const openDialog = () => {
+  alert("Раздел находится в разработке: E = m∙?");
   showDialog.value = true;
 };
 
@@ -113,14 +116,14 @@ const handleSearch = () => {
 </script>
 
 <style scoped>
-.person-list li{
+.person-list li {
   color: azure;
   text-decoration: none;
   margin-top: 55px;
   font-size: 20px;
   border-bottom: solid;
 }
-.person-list a{
+.person-list a {
   color: azure;
   text-decoration: none;
 }
