@@ -144,22 +144,27 @@ export enum DocumentType {
   TypeDocCertificates = "certificate",
   TypeDocTechSheets = "techSheet",
   TypeDocTestProtocols = "testProtocol",
+  TypeDocTechCards = "techCards",
 }
 
 export const SectionDocumentType: Record<string, DocumentType> = {
   certificates: DocumentType.TypeDocCertificates,
   tech_protocols: DocumentType.TypeDocTechSheets,
   test_protocol: DocumentType.TypeDocTestProtocols,
+  tech_cards: DocumentType.TypeDocTechCards,
 };
 
 export const DocumentTypeNames: Record<DocumentType, string> = {
   [DocumentType.TypeDocCertificates]: "Сертификаты",
   [DocumentType.TypeDocTechSheets]: "Технический лист",
   [DocumentType.TypeDocTestProtocols]: "Протоколы испытаний",
+  [DocumentType.TypeDocTechCards]: "Технологические карты",
 };
 
 export const DocumentTypeLink: Record<DocumentType, string> = {
   [DocumentType.TypeDocCertificates]: "certificates",
   [DocumentType.TypeDocTechSheets]: "techlist",
   [DocumentType.TypeDocTestProtocols]: "protocol",
+  [DocumentType.TypeDocTechCards]: "techcard",
 };
+ 

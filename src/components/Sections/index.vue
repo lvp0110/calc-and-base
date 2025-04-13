@@ -10,18 +10,13 @@
           class="list-content"
           v-html="unescapeHTML(section.content)"
         />
+
         <!-- @click="copyData(section.content)"   ✏️ -->
         <RouterLink to="/calc" v-if="enableCalc"
           ><img
+            class="calc-button"
             src="https://db.acoustic.ru:3005/api/v1/constr/calc.svg"
             alt=""
-            style="
-              width: 50px;
-              margin-top: 10px;
-              padding: 6px;
-              background: grey;
-              border-radius: 20%;
-            "
         /></RouterLink>
       </Section>
 
@@ -98,6 +93,7 @@
               </li>
             </ul>
           </li>
+          <li v-if="hasArticul()" @click="copyData(section.content)">Номенклатура 1С ✏️</li>
         </ul>
       </Section>
 
@@ -137,21 +133,27 @@ function unescapeHTML(html) {
   return textarea.value;
 }
 
-function copyData(content) {
-  const element = document.querySelector("[data-articul]");
-  const articul = element.getAttribute("data-articul");
 
-  navigator.clipboard
-    .writeText(articul)
-    .then(() => {
-      alert(`Данные скопированы в буфер обмена! ${articul}`);
-    })
-    .catch((err) => {
-      console.error("Ошибка при копировании:", err);
-    });
+function hasArticul() {
+  return !!document.querySelector('[data-articul]');
 }
-// click="navigator.clipboard.write('sadsad')"
-// const sections = ref([]);
+
+function copyData(content) {
+  const element = document.querySelector('[data-articul]');
+  if (element) {
+    const articul = element.getAttribute('data-articul');
+    navigator.clipboard
+      .writeText(articul)
+      .then(() => {
+        alert(`Данные скопированы в буфер обмена! ${articul}`);
+      })
+      .catch((err) => {
+        console.error('Ошибка при копировании:', err);
+      });
+  } else {
+    console.warn('Атрибут data-articul не найден.');
+  }
+}
 
 // onMounted(async () => {
 //   for (const section of props.sections) {
@@ -176,6 +178,17 @@ function copyData(content) {
   font-weight: 300;
   color: var(--section-text-color);
 }
+.calc-button {
+  width: 50px;
+  margin-top: 10px;
+  padding: 6px;
+  background: grey;
+  border-radius: 20%;
+}
+.calc-button:hover {
+  border-radius: 30%;
+  border: solid 1px white;
+}
 
 .title-materials {
   text-transform: uppercase;
@@ -190,6 +203,7 @@ function copyData(content) {
   background: radial-gradient(circle at center, #8992998c, #d7dadf62);
   margin-top: 5px;
   padding-left: 10px;
+  border-radius: 5px;
 }
 :deep .list-content li a {
   text-decoration: none;

@@ -31,7 +31,7 @@
         <ThemeSwitcher />
       </li>
 
-      <li style="margin-top: 12px">
+      <li style="">
         <RouterLink to="/calc">
           <img
             class="calc"
@@ -40,7 +40,6 @@
           />
         </RouterLink>
       </li>
-
     </ul>
   </div>
 
@@ -147,6 +146,7 @@ const handleSearch = () => {
 .calc {
   width: 50px;
   transition: all 0.2s;
+  margin-top: 0;
 }
 
 .calc:hover {
@@ -207,6 +207,9 @@ const handleSearch = () => {
   .list {
     flex-direction: column;
     justify-content: flex-start;
+  }
+  .calc {
+    margin-top: 12px;
   }
 }
 </style>
