@@ -208,7 +208,7 @@ body {
   --list-background-selected: black;
   --list-color-selected: white;
 
-  --list-materials-color: rgb(170, 176, 179);
+  --list-materials-color: #cad2d5;
   --block-description-color: rgb(25, 24, 24);
 
   --list-categogy-color: rgb(206, 211, 215);

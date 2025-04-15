@@ -417,6 +417,11 @@ export default createStore({
     //         item.Category === 'acoustic' && item[state.currentOption].toLowerCase().includes(searchText.toLowerCase())
     //     )
     // },
+    selectSearchString(state) {
+      const searchText = state.voiceSearchText || state.searchText;
+
+      return searchText.toLowerCase()
+    },
     selectAllIsolationConstrSound(state) {
       const searchText = state.voiceSearchText || state.searchText;
 

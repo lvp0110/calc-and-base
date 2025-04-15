@@ -2,20 +2,12 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="brochure">
     <template #sidebar>
-      <List
-        :items="brochures"
-        to="/documents/brochure"
-        keyPath="file"
-        namePath="name"
-      />
+      <List :items="filteredBrochures" to="/documents/brochure" keyPath="file" namePath="name" />
     </template>
     <template #content>
       <p>{{ brochure.name }}</p>
       <hr />
-      <iframe
-        class="pdf-cert"
-        :src="filesApi.getBrochureFileUrl(brochure.file)"
-      ></iframe>
+      <iframe class="pdf-cert" :src="filesApi.getBrochureFileUrl(brochure.file)"></iframe>
     </template>
   </SidebarLayout>
 </template>
@@ -23,17 +15,21 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
 import { filesApi, brochuresApi } from "../../../../config.js";
+import {searchFilter} from '../../../../utils/search-filter'
 
+const store = useStore();
 const route = useRoute();
 
 const brochures = ref([]);
 const brochure = computed(() =>
   brochures.value.find(({ file }) => file === route.params.id)
 );
+const filteredBrochures = computed(() => searchFilter(brochures.value, store.getters['selectSearchString']))
 
 const fetchBrochures = async () => {
   const response = await brochuresApi.getBrochures();

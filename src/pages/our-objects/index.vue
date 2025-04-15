@@ -13,10 +13,24 @@
     </nav> -->
 
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
-      <div v-for="filter in filters" :key="filter.key" class="select-descript-wrapper">
-        <select class="form-select select-descript" aria-label="Default select example" :name="filter.key" :value="appliedFilters[filter.key]" @change="applyFilter">
+      <div
+        v-for="filter in filters"
+        :key="filter.key"
+        class="select-descript-wrapper"
+      >
+        <select
+          class="form-select select-descript"
+          aria-label="Default select example"
+          :name="filter.key"
+          :value="appliedFilters[filter.key]"
+          @change="applyFilter"
+        >
           <option disabled value="null">{{ filter.name }}</option>
-          <option v-for="value in filter.values" :key="value.value" :value="value.value">
+          <option
+            v-for="value in filter.values"
+            :key="value.value"
+            :value="value.value"
+          >
             {{ value.name }}
           </option>
         </select>
@@ -37,7 +51,7 @@
           </option>
         </select>
       </div> -->
-       <!-- <div class="select-descript-wrapper">
+      <!-- <div class="select-descript-wrapper">
         <select class="form-select select-descript" aria-label="Default select example" @change="selectMaterials">
           <option selected disabled>МАТЕРИАЛЫ</option>
           <option v-for="(material, index) in dynamicMaterials" :key="index" :value="material">
@@ -56,17 +70,25 @@
         </select>
       </div> -->
     </div>
-     <!-- <div class="list-group" v-show="isSoundInsulationVisible">
+    <!-- <div class="list-group" v-show="isSoundInsulationVisible">
       <button v-for="elem in selectAcousticCategories" :key="elem.Code" type="button"
         class="list-group-item list-group-item-action" aria-current="true" @click="addDiv(elem)">
         {{ elem.Name }}
       </button>
     </div> -->
     <div class="gallery">
-      <div v-for="(item, index) in filteredObjects" :key="index" class="gallery-item">
+      <div
+        v-for="(item, index) in filteredObjects"
+        :key="index"
+        class="gallery-item"
+      >
         <div>
           <RouterLink :to="`/our-objects/${item.Code}`">
-            <img :src="filesApi.getImageFileUrl(item.Cover)" alt="" role="button" />
+            <img
+              :src="filesApi.getImageFileUrl(item.Cover)"
+              alt=""
+              role="button"
+            />
           </RouterLink>
         </div>
         <div class="image-text-object">
@@ -78,81 +100,91 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
-import { useRoute, useRouter } from 'vue-router';
-import { computed, ref } from 'vue';
-import { filesApi } from '../../config';
-import MainPageLayout from '../../components/Layouts/MainPageLayout.vue'
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import { computed, ref } from "vue";
+import { filesApi } from "../../config";
+import MainPageLayout from "../../components/Layouts/MainPageLayout.vue";
 
-const store = useStore()
-const route = useRoute()
-const router = useRouter()
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
 
 const filters = ref([
-    {
-      "key": "materials",
-      "name": "Материалы",
-      "values": [
-        {
-          "name": "Материал 1",
-          "value": "material_1",
-          "count": 10
-        },
-        {
-          "name": "Материал 2",
-          "value": "material_2",
-          "count": 4
-        } 
-      ]
-    },
-    {
-      "key": "cities",
-      "name": "Города",
-      "values": [
-        {
-          "name": "Город 1",
-          "value": "city_1"
-        },
-        {
-          "name": "Город 2",
-          "value": "sity_2"
-        } 
-      ]
-    }
-])
-const appliedFilters = computed(() => route.query)
+  {
+    key: "materials",
+    name: "Материалы",
+    values: [
+      {
+        name: "Материал 1",
+        value: "material_1",
+        count: 10,
+      },
+      {
+        name: "Материал 2",
+        value: "material_2",
+        count: 4,
+      },
+    ],
+  },
+  {
+    key: "cities",
+    name: "Города",
+    values: [
+      {
+        name: "Город 1",
+        value: "city_1",
+      },
+      {
+        name: "Город 2",
+        value: "sity_2",
+      },
+    ],
+  },
+]);
+const appliedFilters = computed(() => route.query);
 
-const nameModel = ref(null)
-const locationModel = ref(null)
+const nameModel = ref(null);
+const locationModel = ref(null);
 
 const applyFilter = (event) => {
   const newAppliedFilters = {
     ...appliedFilters.value,
-    [event.target.name]: event.target.value
-  }
+    [event.target.name]: event.target.value,
+  };
 
-  router.push({ path: route.path, query: newAppliedFilters })
-}
+  router.push({ path: route.path, query: newAppliedFilters });
+};
 
-store.dispatch('getObjects')
+store.dispatch("getObjects");
 
-const objects = computed(() => store.getters.selectObjects)
+const objects = computed(() => store.getters.selectObjects);
 
-const names = computed(() => objects.value?.filter(({ Location }) => locationModel.value ? Location === locationModel.value : true).map(({ Name }) => Name))
-const locations = computed(() => objects.value?.filter(({ Name }) => nameModel.value ? Name === nameModel.value : true).map(({ Location }) => Location))
+const names = computed(() =>
+  objects.value
+    ?.filter(({ Location }) =>
+      locationModel.value ? Location === locationModel.value : true
+    )
+    .map(({ Name }) => Name)
+);
+const locations = computed(() =>
+  objects.value
+    ?.filter(({ Name }) => (nameModel.value ? Name === nameModel.value : true))
+    .map(({ Location }) => Location)
+);
 
 const filteredObjects = computed(() => {
   if (nameModel.value || locationModel.value) {
-    return objects.value?.filter(({ Name, Location }) => Name === nameModel.value || Location === locationModel.value)
+    return objects.value?.filter(
+      ({ Name, Location }) =>
+        Name === nameModel.value || Location === locationModel.value
+    );
   }
 
-  return objects.value
-})
+  return objects.value;
+});
 
-const breadcrumbs = [
-  { link: '/', title: "НАШИ ОБЪЕКТЫ" },
-]
-
+const breadcrumbs = [{ link: "/", title: "НАШИ ОБЪЕКТЫ" }];
 </script>
 
 <style scoped>
@@ -161,7 +193,7 @@ const breadcrumbs = [
   overflow: auto;
 }
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
 .select-descript-wrapper {

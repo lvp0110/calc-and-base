@@ -10,8 +10,6 @@
           class="list-content"
           v-html="unescapeHTML(section.content)"
         />
-
-        <!-- @click="copyData(section.content)"   ✏️ -->
         <RouterLink to="/calc" v-if="enableCalc"
           ><img
             class="calc-button"
@@ -87,7 +85,7 @@
                 <RouterLink
                   :to="`/documents/${
                     DocumentTypeLink[SectionDocumentType[type]]
-                  }/${encodeURIComponent(item.material_code)}`"
+                  }/${encodeURIComponent(item.code)}`"
                   >{{ item.name ?? item.code }}</RouterLink
                 >
               </li>
@@ -132,7 +130,6 @@ function unescapeHTML(html) {
   textarea.innerHTML = html;
   return textarea.value;
 }
-
 
 function hasArticul() {
   return !!document.querySelector('[data-articul]');
