@@ -3,7 +3,7 @@
   <SidebarLayout :hasContent="sections.length > 0">
     <template #sidebar>
       <List
-        :items="constructions"
+        :items="filteredConstructions"
         keyPath="code"
         namePath="name"
         to="/soundproof/constructions"
@@ -23,11 +23,17 @@ import Sections from "../../../../components/Sections/index.vue";
 import { useRoute } from "vue-router";
 import { computed, ref, watch, onMounted } from "vue";
 import { isolationConstructionsApi } from "../../../../config";
+import { useStore } from "vuex";
+import { searchFilter } from "../../../../utils/search-filter";
 
 const route = useRoute();
+const store = useStore();
 
 const constructions = ref([]);
 const sections = ref([]);
+const filteredConstructions = computed(() =>
+  searchFilter(constructions.value, store.getters["selectSearchString"])
+);
 
 const fetchConstructions = async () => {
   const response = await isolationConstructionsApi.getIsolationConstructions();

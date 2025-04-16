@@ -1402,15 +1402,17 @@
                 <tr>
                     <th>шифр</th>
                     <th>название</th>
-                    <th></th>
+                    <th>вес</th>
                     <th></th>
                 </tr>
                 <tr v-for="constR in ConstrToCalc" :key="constR.key_id">
                     <td style="text-align: right;">{{ constR.ag_id }}</td>
                     <td style="text-align: center;">{{ constR.title }} ,{{ constR.lenX }} x {{ constR.lenY }}{{
                         constR.lenZ
-                        }} {{ constR.weigth }}</td>
-                    <td><img :src="public / calc / constR.imgBlack" width="20" alt=""></td>
+                        }}</td>
+                    <td>
+                        {{ constR.weight }}
+                    </td>
                     <td>
                         <input type="button" class="counter__button_minus">
                         <!-- <img src="/calc.png" alt="" style="height: 13px;opacity: 0.7;"
@@ -2334,7 +2336,7 @@ export default {
 
                 let StepProfile = this.Items.find((el) => el.id == this.currentItems);
                 this.constR.step = StepProfile.step;
-                this.constR.weigth = StepProfile.weight
+                this.constR.weight = StepProfile.weight
 
                 this.setConstrFromCalcToSent();
                 console.log(this.currentConstr);

@@ -2,7 +2,7 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="selectElement">
     <template #sidebar>
-      <List :items="techList" to="/documents/techlist" keyPath="Code" />
+      <List :items="filteredTechLists" to="/documents/techlist" keyPath="Code" />
     </template>
     <template #content>
       <p>{{ selectElement.name }}</p>
@@ -24,10 +24,15 @@ import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
 import { filesApi, documentsApi } from "../../../../config.js";
 import { DocumentType } from "../../../../types";
+import { useStore } from "vuex";
+import { searchFilter } from '../../../../utils/search-filter'
 
+const store = useStore();
 const route = useRoute();
 const techList = ref([]);
 const selectElement = ref(null);
+
+const filteredTechLists = computed(() => searchFilter(techList.value, store.getters['selectSearchString'], "Name"))
 
 const fetchTechList = async () => {
   try {

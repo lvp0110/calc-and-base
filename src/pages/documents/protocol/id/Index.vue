@@ -2,11 +2,14 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="route.params.id">
     <template #sidebar>
-      <List :items="protocols" to="/documents/protocol" />
+      <List :items="filteredProtocols" to="/documents/protocol" />
     </template>
     <template #content>
       <div v-if="protocolDocuments?.length > 0">
-        <Slider :pdfs="protocolDocuments" :getFileApi="filesApi.getTestProtocolFileUrl" />
+        <Slider
+          :pdfs="protocolDocuments"
+          :getFileApi="filesApi.getTestProtocolFileUrl"
+        />
       </div>
       <div v-else>
         <h4 style="color: gray">Протокол не найден</h4>
@@ -18,16 +21,22 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
 import Slider from "../../../../components/Slider.vue";
 import { DocumentType } from "../../../../types";
 import { documentsApi, filesApi } from "../../../../config.js";
+import { searchFilter } from "../../../../utils/search-filter";
 
+const store = useStore();
 const route = useRoute();
 const protocols = ref([]);
 const protocolDocuments = ref([]);
+const filteredProtocols = computed(() =>
+  searchFilter(protocols.value, store.getters["selectSearchString"], "Name")
+);
 
 const fetchProtocols = async () => {
   try {

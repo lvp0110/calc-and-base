@@ -20,7 +20,7 @@ import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
 import List from "../../../../components/List/List.vue";
 import { filesApi, brochuresApi } from "../../../../config.js";
-import {searchFilter} from '../../../../utils/search-filter'
+import { searchFilter } from '../../../../utils/search-filter'
 
 const store = useStore();
 const route = useRoute();
