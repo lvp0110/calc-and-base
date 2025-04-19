@@ -1402,27 +1402,28 @@
                 <tr>
                     <th>шифр</th>
                     <th>название</th>
-                    <th>вес</th>
+                    <th></th>
+                    <!-- <th>масса</th> -->
                     <th></th>
                 </tr>
                 <tr v-for="constR in ConstrToCalc" :key="constR.key_id">
                     <td style="text-align: right;">{{ constR.ag_id }}</td>
                     <td style="text-align: center;">{{ constR.title }} ,{{ constR.lenX }} x {{ constR.lenY }}{{
                         constR.lenZ
-                        }}</td>
+                        }} мм</td>
                     <td>
                         {{ constR.weight }}
                     </td>
                     <td>
-                        <input type="button" class="counter__button_minus">
-                        <!-- <img src="/calc.png" alt="" style="height: 13px;opacity: 0.7;"
-                    @click="delConstrFromList(constR.key_id)"> -->
-                        <svg height="50" width="50" @click="delConstrFromList(constR.key_id)">
+                        <input type="button" class="counter__button_minus" @click="delConstrFromList(constR.key_id)">
+                        <img src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;"
+                    @click="delConstrFromList(constR.key_id)">
+                        <!-- <svg height="50" width="50" >
                             <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey"
                                 stroke-width="2" />
                             <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
                             <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
-                        </svg>
+                        </svg> -->
                         </input>
                     </td>
                 </tr>
@@ -2336,7 +2337,7 @@ export default {
 
                 let StepProfile = this.Items.find((el) => el.id == this.currentItems);
                 this.constR.step = StepProfile.step;
-                this.constR.weight = StepProfile.weight
+                // this.constR.weight = StepProfile.weight
 
                 this.setConstrFromCalcToSent();
                 console.log(this.currentConstr);
@@ -2511,6 +2512,7 @@ export default {
     width: auto;
     height: 100%;
     overflow-y: auto;
+    margin-bottom: 10px;
 }
 
 .p1 {

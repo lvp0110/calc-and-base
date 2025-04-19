@@ -162,7 +162,7 @@ const handleSearch = () => {
   background: radial-gradient(
     circle at top,
     rgba(10, 115, 160, 0.9),
-    rgb(72, 170, 215)
+    rgb(51 124 158)
   );
   height: 70px;
   padding: 8px;

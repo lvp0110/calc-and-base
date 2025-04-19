@@ -40,7 +40,7 @@
 
 <script>
 import TabBar from "./components/TabBar.vue";
-// import VoiceSearch from "./components/VoiceSearch.vue";
+// import VoiceSearch from "./components/VoiceSearch.vue"; 
 
 import { filesApi } from "./config";
 

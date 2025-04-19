@@ -1,7 +1,17 @@
 <template>
   <ul class="dropdown">
+    <li class="dropdown__item">
+      <input
+        type="text"
+        class="form-control"
+        id="result_voice"
+        placeholder="Поиск..."
+        :value="value"
+        @input="handleInput"
+      />
+    </li>
     <li
-      v-for="item in items"
+      v-for="item in filteredItems"
       :key="item.code"
       class="dropdown__item"
       @click="select(item)"
@@ -22,13 +32,29 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import { filesApi } from "../../config";
-
 const { items, onSelect, onClose } = defineProps([
   "items",
   "onSelect",
   "onClose",
 ]);
+
+const value = ref("");
+
+const filteredItems = computed(() => {
+  if (!value.value.length) {
+    return items;
+  }
+
+  return items.filter((item) =>
+    item.name?.toLowerCase().includes(value.value.toLowerCase())
+  );
+});
+
+const handleInput = (event) => {
+  value.value = event.target.value;
+};
 
 const select = (item) => {
   onSelect(item);
@@ -37,6 +63,11 @@ const select = (item) => {
 </script>
 
 <style scoped lang="scss">
+.form-control {
+  width: 100%;
+  height: 45px;
+}
+
 .backdrop {
   background-color: transparent;
   position: fixed;
@@ -45,14 +76,14 @@ const select = (item) => {
 }
 
 .dropdown {
-  position: absolute;
-  height: 500px;
-  width: 100%;
-  margin: 4px;
+  position: fixed;
+  inset: 0;
+  height: calc(100% - 55px);
+  width: calc(545px - 40px);
+  margin: 50px auto 120px 80px;
   padding: 4px;
-  background: white;
+  background: rgba(190, 190, 190, 0.899);
   background-size: 400%;
-  box-shadow: 2px 3px 3px rgb(161, 160, 160);
   overflow: auto;
   z-index: 999;
   list-style-type: none;
@@ -77,11 +108,19 @@ const select = (item) => {
     background-color: lightgray;
   }
 
+  @media screen and (max-width: 1024px) {
+    position: fixed;
+    inset: 0;
+    height: calc(100% - 55px);
+    width: auto;
+    margin: 50px auto 120px 80px;
+  }
+
   @media screen and (max-width: 500px) {
     position: fixed;
     inset: 0;
-    height: auto;
-    width: calc(100% - 40px);
+    height: calc(100% - 70px);
+    width: calc(100% - 20px);
     margin: 50px auto 120px auto;
   }
 }
