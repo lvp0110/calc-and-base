@@ -62,7 +62,7 @@ onMounted(() => {
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/soundproof", title: "..." },
+    { link: "/soundproof", title: "⟪⟪ |" },
     { link: "/soundproof/constructions", title: "КОНСТРУКЦИИ" },
   ];
 

@@ -184,7 +184,7 @@ const filteredObjects = computed(() => {
   return objects.value;
 });
 
-const breadcrumbs = [{ link: "/", title: "НАШИ ОБЪЕКТЫ" }];
+const breadcrumbs = [{ link: "./", title: "⟪⟪ | НАШИ ОБЪЕКТЫ" }];
 </script>
 
 <style scoped>

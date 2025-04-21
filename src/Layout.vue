@@ -189,6 +189,8 @@ body {
   --search-text:gray;
   --search-border-color:gray;
 
+  --select-color:black;
+
 }
 
 [color-scheme="dark"] {
@@ -236,6 +238,8 @@ body {
 
   --search-text:white;
   --search-border-color:lightgray;
+
+  --select-color:black;
 }
 
 .main {

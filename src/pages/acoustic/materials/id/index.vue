@@ -47,7 +47,7 @@ watch(() => route.params.id, fetchSections);
 
 const breadcrumbs = computed(() => {
     const breadcrumbs = [
-        { link: '/acoustic', title: '...' },
+        { link: '/acoustic', title: '⟪⟪ |' },
         { link: '/acoustic/materials', title: 'МАТЕРИАЛЫ' },
     ]
 

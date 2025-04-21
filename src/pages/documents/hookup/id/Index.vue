@@ -79,7 +79,7 @@ watch(
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/documents", title: "..." },
+    { link: "/documents", title: "⟪⟪ |" },
     { link: "/documents/hookup", title: "МОНТАЖНЫЕ СХЕМЫ" },
   ];
 

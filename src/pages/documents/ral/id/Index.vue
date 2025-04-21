@@ -65,8 +65,8 @@ watch(
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/documents", title: "..." },
-    { link: "/documents/certificates", title: "СЕРТИФИКАТЫ" },
+    { link: "/documents", title: "⟪⟪ |" },
+    { link: "/documents/certificates", title: "RAL" },
   ];
 
   if (route.params.id) {

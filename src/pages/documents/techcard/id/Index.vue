@@ -47,7 +47,7 @@ const selectElement = computed(() =>
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/documents", title: "..." },
+    { link: "/documents", title: "⟪⟪ |" },
     { link: "/documents/techcard", title: "ТЕХ.КАРТЫ" },
   ];
 

@@ -47,7 +47,7 @@ const selectElement = computed(() =>
 );
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/vibration_isolation", title: "..." },
+    { link: "/vibration_isolation", title: "⟪⟪ |" },
     { link: "/vibration_isolation/materials", title: "МАТЕРИАЛЫ" },
   ];
 

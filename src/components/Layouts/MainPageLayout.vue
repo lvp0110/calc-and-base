@@ -82,16 +82,17 @@ h6 {
 .section {
   display: flex;
   align-items: baseline;
+
 }
 .section a {
   text-decoration: none;
+  font-size: 18px;
 }
 
 .back {
   color: white;
   margin-top: -15px;
   font-size: 15px;
-  border: solid 1px white;
   padding: 5px;
   border-radius: 5px;
 }

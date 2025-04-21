@@ -564,7 +564,7 @@ const replaceLocation = async () => {
 
 const breadcrumbs = () => {
   return [
-    { link: "/acoustic", title: "..." },
+    { link: "/acoustic", title: "⟪⟪ |" },
     { link: "/acoustic/brands", title: "БРЕНДЫ" },
     { title: selectElement.value?.Name },
   ];

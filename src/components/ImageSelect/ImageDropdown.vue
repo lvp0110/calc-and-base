@@ -80,28 +80,30 @@ const select = (item) => {
   inset: 0;
   height: calc(100% - 55px);
   width: calc(545px - 40px);
-  margin: 50px auto 120px 80px;
+  margin: 53px auto 120px 80px;
   padding: 4px;
-  background: rgba(190, 190, 190, 0.899);
-  background-size: 400%;
+  background: radial-gradient(circle at center, #9a9ea3, rgb(244 244 246 / 86%));
   overflow: auto;
   z-index: 999;
   list-style-type: none;
 
+
   &__item {
     padding: 4px;
-    color: black;
+    color: rgb(58, 57, 57);  
 
     &:hover {
-      background-color: rgb(213, 220, 226);
-      border: solid 1px gray;
+      background-color: rgba(190, 190, 190, 0.063);
+      border: solid 2px white;
+      border-radius: 5px;
       cursor: pointer;
+      color: var(--select-color);
     }
 
     &__image {
       width: 100%;
       object-fit: contain;
-      margin: 6px;
+      margin-bottom: 6px;
     }
   }
 
@@ -114,7 +116,7 @@ const select = (item) => {
     inset: 0;
     height: calc(100% - 55px);
     width: auto;
-    margin: 50px auto 120px 80px;
+    margin: 53px auto 120px 80px;
   }
 
   @media screen and (max-width: 500px) {
@@ -122,7 +124,7 @@ const select = (item) => {
     inset: 0;
     height: calc(100% - 70px);
     width: calc(100% - 20px);
-    margin: 50px auto 120px auto;
+    margin: 53px auto 120px auto;
   }
 }
 </style>

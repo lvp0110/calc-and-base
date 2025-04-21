@@ -1,6 +1,7 @@
 <template>
+  <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
   <div class="content" v-if="selectElement">
-    <MainPageLayout :breadcrumbs="breadcrumbs" :hiddenSearch="true" />
+    
     <div class="title">{{ selectElement.Name }}</div>
     <hr />
     <ul>
@@ -98,7 +99,7 @@ const fetchObject = async (code) => {
 fetchObject(code);
 
 const breadcrumbs = computed(() => [
-  { link: "/our-objects", title: "..." },
+  { link: "/our-objects", title: "⟪⟪ |" },
   { title: selectElement.value?.Name },
 ]);
 

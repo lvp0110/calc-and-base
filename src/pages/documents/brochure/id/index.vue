@@ -43,7 +43,7 @@ onMounted(() => {
 
 const breadcrumbs = computed(() => {
   const breadcrumbs = [
-    { link: "/documents", title: "..." },
+    { link: "/documents", title: "⟪⟪ |" },
     { link: "/documents/brochure", title: "КАТАЛОГИ | БРОШЮРЫ" },
     { title: brochure.value?.description },
   ];
