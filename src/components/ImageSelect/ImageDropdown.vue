@@ -101,6 +101,7 @@ const select = (item) => {
     &__image {
       width: 100%;
       object-fit: contain;
+      margin: 6px;
     }
   }
 

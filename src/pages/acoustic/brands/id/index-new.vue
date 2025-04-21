@@ -716,7 +716,7 @@ option {
 
 .add-image {
   object-fit: cover;
-  width: 100%;
+  width: 98%;
   margin-top: 10px;
   background-color: var(--add-image-background);
 }

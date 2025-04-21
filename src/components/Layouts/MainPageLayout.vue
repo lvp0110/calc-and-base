@@ -6,8 +6,8 @@
           {{ breadcrumb.title }}
         </RouterLink>
       </h6>
-      <h6 v-else class="text">{{ breadcrumb.title }}</h6>
-      <span v-if="breadcrumbs.length > index + 1" class="text">&nbsp;/</span>
+      <!-- <h6 v-else class="text">{{ breadcrumb.title }}</h6> -->
+      <!-- <span v-if="breadcrumbs.length > index + 1" class="text">&nbsp;/</span> -->
     </section>
     <div class="block-button">
       <button type="button" class="btn_back" @click="goBack">▷</button>
@@ -84,17 +84,23 @@ h6 {
   align-items: baseline;
 }
 .section a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .back {
   color: white;
   margin-top: -15px;
   font-size: 15px;
+  border: solid 1px white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .text {
   font-size: 15px;
+  border: solid 1px white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 @media screen and (min-width: 500px) {

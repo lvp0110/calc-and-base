@@ -51,6 +51,7 @@ export const SubCategoriesByCategory: Record<Categories, SubCategory[]> = {
     { code: "techlist", name: "ТЕХНИЧЕСКИЕ ЛИСТЫ" },
     { code: "protocol", name: "ПРОТОКОЛЫ ИСПЫТАНИЙ" },
     { code: "brochure", name: "КАТАЛОГИ | БРОШЮРЫ" },
+    { code: "ral", name: "КАТАЛОГ RAL" },
   ],
   [Categories.Objects]: [],
 };
@@ -145,6 +146,7 @@ export enum DocumentType {
   TypeDocTechSheets = "techSheet",
   TypeDocTestProtocols = "testProtocol",
   TypeDocTechCards = "techCards",
+  TypeDocRal = "ral",
 }
 
 export const SectionDocumentType: Record<string, DocumentType> = {
@@ -152,6 +154,7 @@ export const SectionDocumentType: Record<string, DocumentType> = {
   tech_protocols: DocumentType.TypeDocTechSheets,
   test_protocol: DocumentType.TypeDocTestProtocols,
   tech_cards: DocumentType.TypeDocTechCards,
+  ral: DocumentType.TypeDocRal,
 };
 
 export const DocumentTypeNames: Record<DocumentType, string> = {
@@ -159,6 +162,7 @@ export const DocumentTypeNames: Record<DocumentType, string> = {
   [DocumentType.TypeDocTechSheets]: "Технический лист",
   [DocumentType.TypeDocTestProtocols]: "Протоколы испытаний",
   [DocumentType.TypeDocTechCards]: "Технологические карты",
+  [DocumentType.TypeDocRal]: "Каталог RAL",
 };
 
 export const DocumentTypeLink: Record<DocumentType, string> = {
@@ -166,5 +170,6 @@ export const DocumentTypeLink: Record<DocumentType, string> = {
   [DocumentType.TypeDocTechSheets]: "techlist",
   [DocumentType.TypeDocTestProtocols]: "protocol",
   [DocumentType.TypeDocTechCards]: "techcard",
+  [DocumentType.TypeDocRal]: "ral",
 };
  
