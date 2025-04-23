@@ -2,6 +2,7 @@
   <MainPageLayout :breadcrumbs="breadcrumbs" />
   <SidebarLayout :hasContent="selectElement">
     <template #sidebar>
+      <!-- Поиск и список остаются здесь — и на мобильных! -->
       <List
         :items="filteredTechLists"
         to="/documents/ral"
@@ -18,7 +19,6 @@
             class="img-list__item"
           >
             <p>{{ item.name }} ◦ {{ item.description }}</p>
-            <!-- <p class="desc">{{ item.description }}</p> -->
             <img
               class="pdf-cert"
               :src="filesApi.getImageFileUrl(item.file)"
@@ -29,7 +29,6 @@
       </template>
       <template v-else>
         <p>{{ selectElement?.name }} ◦ {{ selectElement?.description }}</p>
-        <!-- <p class="desc">{{ selectElement?.description }}</p> -->
         <hr />
         <img
           class="pdf-cert"
@@ -111,13 +110,6 @@ p {
   color: black;
   margin-bottom: 4px;
 }
-.desc {
-  text-transform: none;
-  font-size: 13px;
-  font-weight: 400;
-  color: #222;
-  margin-bottom: 6px;
-}
 .pdf-cert {
   width: 100%;
   height: 100%;
@@ -138,8 +130,8 @@ p {
     display: none;
   }
   .pdf-cert {
-  width: 100%;
-  height: 100vh;
-}
+    width: 100%;
+    height: 100vh;
+  }
 }
 </style>
