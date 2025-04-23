@@ -197,7 +197,7 @@ body {
   --primary: rgb(32, 145, 197);
   --background: url("https://db.acoustic.ru:3005/api/v1/constr/black_back_ground.png");
 
-  --primary-text: rgb(186, 186, 186);
+  --primary-text: rgb(217 215 215);
 
   --link-text: rgb(209, 206, 206);
   --link-text-hover: aliceblue;

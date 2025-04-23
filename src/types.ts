@@ -146,7 +146,7 @@ export enum DocumentType {
   TypeDocTechSheets = "techSheet",
   TypeDocTestProtocols = "testProtocol",
   TypeDocTechCards = "techCards",
-  TypeDocRal = "ral",
+  TypeDocRal = "ralCatalog",
 }
 
 export const SectionDocumentType: Record<string, DocumentType> = {

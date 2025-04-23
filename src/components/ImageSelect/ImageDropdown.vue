@@ -93,7 +93,7 @@ const select = (item) => {
     color: rgb(58, 57, 57);  
 
     &:hover {
-      background-color: rgba(190, 190, 190, 0.063);
+      background-color: rgba(220, 220, 220, 0.63);
       border: solid 2px white;
       border-radius: 5px;
       cursor: pointer;

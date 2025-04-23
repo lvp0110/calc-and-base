@@ -99,7 +99,7 @@ const fetchObject = async (code) => {
 fetchObject(code);
 
 const breadcrumbs = computed(() => [
-  { link: "/our-objects", title: "⟪⟪ |" },
+  { link: "/our-objects", title: " НАШИ ОБЪЕКТЫ " },
   { title: selectElement.value?.Name },
 ]);
 
@@ -141,7 +141,7 @@ const toggleFullScreen = () => {
   text-align: center;
 }
 p {
-  background: radial-gradient(circle at left, #feffff8c, #afb6c262);
+  background: #dfdbdb;
   padding-left: 10px;
   margin-left: -8px;
   margin-bottom: 0;

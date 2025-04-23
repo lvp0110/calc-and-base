@@ -2,12 +2,15 @@
   <div class="chart-container">
     <Line :data="chartData" :options="options" />
   </div>
+  <RouterLink :to="`/documents/protocol/${protocol_code}`">
+  <img src="/pdf_icon.png" alt="" width="30px">Протокол </RouterLink>
   <MultipleSelect
     class="select"
     :items="items"
     :selectedItems="selectedItems"
     :on-change="handleChange"
   />
+ 
 </template>
 
 <script setup>
@@ -37,9 +40,9 @@ ChartJS.register(
   PointElement
 );
 
-const props = defineProps(["items", "diagram_params"]);
+const props = defineProps(["items", "protocol_code", "diagram_params"]);
 
-const { items, diagram_params } = toRefs(props);
+const { items, protocol_code, diagram_params } = toRefs(props);
 
 const selectedItems = ref([]);
 const chartData = ref({
@@ -130,13 +133,17 @@ const applyChartData = () => {
 </script>
 
 <style scoped>
+a {
+  margin-left: 12px;
+  text-decoration: none;
+  color: black;
+}
 .select {
   min-height: 200px;
 }
 
 canvas {
   padding: 0px 6px 6px 6px;
-
 }
 
 .chart-container {

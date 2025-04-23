@@ -25,12 +25,7 @@
       <div>
         <ul @click.stop="downloadTextFile(slide)">
           <li v-if="slide.type && slide.type != 0">Тип: {{ slide.type }}</li>
-          <li v-if="slide.code && slide.code != 0">№ {{ slide.code }}</li>
-          <li
-            v-if="
-              slide.val_period && slide.val_period != 0 && slide.expire_date
-            "
-          >
+          <li v-if="slide.expire_date">
             Срок действия: {{ formatTime(slide.expire_date) }}
           </li>
           <li v-if="slide.indicators && slide.indicators != 0">
@@ -55,6 +50,7 @@
             alt=""
           />
         </a>
+
         <div class="pdf-container">
           <!-- <img
             v-for="pdfPage in slide.images"

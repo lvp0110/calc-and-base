@@ -47,21 +47,20 @@
               :items="brandParam.list"
               :onSelect="selectImageBrandParam(brandParam.code)"
             />
-              <img
-                v-if="
-                  selectedBrandParams[brandParam.code] &&
-                  brandParam.code !== BrandParamPossibleCode.Color
-                "
-                class="add-image"
-                :src="
-                  filesApi.getImageFileUrl(
-                    brandParam.list.find(
-                      ({ code }) =>
-                        code === selectedBrandParams[brandParam.code]
-                    )?.img
-                  )
-                "
-              />
+            <img
+              v-if="
+                selectedBrandParams[brandParam.code] &&
+                brandParam.code !== BrandParamPossibleCode.Color
+              "
+              class="add-image"
+              :src="
+                filesApi.getImageFileUrl(
+                  brandParam.list.find(
+                    ({ code }) => code === selectedBrandParams[brandParam.code]
+                  )?.img
+                )
+              "
+            />
           </div>
         </div>
       </div>
@@ -85,7 +84,7 @@
             </button>
           </div>
           <label class="form-label">
-            <select v-model="type">
+            <select :value="type" @change="handleChangeType">
               <option v-for="type in types" :value="type.Code">
                 {{ type.Name }}
               </option>
@@ -182,6 +181,7 @@
   <Dialog :open="openChartDialog" :on-close="handleCloseChartDialog">
     <Chart
       :items="chartResponse.items"
+      :protocol_code="chartResponse.code"
       :diagram_params="chartResponse.diagram_params"
     />
   </Dialog>
@@ -248,6 +248,12 @@ const square = ref("");
 const length = ref("");
 const height = ref("");
 const type = ref();
+
+const handleChangeType = (event) => {
+  type.value = event.target.value;
+  selectedArticuls.value = [];
+  calculationsTableColumns.value = [];
+};
 
 const openChartDialog = ref(false);
 
@@ -565,7 +571,7 @@ const replaceLocation = async () => {
 const breadcrumbs = () => {
   return [
     { link: "/acoustic", title: "⟪⟪ |" },
-    { link: "/acoustic/brands", title: "БРЕНДЫ" },
+    { link: "/acoustic/brands", title: "АКУСТИКА" },
     { title: selectElement.value?.Name },
   ];
 };
@@ -760,6 +766,7 @@ option {
   background: radial-gradient(circle at right, #8e9092, #f9f9fa00);
   box-shadow: 2px 3px 3px rgb(161, 160, 160);
   color: var(--select-descript-color);
+  text-transform: uppercase;
 }
 
 .selected {
@@ -808,7 +815,9 @@ option {
 .right {
   margin-top: 10px;
 }
-
+.left {
+  text-transform: uppercase;
+}
 .right .description {
   margin-bottom: 16px;
 }
@@ -822,6 +831,7 @@ option {
   .left {
     min-width: 500px;
     max-width: 500px;
+    text-transform: uppercase;
   }
 
   .right {

@@ -102,6 +102,11 @@ export const documentsApi = {
   getDocument: (type, code) => requestInstance.get(`api/v2/documents/${type}/${code}`),
 }
 
+export const ralCatalogApi = {
+  getDocuments: (type) => requestInstance.get(`api/v2/${type}`),
+  getDocument: (type, code) => requestInstance.get(`api/v2/${type}/${code}`),
+}
+
 export const isolationConstructionsApi = {
   getIsolationConstructions: () => requestInstance.get('api/v2/isolationConstructions/all'),
   getIsolationConstructionProps: (constCode) => requestInstance.get(`api/v2/isolationConstructions/props/${constCode}`),

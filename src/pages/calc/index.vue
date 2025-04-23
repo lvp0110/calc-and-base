@@ -1402,8 +1402,7 @@
                 <tr>
                     <th>шифр</th>
                     <th>название</th>
-                    <th></th>
-                    <!-- <th>масса</th> -->
+                    <th>масса</th>
                     <th></th>
                 </tr>
                 <tr v-for="constR in ConstrToCalc" :key="constR.key_id">
@@ -1597,7 +1596,7 @@ export default {
                     template: 50.1,
                     img: '/Img_constr/partition/partition_50.webp',
                     ag_id: 'AG.W101',
-                    weight: "67 кг/м2"
+                    weight: "68 кг/м2"
                 },
                 {
                     id: 102,
@@ -1607,7 +1606,7 @@ export default {
                     template: 75.1,
                     img: '/Img_constr/partition/partition_75.webp',
                     ag_id: 'AG.W102',
-                    weight: "68 кг/м2"
+                    weight: "69 кг/м2"
                 },
                 {
                     id: 103,
@@ -1617,7 +1616,7 @@ export default {
                     template: 100.1,
                     img: '/Img_constr/partition/partition_100.webp',
                     ag_id: 'AG.W103',
-                    weight: "69 кг/м2"
+                    weight: "70 кг/м2"
                 },
                 {
                     id: 104,
@@ -1627,7 +1626,7 @@ export default {
                     template: 101.1,
                     img: '/Img_constr/partition/partition_100.webp',
                     ag_id: 'AG.W104',
-                    weight: "69 кг/м2"
+                    weight: "70 кг/м2"
                 },
                 {
                     id: 105,
@@ -1637,7 +1636,7 @@ export default {
                     template: 50.2,
                     img: '/Img_constr/partition/partition_50_2.webp',
                     ag_id: 'AG.W105',
-                    weight: "кг/м2"
+                    weight: "71 кг/м2"
                 },
                 {
                     id: 106,
@@ -1647,7 +1646,7 @@ export default {
                     template: 75.2,
                     img: '/Img_constr/partition/partition_75_2.webp',
                     ag_id: 'AG.W106',
-                    weight: "кг/м2"
+                    weight: "73 кг/м2"
                 },
                 {
                     id: 107,
@@ -1657,7 +1656,7 @@ export default {
                     template: 100.2,
                     img: '/Img_constr/partition/partition_100_2.webp',
                     ag_id: 'AG.W107',
-                    weight: "кг/м2"
+                    weight: "75 кг/м2"
                 },
                 {
                     id: 108,
@@ -1667,7 +1666,7 @@ export default {
                     template: 8.1,
                     img: '/Img_constr/partition/partition_50.webp',
                     ag_id: 'AG.W108',
-                    weight: "кг/м2"
+                    weight: "56 кг/м2"
                 },
 
                 {
@@ -1678,7 +1677,7 @@ export default {
                     template: 6,
                     img: '/Img_constr/frame/frame_z_vektor.webp',
                     ag_id: 'AG.Z201',
-                    weight: "38 кг/м2"
+                    weight: "39 кг/м2"
                 },
                 {
                     id: 202,
@@ -1688,7 +1687,7 @@ export default {
                     template: 6,
                     img: '/Img_constr/frame/frame_z_module.webp',
                     ag_id: 'AG.Z202',
-                    weight: "39 кг/м2"
+                    weight: "40,5 кг/м2"
                 },
                 {
                     id: 203,
@@ -1698,7 +1697,7 @@ export default {
                     template: 6,
                     img: '/Img_constr/frame/frame_IIIUltra.webp',
                     ag_id: 'AG.Z203',
-                    weight: "38 кг/м2"
+                    weight: "40 кг/м2"
 
                 },
                 {
@@ -1709,7 +1708,7 @@ export default {
                     template: 6,
                     img: '/Img_constr/frame/frame_Z4.webp',
                     ag_id: 'AG.Z204',
-                    weight: "39 кг/м2"
+                    weight: "40,5 кг/м2"
 
                 },
                 {
@@ -1730,7 +1729,7 @@ export default {
                     template: 6,
                     img: '/Img_constr/frame/frame_z_slim.webp',
                     ag_id: 'AG.Z206',
-                    weight: "36,5 кг/м2"
+                    weight: "37,5 кг/м2"
                 },
 
                 {
@@ -1741,7 +1740,7 @@ export default {
                     template: 4,
                     img: '/Img_constr/ceiling/ceiling_z_vektor.webp',
                     ag_id: 'AG.Z201',
-                    weight: "38 кг/м2"
+                    weight: "39 кг/м2"
                 },
                 {
                     id: 202,
@@ -1751,7 +1750,7 @@ export default {
                     template: 4,
                     img: '/Img_constr/ceiling/ceiling_z_module.webp',
                     ag_id: 'AG.Z202',
-                    weight: "39 кг/м2"
+                    weight: "40,5 кг/м2"
                 },
                 {
                     id: 203,
@@ -1761,7 +1760,7 @@ export default {
                     template: 4,
                     img: '/Img_constr/ceiling/ceiling_IIIultra.webp',
                     ag_id: 'AG.Z203',
-                    weight: "38 кг/м2"
+                    weight: "40 кг/м2"
                 },
                 {
                     id: 204,
@@ -1771,7 +1770,7 @@ export default {
                     template: 4,
                     img: '/Img_constr/ceiling/ceiling_z4.webp',
                     ag_id: 'AG.Z204',
-                    weight: "39 кг/м2"
+                    weight: "40,5 кг/м2"
                 },
                 {
                     id: 205,
@@ -1791,7 +1790,7 @@ export default {
                     template: 50,
                     img: '/Img_constr/frame/frame_50.webp',
                     ag_id: 'AG.L401',
-                    weight: "34.5 кг/м2"
+                    weight: "37,5 кг/м2"
                 },
                 {
                     id: 402,
@@ -1801,7 +1800,7 @@ export default {
                     template: 75,
                     img: '/Img_constr/frame/frame_75.webp',
                     ag_id: 'AG.L402',
-                    weight: "36,3 кг/м2"
+                    weight: "36,5 кг/м2"
                 },
                 {
                     id: 403,
@@ -1811,7 +1810,7 @@ export default {
                     template: 100,
                     img: '/Img_constr/frame/frame_100.webp',
                     ag_id: 'AG.L403',
-                    weight: "38,1 кг/м2"
+                    weight: "37,5 кг/м2"
                 },
                 {
                     id: 404,
@@ -1821,7 +1820,7 @@ export default {
                     template: 101,
                     img: '/Img_constr/frame/frame_connect_pc.webp',
                     ag_id: 'AG.L404',
-                    weight: "35,5 кг/м2"
+                    weight: "35,8 кг/м2"
                 },
                 {
                     id: 405,
@@ -1831,7 +1830,7 @@ export default {
                     template: 101,
                     img: '/Img_constr/frame/frame_connect_kc.webp',
                     ag_id: 'AG.L405',
-                    weight: "35,5кг/м2"
+                    weight: "35,8кг/м2"
                 },
 
                 {
@@ -1842,7 +1841,7 @@ export default {
                     template: 5,
                     img: '/Img_constr/ceiling/ceiling_100.webp',
                     ag_id: 'AG.C501',
-                    weight: "36 кг/м2"
+                    weight: "37 кг/м2"
                 },
                 {
                     id: 502,
@@ -1852,7 +1851,7 @@ export default {
                     template: 5,
                     img: '/Img_constr/ceiling/ceiling_130.webp',
                     ag_id: 'AG.C502',
-                    weight: "37,6 кг/м2"
+                    weight: "38,5 кг/м2"
                 },
                 {
                     id: 503,
@@ -1862,7 +1861,7 @@ export default {
                     template: 5,
                     img: '/Img_constr/ceiling/ceiling_200.webp',
                     ag_id: 'AG.C503',
-                    weight: "39,2 кг/м2"
+                    weight: "40 кг/м2"
                 },
 
                 {
@@ -1873,7 +1872,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/acuflexLP.png',
                     ag_id: 'AG.F601',
-                    weight: "кг/м2"
+                    weight: "0,46 кг/м2"
 
                 },
                 {
@@ -1884,7 +1883,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/acuflexLP.png',
                     ag_id: 'AG.F602',
-                    weight: "кг/м2"
+                    weight: "0,46 кг/м2"
                 },
                 {
                     id: 603,
@@ -1894,7 +1893,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/acuflex.png',
                     ag_id: 'AG.F603',
-                    weight: "кг/м2"
+                    weight: "120,5 кг/м2"
                 },
                 {
                     id: 604,
@@ -1904,7 +1903,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/100G_K.png',
                     ag_id: 'AG.F604',
-                    weight: "кг/м2"
+                    weight: "122,5 кг/м2"
 
                 },
                 {
@@ -1915,7 +1914,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/100G_K.png',
                     ag_id: 'AG.F605',
-                    weight: "кг/м2"
+                    weight: "123,4 кг/м2"
                 },
                 {
                     id: 606,
@@ -1925,7 +1924,7 @@ export default {
                     template: 9,
                     img: '/Img_constr/floor/sPlast.png',
                     ag_id: 'AG.F606',
-                    weight: "кг/м2"
+                    weight: "121,4 кг/м2"
                 },
                 {
                     id: 'P',
@@ -1935,7 +1934,7 @@ export default {
                     template: 2.1,
                     img: '/Img_constr/floor/c2k2_1.png',
                     ag_id: 'AG.F',
-                    weight: "кг/м2"
+                    weight: "-"
 
                 },
                 {
@@ -1946,7 +1945,7 @@ export default {
                     template: 607.1,
                     img: '/Img_constr/floor/c2k2_1.png',
                     ag_id: 'AG.F607',
-                    weight: "кг/м2"
+                    weight: "121,8 кг/м2"
                 },
                 {
                     id: 608,
@@ -1956,7 +1955,7 @@ export default {
                     template: 608.1,
                     img: '/Img_constr/floor/c2k2_2.png',
                     ag_id: 'AG.F608',
-                    weight: "кг/м2"
+                    weight: "163,7 кг/м2"
                 },
                 {
                     id: 609,
@@ -1966,7 +1965,7 @@ export default {
                     template: 609.1,
                     img: '/Img_constr/floor/k2_1.png',
                     ag_id: 'AG.F609',
-                    weight: "кг/м2"
+                    weight: "122,4 кг/м2"
                 },
                 {
                     id: 610,
@@ -1976,7 +1975,7 @@ export default {
                     template: 610.1,
                     img: '/Img_constr/floor/k2_2.png',
                     ag_id: 'AG.F610',
-                    weight: "кг/м2"
+                    weight: "164,7 кг/м2"
                 },
                 {
                     id: 611,
@@ -1986,7 +1985,7 @@ export default {
                     template: 1,
                     img: '/Img_constr/floor/termo.png',
                     ag_id: 'AG.F611',
-                    weight: "кг/м2"
+                    weight: "121 кг/м2"
                 },
                 {
                     id: 612,
@@ -1996,7 +1995,7 @@ export default {
                     template: 9.1,
                     img: '/Img_constr/floor/tehno.png',
                     ag_id: 'AG.F612',
-                    weight: "кг/м2"
+                    weight: "123 кг/м2"
                 },
                 {
                     id: 613,
@@ -2006,7 +2005,7 @@ export default {
                     template: 111,
                     img: '/Img_constr/floor/Z_Vector.png',
                     ag_id: 'AG.F613',
-                    weight: "кг/м2"
+                    weight: "49 кг/м2"
                 },
                 {
                     id: 614,
@@ -2016,7 +2015,7 @@ export default {
                     template: 111,
                     img: '/Img_constr/floor/Z_Module.png',
                     ag_id: 'AG.F614',
-                    weight: "кг/м2"
+                    weight: "50 кг/м2"
                 },
                 {
                     id: 615,
@@ -2026,7 +2025,7 @@ export default {
                     template: 3,
                     img: '/Img_constr/floor/floor_lags.png',
                     ag_id: 'AG.F615',
-                    weight: "кг/м2"
+                    weight: "11,5 кг/м2"
                 },
             ],
             SizeLimits: [
@@ -2337,7 +2336,7 @@ export default {
 
                 let StepProfile = this.Items.find((el) => el.id == this.currentItems);
                 this.constR.step = StepProfile.step;
-                // this.constR.weight = StepProfile.weight
+                this.constR.weight = StepProfile.weight
 
                 this.setConstrFromCalcToSent();
                 console.log(this.currentConstr);

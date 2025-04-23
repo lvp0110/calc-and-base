@@ -91,7 +91,9 @@
               </li>
             </ul>
           </li>
-          <li v-if="hasArticul()" @click="copyData(section.content)">Номенклатура 1С ✏️</li>
+          <li v-if="hasArticul()" @click="copyData(section.content)">
+            Номенклатура 1С ✏️
+          </li>
         </ul>
       </Section>
 
@@ -132,23 +134,23 @@ function unescapeHTML(html) {
 }
 
 function hasArticul() {
-  return !!document.querySelector('[data-articul]');
+  return !!document.querySelector("[data-articul]");
 }
 
 function copyData(content) {
-  const element = document.querySelector('[data-articul]');
+  const element = document.querySelector("[data-articul]");
   if (element) {
-    const articul = element.getAttribute('data-articul');
+    const articul = element.getAttribute("data-articul");
     navigator.clipboard
       .writeText(articul)
       .then(() => {
         alert(`Данные скопированы в буфер обмена! ${articul}`);
       })
       .catch((err) => {
-        console.error('Ошибка при копировании:', err);
+        console.error("Ошибка при копировании:", err);
       });
   } else {
-    console.warn('Атрибут data-articul не найден.');
+    console.warn("Атрибут data-articul не найден.");
   }
 }
 

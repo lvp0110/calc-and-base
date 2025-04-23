@@ -140,7 +140,7 @@ onMounted(() => {
   border-radius: 50%;
   background: none;
   position: absolute;
-  left: 300px;
+  right: -50px;
   top: 50%;
   transform: translateY(-50%) translateX(calc(-100% - 8px));
   width: 48px;
@@ -236,7 +236,7 @@ figure {
 @media screen and (max-width: 500px) {
   .close-input-btn {
     position: absolute;
-    right: 20px;
+    right: -50px;
     top: 50%;
   }
 

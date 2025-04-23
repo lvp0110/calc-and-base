@@ -10,7 +10,8 @@
       <!-- <span v-if="breadcrumbs.length > index + 1" class="text">&nbsp;/</span> -->
     </section>
     <div class="block-button">
-      <button type="button" class="btn_back" @click="goBack">▷</button>
+      <button type="button" class="btn_back" @click="goBack">⟪ |</button>
+      <!-- ▷ -->
     </div>
   </header>
 
@@ -32,20 +33,21 @@ function goBack() {
 <style scoped>
 .block-button {
   display: none;
-  position: absolute;
-  right: 10px;
+  position: relative;
+  /* left: 42px; */
   margin-bottom: 2px;
 }
 
 .btn_back {
-  color: white;
-  font-size: 40px;
-  font-weight: 100;
-  border: none;
-  background: none;
-  padding: 15px;
-  transform: rotate(180deg);
-  transition: all 0.1s;
+    color: white;
+    font-size: 20px;
+    font-weight: 200;
+    border: none;
+    background: none;
+    padding: 5px;
+    /* transform: rotate(180deg); */
+    transition: all 0.1s;
+    margin-bottom: 8px;
 }
 
 .btn_back:active {
@@ -107,6 +109,9 @@ h6 {
 @media screen and (min-width: 500px) {
   .block-button {
     display: block;
+  }
+  .header {
+    gap: 2px;
   }
 }
 </style>
