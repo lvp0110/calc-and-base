@@ -10,39 +10,19 @@
       />
     </template>
     <template #content>
-      <template v-if="isMobile">
-        <div class="img-list">
-          <div
-            v-for="item in filteredTechLists"
-            :key="item.code"
-            class="img-list__item"
-          >
-            <p>{{ item.name }} ◦ {{ item.description }}</p>
-            <!-- <p class="desc">{{ item.description }}</p> -->
-            <img
-              class="pdf-cert"
-              :src="filesApi.getImageFileUrl(item.file)"
-              alt="Документ"
-            />
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        <p>{{ selectElement?.name }} ◦ {{ selectElement?.description }}</p>
-        <!-- <p class="desc">{{ selectElement?.description }}</p> -->
-        <hr />
-        <img
-          class="pdf-cert"
-          :src="filesApi.getImageFileUrl(selectElement?.file)"
-          alt="Документ"
-        />
-      </template>
+      <p>{{ selectElement.name }}</p>
+      {{ selectElement.description }}
+      <hr />
+      <img
+        class="pdf-cert"
+        :src="filesApi.getImageFileUrl(selectElement.file)"
+      ></img>
     </template>
   </SidebarLayout>
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from "vue";
+import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import MainPageLayout from "../../../../components/Layouts/MainPageLayout.vue";
 import SidebarLayout from "../../../../components/Layouts/SidebarLayout.vue";
@@ -55,23 +35,7 @@ import { searchFilter } from "../../../../utils/search-filter";
 const store = useStore();
 const route = useRoute();
 const techList = ref([]);
-
-const isMobile = ref(window.innerWidth < 768);
-
-const handleResize = () => {
-  isMobile.value = window.innerWidth < 768;
-};
-
-onMounted(() => {
-  window.addEventListener("resize", handleResize);
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", handleResize);
-});
-
-const selectElement = computed(() =>
-  techList.value.find(({ code }) => code === route.params.id)
-);
+const selectElement = computed(() => techList.value.find(({code}) => code === route.params.id))
 
 const filteredTechLists = computed(() =>
   searchFilter(techList.value, store.getters["selectSearchString"])
@@ -80,6 +44,7 @@ const filteredTechLists = computed(() =>
 const fetchTechList = async () => {
   try {
     const response = await ralCatalogApi.getDocuments(DocumentType.TypeDocRal);
+
     techList.value = response.data.data;
   } catch {}
 };
@@ -109,37 +74,10 @@ p {
   background: radial-gradient(circle at left, #c7ced4, #f9f9fa00);
   padding: 5px;
   color: black;
-  margin-bottom: 4px;
 }
-.desc {
-  text-transform: none;
-  font-size: 13px;
-  font-weight: 400;
-  color: #222;
-  margin-bottom: 6px;
-}
+
 .pdf-cert {
   width: 100%;
-  height: 100%;
-}
-
-.img-list__item {
-  margin-bottom: 20px;
-}
-
-.img-list__item img {
-  width: 100%;
-  max-height: 350px;
-  object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .img-list {
-    display: none;
-  }
-  .pdf-cert {
-  width: 100%;
   height: 100vh;
-}
 }
 </style>
