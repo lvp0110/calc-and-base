@@ -15,6 +15,7 @@ const { title, image } = defineProps(["title", "image"]);
 </script>
 
 <style scoped>
+
 .section {
   position: relative;
   padding-right: 5px;

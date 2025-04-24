@@ -166,6 +166,7 @@ function copyData(content) {
 </script>
 
 <style scoped>
+
 .sections {
   display: grid;
   gap: 26px;
@@ -177,6 +178,7 @@ function copyData(content) {
   font-weight: 300;
   color: var(--section-text-color);
 }
+
 .calc-button {
   width: 50px;
   margin-top: 10px;
@@ -206,7 +208,9 @@ function copyData(content) {
 }
 :deep .list-content li a {
   text-decoration: none;
+  color: var(--section-text-color);
 }
+ 
 .span1 {
   display: none;
 }
