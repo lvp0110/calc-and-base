@@ -21,7 +21,7 @@ import DocumentTechcardId from './pages/documents/techcard/id/Index.vue'
 import DocumentHookupId from './pages/documents/hookup/id/Index.vue'
 import DocumentTechlistId from './pages/documents/techlist/id/Index.vue'
 import DocumentProtocol from './pages/documents/protocol/id/Index.vue'
-import DocumentBrochure from './pages/documents/brochure/id/Index.vue'
+import DocumentBrochure from './pages/documents/brochure/id/index.vue'
 import DocumentRal from './pages/documents/ral/id/Index.vue'
 
 
