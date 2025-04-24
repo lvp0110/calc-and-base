@@ -1,3 +1,4 @@
+
 name: Build and Deploy
 
 on:
@@ -14,15 +15,18 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t calc-and-base:latest ./calc-and-base --no-cache
+
+      run:  docker build -t calc-and-base:latest . --no-cache
 
     - name: Stop and remove existing container
       run: |
-        CONTAINER_ID=$(docker ps -q --filter ancestor=calc-and-base:latest)
+       CONTAINER_NAME=web_app  
+        CONTAINER_ID=$(docker ps -q --filter "name=$CONTAINER_NAME")
         if [ ! -z "$CONTAINER_ID" ]; then
-          docker stop $CONTAINER_ID
-          docker rm $CONTAINER_ID
+           docker stop $CONTAINER_ID
+           docker rm $CONTAINER_ID
         fi
 
     - name: Run Docker container
-      run: docker run -p 3000:3000 -d calc-and-base:latest
+      run:  docker run --name web_app -p 3000:3000 -d calc-and-base:latest
+

@@ -1,61 +1,48 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo_1234.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dBase</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.2.0/exceljs.min.js"></script>
-    <style>
-      body{
-        background: url(./back_ground.jpg) ;
-        background-size: 200%;
-        font-family: 'Montserrat', sans-serif;
-        padding: 0px 20px 0px 20px;
-        margin: 0px;
-        user-select: none;
-      }
-      @media screen and (min-width: 900px) {
-        body{
-          background-size: 200%;
-        }
-      }
-      .up-button{
-        display: none;
-        position: fixed;
-        bottom: 10% ; 
-        right: 7%;
-        z-index: 1000;
-        background: none;
-        border: none;
-        height: 50px;
-      }
-      .shown{
-        display: inline;
-      }
-      .logo{
-        height: 75px;
-        margin-left: 20px;
-        filter: drop-shadow(3px 3px 1px #96b3cd);
-      }
-    </style>
-  </head>
-  <body> 
-    <button  class="up-button" >  
-      <svg height="105" width="105" type="button">
-        <circle r="40" cx="50%" cy="50%" fill ="transparent" stroke="darkgrey" stroke-width="3"/>
-        <line x1="51" y1="33" x2="51" y2="75" stroke="darkgrey" stroke-width="4"/>
-        <line x1="51" y1="34" x2="30" y2="50" stroke="darkgrey" stroke-width="4"/>
-        <line x1="51" y1="34" x2="70" y2="50" stroke="darkgrey" stroke-width="4"/>
-     </svg>
-   </button>
-    <div id="app"></div>
-  </body>  
-    <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/scroll.js"></script>
-  
+<html lang="en" class="notranslate" translate="no" color-scheme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo_1234.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="theme-color" content="#319197" /> -->
+  <title>dBase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+  <script src="/sweetalert2.js"></script>
+  <link rel="stylesheet" href="/sweetalert2.css">
+
+</head>
+
+<body>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+      m[i].l = 1 * new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(%VITE_YM_KEY%, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript>
+    <div><img src="https://mc.yandex.ru/watch/%VITE_YM_KEY%" style="position:absolute; left:-9999px;" alt="" /></div>
+  </noscript>
+  <!-- /Yandex.Metrika counter -->
+  <div id="app"></div>
+ 
+</body>
+<script type="module" src="/src/main.js"></script>
+
 </html>
