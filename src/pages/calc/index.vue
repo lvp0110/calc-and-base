@@ -1428,6 +1428,7 @@
                 </tr>
             </table>
         </div>
+
         <div v-if="tableConstrToCalc != null" class="tbl-in">
             <hr>
             <table class="data" id="table2"><!-- таблица материалов-->
@@ -2312,7 +2313,7 @@ export default {
 
         },
         calcConstruction(constrList) {
-            this.request('http://localhost:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
+            this.request('https://db.acoustic.ru:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
         },
         addConstrToCalc() {
 
