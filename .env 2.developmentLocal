@@ -1,0 +1,5 @@
+VITE_STAGE=developmentLocal
+VITE_BASE_URL=/
+VITE_API_URL=http://localhost:3005
+VITE_CDN_URL=http://localhost:3005
+VITE_YM_KEY=

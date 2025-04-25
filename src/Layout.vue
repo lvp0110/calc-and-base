@@ -248,7 +248,7 @@ body {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: calc(100% - 0px);
+  height: calc(100% - 35px);
   color: var(--primary-text);
 }
 
@@ -299,6 +299,12 @@ body {
     opacity: 0;
     transition: all 0.1s ease;
   }
+  .main {
+ 
+  height: calc(100% - 0px);
+ 
+}
+
 }
 
 #app {
