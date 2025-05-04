@@ -1,9 +1,12 @@
 <template>
-  <RouterLink :to="path === to ? '/' : to" class="button">
+<RouterLink :to="path === to ? '/' : to" class="button">
+  <div class="icon">
     <h5 class="h5">{{ header }}</h5>
-    <img v-if="src" class="icon" :src="src" alt="image" />
-    <span v-if="description" class="text"> {{ description }} </span>
-  </RouterLink>
+    <img  v-if="src" :src="src" alt="image" />
+  </div>
+  
+  <span v-if="description" class="text"> {{ description }} </span>
+</RouterLink>
   <section class="section" v-if="path === to">
     <slot />
   </section>
@@ -26,17 +29,26 @@ const path = computed(() => route.path);
 </script>
 
 <style scoped>
+*{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+}
 .icon {
-  position: absolute;
-  width: 100px;
-  right: 1%;
-  padding-bottom: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 
 .h5 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
-  width: 18%;
+  flex: 1 1 0;
+}
+
+.icon img {
+  flex: 1 1 0;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100px;
 }
 
 .button {
@@ -85,8 +97,6 @@ const path = computed(() => route.path);
 }
 
 .section a {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
   background: radial-gradient(circle at center, #c7ced4, #f9f9fa00);
   transition: all 0.4s;
 }
@@ -97,12 +107,6 @@ const path = computed(() => route.path);
 }
 
 @media screen and (min-width: 1024px) and (min-height: 700px) {
-  .icon {
-    position: relative;
-    width: 100px;
-    left: 10px;
-    margin-right: 10px;
-  }
   .button {
     width: 100%;
     height: 25%;
@@ -116,18 +120,13 @@ const path = computed(() => route.path);
     background: linear-gradient(to left, rgb(23, 125, 169), rgb(87, 177, 218));
     box-shadow: 0px -2px 3px 0px rgb(167, 163, 163);
   }
-  .h5 {
-    width: 300px;
-  }
+
 }
 
 @media screen and (max-height: 700px) {
   .button {
     min-height: 80px;
     margin-top: 4px;
-  }
-  .icon {
-    width: 80px;
   }
 }
 
