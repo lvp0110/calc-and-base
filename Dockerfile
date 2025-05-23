@@ -14,7 +14,7 @@ WORKDIR /app
 
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm run build:prod
+RUN npm run build:stage
 
 # production stage using Nginx
 FROM nginx:alpine
