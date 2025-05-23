@@ -49,6 +49,7 @@ const path = computed(() => route.path);
   object-fit: contain;
   max-width: 100%;
   max-height: 100px;
+  margin-bottom: 12px;
 }
 
 .button {

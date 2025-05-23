@@ -10,7 +10,8 @@
           class="list-content"
           v-html="unescapeHTML(section.content)"
         />
-        <RouterLink to="/calc" v-if="enableCalc"
+        <RouterLink v-if="enableCalc && selectElement"
+            :to="`/calc/${selectElement.Code}`" 
           ><img
             class="calc-button"
             src="https://db.acoustic.ru:3005/api/v1/constr/calc.svg"
@@ -114,6 +115,20 @@ import { defineProps, onMounted, ref } from "vue";
 import Section from "../Section/index.vue";
 import { marked } from "marked";
 
+
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const store = useStore()
+const route = useRoute()
+
+const id = route.params.id
+
+store.dispatch('getAllIsolationConstr')
+
+const selectElement = computed(() => store.getters['selectAllIsolationConstrSound'].find(({ Code }) => Code === id))
+// ---
 import { Swiper, SwiperSlide } from "swiper/vue";
 import {
   SectionDocumentType,
@@ -153,6 +168,7 @@ function copyData(content) {
     console.warn("Атрибут data-articul не найден.");
   }
 }
+
 
 // onMounted(async () => {
 //   for (const section of props.sections) {

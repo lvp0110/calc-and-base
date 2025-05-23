@@ -89,7 +89,9 @@ h6 {
 .section a {
   text-decoration: none;
   font-size: 18px;
+  font-family: Verdana, Geneva, sans-serif;
 }
+
 
 .back {
   color: white;
@@ -113,5 +115,6 @@ h6 {
   .header {
     gap: 2px;
   }
+  
 }
 </style>

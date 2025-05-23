@@ -1,9 +1,9 @@
 <template>
     <button type="button" @click="hasHistory()
-        ? $router.go(-1)
+        ? $router.go(-2)
         : $router.push('/')" 
-     class="close-btn"><p style="position: absolute; top: -2px; left: 10px;">X</p>
-        <!-- <img src="/back_icon.svg" alt="" > -->
+     class="close-btn">
+        <img src="/back_icon.svg" alt=""  style="top: -2px;position: relative;width: 45px;left: -4px;">
     </button>
     <div class="content-calc">
         <!-- * Кнопки вывода данных на экран * -->
@@ -2489,8 +2489,8 @@ export default {
 <style scoped>
 .close-btn {
     display: block;
-    width: 40px;
-    height: 40px; 
+    width: 50px;
+    height: 50px; 
     position: absolute;
     font-size: 30px;
     font-weight: 100;
