@@ -26,8 +26,8 @@ RUN rm -rf /usr/share/nginx/html/*l
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Копируем сертификаты и ключи
-COPY ./certs/__acoustic_ru.crt /etc/nginx/ssl/certificate.crt 
-COPY ./certs/private-5.key /etc/nginx/ssl/private.key
+# COPY ./certs/__acoustic_ru.crt /etc/nginx/ssl/certificate.crt 
+# COPY ./certs/private-5.key /etc/nginx/ssl/private.key
 
 # Копируем конфигурацию Nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
