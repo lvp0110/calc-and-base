@@ -14,7 +14,7 @@ WORKDIR /app
 
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm run build:stage
+RUN npm run build:prod
 
 # production stage using Nginx
 FROM nginx:alpine
@@ -30,7 +30,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # COPY ./certs/private-5.key /etc/nginx/ssl/private.key
 
 # Копируем конфигурацию Nginx
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/prod.conf
 
 # Открываем порты
 EXPOSE 80 443
