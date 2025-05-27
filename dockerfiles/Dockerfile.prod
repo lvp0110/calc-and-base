@@ -30,7 +30,7 @@ COPY ./certs/__acoustic_ru.crt /etc/nginx/ssl/certificate.crt
 COPY ./certs/private-5.key /etc/nginx/ssl/private.key
 
 # Копируем конфигурацию Nginx
-COPY ./nginx/default.conf /etc/nginx/conf.d/prod.conf
+COPY ./nginx/prod.conf /etc/nginx/conf.d/default.conf
 
 # Открываем порты
 EXPOSE 80 443
