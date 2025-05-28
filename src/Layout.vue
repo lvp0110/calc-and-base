@@ -248,7 +248,7 @@ body {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: calc(100% - 62px);
+  height: calc(100% - 102px);
   color: var(--primary-text);
 }
 
