@@ -1,46 +1,17 @@
 <template>
-  <!-- <div class="darck-theme">
-    <button
-      ref="buttonDark"
-      type="button"
-      class="buttons button_dark"
-      @click="toggleTheme"
-    >
-      <img
-        :src="filesApi.getImageFileUrl(`night_white.svg`)"
-        alt=""
-        style="position: absolute; top: -4px; left: -4px; color: aliceblue"
-        width="35"
-        height="35"
-      />
-    </button>
-    <button
-      ref="buttonLight"
-      type="button"
-      class="buttons button_light"
-      @click="toggleTheme"
-    >
-      <img
-        :src="filesApi.getImageFileUrl(`day.svg`)"
-        alt=""
-        style="position: absolute; top: -4px; left: -4px; color: aliceblue"
-        width="35"
-        height="35"
-      />
-    </button>
-  </div> -->
-  <div class="main">
-    <!-- <VoiceSearch /> -->
+  <div class="main" @touchstart="onTouchStart" @touchend="onTouchEnd">
     <div class="content">
       <RouterView />
     </div>
-    <TabBar />
+    <transition name="fade">
+      <TabBar v-if="showTabBarMobile || !isMobile" />
+    </transition>
   </div>
 </template>
 
+
 <script>
 import TabBar from "./components/TabBar.vue";
-// import VoiceSearch from "./components/VoiceSearch.vue"; 
 
 import { filesApi } from "./config";
 
@@ -49,11 +20,15 @@ export default {
     return {
       isHiddenScrollUpButton: true,
       filesApi,
+      showTabBarMobile: false,
+      isMobile: window.innerWidth < 500,
+      hideTabBarTimeout: null,
+      touchStartY: 0,
+      touchEndY: 0,
     };
   },
   components: {
     TabBar,
-    // VoiceSearch,
   },
   created() {
     this.$store.dispatch("getMaterials");
@@ -69,59 +44,42 @@ export default {
     window.onscroll = () => {
       this.isHiddenScrollUpButton = window.scrollY < 250;
     };
+    window.addEventListener("resize", this.checkMobile);
   },
-  // mounted() {
-  //   const theme = localStorage.getItem("theme") ?? "light";
-
-  //   const buttonDark = this.$refs.buttonDark;
-  //   const buttonLight = this.$refs.buttonLight;
-
-  //   buttonDark.style.zIndex = theme === "light" ? "2" : "1";
-  //   buttonLight.style.zIndex = theme === "light" ? "1" : "2";
-
-  //   buttonDark.addEventListener("click", () => {
-  //     this.moveButton(buttonDark);
-  //   });
-
-  //   buttonLight.addEventListener("click", () => {
-  //     this.moveButton(buttonLight);
-  //   });
-
-  //   window.onscroll = () => {
-  //     this.isHiddenScrollUpButton = window.scrollY < 250;
-  //   };
-  // },
-  // methods: {
-  //   switchButtons(button1, button2) {
-  //     if (button1.style.zIndex === "2") {
-  //       button1.style.zIndex = "1";
-  //       button2.style.zIndex = "2";
-  //     } else {
-  //       button1.style.zIndex = "2";
-  //       button2.style.zIndex = "1";
-  //     }
-  //   },
-  //   moveButton(button) {
-  //     button.style.left = "2%";
-  //     setTimeout(() => {
-  //       button.style.left = "0px";
-  //       this.switchButtons(this.$refs.buttonDark, this.$refs.buttonLight);
-  //     }, 300);
-  //   },
-  //   toggleTheme() {
-  //     const theme = localStorage.getItem("theme") ?? "light";
-  //     const newTheme = theme === "light" ? "dark" : "light";
-
-  //     console.log("toggle theme", theme, newTheme);
-
-  //     document.documentElement.setAttribute("color-scheme", newTheme);
-  //     localStorage.setItem("theme", newTheme);
-  //   },
-  //   scrollTop() {
-  //     window.scrollTo(0, 0);
-  //   },
-  // },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkMobile);
+    clearTimeout(this.hideTabBarTimeout);
+  },
+  methods: {
+    checkMobile() {
+      this.isMobile = window.innerWidth < 500;
+      if (!this.isMobile) {
+        this.showTabBarMobile = false;
+      }
+    },
+    onTouchStart(e) {
+      if (!this.isMobile) return;
+      this.touchStartY = e.touches[0].clientY;
+    },
+    onTouchEnd(e) {
+      if (!this.isMobile) return;
+      this.touchEndY = e.changedTouches[0].clientY;
+      // Свайп вверх: палец двигается снизу вверх
+      if (this.touchStartY - this.touchEndY > 50) {
+        this.showTabBar();
+      }
+    },
+    showTabBar() {
+      this.showTabBarMobile = true;
+      clearTimeout(this.hideTabBarTimeout);
+      this.hideTabBarTimeout = setTimeout(() => {
+        this.showTabBarMobile = false;
+      }, 3000);
+    },
+  },
 };
+
+
 </script>
 
 <style>
@@ -142,6 +100,28 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+@media (min-width: 500px) {
+  .show-tabbar-btn {
+    display: none;
+  }
+}
+
+/* Анимация появления/исчезновения TabBar */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 
 [color-scheme="light"] {
   --primary: rgb(32, 145, 197);
@@ -248,7 +228,8 @@ body {
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: calc(100% - 102px);
+  height: 100vh;
+  /* height: calc(100% - 62px); */
   color: var(--primary-text);
 }
 
