@@ -243,12 +243,12 @@ body {
 }
 
 .main {
-  padding: 8px 8px 83px 8px;
+  padding: 8px 8px 8px 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
-  height: calc(100% - 39px);
+  height: calc(100% - 62px);
   color: var(--primary-text);
 }
 
@@ -299,11 +299,7 @@ body {
     opacity: 0;
     transition: all 0.1s ease;
   }
-  .main {
  
-  height: calc(100% - 0px);
- 
-}
 
 }
 
