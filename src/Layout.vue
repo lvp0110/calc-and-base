@@ -9,7 +9,6 @@
   </div>
 </template>
 
-
 <script>
 import TabBar from "./components/TabBar.vue";
 
@@ -101,6 +100,13 @@ body {
   overflow: hidden;
 }
 
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
@@ -114,7 +120,30 @@ body {
   }
 }
 
-/* Анимация появления/исчезновения TabBar */
+/* Анимация появления/исчезновения TabBar 
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.content {
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+*/
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
@@ -223,13 +252,11 @@ body {
 }
 
 .main {
-  padding: 8px 8px 8px 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  overflow: hidden;
   height: 100vh;
-  /* height: calc(100% - 62px); */
+  overflow: hidden;
+  box-sizing: border-box;
   color: var(--primary-text);
 }
 
@@ -259,10 +286,11 @@ body {
 }
 
 .content {
-  flex-grow: 1;
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .logo {
