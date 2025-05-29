@@ -156,4 +156,23 @@ const path = computed(() => route.path);
     margin-bottom: 8px;
   }
 }
+@media screen and (max-width: 500px) {
+  .button {
+    flex: 1 1 0;
+    min-height: 0;
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+
+  /* Если кнопки находятся в контейнере, например, .buttons-wrapper */
+  .buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* или 100% если внутри ограниченного контейнера */
+    gap: 0;
+  }
+}
 </style>
