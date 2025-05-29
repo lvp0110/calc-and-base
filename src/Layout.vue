@@ -73,7 +73,7 @@ export default {
       clearTimeout(this.hideTabBarTimeout);
       this.hideTabBarTimeout = setTimeout(() => {
         this.showTabBarMobile = false;
-      }, 3000);
+      }, 5000);
     },
   },
 };
@@ -95,7 +95,6 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin: 0px;
-  /* user-select: none; */
   height: 100vh;
   overflow: hidden;
 }
@@ -120,30 +119,6 @@ html, body, #app {
   }
 }
 
-/* Анимация появления/исчезновения TabBar 
-html, body, #app {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.content {
-  flex: 1 1 0%;
-  min-height: 0;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-*/
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
@@ -293,28 +268,12 @@ html, body, #app {
   flex-direction: column;
 }
 
-.logo {
-  opacity: 1;
-  transition: all 0.7s;
-}
-
 @media screen and (min-width: 500px) {
   .main {
     padding: 8px 8px 8px 83px;
     height: 100%;
   }
 
-  .logo {
-    opacity: 0;
-    transition: all 0.1s ease;
-  }
- 
-
-}
-
-#app {
-  height: 100%;
-  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -341,13 +300,4 @@ html, body, #app {
   background: rgb(32, 145, 197);
 }
 
-.shown {
-  display: inline;
-}
-
-.logo {
-  height: 60px;
-  margin-left: -14px;
-  filter: drop-shadow(3px 3px 1px #96b3cd);
-}
 </style>
