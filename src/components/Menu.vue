@@ -38,7 +38,7 @@ const generalCategories = computed(() => store.getters["generalCategories"]);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
 
 }
 ::-webkit-scrollbar {
