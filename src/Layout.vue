@@ -266,6 +266,7 @@ html, body, #app {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
 @media screen and (min-width: 500px) {
