@@ -1,7 +1,7 @@
 const obj = {
   arr: [1, 2, 3],
   fn: function (a, b) {
-    console.log(this.arr);
+    // console.log(this.arr);
   },
 };
 
@@ -68,7 +68,7 @@ const example = [
   ]
 ]
 
-example[0].number + example[1][0][0].number2
+console.log(`rezult:${example[0].number + example[1][0][0].number2}`);
 
 const str = "123"
 const srt2 = "qwerty"
@@ -103,8 +103,79 @@ const pow = (a, b) => {
     return a * b
 }
 // node test.js
-const date = '18.04.1982';
+const date = '10.4.1982';
 
-const day = () => {}
-const month = () => {}
-const year = () => {}
+const day = (value) => {
+    return value.slice(0, 2)
+}
+
+const month = (value) => {
+    return value.slice(3, 5) 
+}
+
+const year = (value) => {
+    return value.slice(6)
+}
+
+// console.log(month(date));
+// console.log(day(date));
+// console.log(year(date));
+
+const data = date.split(".")
+
+const d = new Date(1748877266)
+
+// console.log(d.getDate());
+// console.log(d.getMonth());
+// console.log(d.getFullYear());
+
+// const formatter = Intl.DateTimeFormat('ru-RU').format()
+
+const a = 1
+const b = "1"
+
+String(a) === b
+
+const o = []
+const o2 = o
+
+// o === o2 // true
+// ({}) === ({}) // false
+// ([]) === ([]) // false
+// null === null // true
+
+typeof undefined // "undefined"
+typeof 0 // "number"
+typeof 10n // "bigint"
+typeof true // "boolean"
+typeof "foo" // "string"
+typeof null // "object"  (2)
+
+typeof Date // "object"  (1)
+typeof {} // "object"  (1)
+typeof [] // "object"  (1)
+typeof month // "function"  (3)
+
+
+const arr = [{ value: 2 }, { value: 4 }, { value: 6 }] // 3
+
+arr.forEach((item, index) => {
+    // console.log(item);
+})
+
+const res = arr.map((item) => {
+  const newItem = item.value + 2
+
+  return newItem
+})
+const el = arr.find((item) => item.value % 2 === 0)
+const everyResult = arr.every((item) => item.value % 2 === 0)
+const stringArray = res.join(", ").split(", ")
+
+const arr1 = [1, 2, 3]
+
+
+// => [2, 3, 1] (мутации массива)
+// => сумму всех значений arr (reduce)
+// => добавить ко всем значениям +2 (for)
+// => преобразовать массив со строками в массив с числами

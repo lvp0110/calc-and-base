@@ -38,10 +38,10 @@ html, body, #app {
 .button {
   flex: 1 1 0;
   min-width: 100px;
-  min-height: 100px;
+  min-height: 50px;
   width: 100%;
   box-sizing: border-box;
-  margin: 2px;
+  margin: 2px 2px 2px 0px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -60,9 +60,7 @@ html, body, #app {
 }
 
 .section {
-  /* height: auto; — по умолчанию */
-  overflow-y: hidden;
-  padding: 0;
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
@@ -112,7 +110,7 @@ html, body, #app {
   .text {
     display: none;
   }
-  
+
 }
 
 

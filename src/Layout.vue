@@ -100,18 +100,18 @@ body {
 }
 
 html, body, #app {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-.fade-enter-active, .fade-leave-active {
+/* .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
-}
+} */
 
 @media (min-width: 500px) {
   .show-tabbar-btn {
@@ -235,31 +235,6 @@ html, body, #app {
   color: var(--primary-text);
 }
 
-.buttons {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  position: absolute;
-  transition: left 0.3s;
-  margin-left: 90%;
-  margin-top: 18px;
-  z-index: 1;
-}
-
-.button_dark {
-  background: rgb(77, 73, 73);
-  left: 0;
-  border: solid 1px rgb(187, 186, 186);
-  color: #c7ced4;
-}
-
-.button_light {
-  background: rgb(229, 229, 229);
-  left: 0;
-  border: solid 1px rgb(138, 136, 136);
-}
-
 .content {
   flex: 1 1 0%;
   min-height: 0;
@@ -271,10 +246,13 @@ html, body, #app {
 
 @media screen and (min-width: 500px) {
   .main {
-    padding: 8px 8px 8px 83px;
-    height: 100%;
+    padding: 8px 8px 8px 8px;
+    height: 100vh;
+    margin-left: 72px
   }
-
+.content {
+  margin-bottom: 0;
+}
 }
 
 ::-webkit-scrollbar {
