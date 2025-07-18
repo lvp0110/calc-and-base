@@ -1489,6 +1489,7 @@ export default {
             currentConstr: '',
             ConstrToCalcToSent: [],
             ConstrToCalc: [],
+            isErrorFloor: false,
             constR: {
                 id: '',
                 idType: '',
@@ -2312,12 +2313,40 @@ export default {
             return null;
 
         },
+        checkInputFloor() {
+
+            var objectX;
+            var max_constr_size;
+            if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
+                if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 111) {
+                if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 3) {
+                if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            }
+            return null;
+
+        },
         calcConstruction(constrList) {
             this.request('https://db.acoustic.ru:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
         },
         addConstrToCalc() {
+            const floorError = this.checkInputFloor()
 
-            if (this.checkInput() == null) {
+            if (floorError) {
+                Swal.fire({
+                    html: floorError,
+                    imageWidth: 60,
+                    imageHeight: 50,
+                    imageUrl: "../../../logo1.png",
+                    confirmButtonText: "OK floor",
+                    confirmButtonColor: '#6cabc8',
+                });
                 let IconType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
                 this.constR.imgBlack = IconType.imgBlack;
 
@@ -2355,18 +2384,56 @@ export default {
                 this.profileStep = 600;
                 this.currentGkla = 'default';
                 this.currentWool = 'default';
+            } else {
+                if (this.checkInput() == null) {
+                    let IconType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                    this.constR.imgBlack = IconType.imgBlack;
 
-            }
-            else {
-                Swal.fire({
-                    html: this.checkInput(),
-                    imageWidth: 60,
-                    imageHeight: 50,
-                    imageUrl: "../../../logo1.png",
-                    confirmButtonText: "OK",
-                    confirmButtonColor: '#6cabc8',
+                    let Description = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.description = Description.description;
 
-                });
+                    this.constR.key_id = Date.now();
+
+                    let Constr = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.title = Constr.title;
+
+                    let ConstrType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                    this.constR.type = ConstrType.title;
+
+                    let ConstrId = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.ag_id = ConstrId.ag_id;
+
+                    let StepProfile = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.step = StepProfile.step;
+                    this.constR.weight = StepProfile.weight
+
+                    this.setConstrFromCalcToSent();
+                    console.log(this.currentConstr);
+
+                    this.ConstrToCalcToSent.push({ ...this.constrSent });
+                    this.constrSent = { ...this.constSentZero };
+                    this.opening = { ...this.openingZero };
+                    this.ConstrToCalc.push({ ...this.constR });
+                    console.log(this.ConstrToCalc);
+                    this.constR = { ...this.constRZero };
+                    this.dFrame = false;
+                    this.calcConstruction(this.ConstrToCalcToSent);
+                    console.log(this.ConstrToCalcToSent);
+                    this.unvisible = false;
+                    this.profileStep = 600;
+                    this.currentGkla = 'default';
+                    this.currentWool = 'default';
+                }
+                else {
+                    Swal.fire({
+                        html: this.checkInput(),
+                        imageWidth: 60,
+                        imageHeight: 50,
+                        imageUrl: "../../../logo1.png",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: '#6cabc8',
+                    });
+                }
             }
         },
         changeSubCategory(e) {
