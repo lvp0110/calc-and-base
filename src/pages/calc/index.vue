@@ -1489,6 +1489,7 @@ export default {
             currentConstr: '',
             ConstrToCalcToSent: [],
             ConstrToCalc: [],
+            isErrorFloor: false,
             constR: {
                 id: '',
                 idType: '',
@@ -2226,8 +2227,12 @@ export default {
             let indexToDel = this.ConstrToCalc.findIndex((el) => el.key_id == idConstr);
             this.ConstrToCalc.splice(indexToDel, 1);
             this.ConstrToCalcToSent.splice(indexToDel, 1);
-            this.calcConstruction(this.ConstrToCalcToSent);
-
+            if(this.ConstrToCalc.length != 0) {
+                this.calcConstruction(this.ConstrToCalcToSent);
+                return
+            }
+            this.calculatedMaterials = [];
+            console.log(indexToDel);
         },
         checkInput() {
 
@@ -2281,27 +2286,27 @@ export default {
                 else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 250) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 250 мм';
                 else if (+this.constR.lenY > 50000) return '<span class="p1"><span class="p1">Введите правильную длину</span></span> <br>В конструкциях ДЛИНОЙ свыше 15 метров необходимо устраивать температурные(деформационные) швы';
             }
-            else if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
+            // else if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
 
-                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
-                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
-                else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
-                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
-            }
-            else if (this.currentSubCategory == 'F' && this.template == 111) {
+            //     if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
+            //     else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+            //     else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
+            //     else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+            // }
+            // else if (this.currentSubCategory == 'F' && this.template == 111) {
 
-                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 200) return '<span class="p1">Введите правильную ширину</span> <br>Обрезанные панели ЗИПС ШИРИНОЙ менее 200 мм не используются';
-                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
-                else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 200) return '<span class="p1">Введите правильную длину</span> <br>Обрезанные панели ЗИПС ДЛИНОЙ менее 200 мм не используются';
-                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
-            }
-            else if (this.currentSubCategory == 'F' && this.template == 3) {
+            //     if (isNaN(+this.constR.lenX) || +this.constR.lenX < 200) return '<span class="p1">Введите правильную ширину</span> <br>Обрезанные панели ЗИПС ШИРИНОЙ менее 200 мм не используются';
+            //     else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            //     else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 200) return '<span class="p1">Введите правильную длину</span> <br>Обрезанные панели ЗИПС ДЛИНОЙ менее 200 мм не используются';
+            //     else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            // }
+            // else if (this.currentSubCategory == 'F' && this.template == 3) {
 
-                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
-                else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
-                else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
-                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
-            }
+            //     if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
+            //     else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            //     else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
+            //     else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            // }
             else if (this.currentSubCategory == 'C' && this.template == 4) {
 
                 if (isNaN(+this.constR.lenX) || +this.constR.lenX < 200) return '<span class="p1">Введите правильную ширину</span> <br>Минимальный размер обрезанной панели ЗИПС,пригодной к монтажу,составляет 200 мм.На обрезанном фрагменте должны присутствовать минимум 2 виброузла и 2 регулиремые опоры для панелей ЗИПС-Z4';
@@ -2312,61 +2317,163 @@ export default {
             return null;
 
         },
+        checkInputFloor() {
+
+            var objectX;
+            var max_constr_size;
+            if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
+                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
+                // else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров.';
+                else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
+                // else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. Расстояние между деформационными швами не должно превышать 18 метров';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 111) {
+                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 200) return '<span class="p1">Введите правильную ширину</span> <br>Обрезанные панели ЗИПС ШИРИНОЙ менее 200 мм не используются';
+                // else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (isNaN(+this.constR.lenY) || +this.constR.lenY  < 200) return '<span class="p1">Введите правильную длину</span> <br>Обрезанные панели ЗИПС ДЛИНОЙ менее 200 мм не используются';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 3) {
+                if (isNaN(+this.constR.lenX) || +this.constR.lenX < 500) return '<span class="p1">Введите правильную ширину</span> <br>Минимальная ШИРИНА конструкции 500 мм';
+                // else if (+this.constR.lenX > 18000) return '<span class="p1">Введите правильную ширину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+                else if (isNaN(+this.constR.lenY) || +this.constR.lenY < 500) return '<span class="p1">Введите правильную длину</span> <br>Минимальная ДЛИНА конструкции 500 мм';
+                // else if (+this.constR.lenY > 18000) return '<span class="p1">Введите правильную длину</span> <br>Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок';
+            }
+            return null;
+
+        },
+        checkInputMaxFloor() {
+
+            var objectX;
+            var max_constr_size;
+            if (this.currentSubCategory == 'F' && this.template != 111 && this.template != 3) {
+               if (+this.constR.lenX > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br> Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок.';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br>  Акустические швы в обязательном порядке устраиваются в дверных проемах, а также в местах сооружения звукоизоляционных перегородок.';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 111) {
+                if (+this.constR.lenX > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br> Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок.';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br>  Акустические швы в обязательном порядке устраиваются в дверных проемах, а также в местах сооружения звукоизоляционных перегородок.';
+            }
+            else if (this.currentSubCategory == 'F' && this.template == 3) {
+                if (+this.constR.lenX > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br> Акустические швы в обязательном порядке устраиваются в дверных проемах,а также в местах сооружения звукоизоляционных перегородок.';
+                else if (+this.constR.lenY > 18000) return '<span class="p1">Внимание!</span> <br>Расстояние между деформационными швами не должно превышать 18 метров. Деформационные и термоусадочные швы устраиваются по необходимости в соответсвии с требованиями СП 29.13330.2011. <br>  Акустические швы в обязательном порядке устраиваются в дверных проемах, а также в местах сооружения звукоизоляционных перегородок.';
+            }
+            return null;
+
+        },
         calcConstruction(constrList) {
             this.request('https://db.acoustic.ru:3005/api/v1/calcIsolation/byProduct', 'post', constrList, (data) => this.calculatedMaterials = data)
         },
         addConstrToCalc() {
+            const floorError = this.checkInputFloor()
 
-            if (this.checkInput() == null) {
-                let IconType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
-                this.constR.imgBlack = IconType.imgBlack;
-
-                let Description = this.Items.find((el) => el.id == this.currentItems);
-                this.constR.description = Description.description;
-
-                this.constR.key_id = Date.now();
-
-                let Constr = this.Items.find((el) => el.id == this.currentItems);
-                this.constR.title = Constr.title;
-
-                let ConstrType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
-                this.constR.type = ConstrType.title;
-
-                let ConstrId = this.Items.find((el) => el.id == this.currentItems);
-                this.constR.ag_id = ConstrId.ag_id;
-
-                let StepProfile = this.Items.find((el) => el.id == this.currentItems);
-                this.constR.step = StepProfile.step;
-                this.constR.weight = StepProfile.weight
-
-                this.setConstrFromCalcToSent();
-                console.log(this.currentConstr);
-
-                this.ConstrToCalcToSent.push({ ...this.constrSent });
-                this.constrSent = { ...this.constSentZero };
-                this.opening = { ...this.openingZero };
-                this.ConstrToCalc.push({ ...this.constR });
-                console.log(this.ConstrToCalc);
-                this.constR = { ...this.constRZero };
-                this.dFrame = false;
-                this.calcConstruction(this.ConstrToCalcToSent);
-                console.log(this.ConstrToCalcToSent);
-                this.unvisible = false;
-                this.profileStep = 600;
-                this.currentGkla = 'default';
-                this.currentWool = 'default';
-
-            }
-            else {
+            if (floorError) {
                 Swal.fire({
-                    html: this.checkInput(),
+                    html: floorError,
                     imageWidth: 60,
                     imageHeight: 50,
                     imageUrl: "../../../logo1.png",
-                    confirmButtonText: "OK",
+                    confirmButtonText: "Ok",
                     confirmButtonColor: '#6cabc8',
-
                 });
+                // let IconType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                // this.constR.imgBlack = IconType.imgBlack;
+
+                // let Description = this.Items.find((el) => el.id == this.currentItems);
+                // this.constR.description = Description.description;
+
+                // this.constR.key_id = Date.now();
+
+                // let Constr = this.Items.find((el) => el.id == this.currentItems);
+                // this.constR.title = Constr.title;
+
+                // let ConstrType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                // this.constR.type = ConstrType.title;
+
+                // let ConstrId = this.Items.find((el) => el.id == this.currentItems);
+                // this.constR.ag_id = ConstrId.ag_id;
+
+                // let StepProfile = this.Items.find((el) => el.id == this.currentItems);
+                // this.constR.step = StepProfile.step;
+                // this.constR.weight = StepProfile.weight
+
+                // this.setConstrFromCalcToSent();
+                // console.log(this.currentConstr);
+
+                // this.ConstrToCalcToSent.push({ ...this.constrSent });
+                // this.constrSent = { ...this.constSentZero };
+                // this.opening = { ...this.openingZero };
+                // this.ConstrToCalc.push({ ...this.constR });
+                // console.log(this.ConstrToCalc);
+                // this.constR = { ...this.constRZero };
+                // this.dFrame = false;
+                // this.calcConstruction(this.ConstrToCalcToSent);
+                // console.log(this.ConstrToCalcToSent);
+                // this.unvisible = false;
+                // this.profileStep = 600;
+                // this.currentGkla = 'default';
+                // this.currentWool = 'default';
+            } else {
+                const floorMaxError = this.checkInputMaxFloor()
+                if(floorMaxError){
+                    Swal.fire({
+                        html: this.checkInputMaxFloor(),
+                        imageWidth: 60,
+                        imageHeight: 50,
+                        imageUrl: "../../../logo1.png",
+                        confirmButtonText: "Принять",
+                        confirmButtonColor: '#6cabc8',
+                    });
+}
+                if (this.checkInput() == null) {
+                    let IconType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                    this.constR.imgBlack = IconType.imgBlack;
+
+                    let Description = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.description = Description.description;
+
+                    this.constR.key_id = Date.now();
+
+                    let Constr = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.title = Constr.title;
+
+                    let ConstrType = this.SubCategories.find((el) => el.id == this.currentSubCategory);
+                    this.constR.type = ConstrType.title;
+
+                    let ConstrId = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.ag_id = ConstrId.ag_id;
+
+                    let StepProfile = this.Items.find((el) => el.id == this.currentItems);
+                    this.constR.step = StepProfile.step;
+                    this.constR.weight = StepProfile.weight
+
+                    this.setConstrFromCalcToSent();
+                    console.log(this.currentConstr);
+
+                    this.ConstrToCalcToSent.push({ ...this.constrSent });
+                    this.constrSent = { ...this.constSentZero };
+                    this.opening = { ...this.openingZero };
+                    this.ConstrToCalc.push({ ...this.constR });
+                    console.log(this.ConstrToCalc);
+                    this.constR = { ...this.constRZero };
+                    this.dFrame = false;
+                    this.calcConstruction(this.ConstrToCalcToSent);
+                    console.log(this.ConstrToCalcToSent);
+                    this.unvisible = false;
+                    this.profileStep = 600;
+                    this.currentGkla = 'default';
+                    this.currentWool = 'default';
+                }
+                else {
+                    Swal.fire({
+                        html: this.checkInput(),
+                        imageWidth: 60,
+                        imageHeight: 50,
+                        imageUrl: "../../../logo1.png",
+                        confirmButtonText: "OK",
+                        confirmButtonColor: '#6cabc8',
+                    });
+                }
             }
         },
         changeSubCategory(e) {
