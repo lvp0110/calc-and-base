@@ -271,8 +271,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             список
@@ -289,11 +288,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            
-                            </input>
-                        </td>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >                        </td>
                     </tr>
                 </table>
             </div>
@@ -354,8 +350,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -372,10 +367,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
-                        </td>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >                        </td>
                     </tr>
                 </table>
             </div>
@@ -437,8 +430,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -455,9 +447,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -524,8 +515,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -542,9 +532,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -608,8 +597,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -626,10 +614,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            @click="delFromOpenings(index)">
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -690,8 +676,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -708,9 +693,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -777,8 +761,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -795,9 +778,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -860,8 +842,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -878,9 +859,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -946,8 +926,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -964,9 +943,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -1030,8 +1008,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -1048,9 +1025,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -1116,8 +1092,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -1134,9 +1109,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -1201,8 +1175,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -1219,9 +1192,7 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                           555
                         </td>
                     </tr>
                 </table>
@@ -1289,8 +1260,7 @@
                 <table class="data">
                     <tr>
                         <!-- <div v-for="opening in constrSent.Openings" class="counter_input">{{constrSent.Openings.length}}</div> -->
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 500;border-right: solid 1px darkgray; ">
                             cписок
@@ -1307,9 +1277,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -1360,8 +1329,7 @@
 
                 <table class="data" id="tabl"> <!-- таблица проемов-->
                     <tr>
-                        <th v-for="opening in constrSent.Openings" class="counter_input">{{
-        constrSent.Openings.length }}
+                         <th  class="counter_input">
                         </th>
                         <th colspan="4" style="font-size: 14px;font-weight: 600;border-right: solid 1px darkgray; ">
                             cписок
@@ -1378,9 +1346,8 @@
                         <td style="text-align: center;">{{ opening.lenX }}</td>
                         <td style="text-align: center;">{{ opening.lenZ }}</td>
                         <td>
-                            <input type="button" class="counter__button_minus" @click="delFromOpenings(index)">
-                            <!-- <img src="public/calc/img/biggarbagebin_121980.svg" alt="" style="height: 13px;opacity: 0.7;" -->
-                            </input>
+                            <input type="button" class="counter__button_minus" >
+                                <img @click="delFromOpenings(index)" src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;" >
                         </td>
                     </tr>
                 </table>
@@ -1417,12 +1384,6 @@
                         <input type="button" class="counter__button_minus" @click="delConstrFromList(constR.key_id)">
                         <img src="/delete-icon.jpg" alt="" style="height: 30px;opacity: 0.7;"
                     @click="delConstrFromList(constR.key_id)">
-                        <!-- <svg height="50" width="50" >
-                            <circle r="22" cx="50%" cy="50%" fill="transparent" stroke="darkgrey"
-                                stroke-width="2" />
-                            <line x1="12" y1="12" x2="39" y2="37" stroke="darkgrey" stroke-width="3" />
-                            <line x1="39" y1="12" x2="12" y2="37" stroke="darkgrey" stroke-width="3" />
-                        </svg> -->
                         </input>
                     </td>
                 </tr>
@@ -2203,7 +2164,9 @@ export default {
         addOpening() {
             this.constrSent.Openings.push({ ...this.opening });
             console.log(this.constrSent.Openings);
+            console.log(this.opening);
             this.opening = { ...this.openingZero };
+            console.log(this.opening);
         },
         setConstrFromCalcToSent() {
             this.constR.step = +this.profileStep;
@@ -2450,8 +2413,11 @@ export default {
                     this.setConstrFromCalcToSent();
                     console.log(this.currentConstr);
 
-                    this.ConstrToCalcToSent.push({ ...this.constrSent });
-                    this.constrSent = { ...this.constSentZero };
+                    const deep = JSON.parse(JSON.stringify(this.constrSent));
+                    this.ConstrToCalcToSent.push(deep);
+
+                    this.constrSent.Openings.length = 0;
+                    console.log(this.constrSent);
                     this.opening = { ...this.openingZero };
                     this.ConstrToCalc.push({ ...this.constR });
                     console.log(this.ConstrToCalc);
@@ -2692,10 +2658,9 @@ button {
 }
 
 .counter_input {
-    border: solid 1px darkgray;
+    /* border: solid 1px darkgray; */
     position: absolute;
-    color: gray;
-    background: rgb(225 226 227);
+    background:  none;
     margin-left: 308px;
     height: 15px;
     width: 15px;
