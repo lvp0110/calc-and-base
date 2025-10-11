@@ -716,7 +716,7 @@ option {
 }
 
 .icon-img {
-  display: flex;
+  /* display: flex; */
   width: 30px;
 }
 
