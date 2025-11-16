@@ -35,6 +35,7 @@ import ProfileDoc from './pages/profiledoc/index.vue'
 import ProfileFoto from './pages/profilefoto/index.vue'
 
 import SearchPage from './pages/search/index.vue'
+import VsPage from './pages/vs/index.vue'
 import store from './store'
 
 const theme = localStorage.getItem("theme") ?? "light";
@@ -61,6 +62,7 @@ const router = createRouter({
         { path: "/soundproof/constructions/:id?", component: SoundproofConstructionsId },
 
         { path: "/vibration_isolation/materials/:id?", component: VibrationMaterialsId },
+        { path: "/vibration_isolation/vs", component: VsPage },
 
         { path: "/acoustic/materials/:id?", component: AcousticMaterialsId },
         { path: "/acoustic/brands", component: AcousticBrands },

@@ -42,7 +42,7 @@ export const SubCategoriesByCategory: Record<Categories, SubCategory[]> = {
     { code: "brands", name: "АКУСТИКА ПО БРЕНДАМ" },
     { code: "materials", name: "МАТЕРИАЛЫ ДЛЯ МОНТАЖА" },
   ],
-  [Categories.Vibroisolation]: [{ code: "materials", name: "МАТЕРИАЛЫ" }],
+  [Categories.Vibroisolation]: [{ code: "materials", name: "МАТЕРИАЛЫ" }, { code: "vs", name: "СРАВНЕНИЕ МАТЕРИАЛОВ" }],
   [Categories.Documents]: [
     { code: "certificates", name: "СЕРТИФИКАТЫ" },
     { code: "air", name: "АЛЬБОМЫ ИНЖЕНЕРНЫХ РЕШЕНИЙ" },
