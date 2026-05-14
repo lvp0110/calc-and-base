@@ -1,6 +1,6 @@
 <template>
   <MainPageLayout :breadcrumbs="breadcrumbs" />
-  <iframe class="frame" src="https://vibro.constrtodo.ru"></iframe>
+  <iframe class="frame" src="https://vibro.constrtodo.ru:3445/#/vibro"></iframe>
 </template>
 
 <script setup>
